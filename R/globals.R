@@ -1,2 +1,2 @@
-utils::globalVariables(".", package = "dataExporter")
-utils::globalVariables("where", package = "dataExporter")
+utils::globalVariables(".", package = "autoStats")
+utils::globalVariables("where", package = "autoStats")

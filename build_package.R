@@ -30,11 +30,6 @@ ymlthis::pkgdown_template() %>%
 
 usethis::use_pipe()
 
-usethis::use_package("", type = "Depends")
-usethis::use_package("rstudioapi", type = "Depends")
-usethis::use_package("rstudioapi", type = "Depends")
-usethis::use_package("rstudioapi", type = "Depends")
-usethis::use_package("rstudioapi", type = "Depends")
 
 usethis::use_package("rstudioapi")
 usethis::use_package("dplyr")
@@ -70,9 +65,9 @@ use_mit_license()
 use_lifecycle_badge("experimental")
 use_cran_badge()
 use_github_actions_badge()
-# `r badger::badge_cran_download("dataCleaner", "grand-total", "blue")`
-# `r badger::badge_code_size("Harrison4192/dataCleaner")`
-# `r badger::badge_last_commit("Harrison4192/dataCleaner")`
+`r badger::badge_cran_download("dataCleaner", "grand-total", "blue")`
+`r badger::badge_code_size("Harrison4192/dataCleaner")`
+`r badger::badge_last_commit("Harrison4192/dataCleaner")`
 
 # set github token --------------------------------------------------------
 
@@ -107,5 +102,4 @@ build_readme()
 build_site()
 check()
 preview_site()
-
-
+load_all()
