@@ -5,9 +5,9 @@
 
 <!-- badges: start -->
 
-[![](http://cranlogs.r-pkg.org/badges/grand-total/dataCleaner?color=blue)](https://cran.r-project.org/package=dataCleaner)
-[![](https://img.shields.io/github/languages/code-size/Harrison4192/dataCleaner.svg)](https://github.com/Harrison4192/dataCleaner)
-[![](https://img.shields.io/github/last-commit/Harrison4192/dataCleaner.svg)](https://github.com/Harrison4192/dataCleaner/commits/master)
+[![](http://cranlogs.r-pkg.org/badges/grand-total/autoStats?color=blue)](https://cran.r-project.org/package=autoStats)
+[![](https://img.shields.io/github/languages/code-size/Harrison4192/autoStats.svg)](https://github.com/Harrison4192/autoStats)
+[![](https://img.shields.io/github/last-commit/Harrison4192/autoStats.svg)](https://github.com/Harrison4192/autoStats/commits/master)
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
@@ -30,4 +30,7 @@ install.packages("autoStats")
 
 And the development version from [GitHub](https://github.com/) with:
 
-\`\``r # install.packages("devtools") devtools::install_github("Harrison4192/autoStats")`
+``` r
+# install.packages("devtools")
+devtools::install_github("Harrison4192/autoStats")
+```

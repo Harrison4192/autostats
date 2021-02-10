@@ -16,9 +16,9 @@ knitr::opts_chunk$set(
 # autoStats
 
 <!-- badges: start -->
-`r badger::badge_cran_download("dataCleaner", "grand-total", "blue")`
-`r badger::badge_code_size("Harrison4192/dataCleaner")`
-`r badger::badge_last_commit("Harrison4192/dataCleaner")`
+`r badger::badge_cran_download("autoStats", "grand-total", "blue")`
+`r badger::badge_code_size("Harrison4192/autoStats")`
+`r badger::badge_last_commit("Harrison4192/autoStats")`
 
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN status](https://www.r-pkg.org/badges/version/autoStats)](https://CRAN.R-project.org/package=autoStats)
@@ -40,4 +40,4 @@ And the development version from [GitHub](https://github.com/) with:
 ``` r
 # install.packages("devtools")
 devtools::install_github("Harrison4192/autoStats")
-`
+```

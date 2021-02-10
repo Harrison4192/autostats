@@ -1,0 +1,46 @@
+template:
+  params:
+    bootswatch: cerulean
+    ganalytics: G-KQ5VTRKQF1
+
+
+development:
+  mode: auto
+
+
+reference:
+- title: All functions
+  contents: '`tidy_anova`'
+articles:
+- title: All vignettes
+  desc: null
+  contents: '``'
+navbar:
+  structure:
+    left:
+    - home
+    - intro
+    - reference
+    - articles
+    - tutorials
+    - news
+    right:
+    - github
+    - TidyConsultant
+  components:
+    home:
+      icon: fas fa-home fa-lg
+      href: index.html
+    TidyConsultant:
+      text: TC
+      href: https://harrison4192.github.io/TidyConsultant/
+    reference:
+      text: Reference
+      href: reference/index.html
+    news:
+      text: Changelog
+      href: news/index.html
+    github:
+      icon: fab fa-github fa-lg
+      href: https://github.com/Harrison4192/autoStats/
+

@@ -8,6 +8,9 @@
 #'
 tidy_anova <- function(data, cols = everything() ){
 
+  everything <- p.value <- term <- response <- predictor <- predictor_p.value <- predictor_significance <- NULL
+  std.error <- statistic <- level_p.value <- level <- NULL
+
   data %>%
     dplyr::select({{cols}}) %>%
     janitor::remove_constant(., na.rm = T)-> data1
