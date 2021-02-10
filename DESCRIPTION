@@ -2,7 +2,11 @@ Package: autoStats
 Type: Package
 Title: Auto Stats
 Version: 0.1.0
-Author: Harrison Tietze
+Authors@R: 
+    person(given = "Harrison",
+           family = "Tietze",
+           role = c("aut", "cre"),
+           email = "Harrison4192@gmail.com")
 Maintainer: Harrison Tietze <harrison4192@gmail.com>
 Description: Automatically do statistical exploration.
 License: MIT + file LICENSE
