@@ -14,7 +14,7 @@ reference:
 articles:
 - title: All vignettes
   desc: null
-  contents: '``'
+  contents: '`AutoStats`'
 navbar:
   structure:
     left:
