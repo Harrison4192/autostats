@@ -8,21 +8,30 @@
 #'
 tidy_anova <- function(data, cols = everything() ){
 
-  everything <- p.value <- term <- response <- predictor <- predictor_p.value <- predictor_significance <- NULL
+  everything <- p.value <- term <- target <- predictor <- predictor_p.value <- predictor_significance <- NULL
   std.error <- statistic <- level_p.value <- level <- NULL
 
-  data %>%
-    dplyr::select({{cols}}) %>%
-    janitor::remove_constant(., na.rm = T)-> data1
 
-  data1 %>% dplyr::select(where(is.numeric)) %>% names -> response_names
+  data %>%
+    janitor::remove_constant(., na.rm = T) -> data
+
+  data %>%
+    dplyr::select({{cols}}) -> data1
+
+  data1 %>% dplyr::select(where(is.numeric)) %>% names -> target_names
   data1 %>% dplyr::select(!where(is.numeric)) %>% names -> term_names
+
+  if(rlang::is_empty(term_names)){
+
+    data1 %>%
+      get_min_unique_col_names() -> term_names
+  }
 
 
   reslist <- list()
   nmslist <- list()
 
-  for(i in response_names){
+  for(i in target_names){
     for(j in term_names){
 
 
@@ -36,13 +45,13 @@ tidy_anova <- function(data, cols = everything() ){
         dplyr::mutate(predictor_significance = gtools::stars.pval(p.value),
                predictor_p.value = p.value, .keep = "unused") %>%
         dplyr::rename(predictor = term) %>%
-        dplyr::mutate(response = i, predictor = j, .before = 1) %>%
-        dplyr::select(response, predictor, predictor_p.value, predictor_significance) -> anova_output
+        dplyr::mutate(target = i, predictor = j, .before = 1) %>%
+        dplyr::select(target, predictor, predictor_p.value, predictor_significance) -> anova_output
 
       lm1 %>%
         broom::tidy() %>%
         dplyr::mutate(
-          response = i,
+          target = i,
           predictor = j,
           level = stringr::str_remove(term, j),
           .before = 1,
@@ -51,7 +60,7 @@ tidy_anova <- function(data, cols = everything() ){
         dplyr::rename(level_p.value = p.value) %>%
         dplyr::select(-std.error, -statistic) %>%
         dplyr::mutate(level_significance = gtools::stars.pval(level_p.value)) %>%
-        dplyr::left_join(anova_output, by = c("response", "predictor")) -> res1
+        dplyr::left_join(anova_output, by = c("target", "predictor")) -> res1
 
       reslist %>% rlist::list.append(res1) -> reslist
 
@@ -61,7 +70,7 @@ tidy_anova <- function(data, cols = everything() ){
 
   reslist %>%
     purrr::reduce(.f = dplyr::bind_rows) %>%
-    dplyr::arrange(response, predictor, level)
+    dplyr::arrange(target, predictor, level)
 }
 
 

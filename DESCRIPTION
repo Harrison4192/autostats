@@ -24,7 +24,19 @@ Imports:
     rlist,
     broom,
     magrittr,
-    gtools
+    gtools,
+    Matrix,
+    frameCleaneR,
+    ggeasy,
+    ggplot2,
+    jtools,
+    ggthemes,
+    moreparty,
+    party,
+    patchwork,
+    tidyr,
+    xgboost,
+    lightgbm
 RoxygenNote: 7.1.1
 URL: https://github.com/Harrison4192/autoStats
 BugReports: https://github.com/Harrison4192/autoStats/issues

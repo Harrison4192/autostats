@@ -41,6 +41,23 @@ usethis::use_package("rlang")
 usethis::use_package("lubridate")
 usethis::use_package("gtools")
 
+usethis::use_package("Matrix")
+usethis::use_package("frameCleaneR")
+usethis::use_package("ggeasy")
+usethis::use_package("ggplot2")
+usethis::use_package("jtools")
+usethis::use_package("ggthemes")
+usethis::use_package("moreparty")
+usethis::use_package("party")
+usethis::use_package("patchwork")
+usethis::use_package("tidyr")
+usethis::use_package("xgboost")
+usethis::use_package("lightgbm")
+
+
+
+
+
 
 usethis::use_package("badger", type = "Suggests")
 
@@ -105,3 +122,12 @@ build_site()
 check()
 preview_site()
 load_all()
+
+
+use_r("get_unique_col_names")
+
+p_load(tidyverse)
+iris %>%
+  get_unique_col_names() -> ko
+
+

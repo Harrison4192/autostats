@@ -1,6 +1,6 @@
 template:
   params:
-    bootswatch: cerulean
+    bootswatch: superhero
     ganalytics: G-KQ5VTRKQF1
 
 
@@ -9,8 +9,18 @@ development:
 
 
 reference:
-- title: All functions
-  contents: '`tidy_anova`'
+- title: Automated modeling
+  contents:
+  - '`tidy_anova`'
+  - '`plot_variable_contributions`'
+- title: Tidy wrappers for models
+  contents:
+  - '`tidy_cforest`'
+  - '`tidy_glm`'
+  - '`tidy_lightgbm`'
+  - '`tidy_formula`'
+
+
 articles:
 - title: All vignettes
   desc: null
@@ -42,5 +52,5 @@ navbar:
       href: news/index.html
     github:
       icon: fab fa-github fa-lg
-      href: https://github.com/Harrison4192/autoStats/
+      href: https://github.com/Harrison4192/autoStats
 
