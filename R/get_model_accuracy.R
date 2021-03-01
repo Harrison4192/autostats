@@ -87,7 +87,6 @@ get_model_accuracy <- function(data,
 
   data %>% rsample::vfold_cv(v = n_folds) -> rsamples
 
-  doMC::registerDoMC(cores = 2)
 
   boost_workflow %>%
     tune::fit_resamples(rsamples) -> boost_sam
@@ -95,7 +94,6 @@ get_model_accuracy <- function(data,
   linear_workflow %>%
     tune::fit_resamples(rsamples) -> lin_sam
 
-  foreach::registerDoSEQ()
 
   boost_sam %>%
     tune::collect_metrics() %>%
