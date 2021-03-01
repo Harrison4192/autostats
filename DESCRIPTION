@@ -26,7 +26,6 @@ Imports:
     magrittr,
     gtools,
     Matrix,
-    frameCleaneR,
     ggeasy,
     ggplot2,
     jtools,
@@ -40,7 +39,6 @@ Imports:
     foreach,
     nnet,
     parsnip,
-    presenteR,
     recipes,
     rsample,
     tune,
@@ -53,4 +51,6 @@ Suggests:
     rmarkdown,
     moreparty,
     party,
+    frameCleaneR,
+    presenteR
 VignetteBuilder: knitr
