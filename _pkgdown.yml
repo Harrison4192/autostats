@@ -13,6 +13,8 @@ reference:
   contents:
   - '`tidy_anova`'
   - '`plot_variable_contributions`'
+  - '`get_model_accuracy`'
+
 - title: Tidy wrappers for models
   contents:
   - '`tidy_cforest`'

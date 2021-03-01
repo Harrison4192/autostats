@@ -31,16 +31,26 @@ Imports:
     ggplot2,
     jtools,
     ggthemes,
-    moreparty,
-    party,
     patchwork,
     tidyr,
     xgboost,
-    lightgbm
+    lightgbm,
+    doMC,
+    flextable,
+    foreach,
+    nnet,
+    parsnip,
+    presenteR,
+    recipes,
+    rsample,
+    tune,
+    workflows
 RoxygenNote: 7.1.1
 URL: https://github.com/Harrison4192/autoStats
 BugReports: https://github.com/Harrison4192/autoStats/issues
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    moreparty,
+    party,
 VignetteBuilder: knitr

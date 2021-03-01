@@ -8,7 +8,7 @@ tidy_lightgbm(
   data,
   target,
   ...,
-  objective_fun = "regression",
+  regression_objective_fun = "regression",
   verbose = -1,
   seed = 1
 )
@@ -20,7 +20,7 @@ tidy_lightgbm(
 
 \item{...}{tidyselect predictor variables}
 
-\item{objective_fun}{objective function string}
+\item{regression_objective_fun}{objective function string}
 
 \item{verbose}{verbose integer}
 

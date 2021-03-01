@@ -5,7 +5,7 @@
 library(pacman)
 p_load(rstudioapi, devtools, roxygen2, usethis, pkgdown,
        ymlthis, magrittr, fs, covr, gitcreds, credentials,
-       badger, hexSticker, gh)
+       badger, hexSticker, gh, tidyverse)
 
 
 # add this file to .Rbuildignore ------------------------------------------
@@ -58,7 +58,7 @@ usethis::use_package("lightgbm")
 
 
 
-
+usethis::use_r("get_model_accuracy")
 usethis::use_package("badger", type = "Suggests")
 
 
@@ -114,12 +114,28 @@ usethis::use_github_actions()
 usethis::use_github_links()
 usethis::use_github_pages()
 
+
+# install TC packages -----------------------------------------------------
+
+# install.packages("devtools")
+devtools::install_github("Harrison4192/valiData")
+# install.packages("devtools")
+devtools::install_github("Harrison4192/frameCleaneR")
+# install.packages("devtools")
+devtools::install_github("Harrison4192/tidyBins")
+# install.packages("devtools")
+devtools::install_github("Harrison4192/presenteR")
+# install.packages("devtools")
+# devtools::install_github("Harrison4192/autoStats")
+
+p_load(valiData, frameCleaneR, tidyBins, presenteR)
+
 # build and check ---------------------------------------------------------
 
 document()
 build_readme()
 build_site()
-check()
+devtools::check()
 preview_site()
 load_all()
 
@@ -129,5 +145,4 @@ use_r("get_unique_col_names")
 p_load(tidyverse)
 iris %>%
   get_unique_col_names() -> ko
-
 

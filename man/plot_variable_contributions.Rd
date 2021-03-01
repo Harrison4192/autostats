@@ -4,7 +4,7 @@
 \alias{plot_variable_contributions}
 \title{Plot Variable Contributions}
 \usage{
-plot_variable_contributions(data, target, ...)
+plot_variable_contributions(data, target, ..., scale = T)
 }
 \arguments{
 \item{data}{dataframe}
@@ -12,6 +12,8 @@ plot_variable_contributions(data, target, ...)
 \item{target}{target variable name}
 
 \item{...}{tidyselect specification for explanatory variables}
+
+\item{scale}{logical. If FALSE puts coefficients on original scale}
 }
 \value{
 a ggplot object

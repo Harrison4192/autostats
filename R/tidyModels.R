@@ -113,14 +113,14 @@ tidy_cforest <- function(data, target, ..., seed = 1) {
 #' @param data dataframe
 #' @param target target variable
 #' @param ... tidyselect predictor variables
-#' @param objective_fun objective function string
+#' @param regression_objective_fun objective function string
 #' @param verbose verbose integer
 #' @param seed seed integer
 #'
 #' @return lightgbm model
 #' @export
 #'
-tidy_lightgbm <- function(data, target, ..., objective_fun = "regression", verbose = -1, seed = 1 ){
+tidy_lightgbm <- function(data, target, ..., regression_objective_fun = "regression", verbose = -1, seed = 1 ){
 
   set.seed(seed)
   if(missing(...)) {
@@ -135,12 +135,38 @@ tidy_lightgbm <- function(data, target, ..., objective_fun = "regression", verbo
   data %>%
     tidyr::drop_na({{target}}) -> data
 
+
+
   data %>%
     dplyr::select(where(is.character) | where(is.factor)) %>%
-    names() %>%
-    setdiff(rlang::as_name(rlang::ensym(target))) -> char_names
+    names() -> char_names
 
-  data %>% lightgbm::lgb.convert_with_rules() %>% purrr::pluck("data") -> d1
+  rlang::as_name(rlang::ensym(target)) -> tg_name
+
+  tg_name %in% char_names -> tg_is_char
+
+    if(tg_is_char){
+
+
+
+      char_names %>% setdiff(tg_name) -> char_names
+
+      data %>%
+        dplyr::pull({{target}}) %>%
+        dplyr::n_distinct() -> tg_lvls
+
+  data %>% lightgbm::lgb.convert_with_rules(rules = rlang::list2(!!tg_name := 0:(tg_lvls - 1))) %>% purrr::pluck("data") -> d1
+
+  if(tg_lvls == 2){
+    objective_fun <- "binary"
+    tg_lvls <- 1
+  } else{
+    objective_fun <- "multiclass"}}
+   else{
+    data %>% lightgbm::lgb.convert_with_rules() %>% purrr::pluck("data") -> d1
+    tg_lvls <- 1
+    objective_fun <- regression_objective_fun
+  }
 
   d1 %>%
     dplyr::select(-{{target}}) -> d1_train
@@ -152,7 +178,7 @@ tidy_lightgbm <- function(data, target, ..., objective_fun = "regression", verbo
 
 
   lightgbm::lgb.Dataset(data = dmatrix, label = dlabel, categorical_feature = char_names) -> lmatrix
-  lightgbm::lgb.train(data = lmatrix, obj = objective_fun , verbose = verbose) -> lgbm_model
+  lightgbm::lgb.train(data = lmatrix, obj = objective_fun , verbose = verbose, num_class = tg_lvls) -> lgbm_model
 
   lgbm_model
 }
@@ -181,8 +207,23 @@ tidy_glm <- function(data, target, ...) {
       dplyr::mutate({{target}} := factor({{target}})) -> data
 
   } else if(target_levels != 2 & !is_tg_numeric){
-    rlang::abort("Target variable is neither binary nor continuous")
-  } else{
+    glm_family <- "multinomial classification"
+
+    data %>%
+      dplyr::mutate({{target}} := factor({{target}})) -> data
+
+    suppressMessages({
+      nnet::multinom(formula = my_formula, data = data, trace = F) -> multnm    })
+
+    multnm$family$family <- glm_family
+    multnm$call$formula <- my_formula
+    multnm$call$data <- data
+
+
+    return(multnm)
+
+  }
+  else{
     glm_family <-  "gaussian"
   }
 
