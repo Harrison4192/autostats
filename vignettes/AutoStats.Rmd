@@ -17,3 +17,57 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(autoStats)
 ```
+
+## plot variable contributions
+
+### multiclass target
+
+Species is a 3-level factor so it will be automatically modelled with a multiclass neural network and a light gbm with multiclass objective function. 
+
+```{r cache=TRUE}
+iris %>% 
+  plot_variable_contributions(target = Species)
+```
+
+```{r cache=TRUE}
+iris %>% 
+  get_model_accuracy(Species)
+```
+
+### binary target 
+
+Linear models uses weighted logistic regression for modeling the coefficients
+
+
+```{r cache=TRUE}
+iris %>% 
+  filter(Species != "setosa") %>% 
+  plot_variable_contributions(target = Species)
+```
+
+For the variable contributions the linear model uses penalized logistic regression provided by glmnet. 
+
+```{r  cache=TRUE}
+iris %>% 
+  filter(Species != "setosa") -> iris_binary
+
+iris_binary %>% 
+  get_model_accuracy(target = Species)
+```
+
+### continuous target
+
+Models are automatically adapted for a continuous target. 
+
+```{r cache=F}
+iris %>% 
+  plot_variable_contributions(target = Petal.Length)
+```
+
+
+```{r  cache=TRUE}
+iris %>% 
+  get_model_accuracy(target = Petal.Length)
+```
+
+

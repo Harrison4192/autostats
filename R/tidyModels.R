@@ -39,15 +39,11 @@ tidy_formula <- function(data, target, ...){
 
   rlang::as_name(rlang::ensym(target)) -> lhs_var
 
-
-  if(missing(...)) {
-
-    data %>% dplyr::select(-tidyselect::any_of(lhs_var)) %>% names() -> rhs_vars
-
-  } else {
-
-    data %>% dplyr::select(...) %>% names() %>% setdiff(lhs_var) -> rhs_vars
-  }
+  data %>%
+    select_otherwise(...,
+                     otherwise = -where(~guess_id_col(., min_distinct = 6L)),
+                     return_type = "names") %>%
+    setdiff(lhs_var) -> rhs_vars
 
   charvec_to_formula(lhs_var, rhs_vars)
 }
@@ -64,15 +60,11 @@ get_model_vars <- function(data, target, ...){
 
   rlang::as_name(rlang::ensym(target)) -> lhs_var
 
-
-  if(missing(...)) {
-
-    data %>% dplyr::select(-tidyselect::any_of(lhs_var)) %>% names() -> rhs_vars
-
-  } else {
-
-    data %>% dplyr::select(...) %>% names() %>% setdiff(lhs_var) -> rhs_vars
-  }
+  data %>%
+    select_otherwise(...,
+                     otherwise = -tidyselect::any_of(lhs_var),
+                     return_type = "names") %>%
+    setdiff(lhs_var) -> rhs_vars
 
   stringr::str_c(lhs_var, rhs_vars)
 }
@@ -123,14 +115,12 @@ tidy_cforest <- function(data, target, ..., seed = 1) {
 tidy_lightgbm <- function(data, target, ..., regression_objective_fun = "regression", verbose = -1, seed = 1 ){
 
   set.seed(seed)
-  if(missing(...)) {
 
-    data %>% dplyr::select(tidyselect::everything()) -> data
-
-  } else {
-
-    data %>% dplyr::select({{target}}, ...) -> data
-  }
+   data %>%
+    select_otherwise(...,
+                     otherwise = tidyselect::everything(),
+                     col = {{target}},
+                     return_type = "df") -> data
 
   data %>%
     tidyr::drop_na({{target}}) -> data
@@ -206,28 +196,50 @@ tidy_glm <- function(data, target, ...) {
     data %>%
       dplyr::mutate({{target}} := factor({{target}})) -> data
 
+    data %>%
+      dplyr::ungroup() %>%
+      dplyr::count({{target}}, sort = T) %>%
+      dplyr::slice(2) %>%
+      dplyr::pull(1) -> target_class
+
+    data %>%
+      dplyr::mutate(target_flag := ifelse({{target}} == target_class, 1, 0),
+      mean1 = (nrow(.) - sum(target_flag)) / sum(target_flag),
+      mean2 = ifelse(target_flag == 1, mean1, 1)) %>%
+      dplyr::pull(mean2) %>%
+      ceiling -> weight_vec
+
+    suppressWarnings({
+      model <- stats::glm(formula = my_formula,  data = data, family = glm_family, weights = weight_vec)
+    })
+
+
   } else if(target_levels != 2 & !is_tg_numeric){
     glm_family <- "multinomial classification"
 
     data %>%
       dplyr::mutate({{target}} := factor({{target}})) -> data
 
+
     suppressMessages({
-      nnet::multinom(formula = my_formula, data = data, trace = F) -> multnm    })
+      nnet::multinom(formula = my_formula, data = data, trace = F) -> model    })
 
-    multnm$family$family <- glm_family
-    multnm$call$formula <- my_formula
-    multnm$call$data <- data
+    model$family$family <- glm_family
+    model$call$formula <- my_formula
+    model$call$data <- data
 
 
-    return(multnm)
+
 
   }
   else{
     glm_family <-  "gaussian"
+    suppressWarnings({
+    model <- stats::glm(formula = my_formula,  data = data, family = glm_family, weights = NULL)
+    })
   }
 
-  suppressWarnings({
-    stats::glm(formula = my_formula, family = glm_family, data = data)
-  })
+  model
 }
+
+

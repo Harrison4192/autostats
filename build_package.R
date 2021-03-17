@@ -7,7 +7,7 @@ p_load(rstudioapi, devtools, roxygen2, usethis, pkgdown,
        ymlthis, magrittr, fs, covr, gitcreds, credentials,
        badger, hexSticker, gh, tidyverse)
 
-
+use_vignette("autoStats")
 # add this file to .Rbuildignore ------------------------------------------
 
 
@@ -28,6 +28,20 @@ ymlthis::pkgdown_template() %>%
 # usethis: add packages ---------------------------------------------------
 
 usethis::use_pipe()
+
+
+
+usethis::use_package("doMC")
+usethis::use_package("flextable")
+usethis::use_package("foreach")
+usethis::use_package("nnet")
+usethis::use_package("parsnip")
+usethis::use_package("presenteR")
+usethis::use_package("recipes")
+usethis::use_package("rsample")
+usethis::use_package("tune")
+usethis::use_package("workflows")
+
 
 
 usethis::use_package("rstudioapi")
@@ -143,6 +157,8 @@ load_all()
 use_r("get_unique_col_names")
 
 p_load(tidyverse)
+p_load(treesnip)
 iris %>%
   get_unique_col_names() -> ko
+
 

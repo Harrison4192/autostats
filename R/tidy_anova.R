@@ -6,7 +6,7 @@
 #' @return data frame
 #' @export
 #'
-tidy_anova <- function(data, cols = everything() ){
+tidy_anova <- function(data, ... ){
 
   everything <- p.value <- term <- target <- predictor <- predictor_p.value <- predictor_significance <- NULL
   std.error <- statistic <- level_p.value <- level <- NULL
@@ -17,7 +17,11 @@ tidy_anova <- function(data, cols = everything() ){
     janitor::remove_constant(., na.rm = T) -> data
 
   data %>%
-    dplyr::select({{cols}}) -> data1
+    select_otherwise(..., otherwise = -where(~guess_id_col(., min_distinct = 10)), return_type = "index") -> cols
+
+  data %>%
+    dplyr::select(tidyselect::any_of(cols)) -> data1
+
 
   data1 %>% dplyr::select(where(is.numeric)) %>% names -> target_names
   data1 %>% dplyr::select(!where(is.numeric)) %>% names -> term_names

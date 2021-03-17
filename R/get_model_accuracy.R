@@ -55,8 +55,8 @@ get_model_accuracy <- function(data,
 
   my_rec <-
     recipes::recipe(my_formula, data = data)  %>%
-    recipes::step_nzv(recipes::all_predictors()) %>%
-    recipes::step_corr(recipes::all_predictors()) %>%
+    recipes::step_nzv(recipes::all_numeric(), -recipes::all_outcomes()) %>%
+    recipes::step_corr(recipes::all_numeric(), -recipes::all_outcomes()) %>%
     recipes::step_medianimpute(recipes::all_numeric()) %>%
     recipes::step_modeimpute(recipes::all_nominal()) %>%
     recipes::step_dummy(recipes::all_nominal(), -recipes::all_outcomes())
@@ -106,12 +106,11 @@ get_model_accuracy <- function(data,
   dplyr::bind_rows(c1, c2) %>%
     dplyr::rename(model = .config) %>%
     dplyr::relocate(model) %>%
-    dplyr::mutate(rank = rank(rev(mean)), .after = .metric) %>%
+    dplyr::arrange(.metric, model ) %>%
     dplyr::rename(n_folds = n,
                   mean_score = mean) %>%
     dplyr::select(-.estimator) %>%
-    dplyr::rename(metric = .metric) %>%
-    dplyr::arrange(rank ) -> res
+    dplyr::rename(metric = .metric)  -> res
 
 
   if(as_flextable){
