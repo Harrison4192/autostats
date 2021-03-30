@@ -21,6 +21,8 @@ get_model_accuracy <- function(data,
 
   set.seed(seed)
 
+  data1 <- rlang::ensym(data)
+
   .config <- model <- .metric <- n <- .estimator <- NULL
 
   data %>%
@@ -116,7 +118,9 @@ get_model_accuracy <- function(data,
   if(as_flextable){
 
     target_nm <- rlang::as_name(rlang::ensym(target))
-    presenteR:::get_piped_name(data) -> tbl_name
+
+
+    presenteR:::get_piped_name(!!data1) -> tbl_name
 
     res %>%
       dplyr::select(-n_folds) %>%
