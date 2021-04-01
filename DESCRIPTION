@@ -49,7 +49,5 @@ Suggests:
     knitr,
     rmarkdown,
     moreparty,
-    party,
-    frameCleaneR,
-    presenteR
+    party
 VignetteBuilder: knitr
