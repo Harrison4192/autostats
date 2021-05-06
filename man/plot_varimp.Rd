@@ -4,10 +4,10 @@
 \alias{plot_varimp}
 \title{plot cforest variable importance}
 \usage{
-plot_varimp(vimp)
+plot_varimp(cfar)
 }
 \arguments{
-\item{vimp}{cforest vip}
+\item{cfar}{cforest model}
 }
 \value{
 ggplot

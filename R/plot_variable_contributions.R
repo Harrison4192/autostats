@@ -41,12 +41,27 @@ plot_variable_contributions <- function(data, target, ..., scale = T){
       tidy_lightgbm({{target}}, ...) -> tcf
 
     tcf %>%
-      lightgbm::lgb.importance() %>%
+      lightgbm::lgb.importance() -> tcf_imp
+
+    if(nrow(tcf_imp) > 0){
+      tcf_imp %>%
       xgboost::xgb.ggplot.importance() +
       ggplot2::theme_minimal() +
       ggeasy::easy_remove_legend() +
       ggplot2::ylab("Importance from boosted trees")  +
-      ggplot2::ggtitle(stringr::str_c("Variable contributions in explaining ", trg)) -> pcf
+      ggplot2::ggtitle(stringr::str_c("Variable contributions in explaining ", trg)) -> pcf}
+    else{
+      data %>%
+        tidy_cforest({{target}}, ...) -> tcf
+
+      tcf %>%
+        plot_varimp() +
+        ggplot2::theme_minimal() +
+        ggeasy::easy_remove_legend() +
+        ggplot2::xlab("Importance from trees")  +
+        ggplot2::ggtitle(stringr::str_c("Variable contributions in explaining ", trg)) -> pcf
+
+    }
 
 
     purrr::possibly(~jtools::plot_coefs(., scale = scale) +

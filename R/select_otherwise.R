@@ -1,3 +1,5 @@
+#' select otherwise
+#'
 #' @param .data dataframe
 #' @param ... tidyselect
 #' @param otherwise tidyselect

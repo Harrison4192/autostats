@@ -30,6 +30,11 @@ tidy_anova <- function(data, ... ){
 
     data1 %>%
       get_min_unique_col_names() -> term_names
+
+    target_names <- target_names %>% setdiff(term_names)
+
+    data <- data %>%
+      frameCleaneR::set_fct(any_of(term_names))
   }
 
 

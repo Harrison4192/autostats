@@ -4,7 +4,7 @@
 \alias{tidy_anova}
 \title{Tidy anova}
 \usage{
-tidy_anova(data, cols = everything())
+tidy_anova(data, ...)
 }
 \arguments{
 \item{data}{a data frame}

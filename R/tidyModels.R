@@ -1,14 +1,17 @@
 #' plot cforest variable importance
 #'
-#' @param vimp cforest vip
+#' @param cfar cforest model
 #' @keywords internal
 #'
 #' @return ggplot
 #' @export
-plot_varimp <- function(vimp){
-  moreparty::ggVarImp(vimp) +
+plot_varimp <- function(cfar) {
+  cfar %>%
+    party::varimp() %>%
+    moreparty::ggVarImp() +
     ggthemes::theme_clean() +
-    ggplot2::geom_bar(stat = "identity", fill = "blue")}
+    ggplot2::geom_bar(stat = "identity", fill = "blue")
+}
 
 #' charvec to formula
 #'

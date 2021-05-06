@@ -2,7 +2,7 @@
 #'
 #' this function uses a series of heuristics to guess whether a column is a type of ID column.
 #'
-#' @param x
+#' @param x a vector
 #' @param min_distinct integer, allows the user to choose a minimum threshold for how many unique values are in an ID column
 #'
 #' @return logical
