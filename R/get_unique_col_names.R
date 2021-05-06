@@ -4,7 +4,7 @@ get_unique_col_names <- function(df){
 
   df %>%
     dplyr::summarize(dplyr::across(.fns = ~dplyr::n_distinct(.) == rws)) %>%
-    frameCleaneR::pivot_summary() %>%
+    presenteR::pivot_summary() %>%
     dplyr::filter(V1) %>%
     dplyr::pull(column)
 }
@@ -16,7 +16,7 @@ get_min_unique_col_names <- function(df){
 
   df %>%
     dplyr::summarize(dplyr::across(.fns = ~dplyr::n_distinct(.) == rws)) %>%
-    frameCleaneR::pivot_summary() %>%
+    presenteR::pivot_summary() %>%
     dplyr::filter(V1) %>%
     dplyr::pull(column)
 }
@@ -27,7 +27,7 @@ get_min_unique_col_names <- function(df){
 
   df %>%
     dplyr::summarize(dplyr::across(.fns = ~dplyr::n_distinct(.))) %>%
-    frameCleaneR::pivot_summary() %>%
+    presenteR::pivot_summary() %>%
     dplyr::filter(V1 == min(V1)) %>%
     dplyr::pull(column)
 }
