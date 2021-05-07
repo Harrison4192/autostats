@@ -6,11 +6,18 @@
 #' @return ggplot
 #' @export
 plot_varimp <- function(cfar) {
+
+
   cfar %>%
     party::varimp() %>%
     moreparty::ggVarImp() +
-    ggthemes::theme_clean() +
-    ggplot2::geom_bar(stat = "identity", fill = "blue")
+    ggplot2::geom_bar(stat = "identity", fill = "blue") +
+    theme_minimal(base_family="HiraKakuProN-W3")+
+    theme(panel.border = element_blank(),
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          axis.line = element_line(colour = "black"))
+
 }
 
 #' charvec to formula
