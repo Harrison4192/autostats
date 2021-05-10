@@ -72,7 +72,7 @@ usethis::use_package("lightgbm")
 
 
 
-usethis::use_r("get_model_accuracy")
+usethis::use_r("tidy_xgboost")
 usethis::use_package("badger", type = "Suggests")
 
 

@@ -38,10 +38,9 @@ plot_variable_contributions <- function(data, target, ..., scale = T){
     }
 
     data %>%
-      tidy_lightgbm({{target}}, ...) -> tcf
+      tidy_xgboost({{target}}, ...) -> tcf
 
-    tcf %>%
-      lightgbm::lgb.importance() -> tcf_imp
+      xgboost::xgb.importance(model = tcf)   -> tcf_imp
 
     if(nrow(tcf_imp) > 0){
       tcf_imp %>%
