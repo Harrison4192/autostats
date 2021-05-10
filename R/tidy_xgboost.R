@@ -24,7 +24,7 @@ tidy_xgboost <- function(.data, target, ...){
   xgboost_recipe <-
     recipes::recipe(data = .data, formula = form) %>%
     recipes::step_zv(recipes::all_predictors()) %>%
-    recipes::step_dummy(where(is.character) | where(is.factor))
+    recipes::step_dummy(where(is.character) | where(is.factor), -{{target}})
 
   xgboost_spec <-
     parsnip::boost_tree() %>%
