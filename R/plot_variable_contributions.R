@@ -10,7 +10,7 @@
 #'
 #' @return a ggplot object
 #' @export
-plot_variable_contributions <- function(data, target, ..., scale = T){
+auto_variable_contributions <- function(data, target, ..., scale = T){
 
 
   suppressWarnings({

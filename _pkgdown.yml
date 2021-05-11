@@ -13,7 +13,7 @@ reference:
   contents:
   - '`tidy_anova`'
   - '`plot_variable_contributions`'
-  - '`get_model_accuracy`'
+  - '`auto_model_accuracy`'
 
 - title: Tidy wrappers for models
   contents:

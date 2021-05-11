@@ -12,7 +12,7 @@
 #' @return a table
 #' @export
 #'
-get_model_accuracy <- function(data,
+auto_model_accuracy <- function(data,
                                target, ...,
                                n_folds = 4,
                                as_flextable = T,

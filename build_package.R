@@ -1,4 +1,5 @@
 # load developer libraries ------------------------------------------------
+xfun::gsub_dir(dir = "R", pattern = "plot_variable_contributions", replacement = "auto_variable_contributions")
 
 
 
