@@ -45,11 +45,11 @@ auto_variable_contributions <- function(data, target, ..., scale = T){
     if(nrow(tcf_imp) > 0){
       tcf_imp %>%
       xgboost::xgb.ggplot.importance() +
-        theme_minimal(base_family="HiraKakuProN-W3") +
-        theme(panel.border = element_blank(),
-              panel.grid.major = element_blank(),
-              panel.grid.minor = element_blank(),
-              axis.line = element_line(colour = "black"))+
+        ggplot2::theme_minimal(base_family="HiraKakuProN-W3") +
+        ggplot2::theme(panel.border = ggplot2::element_blank(),
+              panel.grid.major = ggplot2::element_blank(),
+              panel.grid.minor = ggplot2::element_blank(),
+              axis.line = ggplot2::element_line(colour = "black"))+
         ggeasy::easy_remove_legend() +
         ggplot2::ylab("Importance from boosted trees")  +
         ggplot2::ggtitle(stringr::str_c("Variable contributions in explaining ", trg)) -> pcf}
@@ -67,11 +67,11 @@ auto_variable_contributions <- function(data, target, ..., scale = T){
 
 
     purrr::possibly(~jtools::plot_coefs(., scale = scale) +
-                      theme_minimal(base_family="HiraKakuProN-W3") +
-                      theme(panel.border = element_blank(),
-                            panel.grid.major = element_blank(),
-                            panel.grid.minor = element_blank(),
-                            axis.line = element_line(colour = "black"))+
+                      ggplot2::theme_minimal(base_family="HiraKakuProN-W3") +
+                      ggplot2::theme(panel.border = ggplot2::element_blank(),
+                            panel.grid.major = ggplot2::element_blank(),
+                            panel.grid.minor = ggplot2::element_blank(),
+                            axis.line = ggplot2::element_line(colour = "black"))+
                       ggplot2::ylab(label = "") +
                       ggplot2::xlab(stringr::str_c("Coefficients from ", glm_type)),
                     otherwise = "error", quiet = F) -> safe_glm_plot

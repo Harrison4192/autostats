@@ -12,11 +12,11 @@ plot_varimp <- function(cfar) {
     party::varimp() %>%
     moreparty::ggVarImp() +
     ggplot2::geom_bar(stat = "identity", fill = "blue") +
-    theme_minimal(base_family="HiraKakuProN-W3")+
-    theme(panel.border = element_blank(),
-          panel.grid.major = element_blank(),
-          panel.grid.minor = element_blank(),
-          axis.line = element_line(colour = "black"))
+    ggplot2::theme_minimal(base_family="HiraKakuProN-W3")+
+    ggplot2::theme(panel.border = ggplot2::element_blank(),
+          panel.grid.major = ggplot2::element_blank(),
+          panel.grid.minor = ggplot2::element_blank(),
+          axis.line = ggplot2::element_line(colour = "black"))
 
 }
 

@@ -1,5 +1,5 @@
 # load developer libraries ------------------------------------------------
-xfun::gsub_dir(dir = "R", pattern = "plot_variable_contributions", replacement = "auto_variable_contributions")
+xfun::gsub_dir(dir = "R", pattern = "tidy_anova", replacement = "auto_anova")
 
 
 
@@ -153,7 +153,7 @@ build_site()
 devtools::check()
 preview_site()
 load_all()
-
+build_vignettes()
 
 use_r("get_unique_col_names")
 

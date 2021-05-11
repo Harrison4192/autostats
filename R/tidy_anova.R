@@ -1,4 +1,4 @@
-#' Tidy anova
+#' auto anova
 #'
 #' @param data a data frame
 #' @param cols tidyselect specification
@@ -6,7 +6,7 @@
 #' @return data frame
 #' @export
 #'
-tidy_anova <- function(data, ... ){
+auto_anova <- function(data, ... ){
 
   everything <- p.value <- term <- target <- predictor <- predictor_p.value <- predictor_significance <- NULL
   std.error <- statistic <- level_p.value <- level <- NULL
