@@ -47,7 +47,9 @@ auto_anova <- function(data, ... ){
 
 
       data %>%
-        ggplot2::remove_missing(vars = c(i,j), na.rm = T) %>%
+        ggplot2::remove_missing(vars = c(i,j), na.rm = T) -> data1
+
+      data1 %>%
         stats::lm(rlang::new_formula(rlang::sym(i), rlang::sym(j)), data = .) -> lm1
 
       lm1 %>%
@@ -60,6 +62,15 @@ auto_anova <- function(data, ... ){
         dplyr::mutate(target = i, predictor = j, .before = 1) %>%
         dplyr::select(target, predictor, predictor_p.value, predictor_significance) -> anova_output
 
+
+      data1 %>%
+        dplyr::count(!!rlang::sym(j)) %>%
+        rlang::set_names(c("level", "n")) %>%
+        frameCleaneR::set_chr(1) -> target_count
+
+      target_count[[1,1]] <- "(Intercept)"
+
+
       lm1 %>%
         broom::tidy() %>%
         dplyr::mutate(
@@ -70,9 +81,11 @@ auto_anova <- function(data, ... ){
           .keep = "unused"
         ) %>%
         dplyr::rename(level_p.value = p.value) %>%
-        dplyr::select(-std.error, -statistic) %>%
+        dplyr::select(-statistic) %>%
         dplyr::mutate(level_significance = gtools::stars.pval(level_p.value)) %>%
-        dplyr::left_join(anova_output, by = c("target", "predictor")) -> res1
+        dplyr::left_join(anova_output, by = c("target", "predictor")) %>%
+        dplyr::left_join(target_count, by = "level") %>%
+        dplyr::relocate(n, .after = "estimate") -> res1
 
       reslist %>% rlist::list.append(res1) -> reslist
 
@@ -102,7 +115,7 @@ suppressMessages({
     dplyr::rename(intercept = estimate) -> t1
   res1 %>% dplyr::left_join(t1) %>%
     tidyr::fill(intercept) %>%
-   dplyr::mutate(target_mean = ifelse(level != "(Intercept)", estimate + intercept, estimate)) -> ta1
+   dplyr::mutate(target_mean = ifelse(level != "(Intercept)", estimate + intercept, estimate), .after = "estimate") -> ta1
 
 
   nm_tbl %>%
@@ -120,6 +133,7 @@ suppressMessages({
     dplyr::mutate(conclusion = ifelse(level == "(Intercept)",
                                stringr::str_glue("the mean of {target} is {anova_meaning} between the levels of {predictor}") ,
                                stringr::str_glue("the {level} group in {predictor} has a {target} mean of {format(target_mean, digits = 3, trim = T)} which is {star_meaning} from the reference group of {intercept_name} with value {format(intercept, digits = 3, trim = T)}"))) %>%
+    dplyr::mutate(level = ifelse(level == "(Intercept)", stringr::str_c(level, intercept_name, sep = "_"), level)) %>%
     dplyr::select(-intercept, -intercept_name, -star_meaning, -anova_meaning) -> ta3
 })
   ta3
