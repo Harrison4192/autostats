@@ -47,13 +47,15 @@ charvec_to_formula <- function(lhs, rhs){
 #' @export
 tidy_formula <- function(data, target, ...){
 
-  rlang::as_name(rlang::ensym(target)) -> lhs_var
+
+  rlang::as_name(rlang::ensym(target)) %>% enc2utf8() -> lhs_var
 
   data %>%
     select_otherwise(...,
-                     otherwise = -where(~guess_id_col(., min_distinct = 6L)),
+                     otherwise = tidyselect::everything(),
                      return_type = "names") %>%
-    setdiff(lhs_var) -> rhs_vars
+    setdiff(lhs_var) %>%
+    enc2utf8() -> rhs_vars
 
   charvec_to_formula(lhs_var, rhs_vars)
 }
