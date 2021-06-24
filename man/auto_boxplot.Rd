@@ -8,6 +8,7 @@ auto_boxplot(
   .data,
   continuous_outcome,
   categorical_variable,
+  categorical_facets = NULL,
   alpha = 0.3,
   width = 0.15,
   color_dots = "black",
@@ -20,6 +21,8 @@ auto_boxplot(
 \item{continuous_outcome}{continuous y variable. unquoted column name}
 
 \item{categorical_variable}{categorical x variable. unquoted column name}
+
+\item{categorical_facets}{categorical facet variable. character vector}
 
 \item{alpha}{alpha points}
 

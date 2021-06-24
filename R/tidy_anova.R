@@ -2,19 +2,23 @@
 #'
 #' @param data a data frame
 #' @param cols tidyselect specification
+#' @param baseline what is the baseline to compare each category to? can use the mean and median of the target variable as a global baseline
+#' @param user_supplied_baseline if intercept is "user_supplied", can enter a numeric value
 #'
 #' @return data frame
 #' @export
 #'
-auto_anova <- function(data, ... ){
+auto_anova <- function(data, ... , baseline = c("mean", "median", "first_level", "user_supplied"), user_supplied_baseline = NULL){
 
   everything <- p.value <- term <- target <- predictor <- predictor_p.value <- predictor_significance <- NULL
   std.error <- statistic <- level_p.value <- level <- NULL
   value <- estimate <- intercept <- intercept_name <- level_significance <- star_meaning <- anova_meaning <- NULL
+  baseline <-  match.arg(baseline)
 
 
   data %>%
     janitor::remove_constant(., na.rm = T) -> data
+
 
   data %>%
     select_otherwise(..., otherwise = -where(~guess_id_col(., min_distinct = 10)), return_type = "index") -> cols
@@ -42,14 +46,34 @@ auto_anova <- function(data, ... ){
   reslist <- list()
   nmslist <- list()
 
+suppressWarnings({
+
   for(i in target_names){
     for(j in term_names){
 
 
-      data %>%
-        ggplot2::remove_missing(vars = c(i,j), na.rm = T) -> data1
+     if(baseline == "mean"){
+       data1 %>%
+         dplyr::bind_rows(tibble::tibble("{i}" := mean(data1[[i]], na.rm = T), "{j}" := rep("GLOBAL_MEAN", nrow(data1)))) %>%
+         frameCleaneR::set_fct(tidyselect::all_of(j), first_level = "GLOBAL_MEAN") -> data2
+     }
 
-      data1 %>%
+     else if(baseline == "median"){
+        data1 %>%
+          dplyr::bind_rows(tibble::tibble("{i}" := median(data1[[i]], na.rm = T), "{j}" := rep("GLOBAL_MEDIAN", nrow(data1)))) %>%
+         frameCleaneR::set_fct(tidyselect::all_of(j), first_level = "GLOBAL_MEDIAN")-> data2
+     }
+
+      else  if(baseline == "user_supplied"){
+        data1 %>%
+          dplyr::bind_rows(tibble::tibble("{i}" := user_supplied_baseline, "{j}" := rep("VALUE", nrow(data1)))) %>%
+          frameCleaneR::set_fct(tidyselect::all_of(j), first_level = "VALUE")-> data2
+      }
+
+      data2 %>%
+        ggplot2::remove_missing(vars = c(i,j), na.rm = T) -> data2
+
+      data2 %>%
         stats::lm(rlang::new_formula(rlang::sym(i), rlang::sym(j)), data = .) -> lm1
 
       lm1 %>%
@@ -63,7 +87,7 @@ auto_anova <- function(data, ... ){
         dplyr::select(target, predictor, predictor_p.value, predictor_significance) -> anova_output
 
 
-      data1 %>%
+      data2 %>%
         dplyr::count(!!rlang::sym(j)) %>%
         rlang::set_names(c("level", "n")) %>%
         frameCleaneR::set_chr(1) -> target_count
@@ -93,6 +117,8 @@ auto_anova <- function(data, ... ){
 
   }
 
+})
+
   reslist %>%
     purrr::reduce(.f = dplyr::bind_rows) %>%
     dplyr::arrange(target, predictor, level) -> res1
@@ -100,7 +126,7 @@ auto_anova <- function(data, ... ){
 suppressMessages({
   res1$predictor %>% unique() -> anova_cols
 
-  data %>%
+  data2 %>%
     dplyr::select(tidyselect::all_of(anova_cols)) %>%
     tidyr::pivot_longer(cols = tidyselect::all_of(anova_cols)) %>%
     dplyr::distinct() %>%
