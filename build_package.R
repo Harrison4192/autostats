@@ -73,7 +73,7 @@ usethis::use_package("lightgbm")
 
 
 
-usethis::use_r("auto_boxplot")
+usethis::use_r("tune_xgboost")
 usethis::use_package("badger", type = "Suggests")
 
 
