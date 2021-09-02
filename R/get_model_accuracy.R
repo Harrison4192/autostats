@@ -120,7 +120,7 @@ auto_model_accuracy <- function(data,
     target_nm <- rlang::as_name(rlang::ensym(target))
 
 
-    presenteR:::get_piped_name(!!data1) -> tbl_name
+    presenter:::get_piped_name(!!data1) -> tbl_name
 
     res %>%
       dplyr::select(-n_folds) %>%
@@ -129,7 +129,7 @@ auto_model_accuracy <- function(data,
     title <- stringr::str_c(n_folds, " - fold ", " cross-validated accuracy for ", mode, " model of ", target_nm, " on dataset ", tbl_name )
 
     res %>%
-      presenteR::make_flextable(last_id_col = 2, theme = theme) %>%
+      presenter::make_flextable(last_id_col = 2, theme = theme) %>%
       flextable::add_header_lines(title) -> res
 
 

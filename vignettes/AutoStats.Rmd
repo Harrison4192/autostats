@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(autoStats)
+library(autostats)
 ```
 
 ## plot variable contributions

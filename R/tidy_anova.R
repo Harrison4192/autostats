@@ -21,10 +21,7 @@ auto_anova <- function(data, ... , baseline = c("mean", "median", "first_level",
 
 
   data %>%
-    select_otherwise(..., otherwise = -where(~guess_id_col(., min_distinct = 10)), return_type = "index") -> cols
-
-  data %>%
-    dplyr::select(tidyselect::any_of(cols)) -> data1
+    framecleaner::select_otherwise(..., otherwise = NULL, return_type = "df") -> data1
 
 
   data1 %>% dplyr::select(where(is.numeric)) %>% names -> target_names
@@ -38,7 +35,7 @@ auto_anova <- function(data, ... , baseline = c("mean", "median", "first_level",
     target_names <- target_names %>% setdiff(term_names)
 
     data <- data %>%
-      frameCleaneR::set_fct(tidyselect::any_of(term_names))
+      framecleaner::set_fct(tidyselect::any_of(term_names))
 
   }
 
@@ -54,20 +51,25 @@ suppressWarnings({
 
      if(baseline == "mean"){
        data1 %>%
-         dplyr::bind_rows(tibble::tibble("{i}" := mean(data1[[i]], na.rm = T), "{j}" := rep("GLOBAL_MEAN", nrow(data1)))) %>%
-         frameCleaneR::set_fct(tidyselect::all_of(j), first_level = "GLOBAL_MEAN") -> data2
+         dplyr::bind_rows(tibble::tibble("{i}" := data1[[i]], "{j}" := rep("GLOBAL_MEAN", nrow(data1)))) %>%
+         framecleaner::set_fct(tidyselect::all_of(j), first_level = "GLOBAL_MEAN") -> data2
      }
 
      else if(baseline == "median"){
         data1 %>%
           dplyr::bind_rows(tibble::tibble("{i}" := median(data1[[i]], na.rm = T), "{j}" := rep("GLOBAL_MEDIAN", nrow(data1)))) %>%
-         frameCleaneR::set_fct(tidyselect::all_of(j), first_level = "GLOBAL_MEDIAN")-> data2
+         framecleaner::set_fct(tidyselect::all_of(j), first_level = "GLOBAL_MEDIAN")-> data2
      }
 
       else  if(baseline == "user_supplied"){
         data1 %>%
           dplyr::bind_rows(tibble::tibble("{i}" := user_supplied_baseline, "{j}" := rep("VALUE", nrow(data1)))) %>%
-          frameCleaneR::set_fct(tidyselect::all_of(j), first_level = "VALUE")-> data2
+          framecleaner::set_fct(tidyselect::all_of(j), first_level = "VALUE")-> data2
+      }
+
+      else if(baseline == "first_level"){
+        data1 %>%
+          framecleaner::set_fct(tidyselect::all_of(j))-> data2
       }
 
       data2 %>%
@@ -90,7 +92,7 @@ suppressWarnings({
       data2 %>%
         dplyr::count(!!rlang::sym(j)) %>%
         rlang::set_names(c("level", "n")) %>%
-        frameCleaneR::set_chr(1) -> target_count
+        framecleaner::set_chr(1) -> target_count
 
       target_count[[1,1]] <- "(Intercept)"
 

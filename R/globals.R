@@ -1,3 +1,3 @@
-utils::globalVariables(".", package = "autoStats")
-utils::globalVariables("where", package = "autoStats")
-utils::globalVariables(":=", package = "autoStats")
+utils::globalVariables(".", package = "autostats")
+utils::globalVariables("where", package = "autostats")
+utils::globalVariables(":=", package = "autostats")

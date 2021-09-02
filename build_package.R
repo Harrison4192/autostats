@@ -1,5 +1,5 @@
 # load developer libraries ------------------------------------------------
-xfun::gsub_dir(dir = "R", pattern = "tidy_anova", replacement = "auto_anova")
+xfun::gsub_dir(dir = "R", pattern = "presenteR", replacement = "presenter")
 
 
 
@@ -57,7 +57,7 @@ usethis::use_package("lubridate")
 usethis::use_package("gtools")
 
 usethis::use_package("Matrix")
-usethis::use_package("frameCleaneR")
+usethis::use_package("framecleaner")
 usethis::use_package("ggeasy")
 usethis::use_package("ggplot2")
 usethis::use_package("jtools")
@@ -133,9 +133,9 @@ usethis::use_github_pages()
 # install TC packages -----------------------------------------------------
 
 # install.packages("devtools")
-devtools::install_github("Harrison4192/valiData")
+devtools::install_github("Harrison4192/validata")
 # install.packages("devtools")
-devtools::install_github("Harrison4192/frameCleaneR")
+devtools::install_github("Harrison4192/framecleaner")
 # install.packages("devtools")
 devtools::install_github("Harrison4192/tidyBins")
 # install.packages("devtools")
@@ -143,17 +143,17 @@ devtools::install_github("Harrison4192/presenteR")
 # install.packages("devtools")
 # devtools::install_github("Harrison4192/autoStats")
 
-p_load(valiData, frameCleaneR, tidyBins, presenteR)
+p_load(validata, framecleaner, tidyBins, presenteR)
 
 # build and check ---------------------------------------------------------
 
-document()
-build_readme()
-build_site()
-devtools::check()
-preview_site()
-load_all()
-build_vignettes()
+devtools::document()
+devtools::build_readme()
+devtools::build_site()
+devtools::devtools::check()
+devtools::preview_site()
+devtools::load_all()
+devtools::build_vignettes()
 
 use_r("get_unique_col_names")
 
