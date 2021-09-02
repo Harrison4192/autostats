@@ -2,7 +2,7 @@
 #'
 #' @param data a data frame
 #' @param cols tidyselect specification
-#' @param baseline what is the baseline to compare each category to? can use the mean and median of the target variable as a global baseline
+#' @param baseline choose from "mean", "median", "first_level", "user_supplied". what is the baseline to compare each category to? can use the mean and median of the target variable as a global baseline
 #' @param user_supplied_baseline if intercept is "user_supplied", can enter a numeric value
 #'
 #' @return data frame
@@ -35,7 +35,7 @@ auto_anova <- function(data, ... , baseline = c("mean", "median", "first_level",
     target_names <- target_names %>% setdiff(term_names)
 
     data <- data %>%
-      framecleaner::set_fct(tidyselect::any_of(term_names))
+      framecleaner::set_chr(tidyselect::any_of(term_names))
 
   }
 
@@ -51,18 +51,21 @@ suppressWarnings({
 
      if(baseline == "mean"){
        data1 %>%
+         framecleaner::set_chr(tidyselect::any_of(j)) %>%
          dplyr::bind_rows(tibble::tibble("{i}" := data1[[i]], "{j}" := rep("GLOBAL_MEAN", nrow(data1)))) %>%
          framecleaner::set_fct(tidyselect::all_of(j), first_level = "GLOBAL_MEAN") -> data2
      }
 
      else if(baseline == "median"){
         data1 %>%
+         framecleaner::set_chr(tidyselect::any_of(j)) %>%
           dplyr::bind_rows(tibble::tibble("{i}" := median(data1[[i]], na.rm = T), "{j}" := rep("GLOBAL_MEDIAN", nrow(data1)))) %>%
          framecleaner::set_fct(tidyselect::all_of(j), first_level = "GLOBAL_MEDIAN")-> data2
      }
 
       else  if(baseline == "user_supplied"){
         data1 %>%
+          framecleaner::set_chr(tidyselect::any_of(j)) %>%
           dplyr::bind_rows(tibble::tibble("{i}" := user_supplied_baseline, "{j}" := rep("VALUE", nrow(data1)))) %>%
           framecleaner::set_fct(tidyselect::all_of(j), first_level = "VALUE")-> data2
       }
