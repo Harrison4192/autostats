@@ -21,7 +21,7 @@ generating exploratory statistics.
 
 ## Installation
 
-You can install the released version of autostats from
+You can Install the released version of autostats from
 [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
