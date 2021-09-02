@@ -50,6 +50,7 @@ BugReports: https://github.com/Harrison4192/autoStats/issues
 Suggests: 
     knitr,
     rmarkdown,
+    markdown,
     moreparty,
     party
 VignetteBuilder: knitr
