@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • autostats</title>
+<title>Plot Variable Contributions — auto_variable_contributions • autostats</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,9 @@
 
 
 
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="Plot Variable Contributions — auto_variable_contributions" />
+<meta property="og:description" content="Return a variable importance plot and coefficient plot from a linear model. Used to easily visualize
+the contributions of explanatory variables in a supervised model" />
 
 
 
@@ -68,7 +70,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -126,25 +128,59 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/Harrison4192/autoStats/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+    <h1>Plot Variable Contributions</h1>
+    <small class="dont-index">Source: <a href='https://github.com/Harrison4192/autoStats/blob/master/R/auto_variable_contributions.R'><code>R/auto_variable_contributions.R</code></a></small>
+    <div class="hidden name"><code>auto_variable_contributions.Rd</code></div>
     </div>
 
-    <div id="autostats-010" class="section level1">
-<h1 class="page-header" data-toc-text="0.1.0">
-<a href="#autostats-010" class="anchor"></a>autoStats 0.1.0</h1>
-<ul>
-<li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
-</ul>
-</div>
-  </div>
+    <div class="ref-description">
+    <p>Return a variable importance plot and coefficient plot from a linear model. Used to easily visualize
+the contributions of explanatory variables in a supervised model</p>
+    </div>
 
+    <pre class="usage"><span class='fu'>auto_variable_contributions</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>formula</span>, scale <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>data</th>
+      <td><p>dataframe</p></td>
+    </tr>
+    <tr>
+      <th>formula</th>
+      <td><p>formula</p></td>
+    </tr>
+    <tr>
+      <th>scale</th>
+      <td><p>logical. If FALSE puts coefficients on original scale</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>a ggplot object</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='va'>iris</span> <span class='op'>%&gt;%</span>
+<span class='fu'>auto_variable_contributions</span><span class='op'>(</span>
+ <span class='fu'><a href='tidy_formula.html'>tidy_formula</a></span><span class='op'>(</span>target <span class='op'>=</span> <span class='va'>Petal.Width</span>, <span class='fu'>tidyselect</span><span class='fu'>::</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+ <span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error: `everything()` must be used within a *selecting* function.</span>
+#&gt; <span class='error'><span style='color: #0000BB;'>ℹ</span> See &lt;https://tidyselect.r-lib.org/reference/faq-selection-context.html&gt;.</span></div><div class='input'>
+<span class='va'>iris</span> <span class='op'>%&gt;%</span>
+<span class='fu'>auto_variable_contributions</span><span class='op'>(</span>
+<span class='fu'><a href='tidy_formula.html'>tidy_formula</a></span><span class='op'>(</span>target <span class='op'>=</span> <span class='va'>Species</span>, <span class='fu'>tidyselect</span><span class='fu'>::</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error: `everything()` must be used within a *selecting* function.</span>
+#&gt; <span class='error'><span style='color: #0000BB;'>ℹ</span> See &lt;https://tidyselect.r-lib.org/reference/faq-selection-context.html&gt;.</span></div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
 
 
