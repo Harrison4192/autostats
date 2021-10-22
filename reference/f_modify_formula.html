@@ -128,7 +128,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Modify Formula</h1>
-    <small class="dont-index">Source: <a href='https://github.com/Harrison4192/autoStats/blob/master/R/tidy_formula.R'><code>R/tidy_formula.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/Harrison4192/autostats/blob/master/R/tidy_formula.R'><code>R/tidy_formula.R</code></a></small>
     <div class="hidden name"><code>f_modify_formula.Rd</code></div>
     </div>
 
@@ -180,21 +180,21 @@
 
 <span class='va'>f</span>
 </div><div class='output co'>#&gt; Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width
-#&gt; &lt;environment: 0x7ff94fdbb4f8&gt;</div><div class='input'>
+#&gt; &lt;environment: 0x7faee442ec38&gt;</div><div class='input'>
 <span class='va'>f</span> <span class='op'>%&gt;%</span>
   <span class='fu'>f_modify_formula</span><span class='op'>(</span>
 rhs_remove <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Petal.Width"</span>, <span class='st'>"Sepal.Length"</span><span class='op'>)</span>,
 rhs_add <span class='op'>=</span> <span class='st'>"Custom_Variable"</span>
 <span class='op'>)</span>
 </div><div class='output co'>#&gt; Species ~ Sepal.Width + Petal.Length + Custom_Variable
-#&gt; &lt;environment: 0x7ff94f57e6e8&gt;</div><div class='input'>
+#&gt; &lt;environment: 0x7faee6439d20&gt;</div><div class='input'>
 <span class='va'>f</span> <span class='op'>%&gt;%</span>
   <span class='fu'>f_modify_formula</span><span class='op'>(</span>
 rhs_remove <span class='op'>=</span> <span class='st'>"Petal"</span>,
 lhs_replace <span class='op'>=</span> <span class='st'>"Petal.Length"</span>
 <span class='op'>)</span>
 </div><div class='output co'>#&gt; Petal.Length ~ Sepal.Length + Sepal.Width
-#&gt; &lt;environment: 0x7ff94f4d30d0&gt;</div></pre>
+#&gt; &lt;environment: 0x7faee6285818&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

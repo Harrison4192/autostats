@@ -129,7 +129,7 @@ the contributions of explanatory variables in a supervised model" />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot Variable Contributions</h1>
-    <small class="dont-index">Source: <a href='https://github.com/Harrison4192/autoStats/blob/master/R/auto_variable_contributions.R'><code>R/auto_variable_contributions.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/Harrison4192/autostats/blob/master/R/auto_variable_contributions.R'><code>R/auto_variable_contributions.R</code></a></small>
     <div class="hidden name"><code>auto_variable_contributions.Rd</code></div>
     </div>
 
@@ -141,7 +141,7 @@ the contributions of explanatory variables in a supervised model</p>
     <pre class="usage"><span class='fu'>auto_variable_contributions</span><span class='op'>(</span>
   <span class='va'>data</span>,
   <span class='va'>formula</span>,
-  scale <span class='op'>=</span> <span class='cn'>T</span>,
+  scale <span class='op'>=</span> <span class='cn'>TRUE</span>,
   font <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>""</span>, <span class='st'>"HiraKakuProN-W3"</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
@@ -184,7 +184,7 @@ the contributions of explanatory variables in a supervised model</p>
 <span class='fu'>auto_variable_contributions</span><span class='op'>(</span>
 <span class='fu'><a href='tidy_formula.html'>tidy_formula</a></span><span class='op'>(</span><span class='va'>.</span>, target <span class='op'>=</span> <span class='va'>Species</span><span class='op'>)</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; [08:13:11] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.</div><div class='img'><img src='auto_variable_contributions-2.png' alt='' width='700' height='433' /></div></pre>
+</div><div class='output co'>#&gt; [10:28:40] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.</div><div class='img'><img src='auto_variable_contributions-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
