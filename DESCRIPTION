@@ -51,8 +51,8 @@ Imports:
     readr,
     lubridate
 RoxygenNote: 7.1.1
-URL: https://github.com/Harrison4192/autoStats
-BugReports: https://github.com/Harrison4192/autoStats/issues
+URL: https://github.com/Harrison4192/autostats
+BugReports: https://github.com/Harrison4192/autostats/issues
 Suggests: 
     knitr,
     rmarkdown,

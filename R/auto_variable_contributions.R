@@ -21,7 +21,7 @@
 #' auto_variable_contributions(
 #' tidy_formula(., target = Species)
 #' )
-auto_variable_contributions <- function(data, formula, scale = T, font = c("", "HiraKakuProN-W3")){
+auto_variable_contributions <- function(data, formula, scale = TRUE, font = c("", "HiraKakuProN-W3")){
 
 
   font <- match.arg(font)
@@ -61,7 +61,7 @@ auto_variable_contributions <- function(data, formula, scale = T, font = c("", "
     if(nrow(tcf_imp) > 0){
       tcf_imp %>%
       xgboost::xgb.ggplot.importance() +
-        ggplot2::theme_minimal(base_family="HiraKakuProN-W3") +
+        ggplot2::theme_minimal(base_family= font) +
         ggplot2::theme(panel.border = ggplot2::element_blank(),
               panel.grid.major = ggplot2::element_blank(),
               panel.grid.minor = ggplot2::element_blank(),

@@ -7,7 +7,7 @@
 auto_variable_contributions(
   data,
   formula,
-  scale = T,
+  scale = TRUE,
   font = c("", "HiraKakuProN-W3")
 )
 }
