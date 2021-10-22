@@ -90,7 +90,7 @@ edit_r_profile()
 use_readme_rmd()
 use_news_md()
 use_mit_license()
-usethis::use_vignette("AutoStats")
+usethis::use_vignette()
 
 
 

@@ -9,7 +9,6 @@ Authors@R:
            email = "harrison4192@gmail.com")
 Maintainer: Harrison Tietze <harrison4192@gmail.com>
 Description: Automatically do statistical exploration.
-License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports: 
@@ -62,3 +61,4 @@ Suggests:
     moreparty,
     party
 VignetteBuilder: knitr
+License: MIT + file LICENSE

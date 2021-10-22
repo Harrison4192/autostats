@@ -6,6 +6,7 @@
 #' @param data dataframe
 #' @param formula formula
 #' @param scale logical. If FALSE puts coefficients on original scale
+#' @param font font
 #'
 #' @return a ggplot object
 #' @export
@@ -20,7 +21,10 @@
 #' auto_variable_contributions(
 #' tidy_formula(., target = Species)
 #' )
-auto_variable_contributions <- function(data, formula, scale = T){
+auto_variable_contributions <- function(data, formula, scale = T, font = c("", "HiraKakuProN-W3")){
+
+
+  font <- match.arg(font)
 
   formula %>%
     rlang::f_lhs() -> target
@@ -79,7 +83,7 @@ auto_variable_contributions <- function(data, formula, scale = T){
 
 
     purrr::possibly(~jtools::plot_coefs(., scale = scale) +
-                      ggplot2::theme_minimal(base_family="HiraKakuProN-W3") +
+                      ggplot2::theme_minimal(base_family= font) +
                       ggplot2::theme(panel.border = ggplot2::element_blank(),
                             panel.grid.major = ggplot2::element_blank(),
                             panel.grid.minor = ggplot2::element_blank(),

@@ -1,6 +1,6 @@
 template:
   params:
-    bootswatch: superhero
+    bootswatch: cerulean
     ganalytics: G-KQ5VTRKQF1
 
 
