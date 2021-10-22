@@ -6,9 +6,7 @@
 \usage{
 auto_tune_xgboost(
   .data,
-  target,
-  ...,
-  boost_engine = c("xgboost"),
+  formula,
   event_level = c("first", "second"),
   n_fold = 5,
   seed = 1,
@@ -18,11 +16,7 @@ auto_tune_xgboost(
 \arguments{
 \item{.data}{dataframe}
 
-\item{target}{target}
-
-\item{...}{explanatory vars}
-
-\item{boost_engine}{default is xgboost. catboost and lightgbm currently not supported}
+\item{formula}{formula}
 
 \item{event_level}{for binary classification, which factor level is the positive class. specify "second" for second level}
 

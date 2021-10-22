@@ -1,10 +1,10 @@
 
 #' auto_tune_xgboost
 #'
+#'
+#'
 #' @param .data dataframe
-#' @param target target
-#' @param ... explanatory vars
-#' @param boost_engine default is xgboost. catboost and lightgbm currently not supported
+#' @param formula formula
 #' @param event_level for binary classification, which factor level is the positive class. specify "second" for second level
 #' @param n_fold integer. n folds in resamples
 #' @param seed seed
@@ -12,23 +12,22 @@
 #'
 #' @return workflow object
 #' @export
-auto_tune_xgboost <- function(.data, target, ...,
-                              boost_engine = c("xgboost"),
+auto_tune_xgboost <- function(.data,
+                              formula,
                               event_level = c("first", "second"),
                               n_fold = 5,
                               seed = 1,
                               n_iter = 100){
 
-  get_piped_name() -> data_name
+  presenter::get_piped_name() -> data_name
 
-  boost_engine <- match.arg(boost_engine)
   event_level <- match.arg(event_level)
 
-  .data %>%
-    tidy_formula({{target}}, ...) -> form
+  formula %>%
+    rlang::f_lhs() -> target
 
   .data %>%
-    dplyr::pull({{target}}) %>%
+    dplyr::pull(!!target) %>%
     is.numeric() -> numer_tg
 
   if(numer_tg){
@@ -36,6 +35,7 @@ auto_tune_xgboost <- function(.data, target, ...,
   } else{
     mode_set <- "classification"
   }
+
 
 xgboost_spec1 <-
   workflows::workflow() %>%
@@ -51,11 +51,15 @@ xgboost_spec1 <-
              stop_iter = 10
              ) %>%
   parsnip::set_mode(mode_set) %>%
-  parsnip::set_engine(boost_engine, nthread = 8)) %>%
+  parsnip::set_engine("xgboost", nthread = 8)) %>%
   workflows::add_recipe(
-    recipe = recipes::recipe( formula = form,
-                     data = .data)
+    recipe = recipes::recipe( formula = formula,
+                     data = .data) %>%
+      recipes::step_zv(recipes::all_predictors()) %>%
+      recipes::step_dummy(where(is.character) | where(is.factor), -!!target)
+
   )
+
 
 params <- dials::parameters(xgboost_spec1) %>%
   dials::finalize(.data)
@@ -67,6 +71,12 @@ params <- dials::parameters(xgboost_spec1) %>%
 # cl <- parallel::makePSOCKcluster(parallel::detectCores(logical = FALSE))
 # doParallel::registerDoParallel(cl)
 
+if(mode_set == "regression"){
+  metrics_boost <- yardstick::metric_set(yardstick::rmse, yardstick::rsq)
+} else {
+  metrics_boost <- yardstick::metric_set(yardstick::roc_auc, yardstick::accuracy)
+}
+
 xgboost_tune <-
   xgboost_spec1 %>%
   tune::tune_bayes(
@@ -74,15 +84,19 @@ xgboost_tune <-
     param_info = params,
     initial = 10,
     iter = n_iter,
-    metrics = yardstick::metric_set(rmse, rsq),
+    metrics = metrics_boost,
     control = tune::control_bayes(save_pred = T,
                                   verbose = T,
                                   no_improve = 30L,
                                   seed = seed,
                                   uncertain = 15,
                                   parallel_over = "everything",
-                                  event_level = event_level)
+                                  event_level = event_level
+                                  )
   )
+
+
+
 
 
 # doParallel::stopImplicitCluster()
@@ -91,7 +105,7 @@ xgboost_tune <-
 
 xgboost_wkflow_tuned <- tune::finalize_workflow(
   xgboost_spec1,
-  select_best(xgboost_tune, "rmse")
+  tune::select_best(xgboost_tune, "rmse")
 )
 
 

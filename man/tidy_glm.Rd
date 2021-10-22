@@ -4,14 +4,12 @@
 \alias{tidy_glm}
 \title{tidy glm}
 \usage{
-tidy_glm(data, target, ...)
+tidy_glm(data, formula)
 }
 \arguments{
 \item{data}{dataframe}
 
-\item{target}{target variable}
-
-\item{...}{tidyselect predictor variables}
+\item{formula}{formula}
 }
 \value{
 glm model

@@ -4,14 +4,26 @@
 #' the contributions of explanatory variables in a supervised model
 #'
 #' @param data dataframe
-#' @param target target variable name
-#' @param ... tidyselect specification for explanatory variables
+#' @param formula formula
 #' @param scale logical. If FALSE puts coefficients on original scale
 #'
 #' @return a ggplot object
 #' @export
-auto_variable_contributions <- function(data, target, ..., scale = T){
+#' @examples
+#'
+#' iris %>%
+#' auto_variable_contributions(
+#'  tidy_formula(target = Petal.Width, tidyselect::everything())
+#'  )
+#'
+#' iris %>%
+#' auto_variable_contributions(
+#' tidy_formula(target = Species, tidyselect::everything())
+#' )
+auto_variable_contributions <- function(data, formula, scale = T){
 
+  formula %>%
+    rlang::f_lhs() -> target
 
   suppressWarnings({
     rlang::as_name(rlang::ensym(target)) -> trg
@@ -21,7 +33,7 @@ auto_variable_contributions <- function(data, target, ..., scale = T){
 
 
     data %>%
-      safe_glm({{target}}, ...) -> tglm
+      safe_glm(formula) -> tglm
 
     if (!is.character(tglm)) {
       tglm$family$family -> glm_family
@@ -38,7 +50,7 @@ auto_variable_contributions <- function(data, target, ..., scale = T){
     }
 
     data %>%
-      tidy_xgboost({{target}}, ...) -> tcf
+      tidy_xgboost(formula) -> tcf
 
       xgboost::xgb.importance(model = tcf)   -> tcf_imp
 
@@ -55,7 +67,7 @@ auto_variable_contributions <- function(data, target, ..., scale = T){
         ggplot2::ggtitle(stringr::str_c("Variable contributions in explaining ", trg)) -> pcf}
     else{
       data %>%
-        tidy_cforest({{target}}, ...) -> tcf
+        tidy_cforest(formula) -> tcf
 
       tcf %>%
         plot_varimp() +

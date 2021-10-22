@@ -4,14 +4,12 @@
 \alias{tidy_cforest}
 \title{tidy conditional inference forest}
 \usage{
-tidy_cforest(data, target, ..., seed = 1)
+tidy_cforest(data, formula, seed = 1)
 }
 \arguments{
 \item{data}{dataframe}
 
-\item{target}{target variable}
-
-\item{...}{tidyselect predictor variables}
+\item{formula}{formula}
 
 \item{seed}{seed integer}
 }

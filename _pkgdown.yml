@@ -11,22 +11,34 @@ development:
 reference:
 - title: Automated modeling
   contents:
-  - '`tidy_anova`'
-  - '`plot_variable_contributions`'
+  - '`auto_anova`'
   - '`auto_model_accuracy`'
+  - '`auto_variable_contributions`'
+  - '`auto_boxplot`'
+  - '`auto_tune_xgboost`'
 
 - title: Tidy wrappers for models
   contents:
   - '`tidy_cforest`'
   - '`tidy_glm`'
   - '`tidy_lightgbm`'
+  - '`tidy_xgboost`'
+
+- title: Tidy Formula Construction
+  contents:
   - '`tidy_formula`'
+
+- title: Manipulate Formulas
+  contents:
+  - '`f_charvec_to_formula`'
+  - '`f_formula_to_charvec`'
+  - '`f_modify_formula`'
 
 
 articles:
 - title: All vignettes
   desc: null
-  contents: '`AutoStats`'
+  contents: '`autostats`'
 navbar:
   structure:
     left:

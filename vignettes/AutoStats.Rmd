@@ -1,5 +1,5 @@
 ---
-title: "AutoStats"
+title: "autostats"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{AutoStats}
@@ -24,14 +24,22 @@ library(autostats)
 
 Species is a 3-level factor so it will be automatically modelled with a multiclass neural network and a light gbm with multiclass objective function. 
 
+First set define the formula to use for modeling.
+
+```{r}
+iris %>% 
+  tidy_formula(target = Species) -> species_formula
+```
+
+
 ```{r cache=TRUE}
 iris %>% 
-  auto_variable_contributions(target = Species)
+  auto_variable_contributions(species_formula)
 ```
 
 ```{r cache=TRUE}
 iris %>% 
-  auto_model_accuracy(Species)
+  auto_model_accuracy(species_formula)
 ```
 
 ### binary target 
@@ -42,7 +50,7 @@ Linear models uses weighted logistic regression for modeling the coefficients
 ```{r cache=TRUE}
 iris %>% 
   filter(Species != "setosa") %>% 
-  auto_variable_contributions(target = Species)
+  auto_variable_contributions(species_formula)
 ```
 
 For the variable contributions the linear model uses penalized logistic regression provided by glmnet. 
@@ -52,22 +60,30 @@ iris %>%
   filter(Species != "setosa") -> iris_binary
 
 iris_binary %>% 
-  auto_model_accuracy(target = Species)
+  auto_model_accuracy(species_formula)
 ```
 
 ### continuous target
 
 Models are automatically adapted for a continuous target. 
 
+Define the new formula
+
+```{r}
+iris %>% 
+  tidy_formula(target = Petal.Length) -> petal_formula
+```
+
+
 ```{r cache=F}
 iris %>% 
-  auto_variable_contributions(target = Petal.Length)
+  auto_variable_contributions(petal_formula)
 ```
 
 
 ```{r  cache=TRUE}
 iris %>% 
-  auto_model_accuracy(target = Petal.Length)
+  auto_model_accuracy(petal_formula)
 ```
 
 

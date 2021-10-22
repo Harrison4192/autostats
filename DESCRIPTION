@@ -34,7 +34,6 @@ Imports:
     patchwork,
     tidyr,
     xgboost,
-    lightgbm,
     flextable,
     nnet,
     parsnip,
@@ -44,13 +43,16 @@ Imports:
     workflows,
     ggstance,
     Ckmeans.1d.dp,
-    glmnet
+    glmnet,
+    framecleaner,
+    presenter
 RoxygenNote: 7.1.1
 URL: https://github.com/Harrison4192/autoStats
 BugReports: https://github.com/Harrison4192/autoStats/issues
 Suggests: 
     knitr,
     rmarkdown,
+    lightgbm,
     markdown,
     moreparty,
     party

@@ -1,9 +1,8 @@
 
-#' get model accuracy
+#' auto model accuracy
 #'
 #' @param data data frame
-#' @param target unquoted target vaariable
-#' @param ... tidyselect for explanatory variables
+#' @param formula formula
 #' @param n_folds number of cross validation folds
 #' @param as_flextable if FALSE, returns a tibble
 #' @param theme make_flextable theme
@@ -13,9 +12,9 @@
 #' @export
 #'
 auto_model_accuracy <- function(data,
-                               target, ...,
+                               formula,
                                n_folds = 4,
-                               as_flextable = T,
+                               as_flextable = TRUE,
                                theme = "tron",
                                seed = 1){
 
@@ -25,10 +24,10 @@ auto_model_accuracy <- function(data,
 
   .config <- model <- .metric <- n <- .estimator <- NULL
 
-  data %>%
-  tidy_formula({{target}}, ...) -> my_formula
+  formula %>%
+    rlang::f_lhs() -> target
 
-  data %>% dplyr::pull({{target}}) -> trg
+  data %>% dplyr::pull(!!target) -> trg
   trg %>% dplyr::n_distinct() -> target_levels
   trg %>% is.numeric() -> is_tg_numeric
 
@@ -37,14 +36,14 @@ auto_model_accuracy <- function(data,
       parsnip::logistic_reg(penalty = .015, mixture = .35)
 
     data %>%
-      dplyr::mutate({{target}} := factor({{target}})) -> data
+      dplyr::mutate(!!target := factor(!!target)) -> data
 
   } else if(target_levels != 2 & !is_tg_numeric){
     linear_spec <-
       parsnip::multinom_reg(penalty = .015, mixture = .35)
 
     data %>%
-      dplyr::mutate({{target}} := factor({{target}})) -> data
+      dplyr::mutate(!!target := factor(!!target)) -> data
   } else {
     linear_spec <-  parsnip::linear_reg(penalty = .015, mixture = .35)}
 
@@ -56,7 +55,7 @@ auto_model_accuracy <- function(data,
   }
 
   my_rec <-
-    recipes::recipe(my_formula, data = data)  %>%
+    recipes::recipe(formula, data = data)  %>%
     recipes::step_nzv(recipes::all_numeric(), -recipes::all_outcomes()) %>%
     recipes::step_corr(recipes::all_numeric(), -recipes::all_outcomes()) %>%
     recipes::step_medianimpute(recipes::all_numeric()) %>%

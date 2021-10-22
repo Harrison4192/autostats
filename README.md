@@ -10,7 +10,7 @@
 [![](https://img.shields.io/github/last-commit/Harrison4192/autostats.svg)](https://github.com/Harrison4192/autostats/commits/main)
 
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/autostats)](https://CRAN.R-project.org/package=autostats)
 [![R-CMD-check](https://github.com/Harrison4192/autostats/workflows/R-CMD-check/badge.svg)](https://github.com/Harrison4192/autostats/actions)

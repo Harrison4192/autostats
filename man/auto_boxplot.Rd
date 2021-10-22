@@ -22,7 +22,7 @@ auto_boxplot(
 
 \item{categorical_variable}{categorical x variable. unquoted column name}
 
-\item{categorical_facets}{categorical facet variable. character vector}
+\item{categorical_facets}{categorical facet variable. unquoted column name}
 
 \item{alpha}{alpha points}
 
@@ -36,5 +36,10 @@ auto_boxplot(
 ggplot
 }
 \description{
-auto_boxplot
+Wraps \code{\link[ggplot2]{geom_boxplot}} to simplify creating boxplots.
+}
+\examples{
+
+iris \%>\%
+auto_boxplot(continuous_outcome = Petal.Width, categorical_variable = Species)
 }

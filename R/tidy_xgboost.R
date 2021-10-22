@@ -1,18 +1,17 @@
 #' tidy xgboost
 #'
 #' @param .data dataframe
-#' @param target target variable
-#' @param ... tidyselect
+#' @param formula formula
 #'
 #' @return xgb.Booster model
 #' @export
-tidy_xgboost <- function(.data, target, ...){
+tidy_xgboost <- function(.data, formula){
+
+  formula %>%
+    rlang::f_lhs() -> target
 
   .data %>%
-    tidy_formula({{target}}, ...) -> form
-
-  .data %>%
-    dplyr::pull({{target}}) %>%
+    dplyr::pull(!!target) %>%
     is.numeric() -> numer_tg
 
   if(numer_tg){
@@ -22,14 +21,14 @@ tidy_xgboost <- function(.data, target, ...){
   }
 
   xgboost_recipe <-
-    recipes::recipe(data = .data, formula = form) %>%
+    recipes::recipe(data = .data, formula = formula) %>%
     recipes::step_zv(recipes::all_predictors()) %>%
-    recipes::step_dummy(where(is.character) | where(is.factor), -{{target}})
+    recipes::step_dummy(where(is.character) | where(is.factor), -!!target)
 
   xgboost_spec <-
     parsnip::boost_tree() %>%
     parsnip::set_mode(mode_set) %>%
-    parsnip::set_engine("xgboost", tree_method = "hist")
+    parsnip::set_engine("xgboost")
 
   xgboost_workflow <-
     workflows::workflow() %>%

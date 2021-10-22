@@ -73,7 +73,7 @@ usethis::use_package("lightgbm")
 
 
 
-usethis::use_r("tune_xgboost")
+usethis::use_r("tidy_formula")
 usethis::use_package("badger", type = "Suggests")
 
 
@@ -150,7 +150,7 @@ p_load(validata, framecleaner, tidyBins, presenteR)
 devtools::document()
 devtools::build_readme()
 devtools::build_site()
-devtools::devtools::check()
+devtools::check()
 devtools::preview_site()
 devtools::load_all()
 devtools::build_vignettes()

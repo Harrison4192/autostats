@@ -4,14 +4,12 @@
 \alias{tidy_xgboost}
 \title{tidy xgboost}
 \usage{
-tidy_xgboost(.data, target, ...)
+tidy_xgboost(.data, formula)
 }
 \arguments{
 \item{.data}{dataframe}
 
-\item{target}{target variable}
-
-\item{...}{tidyselect}
+\item{formula}{formula}
 }
 \value{
 xgb.Booster model
