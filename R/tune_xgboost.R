@@ -111,7 +111,7 @@ xgboost_wkflow_tuned <- tune::finalize_workflow(
 
 lubridate::now() -> timenow
 
-file_name <- stringr::str_c(boost_engine, "wkflow_tuned_", data_name, "_", timenow, ".rds")
+file_name <- stringr::str_c("xgboost", "wkflow_tuned_", data_name, "_", timenow, ".rds")
 
 xgboost_wkflow_tuned %>%
   readr::write_rds(file_name)

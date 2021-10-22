@@ -13,12 +13,12 @@
 #'
 #' iris %>%
 #' auto_variable_contributions(
-#'  tidy_formula(target = Petal.Width, tidyselect::everything())
+#'  tidy_formula(., target = Petal.Width)
 #'  )
 #'
 #' iris %>%
 #' auto_variable_contributions(
-#' tidy_formula(target = Species, tidyselect::everything())
+#' tidy_formula(., target = Species)
 #' )
 auto_variable_contributions <- function(data, formula, scale = T){
 

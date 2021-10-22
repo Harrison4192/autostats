@@ -2,7 +2,7 @@
 title: "autostats"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{AutoStats}
+  %\VignetteIndexEntry{autostats}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

@@ -119,7 +119,7 @@ auto_model_accuracy <- function(data,
     target_nm <- rlang::as_name(rlang::ensym(target))
 
 
-    presenter:::get_piped_name(!!data1) -> tbl_name
+    presenter::get_piped_name(!!data1) -> tbl_name
 
     res %>%
       dplyr::select(-n_folds) %>%

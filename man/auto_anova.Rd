@@ -14,11 +14,11 @@ auto_anova(
 \arguments{
 \item{data}{a data frame}
 
+\item{...}{tidyselect specification or cols}
+
 \item{baseline}{choose from "mean", "median", "first_level", "user_supplied". what is the baseline to compare each category to? can use the mean and median of the target variable as a global baseline}
 
 \item{user_supplied_baseline}{if intercept is "user_supplied", can enter a numeric value}
-
-\item{cols}{tidyselect specification}
 }
 \value{
 data frame

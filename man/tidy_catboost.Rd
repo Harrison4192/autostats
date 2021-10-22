@@ -4,14 +4,12 @@
 \alias{tidy_catboost}
 \title{tidy catboost}
 \usage{
-tidy_catboost(.data, target, ...)
+tidy_catboost(.data, formula)
 }
 \arguments{
 \item{.data}{dataframe}
 
-\item{target}{target variable}
-
-\item{...}{tidyselect}
+\item{formula}{formula}
 }
 \value{
 catboost model

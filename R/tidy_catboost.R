@@ -1,18 +1,17 @@
 #' tidy catboost
 #'
 #' @param .data dataframe
-#' @param target target variable
-#' @param ... tidyselect
+#' @param formula formula
 #'
 #' @return catboost model
 #' @export
-tidy_catboost <- function(.data, target, ...){
+tidy_catboost <- function(.data, formula){
+
+  formula %>%
+    rlang::f_lhs() -> target
 
   .data %>%
-    tidy_formula({{target}}, ...) -> form
-
-  .data %>%
-    dplyr::pull({{target}}) %>%
+    dplyr::pull(!!target) %>%
     is.numeric() -> numer_tg
 
   if(numer_tg){
@@ -22,7 +21,7 @@ tidy_catboost <- function(.data, target, ...){
   }
 
   catboost_recipe <-
-    recipes::recipe(data = .data, formula = form) %>%
+    recipes::recipe(data = .data, formula = formula) %>%
     recipes::step_zv(recipes::all_predictors())
 
   catboost_spec <-

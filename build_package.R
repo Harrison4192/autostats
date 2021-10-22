@@ -143,7 +143,6 @@ devtools::install_github("Harrison4192/presenteR")
 # install.packages("devtools")
 # devtools::install_github("Harrison4192/autoStats")
 
-p_load(validata, framecleaner, tidyBins, presenteR)
 
 # build and check ---------------------------------------------------------
 

@@ -1,7 +1,7 @@
 #' auto anova
 #'
 #' @param data a data frame
-#' @param cols tidyselect specification
+#' @param ... tidyselect specification or cols
 #' @param baseline choose from "mean", "median", "first_level", "user_supplied". what is the baseline to compare each category to? can use the mean and median of the target variable as a global baseline
 #' @param user_supplied_baseline if intercept is "user_supplied", can enter a numeric value
 #'
@@ -10,7 +10,7 @@
 auto_anova <- function(data, ... , baseline = c("mean", "median", "first_level", "user_supplied"), user_supplied_baseline = NULL){
 
   everything <- p.value <- term <- target <- predictor <- predictor_p.value <- predictor_significance <- NULL
-  std.error <- statistic <- level_p.value <- level <- NULL
+  std.error <- statistic <- level_p.value <- n <- level <- NULL
   value <- estimate <- intercept <- intercept_name <- level_significance <- star_meaning <- anova_meaning <- NULL
   baseline <-  match.arg(baseline)
 
@@ -58,7 +58,7 @@ suppressWarnings({
      else if(baseline == "median"){
         data1 %>%
          framecleaner::set_chr(tidyselect::any_of(j)) %>%
-          dplyr::bind_rows(tibble::tibble("{i}" := median(data1[[i]], na.rm = T), "{j}" := rep("GLOBAL_MEDIAN", nrow(data1)))) %>%
+          dplyr::bind_rows(tibble::tibble("{i}" := stats::median(data1[[i]], na.rm = T), "{j}" := rep("GLOBAL_MEDIAN", nrow(data1)))) %>%
          framecleaner::set_fct(tidyselect::all_of(j), first_level = "GLOBAL_MEDIAN")-> data2
      }
 
