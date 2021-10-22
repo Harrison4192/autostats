@@ -29,6 +29,8 @@ First set define the formula to use for modeling.
 ```{r}
 iris %>% 
   tidy_formula(target = Species) -> species_formula
+
+species_formula
 ```
 
 
@@ -72,6 +74,8 @@ Define the new formula
 ```{r}
 iris %>% 
   tidy_formula(target = Petal.Length) -> petal_formula
+
+petal_formula
 ```
 
 
