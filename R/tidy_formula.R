@@ -7,6 +7,7 @@
 #' @param rhs rhs chr vec
 #'
 #' @return formula
+#' @export
 #'
 #' @examples
 #'
