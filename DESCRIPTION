@@ -8,7 +8,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "harrison4192@gmail.com")
 Maintainer: Harrison Tietze <harrison4192@gmail.com>
-Description: Automatically do statistical exploration.
+Description: Automatically do statistical exploration. Create formulas using tidyselect syntax, and then determine cross-validated model accuracy and variable contributions using glm and xgboost. Contains additional helper functions to create and modify formulas. Flagship function auto anova helps to quickly determine relationship between categorical and continuous variables in the data set.
 Encoding: UTF-8
 LazyData: true
 Imports: 

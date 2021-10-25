@@ -39,6 +39,7 @@
 #' iris %>%
 #' auto_anova(tidyselect::everything()) -> iris_anova1
 #'
+#'
 #' iris_anova1 %>%
 #' print(width = Inf)
 auto_anova <- function(data, ... , baseline = c("mean", "median", "first_level", "user_supplied"), user_supplied_baseline = NULL){
