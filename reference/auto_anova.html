@@ -40,7 +40,9 @@
 
 
 <meta property="og:title" content="auto anova — auto_anova" />
-<meta property="og:description" content="auto anova" />
+<meta property="og:description" content="A wrapper around lm and anova to run a regression of a continuous variable against categorical variables.
+Used for determining the whether the mean of a continuous variable is statistically significant amongst different levels
+of a categorical variable." />
 
 
 
@@ -133,7 +135,9 @@
     </div>
 
     <div class="ref-description">
-    <p>auto anova</p>
+    <p>A wrapper around lm and anova to run a regression of a continuous variable against categorical variables.
+Used for determining the whether the mean of a continuous variable is statistically significant amongst different levels
+of a categorical variable.</p>
     </div>
 
     <pre class="usage"><span class='fu'>auto_anova</span><span class='op'>(</span>
@@ -167,6 +171,11 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>data frame</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Columns can be inputted as unquoted names or tidyselect. Continuous and categorical variables are automatically determined.
+If no character or factor column is present, the column with the lowest amount of unique values will be considered
+the categorical variable.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

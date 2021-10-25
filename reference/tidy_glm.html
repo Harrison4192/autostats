@@ -40,7 +40,8 @@
 
 
 <meta property="og:title" content="tidy glm — tidy_glm" />
-<meta property="og:description" content="tidy glm" />
+<meta property="og:description" content="Runs either a linear regression, logistic regression, or multinomial classification. The model is
+automatically determined based off the nature of the target variable." />
 
 
 
@@ -133,7 +134,8 @@
     </div>
 
     <div class="ref-description">
-    <p>tidy glm</p>
+    <p>Runs either a linear regression, logistic regression, or multinomial classification. The model is
+automatically determined based off the nature of the target variable.</p>
     </div>
 
     <pre class="usage"><span class='fu'>tidy_glm</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>formula</span><span class='op'>)</span></pre>
@@ -155,6 +157,107 @@
 
     <p>glm model</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='co'># linear regression</span>
+<span class='va'>iris</span> <span class='op'>%&gt;%</span>
+<span class='fu'>tidy_glm</span><span class='op'>(</span>
+<span class='fu'><a href='tidy_formula.html'>tidy_formula</a></span><span class='op'>(</span><span class='va'>.</span>, target <span class='op'>=</span> <span class='va'>Petal.Width</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
+#&gt; Call:  stats::glm(formula = formula, family = glm_family, data = data)
+#&gt; 
+#&gt; Coefficients:
+#&gt;       (Intercept)       Sepal.Length        Sepal.Width       Petal.Length  
+#&gt;          -0.47314           -0.09293            0.24220            0.24220  
+#&gt; Speciesversicolor   Speciesvirginica  
+#&gt;           0.64811            1.04637  
+#&gt; 
+#&gt; Degrees of Freedom: 149 Total (i.e. Null);  144 Residual
+#&gt; Null Deviance:	    86.57 
+#&gt; Residual Deviance: 3.998 	AIC: -104.1</div><div class='input'>
+<span class='co'># multinomial classification</span>
+<span class='va'>iris</span> <span class='op'>%&gt;%</span>
+<span class='fu'>tidy_glm</span><span class='op'>(</span>
+<span class='fu'><a href='tidy_formula.html'>tidy_formula</a></span><span class='op'>(</span><span class='va'>.</span>, target <span class='op'>=</span> <span class='va'>Species</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Call:
+#&gt; nnet::multinom(formula = Species ~ Sepal.Length + Sepal.Width + 
+#&gt;     Petal.Length + Petal.Width, data = list(c(5.1, 4.9, 4.7, 
+#&gt; 4.6, 5, 5.4, 4.6, 5, 4.4, 4.9, 5.4, 4.8, 4.8, 4.3, 5.8, 5.7, 
+#&gt; 5.4, 5.1, 5.7, 5.1, 5.4, 5.1, 4.6, 5.1, 4.8, 5, 5, 5.2, 5.2, 
+#&gt; 4.7, 4.8, 5.4, 5.2, 5.5, 4.9, 5, 5.5, 4.9, 4.4, 5.1, 5, 4.5, 
+#&gt; 4.4, 5, 5.1, 4.8, 5.1, 4.6, 5.3, 5, 7, 6.4, 6.9, 5.5, 6.5, 5.7, 
+#&gt; 6.3, 4.9, 6.6, 5.2, 5, 5.9, 6, 6.1, 5.6, 6.7, 5.6, 5.8, 6.2, 
+#&gt; 5.6, 5.9, 6.1, 6.3, 6.1, 6.4, 6.6, 6.8, 6.7, 6, 5.7, 5.5, 5.5, 
+#&gt; 5.8, 6, 5.4, 6, 6.7, 6.3, 5.6, 5.5, 5.5, 6.1, 5.8, 5, 5.6, 5.7, 
+#&gt; 5.7, 6.2, 5.1, 5.7, 6.3, 5.8, 7.1, 6.3, 6.5, 7.6, 4.9, 7.3, 6.7, 
+#&gt; 7.2, 6.5, 6.4, 6.8, 5.7, 5.8, 6.4, 6.5, 7.7, 7.7, 6, 6.9, 5.6, 
+#&gt; 7.7, 6.3, 6.7, 7.2, 6.2, 6.1, 6.4, 7.2, 7.4, 7.9, 6.4, 6.3, 6.1, 
+#&gt; 7.7, 6.3, 6.4, 6, 6.9, 6.7, 6.9, 5.8, 6.8, 6.7, 6.7, 6.3, 6.5, 
+#&gt; 6.2, 5.9), c(3.5, 3, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, 3.1, 
+#&gt; 3.7, 3.4, 3, 3, 4, 4.4, 3.9, 3.5, 3.8, 3.8, 3.4, 3.7, 3.6, 3.3, 
+#&gt; 3.4, 3, 3.4, 3.5, 3.4, 3.2, 3.1, 3.4, 4.1, 4.2, 3.1, 3.2, 3.5, 
+#&gt; 3.6, 3, 3.4, 3.5, 2.3, 3.2, 3.5, 3.8, 3, 3.8, 3.2, 3.7, 3.3, 
+#&gt; 3.2, 3.2, 3.1, 2.3, 2.8, 2.8, 3.3, 2.4, 2.9, 2.7, 2, 3, 2.2, 
+#&gt; 2.9, 2.9, 3.1, 3, 2.7, 2.2, 2.5, 3.2, 2.8, 2.5, 2.8, 2.9, 3, 
+#&gt; 2.8, 3, 2.9, 2.6, 2.4, 2.4, 2.7, 2.7, 3, 3.4, 3.1, 2.3, 3, 2.5, 
+#&gt; 2.6, 3, 2.6, 2.3, 2.7, 3, 2.9, 2.9, 2.5, 2.8, 3.3, 2.7, 3, 2.9, 
+#&gt; 3, 3, 2.5, 2.9, 2.5, 3.6, 3.2, 2.7, 3, 2.5, 2.8, 3.2, 3, 3.8, 
+#&gt; 2.6, 2.2, 3.2, 2.8, 2.8, 2.7, 3.3, 3.2, 2.8, 3, 2.8, 3, 2.8, 
+#&gt; 3.8, 2.8, 2.8, 2.6, 3, 3.4, 3.1, 3, 3.1, 3.1, 3.1, 2.7, 3.2, 
+#&gt; 3.3, 3, 2.5, 3, 3.4, 3), c(1.4, 1.4, 1.3, 1.5, 1.4, 1.7, 1.4, 
+#&gt; 1.5, 1.4, 1.5, 1.5, 1.6, 1.4, 1.1, 1.2, 1.5, 1.3, 1.4, 1.7, 1.5, 
+#&gt; 1.7, 1.5, 1, 1.7, 1.9, 1.6, 1.6, 1.5, 1.4, 1.6, 1.6, 1.5, 1.5, 
+#&gt; 1.4, 1.5, 1.2, 1.3, 1.4, 1.3, 1.5, 1.3, 1.3, 1.3, 1.6, 1.9, 1.4, 
+#&gt; 1.6, 1.4, 1.5, 1.4, 4.7, 4.5, 4.9, 4, 4.6, 4.5, 4.7, 3.3, 4.6, 
+#&gt; 3.9, 3.5, 4.2, 4, 4.7, 3.6, 4.4, 4.5, 4.1, 4.5, 3.9, 4.8, 4, 
+#&gt; 4.9, 4.7, 4.3, 4.4, 4.8, 5, 4.5, 3.5, 3.8, 3.7, 3.9, 5.1, 4.5, 
+#&gt; 4.5, 4.7, 4.4, 4.1, 4, 4.4, 4.6, 4, 3.3, 4.2, 4.2, 4.2, 4.3, 
+#&gt; 3, 4.1, 6, 5.1, 5.9, 5.6, 5.8, 6.6, 4.5, 6.3, 5.8, 6.1, 5.1, 
+#&gt; 5.3, 5.5, 5, 5.1, 5.3, 5.5, 6.7, 6.9, 5, 5.7, 4.9, 6.7, 4.9, 
+#&gt; 5.7, 6, 4.8, 4.9, 5.6, 5.8, 6.1, 6.4, 5.6, 5.1, 5.6, 6.1, 5.6, 
+#&gt; 5.5, 4.8, 5.4, 5.6, 5.1, 5.1, 5.9, 5.7, 5.2, 5, 5.2, 5.4, 5.1
+#&gt; ), c(0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.2, 
+#&gt; 0.1, 0.1, 0.2, 0.4, 0.4, 0.3, 0.3, 0.3, 0.2, 0.4, 0.2, 0.5, 0.2, 
+#&gt; 0.2, 0.4, 0.2, 0.2, 0.2, 0.2, 0.4, 0.1, 0.2, 0.2, 0.2, 0.2, 0.1, 
+#&gt; 0.2, 0.2, 0.3, 0.3, 0.2, 0.6, 0.4, 0.3, 0.2, 0.2, 0.2, 0.2, 1.4, 
+#&gt; 1.5, 1.5, 1.3, 1.5, 1.3, 1.6, 1, 1.3, 1.4, 1, 1.5, 1, 1.4, 1.3, 
+#&gt; 1.4, 1.5, 1, 1.5, 1.1, 1.8, 1.3, 1.5, 1.2, 1.3, 1.4, 1.4, 1.7, 
+#&gt; 1.5, 1, 1.1, 1, 1.2, 1.6, 1.5, 1.6, 1.5, 1.3, 1.3, 1.3, 1.2, 
+#&gt; 1.4, 1.2, 1, 1.3, 1.2, 1.3, 1.3, 1.1, 1.3, 2.5, 1.9, 2.1, 1.8, 
+#&gt; 2.2, 2.1, 1.7, 1.8, 1.8, 2.5, 2, 1.9, 2.1, 2, 2.4, 2.3, 1.8, 
+#&gt; 2.2, 2.3, 1.5, 2.3, 2, 2, 1.8, 2.1, 1.8, 1.8, 1.8, 2.1, 1.6, 
+#&gt; 1.9, 2, 2.2, 1.5, 1.4, 2.3, 2.4, 1.8, 1.8, 2.1, 2.4, 2.3, 1.9, 
+#&gt; 2.3, 2.5, 2.3, 1.9, 2, 2.3, 1.8), c(1, 1, 1, 1, 1, 1, 1, 1, 1, 
+#&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
+#&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 
+#&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 
+#&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 
+#&gt; 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 
+#&gt; 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 
+#&gt; 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3)), trace = FALSE)
+#&gt; 
+#&gt; Coefficients:
+#&gt;            (Intercept) Sepal.Length Sepal.Width Petal.Length Petal.Width
+#&gt; versicolor    18.69037    -5.458424   -8.707401     14.24477   -3.097684
+#&gt; virginica    -23.83628    -7.923634  -15.370769     23.65978   15.135301
+#&gt; 
+#&gt; Residual Deviance: 11.89973 
+#&gt; AIC: 31.89973 </div><div class='input'>
+<span class='co'>#  logistic regression</span>
+<span class='va'>iris</span> <span class='op'>%&gt;%</span>
+<span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Species</span> <span class='op'>!=</span> <span class='st'>"versicolor"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+<span class='fu'>tidy_glm</span><span class='op'>(</span>
+<span class='fu'><a href='tidy_formula.html'>tidy_formula</a></span><span class='op'>(</span><span class='va'>.</span>, target <span class='op'>=</span> <span class='va'>Species</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
+#&gt; Call:  stats::glm(formula = formula, family = glm_family, data = data)
+#&gt; 
+#&gt; Coefficients:
+#&gt;  (Intercept)  Sepal.Length   Sepal.Width  Petal.Length   Petal.Width  
+#&gt;      -15.168        -3.961        -4.172        11.975         9.736  
+#&gt; 
+#&gt; Degrees of Freedom: 99 Total (i.e. Null);  95 Residual
+#&gt; Null Deviance:	    138.6 
+#&gt; Residual Deviance: 8.583e-10 	AIC: 10</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
