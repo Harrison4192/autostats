@@ -11,3 +11,4 @@
 ^R\newfunctions.R$
 ^doc$
 ^Meta$
+^cran-comments\.md$

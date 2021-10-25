@@ -55,9 +55,7 @@ Description of columns in the output
 iris \%>\%
 auto_anova(tidyselect::everything()) -> iris_anova1
 
-# sort output by significance of levels
 
 iris_anova1 \%>\%
-dplyr::arrange(level_p.value) \%>\%
 print(width = Inf)
 }
