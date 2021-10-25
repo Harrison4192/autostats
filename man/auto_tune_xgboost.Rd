@@ -30,5 +30,5 @@ auto_tune_xgboost(
 workflow object
 }
 \description{
-auto_tune_xgboost
+Automatically tunes an xgboost model
 }

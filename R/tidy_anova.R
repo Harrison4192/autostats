@@ -1,5 +1,14 @@
 #' auto anova
 #'
+#' A wrapper around lm and anova to run a regression of a continuous variable against categorical variables.
+#' Used for determining the whether the mean of a continuous variable is statistically significant amongst different levels
+#' of a categorical variable.
+#'
+#' Columns can be inputted as unquoted names or tidyselect. Continuous and categorical variables are automatically determined.
+#' If no character or factor column is present, the column with the lowest amount of unique values will be considered
+#' the categorical variable.
+#'
+#'
 #' @param data a data frame
 #' @param ... tidyselect specification or cols
 #' @param baseline choose from "mean", "median", "first_level", "user_supplied". what is the baseline to compare each category to? can use the mean and median of the target variable as a global baseline

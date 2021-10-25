@@ -15,5 +15,6 @@ tidy_xgboost(.data, formula)
 xgb.Booster model
 }
 \description{
-tidy xgboost
+Accepts a formula to run an xgboost model. Automatically determines whether the formula is
+for classification or regression. Returns the xgboost model.
 }

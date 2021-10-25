@@ -17,5 +17,5 @@ tidy_cforest(data, formula, seed = 1)
 a cforest model
 }
 \description{
-tidy conditional inference forest
+Runs a conditional inference forest.
 }

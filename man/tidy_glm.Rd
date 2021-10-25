@@ -15,5 +15,24 @@ tidy_glm(data, formula)
 glm model
 }
 \description{
-tidy glm
+Runs either a linear regression, logistic regression, or multinomial classification. The model is
+automatically determined based off the nature of the target variable.
+}
+\examples{
+
+# linear regression
+iris \%>\%
+tidy_glm(
+tidy_formula(., target = Petal.Width))
+
+# multinomial classification
+iris \%>\%
+tidy_glm(
+tidy_formula(., target = Species))
+
+#  logistic regression
+iris \%>\%
+dplyr::filter(Species != "versicolor") \%>\%
+tidy_glm(
+tidy_formula(., target = Species))
 }

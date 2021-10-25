@@ -24,5 +24,12 @@ auto_anova(
 data frame
 }
 \description{
-auto anova
+A wrapper around lm and anova to run a regression of a continuous variable against categorical variables.
+Used for determining the whether the mean of a continuous variable is statistically significant amongst different levels
+of a categorical variable.
+}
+\details{
+Columns can be inputted as unquoted names or tidyselect. Continuous and categorical variables are automatically determined.
+If no character or factor column is present, the column with the lowest amount of unique values will be considered
+the categorical variable.
 }

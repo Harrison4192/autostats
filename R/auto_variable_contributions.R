@@ -39,6 +39,7 @@ auto_variable_contributions <- function(data, formula, scale = TRUE, font = c(""
     data %>%
       safe_glm(formula) -> tglm
 
+
     if (!is.character(tglm)) {
       tglm$family$family -> glm_family
 
@@ -53,10 +54,13 @@ auto_variable_contributions <- function(data, formula, scale = TRUE, font = c(""
       }
     }
 
+
     data %>%
       tidy_xgboost(formula) -> tcf
 
+
       xgboost::xgb.importance(model = tcf)   -> tcf_imp
+
 
     if(nrow(tcf_imp) > 0){
       tcf_imp %>%

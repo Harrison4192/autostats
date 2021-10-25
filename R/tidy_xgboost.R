@@ -1,5 +1,8 @@
 #' tidy xgboost
 #'
+#' Accepts a formula to run an xgboost model. Automatically determines whether the formula is
+#' for classification or regression. Returns the xgboost model.
+#'
 #' @param .data dataframe
 #' @param formula formula
 #'
@@ -14,21 +17,33 @@ tidy_xgboost <- function(.data, formula){
     dplyr::pull(!!target) %>%
     is.numeric() -> numer_tg
 
-  if(numer_tg){
-    mode_set <- "regression"
-  } else{
-    mode_set <- "classification"
-  }
-
   xgboost_recipe <-
     recipes::recipe(data = .data, formula = formula) %>%
     recipes::step_zv(recipes::all_predictors()) %>%
     recipes::step_dummy(where(is.character) | where(is.factor), -!!target)
 
-  xgboost_spec <-
-    parsnip::boost_tree() %>%
-    parsnip::set_mode(mode_set) %>%
-    parsnip::set_engine("xgboost")
+  xgboost_spec0 <-  parsnip::boost_tree()
+
+  if(numer_tg){
+    mode_set <- "regression"
+
+
+    xgboost_spec0 %>%
+      parsnip::set_mode(mode_set) %>%
+      parsnip::set_engine("xgboost") -> xgboost_spec
+
+  } else{
+    mode_set <- "classification"
+    eval_metric <- 'mlogloss'
+
+
+    xgboost_spec0 %>%
+      parsnip::set_mode(mode_set) %>%
+      parsnip::set_engine("xgboost", eval_metric = eval_metric) -> xgboost_spec
+
+  }
+
+
 
   xgboost_workflow <-
     workflows::workflow() %>%

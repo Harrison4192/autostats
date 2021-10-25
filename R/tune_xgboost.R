@@ -1,7 +1,7 @@
 
 #' auto_tune_xgboost
 #'
-#'
+#' Automatically tunes an xgboost model
 #'
 #' @param .data dataframe
 #' @param formula formula

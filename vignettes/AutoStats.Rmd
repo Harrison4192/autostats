@@ -7,15 +7,18 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r message=FALSE, warning=FALSE, include=}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+library(broom)
+library(broom.mixed)
 ```
 
 ```{r setup}
 library(autostats)
+
 ```
 
 ## plot variable contributions
@@ -90,4 +93,12 @@ iris %>%
   auto_model_accuracy(petal_formula)
 ```
 
+## auto anova
+
+auto anova automatically regresses each continuous variable supplied against each categorical variable supplied. Lm is called separately for each continuous/ categorical variable pair, but the results are reported in one dataframe. Whether the outcome differs amongst categorical levels is determined by the p.value. The interpretation is affected by the choice of baseline for comparison. Traditionally the first level of the factor is used, however option to use the mean of the continuous variable as the baseline intercept is a helpful comparison. 
+
+```{r}
+iris %>% 
+  auto_anova(Species, matches("Petal"), baseline = "first_level")
+```
 

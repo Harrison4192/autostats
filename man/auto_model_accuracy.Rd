@@ -30,5 +30,6 @@ auto_model_accuracy(
 a table
 }
 \description{
-auto model accuracy
+Runs a cross validated xgboost and regularized linear regression, and reports accuracy metrics.
+Automatically determines whether the provided formula is a regression or classification.
 }
