@@ -32,4 +32,29 @@ of a categorical variable.
 Columns can be inputted as unquoted names or tidyselect. Continuous and categorical variables are automatically determined.
 If no character or factor column is present, the column with the lowest amount of unique values will be considered
 the categorical variable.
+
+Description of columns in the output
+
+\itemize{
+\item{\emph{target}}{ continuous variables}
+\item{\emph{predictor}}{ categorical variables}
+\item{\emph{level}}{ levels in the categorical variables}
+\item{\emph{estimate}}{ difference between level target mean and baseline}
+\item{\emph{target_mean}}{ target mean per level}
+\item{\emph{n}}{ rows in predictor level}
+\item{\emph{std.error}}{ standard error of target in predictor level}
+\item{\emph{level_p.value}}{ p.value for t.test of whether target mean differs significantly between level and baseline}
+\item{\emph{level_significance}}{ level p.value represented by stars}
+\item{\emph{predictor_p.value}}{ p.value for significance of entire predictor given by F test}
+\item{\emph{predictor_significance}}{ predictor p.value represented by stars}
+\item{\emph{conclusion}}{ text interpretation of tests}
+}
+}
+\examples{
+
+iris \%>\%
+auto_anova(tidyselect::everything()) -> iris_anova1
+
+iris_anova1 \%>\%
+print(width = Inf)
 }
