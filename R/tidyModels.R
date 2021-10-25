@@ -53,78 +53,77 @@ tidy_cforest <- function(data, formula, seed = 1) {
   })
 }
 
-#' tidy lightgbm
+# tidy lightgbm
+#
+# @param data dataframe
+# @param target target variable
+# @param ... tidyselect predictor variables
+# @param regression_objective_fun objective function string
+# @param verbose verbose integer
+# @param seed seed integer
+#
+# @return lightgbm model
+#
+#tidy_lightgbm <- function(data, target, ..., regression_objective_fun = "regression", verbose = -1, seed = 1 ){
 #'
-#' @param data dataframe
-#' @param target target variable
-#' @param ... tidyselect predictor variables
-#' @param regression_objective_fun objective function string
-#' @param verbose verbose integer
-#' @param seed seed integer
+#  set.seed(seed)
 #'
-#' @return lightgbm model
-#' @export
+#   data %>%
+#    select_otherwise(...,
+#                     otherwise = tidyselect::everything(),
+#                     col = !!target,
+#                     return_type = "df") -> data
 #'
-tidy_lightgbm <- function(data, target, ..., regression_objective_fun = "regression", verbose = -1, seed = 1 ){
-
-  set.seed(seed)
-
-   data %>%
-    select_otherwise(...,
-                     otherwise = tidyselect::everything(),
-                     col = !!target,
-                     return_type = "df") -> data
-
-  data %>%
-    tidyr::drop_na(!!target) -> data
-
-
-
-  data %>%
-    dplyr::select(where(is.character) | where(is.factor)) %>%
-    names() -> char_names
-
-  rlang::as_name(rlang::ensym(target)) -> tg_name
-
-  tg_name %in% char_names -> tg_is_char
-
-    if(tg_is_char){
-
-
-
-      char_names %>% setdiff(tg_name) -> char_names
-
-      data %>%
-        dplyr::pull(!!target) %>%
-        dplyr::n_distinct() -> tg_lvls
-
-  data %>% lightgbm::lgb.convert_with_rules(rules = rlang::list2(!!tg_name := 0:(tg_lvls - 1))) %>% purrr::pluck("data") -> d1
-
-  if(tg_lvls == 2){
-    objective_fun <- "binary"
-    tg_lvls <- 1
-  } else{
-    objective_fun <- "multiclass"}}
-   else{
-    data %>% lightgbm::lgb.convert_with_rules() %>% purrr::pluck("data") -> d1
-    tg_lvls <- 1
-    objective_fun <- regression_objective_fun
-  }
-
-  d1 %>%
-    dplyr::select(-!!target) -> d1_train
-
-  d1 %>%
-    dplyr::pull(!!target) -> dlabel
-
-  Matrix::Matrix(as.matrix(d1_train), sparse = T) -> dmatrix
-
-
-  lightgbm::lgb.Dataset(data = dmatrix, label = dlabel, categorical_feature = char_names) -> lmatrix
-  lightgbm::lgb.train(data = lmatrix, obj = objective_fun , verbose = verbose, num_class = tg_lvls) -> lgbm_model
-
-  lgbm_model
-}
+#  data %>%
+#    tidyr::drop_na(!!target) -> data
+#'
+#'
+#'
+#  data %>%
+#    dplyr::select(where(is.character) | where(is.factor)) %>%
+#    names() -> char_names
+#'
+#  rlang::as_name(rlang::ensym(target)) -> tg_name
+#'
+#  tg_name %in% char_names -> tg_is_char
+#'
+#    if(tg_is_char){
+#'
+#'
+#'
+#      char_names %>% setdiff(tg_name) -> char_names
+#'
+#      data %>%
+#        dplyr::pull(!!target) %>%
+#        dplyr::n_distinct() -> tg_lvls
+#'
+#  data %>% lightgbm::lgb.convert_with_rules(rules = rlang::list2(!!tg_name := 0:(tg_lvls - 1))) %>% purrr::pluck("data") -> d1
+#'
+#  if(tg_lvls == 2){
+#    objective_fun <- "binary"
+#    tg_lvls <- 1
+#  } else{
+#    objective_fun <- "multiclass"}}
+#   else{
+#    data %>% lightgbm::lgb.convert_with_rules() %>% purrr::pluck("data") -> d1
+#    tg_lvls <- 1
+#    objective_fun <- regression_objective_fun
+#  }
+#'
+#  d1 %>%
+#    dplyr::select(-!!target) -> d1_train
+#'
+#  d1 %>%
+#    dplyr::pull(!!target) -> dlabel
+#'
+#  Matrix::Matrix(as.matrix(d1_train), sparse = T) -> dmatrix
+#'
+#'
+#  lightgbm::lgb.Dataset(data = dmatrix, label = dlabel, categorical_feature = char_names) -> lmatrix
+#  lightgbm::lgb.train(data = lmatrix, obj = objective_fun , verbose = verbose, num_class = tg_lvls) -> lgbm_model
+#'
+#  lgbm_model
+#}
 
 #' tidy glm
 #'

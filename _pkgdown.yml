@@ -21,7 +21,6 @@ reference:
   contents:
   - '`tidy_cforest`'
   - '`tidy_glm`'
-  - '`tidy_lightgbm`'
   - '`tidy_xgboost`'
 
 - title: Tidy Formula Construction

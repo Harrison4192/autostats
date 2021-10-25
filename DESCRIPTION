@@ -56,7 +56,6 @@ BugReports: https://github.com/Harrison4192/autostats/issues
 Suggests: 
     knitr,
     rmarkdown,
-    lightgbm,
     markdown,
     moreparty,
     party
