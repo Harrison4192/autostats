@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Formula_rhs to chr vec — f_formula_to_charvec • autostats</title>
+<title>auto correlation — auto_cor • autostats</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,9 @@
 
 
 
-<meta property="og:title" content="Formula_rhs to chr vec — f_formula_to_charvec" />
-<meta property="og:description" content="Accepts a formula and returns the rhs as a character vector." />
+<meta property="og:title" content="auto correlation — auto_cor" />
+<meta property="og:description" content="Finds the correlation between numeric variables in a data frame, chosen using tidyselect.
+Additional parameters for the correlation test can be specified as in cor.test" />
 
 
 
@@ -127,45 +128,68 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Formula_rhs to chr vec</h1>
-    <small class="dont-index">Source: <a href='https://github.com/Harrison4192/autostats/blob/master/R/tidy_formula.R'><code>R/tidy_formula.R</code></a></small>
-    <div class="hidden name"><code>f_formula_to_charvec.Rd</code></div>
+    <h1>auto correlation</h1>
+    <small class="dont-index">Source: <a href='https://github.com/Harrison4192/autostats/blob/master/R/auto_cor.R'><code>R/auto_cor.R</code></a></small>
+    <div class="hidden name"><code>auto_cor.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Accepts a formula and returns the rhs as a character vector.</p>
+    <p>Finds the correlation between numeric variables in a data frame, chosen using tidyselect.
+Additional parameters for the correlation test can be specified as in <code><a href='https://rdrr.io/r/stats/cor.test.html'>cor.test</a></code></p>
     </div>
 
-    <pre class="usage"><span class='fu'>f_formula_to_charvec</span><span class='op'>(</span><span class='va'>f</span>, include_lhs <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>auto_cor</span><span class='op'>(</span>
+  <span class='va'>.data</span>,
+  <span class='va'>...</span>,
+  use <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"pairwise.complete.obs"</span>, <span class='st'>"all.obs"</span>, <span class='st'>"complete.obs"</span>, <span class='st'>"everything"</span>,
+    <span class='st'>"na.or.complete"</span><span class='op'>)</span>,
+  method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"pearson"</span>, <span class='st'>"kendall"</span>, <span class='st'>"spearman"</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>f</th>
-      <td><p>formula</p></td>
+      <th>.data</th>
+      <td><p>data frame</p></td>
     </tr>
     <tr>
-      <th>include_lhs</th>
-      <td><p>FALSE. If TRUE, appends lhs to beginning of vector</p></td>
+      <th>...</th>
+      <td><p>tidyselect cols</p></td>
+    </tr>
+    <tr>
+      <th>use</th>
+      <td><p>method to deal with na. Default is to remove rows with NA</p></td>
+    </tr>
+    <tr>
+      <th>method</th>
+      <td><p>correlation method</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>chr vector</p>
+    <p>data frame of correlations</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='va'>iris</span> <span class='op'>%&gt;%</span>
-<span class='fu'><a href='tidy_formula.html'>tidy_formula</a></span><span class='op'>(</span>target <span class='op'>=</span> <span class='va'>Species</span>, <span class='fu'>tidyselect</span><span class='fu'>::</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>-&gt;</span> <span class='va'>f</span>
-
-<span class='va'>f</span>
-</div><div class='output co'>#&gt; Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width
-#&gt; &lt;environment: 0x7fb7ff1b8e48&gt;</div><div class='input'>
-<span class='va'>f</span> <span class='op'>%&gt;%</span>
-<span class='fu'>f_formula_to_charvec</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width" </div></pre>
+<span class='fu'>auto_cor</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 12 × 4</span>
+#&gt;    x            y               cor  p.value
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> Sepal.Length Sepal.Width  -<span style='color: #BB0000;'>0.118</span> 1.52<span style='color: #949494;'>e</span><span style='color: #BB0000;'>- 1</span>
+#&gt; <span style='color: #BCBCBC;'> 2</span> Sepal.Length Petal.Length  0.872 1.04<span style='color: #949494;'>e</span><span style='color: #BB0000;'>-47</span>
+#&gt; <span style='color: #BCBCBC;'> 3</span> Sepal.Length Petal.Width   0.818 2.33<span style='color: #949494;'>e</span><span style='color: #BB0000;'>-37</span>
+#&gt; <span style='color: #BCBCBC;'> 4</span> Sepal.Width  Sepal.Length -<span style='color: #BB0000;'>0.118</span> 1.52<span style='color: #949494;'>e</span><span style='color: #BB0000;'>- 1</span>
+#&gt; <span style='color: #BCBCBC;'> 5</span> Sepal.Width  Petal.Length -<span style='color: #BB0000;'>0.428</span> 4.51<span style='color: #949494;'>e</span><span style='color: #BB0000;'>- 8</span>
+#&gt; <span style='color: #BCBCBC;'> 6</span> Sepal.Width  Petal.Width  -<span style='color: #BB0000;'>0.366</span> 4.07<span style='color: #949494;'>e</span><span style='color: #BB0000;'>- 6</span>
+#&gt; <span style='color: #BCBCBC;'> 7</span> Petal.Length Sepal.Length  0.872 1.04<span style='color: #949494;'>e</span><span style='color: #BB0000;'>-47</span>
+#&gt; <span style='color: #BCBCBC;'> 8</span> Petal.Length Sepal.Width  -<span style='color: #BB0000;'>0.428</span> 4.51<span style='color: #949494;'>e</span><span style='color: #BB0000;'>- 8</span>
+#&gt; <span style='color: #BCBCBC;'> 9</span> Petal.Length Petal.Width   0.963 4.68<span style='color: #949494;'>e</span><span style='color: #BB0000;'>-86</span>
+#&gt; <span style='color: #BCBCBC;'>10</span> Petal.Width  Sepal.Length  0.818 2.33<span style='color: #949494;'>e</span><span style='color: #BB0000;'>-37</span>
+#&gt; <span style='color: #BCBCBC;'>11</span> Petal.Width  Sepal.Width  -<span style='color: #BB0000;'>0.366</span> 4.07<span style='color: #949494;'>e</span><span style='color: #BB0000;'>- 6</span>
+#&gt; <span style='color: #BCBCBC;'>12</span> Petal.Width  Petal.Length  0.963 4.68<span style='color: #949494;'>e</span><span style='color: #BB0000;'>-86</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
