@@ -16,6 +16,9 @@ reference:
   - '`auto_variable_contributions`'
   - '`auto_boxplot`'
   - '`auto_tune_xgboost`'
+  - '`auto_cor`'
+
+
 
 - title: Tidy wrappers for models
   contents:

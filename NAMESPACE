@@ -3,6 +3,7 @@
 export("%>%")
 export(auto_anova)
 export(auto_boxplot)
+export(auto_cor)
 export(auto_model_accuracy)
 export(auto_tune_xgboost)
 export(auto_variable_contributions)

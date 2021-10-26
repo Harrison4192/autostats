@@ -27,7 +27,6 @@ auto_boxplot <- function(.data,
                          color_dots = "black",
                          color_box = "red"){
 
-  set.seed(1)
 
   .data %>%
     ggplot2::ggplot(ggplot2::aes(x = {{categorical_variable}},
