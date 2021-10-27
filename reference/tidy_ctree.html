@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>tidy glm — tidy_glm • autostats</title>
+<title>tidy ctree — tidy_ctree • autostats</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="tidy glm — tidy_glm" />
-<meta property="og:description" content="Runs either a linear regression, logistic regression, or multinomial classification. The model is
-automatically determined based off the nature of the target variable." />
+<meta property="og:title" content="tidy ctree — tidy_ctree" />
+<meta property="og:description" content="tidy conditional inference tree" />
 
 
 
@@ -128,25 +127,24 @@ automatically determined based off the nature of the target variable." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>tidy glm</h1>
-    <small class="dont-index">Source: <a href='https://github.com/Harrison4192/autostats/blob/master/R/tidyModels.R'><code>R/tidyModels.R</code></a></small>
-    <div class="hidden name"><code>tidy_glm.Rd</code></div>
+    <h1>tidy ctree</h1>
+    <small class="dont-index">Source: <a href='https://github.com/Harrison4192/autostats/blob/master/R/tidy_ctree.R'><code>R/tidy_ctree.R</code></a></small>
+    <div class="hidden name"><code>tidy_ctree.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Runs either a linear regression, logistic regression, or multinomial classification. The model is
-automatically determined based off the nature of the target variable.</p>
+    <p>tidy conditional inference tree</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tidy_glm</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>formula</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>tidy_ctree</span><span class='op'>(</span><span class='va'>.data</span>, <span class='va'>formula</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>plot_coefs_glm</span><span class='op'>(</span><span class='va'>glm</span>, font <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>""</span>, <span class='st'>"HiraKakuProN-W3"</span><span class='op'>)</span><span class='op'>)</span></pre>
+<span class='fu'>plot_ctree</span><span class='op'>(</span><span class='va'>ctree_obj</span>, plot_type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sample"</span>, <span class='st'>"box"</span>, <span class='st'>"bar"</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
+      <th>.data</th>
       <td><p>dataframe</p></td>
     </tr>
     <tr>
@@ -154,69 +152,47 @@ automatically determined based off the nature of the target variable.</p>
       <td><p>formula</p></td>
     </tr>
     <tr>
-      <th>glm</th>
-      <td><p>glm</p></td>
+      <th>...</th>
+      <td><p>optional parameters to <code><a href='https://rdrr.io/pkg/party/man/ctree_control.html'>ctree_control</a></code></p></td>
     </tr>
     <tr>
-      <th>font</th>
-      <td><p>font</p></td>
+      <th>ctree_obj</th>
+      <td><p>output of tidy_ctree</p></td>
+    </tr>
+    <tr>
+      <th>plot_type</th>
+      <td><p>type of plot</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>glm model</p>
-<p>plot</p>
+    <p>a ctree object</p>
+<p>decision tree plot</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>recommended parameters to control;</p>
+<ul>
+<li><p><code>minbucket</code> minimum amount of samples in terminal leaves, default is 7</p></li>
+<li><p><code>mincriterion</code>(1 - alpha)   value between 0 -1, default is .95. lowering this value creates more splits, but less significant</p></li>
+</ul>
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='co'># linear regression</span>
 <span class='va'>iris</span> <span class='op'>%&gt;%</span>
-<span class='fu'>tidy_glm</span><span class='op'>(</span>
-<span class='fu'><a href='tidy_formula.html'>tidy_formula</a></span><span class='op'>(</span><span class='va'>.</span>, target <span class='op'>=</span> <span class='va'>Petal.Width</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>-&gt;</span> <span class='va'>glm1</span>
+<span class='fu'><a href='tidy_formula.html'>tidy_formula</a></span><span class='op'>(</span><span class='va'>.</span>, <span class='va'>Sepal.Length</span><span class='op'>)</span> <span class='op'>-&gt;</span> <span class='va'>sepal_form</span>
 
-<span class='va'>glm1</span>
-</div><div class='output co'>#&gt; 
-#&gt; Call:  stats::glm(formula = formula, family = glm_family, data = data)
-#&gt; 
-#&gt; Coefficients:
-#&gt;       (Intercept)       Sepal.Length        Sepal.Width       Petal.Length  
-#&gt;          -0.47314           -0.09293            0.24220            0.24220  
-#&gt; Speciesversicolor   Speciesvirginica  
-#&gt;           0.64811            1.04637  
-#&gt; 
-#&gt; Degrees of Freedom: 149 Total (i.e. Null);  144 Residual
-#&gt; Null Deviance:	    86.57 
-#&gt; Residual Deviance: 3.998 	AIC: -104.1</div><div class='input'>
-<span class='va'>glm1</span> <span class='op'>%&gt;%</span>
-<span class='va'>plot_coefs_glm</span>
-</div><div class='img'><img src='tidy_glm-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># multinomial classification</span>
 <span class='va'>iris</span> <span class='op'>%&gt;%</span>
-<span class='fu'>tidy_glm</span><span class='op'>(</span>
-<span class='fu'><a href='tidy_formula.html'>tidy_formula</a></span><span class='op'>(</span><span class='va'>.</span>, target <span class='op'>=</span> <span class='va'>Species</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>-&gt;</span> <span class='va'>glm2</span>
-
-
-<span class='va'>glm2</span> <span class='op'>%&gt;%</span>
-<span class='va'>plot_coefs_glm</span>
-</div><div class='img'><img src='tidy_glm-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>#  logistic regression</span>
+<span class='fu'>tidy_ctree</span><span class='op'>(</span><span class='va'>sepal_form</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+<span class='fu'>plot_ctree</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='tidy_ctree-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='va'>iris</span> <span class='op'>%&gt;%</span>
-<span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Species</span> <span class='op'>!=</span> <span class='st'>"versicolor"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-<span class='fu'>tidy_glm</span><span class='op'>(</span>
-<span class='fu'><a href='tidy_formula.html'>tidy_formula</a></span><span class='op'>(</span><span class='va'>.</span>, target <span class='op'>=</span> <span class='va'>Species</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>-&gt;</span> <span class='va'>glm3</span>
+<span class='fu'>tidy_ctree</span><span class='op'>(</span><span class='va'>sepal_form</span>, minbucket <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+<span class='va'>plot_ctree</span>
+</div><div class='img'><img src='tidy_ctree-2.png' alt='' width='700' height='433' /></div><div class='input'>
 
-<span class='va'>glm3</span>
-</div><div class='output co'>#&gt; 
-#&gt; Call:  stats::glm(formula = formula, family = glm_family, data = data)
-#&gt; 
-#&gt; Coefficients:
-#&gt;  (Intercept)  Sepal.Length   Sepal.Width  Petal.Length   Petal.Width  
-#&gt;      -15.168        -3.961        -4.172        11.975         9.736  
-#&gt; 
-#&gt; Degrees of Freedom: 99 Total (i.e. Null);  95 Residual
-#&gt; Null Deviance:	    138.6 
-#&gt; Residual Deviance: 8.583e-10 	AIC: 10</div></pre>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

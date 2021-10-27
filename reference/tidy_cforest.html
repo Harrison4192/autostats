@@ -136,7 +136,9 @@
     <p>Runs a conditional inference forest.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tidy_cforest</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>formula</span>, seed <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>tidy_cforest</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>formula</span>, seed <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+
+<span class='fu'>plot_varimp_cforest</span><span class='op'>(</span><span class='va'>cfar</span>, font <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>""</span>, <span class='st'>"HiraKakuProN-W3"</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -153,12 +155,41 @@
       <th>seed</th>
       <td><p>seed integer</p></td>
     </tr>
+    <tr>
+      <th>cfar</th>
+      <td><p>cforest model</p></td>
+    </tr>
+    <tr>
+      <th>font</th>
+      <td><p>font</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a cforest model</p>
+<p>ggplot</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='va'>iris</span> <span class='op'>%&gt;%</span>
+<span class='fu'>tidy_cforest</span><span class='op'>(</span>
+  <span class='fu'><a href='tidy_formula.html'>tidy_formula</a></span><span class='op'>(</span><span class='va'>.</span>, <span class='va'>Petal.Width</span><span class='op'>)</span>
+<span class='op'>)</span> <span class='op'>-&gt;</span> <span class='va'>iris_cfor</span>
+
+<span class='va'>iris_cfor</span>
+</div><div class='output co'>#&gt; 
+#&gt; 	 Random Forest using Conditional Inference Trees
+#&gt; 
+#&gt; Number of trees:  500 
+#&gt; 
+#&gt; Response:  Petal.Width 
+#&gt; Inputs:  Sepal.Length, Sepal.Width, Petal.Length, Species 
+#&gt; Number of observations:  150 
+#&gt; </div><div class='input'>
+<span class='va'>iris_cfor</span> <span class='op'>%&gt;%</span>
+<span class='va'>plot_varimp_cforest</span>
+</div><div class='img'><img src='tidy_cforest-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
