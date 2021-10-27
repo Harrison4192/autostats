@@ -78,7 +78,7 @@ auto_variable_contributions <- function(data, formula, scale = TRUE, font = c(""
         tidy_cforest(formula) -> tcf
 
       tcf %>%
-        plot_varimp() +
+        plot_varimp_cforest() +
         ggeasy::easy_remove_legend() +
         ggplot2::xlab("Importance from trees")  +
         ggplot2::ggtitle(stringr::str_c("Variable contributions in explaining ", trg)) -> pcf

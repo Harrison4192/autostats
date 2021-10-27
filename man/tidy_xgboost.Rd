@@ -2,19 +2,40 @@
 % Please edit documentation in R/tidy_xgboost.R
 \name{tidy_xgboost}
 \alias{tidy_xgboost}
+\alias{plot_varimp_xgboost}
 \title{tidy xgboost}
 \usage{
 tidy_xgboost(.data, formula)
+
+plot_varimp_xgboost(xgb, font = c("", "HiraKakuProN-W3"), ...)
 }
 \arguments{
 \item{.data}{dataframe}
 
 \item{formula}{formula}
+
+\item{xgb}{xgb.Booster model}
+
+\item{font}{font}
+
+\item{...}{additional arguments for \code{\link[xgboost]{xgb.ggplot.importance}}}
 }
 \value{
 xgb.Booster model
+
+plot
 }
 \description{
 Accepts a formula to run an xgboost model. Automatically determines whether the formula is
 for classification or regression. Returns the xgboost model.
+}
+\examples{
+
+iris \%>\%
+tidy_xgboost(
+  tidy_formula(., target= Petal.Length, tidyselect::everything())
+)  -> xg1
+
+xg1 \%>\%
+  plot_varimp_xgboost()
 }

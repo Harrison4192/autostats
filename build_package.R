@@ -73,7 +73,7 @@ usethis::use_package("lightgbm")
 
 
 
-usethis::use_r("auto_cor")
+usethis::use_r("tidy_rpart")
 usethis::use_package("badger", type = "Suggests")
 
 

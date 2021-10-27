@@ -32,7 +32,7 @@ cor_list <- list()
 
     for(j in setdiff(dnames, i)){
 
-      cor.test(.data[[i]], .data[[j]], use = na.method, method = cor.method) -> cor1
+      stats::cor.test(.data[[i]], .data[[j]], use = na.method, method = cor.method) -> cor1
 
       cor_list <- cor_list %>%
         rlist::list.append(

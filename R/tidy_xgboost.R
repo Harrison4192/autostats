@@ -8,6 +8,16 @@
 #'
 #' @return xgb.Booster model
 #' @export
+#'
+#' @examples
+#'
+#' iris %>%
+#' tidy_xgboost(
+#'   tidy_formula(., target= Petal.Length, tidyselect::everything())
+#' )  -> xg1
+#'
+#' xg1 %>%
+#'   plot_varimp_xgboost()
 tidy_xgboost <- function(.data, formula){
 
   formula %>%
@@ -57,4 +67,31 @@ tidy_xgboost <- function(.data, formula){
     workflows::pull_workflow_fit() %>%
     purrr::pluck("fit")
 
+}
+
+#' Plot varimp xgboost
+#'
+#' @rdname tidy_xgboost
+#' @param xgb xgb.Booster model
+#' @param font font
+#' @param ... additional arguments for \code{\link[xgboost]{xgb.ggplot.importance}}
+#'
+#' @return plot
+#' @export
+#'
+plot_varimp_xgboost <- function(xgb, font = c("", "HiraKakuProN-W3"), ...){
+
+  font <- match.arg(font)
+
+
+  xgb %>%
+  xgboost::xgb.importance(model = . ) %>%
+  xgboost::xgb.ggplot.importance(...) +
+    ggplot2::theme_minimal(base_family= font) +
+    ggplot2::theme(panel.border = ggplot2::element_blank(),
+                   panel.grid.major = ggplot2::element_blank(),
+                   panel.grid.minor = ggplot2::element_blank(),
+                   axis.line = ggplot2::element_line(colour = "black"))+
+    ggeasy::easy_remove_legend() +
+    ggplot2::ylab("Importance from xgboost")
 }

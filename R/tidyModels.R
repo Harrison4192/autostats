@@ -1,24 +1,4 @@
-#' plot cforest variable importance
-#'
-#' @param cfar cforest model
-#' @keywords internal
-#'
-#' @return ggplot
-#' @export
-plot_varimp <- function(cfar) {
 
-
-  cfar %>%
-    party::varimp() %>%
-    moreparty::ggVarImp() +
-    ggplot2::geom_bar(stat = "identity", fill = "blue") +
-    ggplot2::theme_minimal(base_family="HiraKakuProN-W3")+
-    ggplot2::theme(panel.border = ggplot2::element_blank(),
-          panel.grid.major = ggplot2::element_blank(),
-          panel.grid.minor = ggplot2::element_blank(),
-          axis.line = ggplot2::element_line(colour = "black"))
-
-}
 
 #' tidy conditional inference forest
 #'
@@ -30,6 +10,18 @@ plot_varimp <- function(cfar) {
 #'
 #' @return a cforest model
 #' @export
+#'
+#' @examples
+#'
+#' iris %>%
+#' tidy_cforest(
+#'   tidy_formula(., Petal.Width)
+#' ) -> iris_cfor
+#'
+#' iris_cfor
+#'
+#' iris_cfor %>%
+#' plot_varimp_cforest
 
 tidy_cforest <- function(data, formula, seed = 1) {
   set.seed(seed)
@@ -51,6 +43,30 @@ tidy_cforest <- function(data, formula, seed = 1) {
     party::cforest(formula = formula,
                    data = data)
   })
+}
+
+#' plot cforest variable importance
+#'
+#' @rdname tidy_cforest
+#' @param cfar cforest model
+#' @param font font
+#'
+#' @return ggplot
+#' @export
+plot_varimp_cforest <- function(cfar, font = c("", "HiraKakuProN-W3")) {
+
+  font = match.arg(font)
+
+  cfar %>%
+    party::varimp() %>%
+    moreparty::ggVarImp() +
+    ggplot2::geom_bar(stat = "identity", fill = "blue") +
+    ggplot2::theme_minimal(base_family=font)+
+    ggplot2::theme(panel.border = ggplot2::element_blank(),
+                   panel.grid.major = ggplot2::element_blank(),
+                   panel.grid.minor = ggplot2::element_blank(),
+                   axis.line = ggplot2::element_line(colour = "black"))
+
 }
 
 # tidy lightgbm
@@ -141,18 +157,29 @@ tidy_cforest <- function(data, formula, seed = 1) {
 #' # linear regression
 #' iris %>%
 #' tidy_glm(
-#' tidy_formula(., target = Petal.Width))
+#' tidy_formula(., target = Petal.Width)) -> glm1
+#'
+#' glm1
+#'
+#' glm1 %>%
+#' plot_coefs_glm
 #'
 #' # multinomial classification
 #' iris %>%
 #' tidy_glm(
-#' tidy_formula(., target = Species))
+#' tidy_formula(., target = Species)) -> glm2
+#'
+#'
+#' glm2 %>%
+#' plot_coefs_glm
 #'
 #' #  logistic regression
 #' iris %>%
 #' dplyr::filter(Species != "versicolor") %>%
 #' tidy_glm(
-#' tidy_formula(., target = Species))
+#' tidy_formula(., target = Species)) -> glm3
+#'
+#' glm3
 tidy_glm <- function(data, formula) {
 
   formula %>%
@@ -214,4 +241,25 @@ tidy_glm <- function(data, formula) {
   model
 }
 
+#' plot glm coefs
+#'
+#' @rdname tidy_glm
+#' @param glm glm
+#' @param font font
+#'
+#' @return plot
+#' @export
+plot_coefs_glm <- function(glm, font = c("", "HiraKakuProN-W3")){
 
+  font = match.arg(font)
+
+  glm %>%
+  jtools::plot_coefs(., scale = scale) +
+    ggplot2::theme_minimal(base_family= font) +
+    ggplot2::theme(panel.border = ggplot2::element_blank(),
+                   panel.grid.major = ggplot2::element_blank(),
+                   panel.grid.minor = ggplot2::element_blank(),
+                   axis.line = ggplot2::element_line(colour = "black"))+
+    ggplot2::ylab(label = "") +
+    ggplot2::xlab(stringr::str_c("Coefficients from ",  glm$family$family, " model"))
+}

@@ -20,9 +20,10 @@ reference:
 
 
 
-- title: Tidy wrappers for models
+- title: Tidy models and output visualization
   contents:
   - '`tidy_cforest`'
+  - '`tidy_ctree`'
   - '`tidy_glm`'
   - '`tidy_xgboost`'
 
