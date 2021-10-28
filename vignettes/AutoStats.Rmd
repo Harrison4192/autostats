@@ -101,4 +101,3 @@ auto anova automatically regresses each continuous variable supplied against eac
 iris %>% 
   auto_anova(Species, matches("Petal"), baseline = "first_level")
 ```
-
