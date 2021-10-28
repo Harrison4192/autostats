@@ -1,2 +1,15 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^build_package\.R$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^README\.Rmd$
+^\.github$
+^/Users/Harrison/Desktop/packages/autostats/_pkgdown\.yml$
+^LICENSE\.md$
+^R\newfunctions.R$
 ^doc$
 ^Meta$
+^cran-comments\.md$
+^CRAN-RELEASE$
