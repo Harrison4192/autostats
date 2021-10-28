@@ -1,0 +1,103 @@
+---
+title: "autostats"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{autostats}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(broom)
+library(broom.mixed)
+```
+
+```{r setup}
+library(autostats)
+
+```
+
+## plot variable contributions
+
+### multiclass target
+
+Species is a 3-level factor so it will be automatically modelled with a multiclass neural network and a light gbm with multiclass objective function. 
+
+First set define the formula to use for modeling.
+
+```{r}
+iris %>% 
+  tidy_formula(target = Species) -> species_formula
+
+species_formula
+```
+
+
+```{r cache=TRUE}
+iris %>% 
+  auto_variable_contributions(species_formula)
+```
+
+```{r cache=TRUE}
+iris %>% 
+  auto_model_accuracy(species_formula)
+```
+
+### binary target 
+
+Linear models uses weighted logistic regression for modeling the coefficients
+
+
+```{r cache=TRUE}
+iris %>% 
+  filter(Species != "setosa") %>% 
+  auto_variable_contributions(species_formula)
+```
+
+For the variable contributions the linear model uses penalized logistic regression provided by glmnet. 
+
+```{r  cache=TRUE}
+iris %>% 
+  filter(Species != "setosa") -> iris_binary
+
+iris_binary %>% 
+  auto_model_accuracy(species_formula)
+```
+
+### continuous target
+
+Models are automatically adapted for a continuous target. 
+
+Define the new formula
+
+```{r}
+iris %>% 
+  tidy_formula(target = Petal.Length) -> petal_formula
+
+petal_formula
+```
+
+
+```{r cache=F}
+iris %>% 
+  auto_variable_contributions(petal_formula)
+```
+
+
+```{r  cache=TRUE}
+iris %>% 
+  auto_model_accuracy(petal_formula)
+```
+
+## auto anova
+
+auto anova automatically regresses each continuous variable supplied against each categorical variable supplied. Lm is called separately for each continuous/ categorical variable pair, but the results are reported in one dataframe. Whether the outcome differs amongst categorical levels is determined by the p.value. The interpretation is affected by the choice of baseline for comparison. Traditionally the first level of the factor is used, however option to use the mean of the continuous variable as the baseline intercept is a helpful comparison. 
+
+```{r}
+iris %>% 
+  auto_anova(Species, matches("Petal"), baseline = "first_level")
+```
