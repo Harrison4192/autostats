@@ -8,7 +8,7 @@ p_load(rstudioapi, devtools, roxygen2, usethis, pkgdown,
        ymlthis, magrittr, fs, covr, gitcreds, credentials,
        badger, hexSticker, gh, tidyverse)
 
-use_vignette("autostats")
+usethis::use_vignette("autostats")
 # add this file to .Rbuildignore ------------------------------------------
 
 
