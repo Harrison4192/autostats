@@ -1,4 +1,4 @@
-^doc$
-^Meta$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^doc$
+^Meta$

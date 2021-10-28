@@ -18,10 +18,6 @@ species_formula
 
 ## ----cache=TRUE---------------------------------------------------------------
 iris %>% 
-  auto_variable_contributions(species_formula)
-
-## ----cache=TRUE---------------------------------------------------------------
-iris %>% 
   auto_model_accuracy(species_formula)
 
 ## ----cache=TRUE---------------------------------------------------------------
