@@ -36,8 +36,6 @@ reference:
   - '`f_charvec_to_formula`'
   - '`f_formula_to_charvec`'
   - '`f_modify_formula`'
-
-
 articles:
 - title: All vignettes
   desc: null
