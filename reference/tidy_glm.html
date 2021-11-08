@@ -172,54 +172,58 @@ automatically determined based off the nature of the target variable.</p>
 <p>plot</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'># linear regression</span>
-<span class='va'>iris</span> <span class='op'>%&gt;%</span>
-<span class='fu'>tidy_glm</span><span class='op'>(</span>
-<span class='fu'><a href='tidy_formula.html'>tidy_formula</a></span><span class='op'>(</span><span class='va'>.</span>, target <span class='op'>=</span> <span class='va'>Petal.Width</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>-&gt;</span> <span class='va'>glm1</span>
-
-<span class='va'>glm1</span>
-</div><div class='output co'>#&gt; 
-#&gt; Call:  stats::glm(formula = formula, family = glm_family, data = data)
-#&gt; 
-#&gt; Coefficients:
-#&gt;       (Intercept)       Sepal.Length        Sepal.Width       Petal.Length  
-#&gt;          -0.47314           -0.09293            0.24220            0.24220  
-#&gt; Speciesversicolor   Speciesvirginica  
-#&gt;           0.64811            1.04637  
-#&gt; 
-#&gt; Degrees of Freedom: 149 Total (i.e. Null);  144 Residual
-#&gt; Null Deviance:	    86.57 
-#&gt; Residual Deviance: 3.998 	AIC: -104.1</div><div class='input'>
-<span class='va'>glm1</span> <span class='op'>%&gt;%</span>
-<span class='va'>plot_coefs_glm</span>
-</div><div class='img'><img src='tidy_glm-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># multinomial classification</span>
-<span class='va'>iris</span> <span class='op'>%&gt;%</span>
-<span class='fu'>tidy_glm</span><span class='op'>(</span>
-<span class='fu'><a href='tidy_formula.html'>tidy_formula</a></span><span class='op'>(</span><span class='va'>.</span>, target <span class='op'>=</span> <span class='va'>Species</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>-&gt;</span> <span class='va'>glm2</span>
-
-
-<span class='va'>glm2</span> <span class='op'>%&gt;%</span>
-<span class='va'>plot_coefs_glm</span>
-</div><div class='img'><img src='tidy_glm-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>#  logistic regression</span>
-<span class='va'>iris</span> <span class='op'>%&gt;%</span>
-<span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Species</span> <span class='op'>!=</span> <span class='st'>"versicolor"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-<span class='fu'>tidy_glm</span><span class='op'>(</span>
-<span class='fu'><a href='tidy_formula.html'>tidy_formula</a></span><span class='op'>(</span><span class='va'>.</span>, target <span class='op'>=</span> <span class='va'>Species</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>-&gt;</span> <span class='va'>glm3</span>
-
-<span class='va'>glm3</span>
-</div><div class='output co'>#&gt; 
-#&gt; Call:  stats::glm(formula = formula, family = glm_family, data = data)
-#&gt; 
-#&gt; Coefficients:
-#&gt;  (Intercept)  Sepal.Length   Sepal.Width  Petal.Length   Petal.Width  
-#&gt;      -15.168        -3.961        -4.172        11.975         9.736  
-#&gt; 
-#&gt; Degrees of Freedom: 99 Total (i.e. Null);  95 Residual
-#&gt; Null Deviance:	    138.6 
-#&gt; Residual Deviance: 8.583e-10 	AIC: 10</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'># linear regression</span></span>
+<span class='r-in'><span class='va'>iris</span> <span class='op'><a href='%>%.html'>%&gt;%</a></span></span>
+<span class='r-in'><span class='fu'>tidy_glm</span><span class='op'>(</span></span>
+<span class='r-in'><span class='fu'><a href='tidy_formula.html'>tidy_formula</a></span><span class='op'>(</span><span class='va'>.</span>, target <span class='op'>=</span> <span class='va'>Petal.Width</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>-&gt;</span> <span class='va'>glm1</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>glm1</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Call:  stats::glm(formula = formula, family = glm_family, data = data)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Coefficients:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       (Intercept)       Sepal.Length        Sepal.Width       Petal.Length  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          -0.47314           -0.09293            0.24220            0.24220  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Speciesversicolor   Speciesvirginica  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           0.64811            1.04637  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Degrees of Freedom: 149 Total (i.e. Null);  144 Residual</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Null Deviance:	    86.57 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Residual Deviance: 3.998 	AIC: -104.1</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>glm1</span> <span class='op'><a href='%>%.html'>%&gt;%</a></span></span>
+<span class='r-in'><span class='va'>plot_coefs_glm</span></span>
+<span class='r-plt img'><img src='tidy_glm-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># multinomial classification</span></span>
+<span class='r-in'><span class='va'>iris</span> <span class='op'><a href='%>%.html'>%&gt;%</a></span></span>
+<span class='r-in'><span class='fu'>tidy_glm</span><span class='op'>(</span></span>
+<span class='r-in'><span class='fu'><a href='tidy_formula.html'>tidy_formula</a></span><span class='op'>(</span><span class='va'>.</span>, target <span class='op'>=</span> <span class='va'>Species</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>-&gt;</span> <span class='va'>glm2</span></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>glm2</span> <span class='op'><a href='%>%.html'>%&gt;%</a></span></span>
+<span class='r-in'><span class='va'>plot_coefs_glm</span></span>
+<span class='r-plt img'><img src='tidy_glm-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>#  logistic regression</span></span>
+<span class='r-in'><span class='va'>iris</span> <span class='op'><a href='%>%.html'>%&gt;%</a></span></span>
+<span class='r-in'><span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Species</span> <span class='op'>!=</span> <span class='st'>"versicolor"</span><span class='op'>)</span> <span class='op'><a href='%>%.html'>%&gt;%</a></span></span>
+<span class='r-in'><span class='fu'>tidy_glm</span><span class='op'>(</span></span>
+<span class='r-in'><span class='fu'><a href='tidy_formula.html'>tidy_formula</a></span><span class='op'>(</span><span class='va'>.</span>, target <span class='op'>=</span> <span class='va'>Species</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>-&gt;</span> <span class='va'>glm3</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>glm3</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Call:  stats::glm(formula = formula, family = glm_family, data = data)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Coefficients:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  (Intercept)  Sepal.Length   Sepal.Width  Petal.Length   Petal.Width  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      -15.168        -3.961        -4.172        11.975         9.736  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Degrees of Freedom: 99 Total (i.e. Null);  95 Residual</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Null Deviance:	    138.6 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Residual Deviance: 8.583e-10 	AIC: 10</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

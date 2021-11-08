@@ -159,14 +159,15 @@
     <p>formula</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='va'>lhs</span> <span class='op'>&lt;-</span> <span class='st'>"Species"</span>
-<span class='va'>rhs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Petal.Width"</span>, <span class='st'>"Custom_Var"</span><span class='op'>)</span>
-
-<span class='fu'>f_charvec_to_formula</span><span class='op'>(</span><span class='va'>lhs</span>, <span class='va'>rhs</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Species ~ Petal.Width + Custom_Var
-#&gt; &lt;environment: 0x7fa1785d3858&gt;</div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='va'>lhs</span> <span class='op'>&lt;-</span> <span class='st'>"Species"</span></span>
+<span class='r-in'><span class='va'>rhs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Petal.Width"</span>, <span class='st'>"Custom_Var"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>f_charvec_to_formula</span><span class='op'>(</span><span class='va'>lhs</span>, <span class='va'>rhs</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Species ~ Petal.Width + Custom_Var</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: 0x7fc722e05bd8&gt;</span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
