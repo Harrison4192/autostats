@@ -23,11 +23,11 @@ Imports:
     broom,
     broom.mixed,
     magrittr,
-    gtools,
     Matrix,
     ggeasy,
     ggplot2,
     jtools,
+    gtools,
     ggthemes,
     patchwork,
     tidyr,
@@ -50,8 +50,8 @@ Imports:
     readr,
     lubridate,
     party
-RoxygenNote: 7.1.1
-URL: https://github.com/Harrison4192/autostats
+RoxygenNote: 7.1.2
+URL: https://harrison4192.github.io/autostats/, https://github.com/Harrison4192/autostats
 BugReports: https://github.com/Harrison4192/autostats/issues
 Suggests: 
     knitr,

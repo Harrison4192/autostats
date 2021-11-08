@@ -27,6 +27,15 @@ auto_boxplot <- function(.data,
                          color_dots = "black",
                          color_box = "red"){
 
+    rlang::enexpr(categorical_facets) -> categorical_facets
+
+  if(!is.null(categorical_facets)){
+   .data %>%
+      framecleaner::set_fct({{categorical_facets}}) -> .data
+  }
+
+  .data %>%
+    framecleaner::set_fct({{categorical_variable}}) -> .data
 
   .data %>%
     ggplot2::ggplot(ggplot2::aes(x = {{categorical_variable}},
@@ -36,12 +45,11 @@ auto_boxplot <- function(.data,
     ggthemes::theme_clean() -> p1
 
 
-    rlang::enexpr(categorical_facets) -> categorical_facets
 
 
   if(!is.null(categorical_facets)){
     p1 +
-      ggplot2::facet_wrap(rlang::as_name(categorical_facets))-> p1
+      ggplot2::facet_wrap(rlang::as_name(rlang::ensym(categorical_facets)))-> p1
   }
 
   p1
