@@ -44,12 +44,11 @@ tidy_xgboost <- function(.data, formula){
 
   } else{
     mode_set <- "classification"
-    eval_metric <- 'mlogloss'
 
 
     xgboost_spec0 %>%
       parsnip::set_mode(mode_set) %>%
-      parsnip::set_engine("xgboost", eval_metric = eval_metric) -> xgboost_spec
+      parsnip::set_engine("xgboost") -> xgboost_spec
 
   }
 
