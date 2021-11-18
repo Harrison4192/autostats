@@ -21,16 +21,22 @@ reference:
 
 
 
-- title: Tidy models and output visualization
+- title: Tidy models
   contents:
   - '`tidy_cforest`'
   - '`tidy_ctree`'
   - '`tidy_glm`'
   - '`tidy_xgboost`'
+  - '`tidy_agtboost`'
 
-- title: Tidy Formula Construction
+
+- title: Tidy Model helpers
   contents:
   - '`tidy_formula`'
+  - '`tidy_predict`'
+  - '`tidy_shap`'
+  - '`visualize_model`'
+
 
 - title: Manipulate Formulas
   contents:
@@ -39,8 +45,9 @@ reference:
   - '`f_modify_formula`'
 articles:
 - title: All vignettes
-  desc: null
-  contents: '`autostats`'
+  contents:
+  - '`autostats`'
+  - '`tidyModels`'
 navbar:
   structure:
     left:
@@ -69,4 +76,8 @@ navbar:
     github:
       icon: fab fa-github fa-lg
       href: https://github.com/Harrison4192/autostats
-
+    articles:
+      text: Articles
+      menu:
+      - text: tidyModels
+        href: articles/tidyModels.html

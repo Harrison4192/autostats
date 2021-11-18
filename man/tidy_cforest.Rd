@@ -2,12 +2,9 @@
 % Please edit documentation in R/tidyModels.R
 \name{tidy_cforest}
 \alias{tidy_cforest}
-\alias{plot_varimp_cforest}
 \title{tidy conditional inference forest}
 \usage{
 tidy_cforest(data, formula, seed = 1)
-
-plot_varimp_cforest(cfar, font = c("", "HiraKakuProN-W3"))
 }
 \arguments{
 \item{data}{dataframe}
@@ -15,15 +12,9 @@ plot_varimp_cforest(cfar, font = c("", "HiraKakuProN-W3"))
 \item{formula}{formula}
 
 \item{seed}{seed integer}
-
-\item{cfar}{cforest model}
-
-\item{font}{font}
 }
 \value{
 a cforest model
-
-ggplot
 }
 \description{
 Runs a conditional inference forest.
@@ -38,5 +29,5 @@ tidy_cforest(
 iris_cfor
 
 iris_cfor \%>\%
-plot_varimp_cforest
+visualize_model()
 }

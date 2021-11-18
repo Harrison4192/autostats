@@ -19,6 +19,11 @@
 #'
 #' iris %>%
 #' auto_cor()
+#'
+#' # don't use sparse if you're interested in only one target variable
+#' iris %>%
+#' auto_cor(sparse = FALSE) %>%
+#' dplyr::filter(x = Petal.Length)
 auto_cor <- function(.data, ...,
                      use = c("pairwise.complete.obs", "all.obs", "complete.obs",
                                          "everything", "na.or.complete"),
@@ -41,9 +46,18 @@ auto_cor <- function(.data, ...,
   .data %>% names -> dnames0
 
   if(include_nominals){
+
+    .data %>%
+      framecleaner::select_otherwise(..., otherwise = tidyselect::everything(), return_type = "df") -> .data
+
     .data %>%
       framecleaner::create_dummies(max_levels = max_levels,
                                    append_col_name = TRUE) -> .data
+  } else {
+
+
+    .data %>%
+      framecleaner::select_otherwise(..., otherwise = where(is.numeric), return_type = "df") -> .data
   }
 
 names(.data) -> dnames

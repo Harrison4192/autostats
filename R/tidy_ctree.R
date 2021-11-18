@@ -30,11 +30,11 @@
 #'
 #' iris %>%
 #' tidy_ctree(sepal_form) %>%
-#' plot_ctree()
+#' visualize_model()
 #'
 #' iris %>%
 #' tidy_ctree(sepal_form, minbucket = 30) %>%
-#' plot_ctree
+#' visualize_model(plot_type = "box")
 #'
 #'
 tidy_ctree <- function(.data, formula, ...){
@@ -46,12 +46,10 @@ party::ctree(formula = formula,
 
 #' plot ctree
 #'
-#' @rdname tidy_ctree
 #' @param ctree_obj output of tidy_ctree
 #' @param plot_type type of plot
 #'
 #' @return decision tree plot
-#' @export
 plot_ctree <- function(ctree_obj, plot_type = c("sample", "box", "bar")){
 
 plot_type <- match.arg(plot_type)

@@ -28,6 +28,8 @@
 #'
 #' @param data a data frame
 #' @param ... tidyselect specification or cols
+#' @param sparse default FALSE; if true returns a truncated output with only significant results
+#' @param pval_thresh control significance level for sparse output filtering
 #' @param baseline choose from "mean", "median", "first_level", "user_supplied". what is the baseline to compare each category to? can use the mean and median of the target variable as a global baseline
 #' @param user_supplied_baseline if intercept is "user_supplied", can enter a numeric value
 #'
@@ -42,7 +44,7 @@
 #'
 #' iris_anova1 %>%
 #' print(width = Inf)
-auto_anova <- function(data, ... , baseline = c("mean", "median", "first_level", "user_supplied"), user_supplied_baseline = NULL){
+auto_anova <- function(data, ... , baseline = c("mean", "median", "first_level", "user_supplied"), user_supplied_baseline = NULL, sparse = FALSE, pval_thresh = .1){
 
   everything <- p.value <- term <- target <- predictor <- predictor_p.value <- predictor_significance <- NULL
   std.error <- statistic <- level_p.value <- n <- level <- NULL
@@ -201,6 +203,15 @@ suppressMessages({
     dplyr::mutate(level = ifelse(level == "(Intercept)", stringr::str_c(level, intercept_name, sep = "_"), level)) %>%
     dplyr::select(-intercept, -intercept_name, -star_meaning, -anova_meaning) -> ta3
 })
+
+if(sparse){
+
+  ta3 %>%
+    dplyr::select(-predictor_p.value, -predictor_significance, -conclusion, -std.error) %>%
+    dplyr::filter(level_p.value <= pval_thresh) %>%
+    dplyr::filter(stringr::str_detect(level, "(Intercept)", negate = T)) -> ta3
+
+}
   ta3
 }
 

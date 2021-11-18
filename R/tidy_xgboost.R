@@ -5,6 +5,7 @@
 #'
 #' @param .data dataframe
 #' @param formula formula
+#' @param ... additional parameters to be passed to  \code{\link[parsnip]{boost_tree}}
 #'
 #' @return xgb.Booster model
 #' @export
@@ -13,12 +14,14 @@
 #'
 #' iris %>%
 #' tidy_xgboost(
-#'   tidy_formula(., target= Petal.Length, tidyselect::everything())
+#'   tidy_formula(., target= Petal.Length),
+#'   trees = 500,
+#'   mtry = 2
 #' )  -> xg1
 #'
 #' xg1 %>%
-#'   plot_varimp_xgboost()
-tidy_xgboost <- function(.data, formula){
+#'   visualize_model(top_n = 2)
+tidy_xgboost <- function(.data, formula, ...){
 
   formula %>%
     rlang::f_lhs() -> target
@@ -32,7 +35,8 @@ tidy_xgboost <- function(.data, formula){
     recipes::step_zv(recipes::all_predictors()) %>%
     recipes::step_dummy(where(is.character) | where(is.factor), -!!target)
 
-  xgboost_spec0 <-  parsnip::boost_tree()
+
+  xgboost_spec0 <-  parsnip::boost_tree(...)
 
   if(numer_tg){
     mode_set <- "regression"
@@ -70,22 +74,26 @@ tidy_xgboost <- function(.data, formula){
 
 #' Plot varimp xgboost
 #'
-#' @rdname tidy_xgboost
+#'  recommended parameters to control;
+#'
+#' \itemize{
+#' \item{\code{top_n}}{ number of features to include in the graph}
+#' }
+#'
 #' @param xgb xgb.Booster model
 #' @param font font
 #' @param ... additional arguments for \code{\link[xgboost]{xgb.ggplot.importance}}
 #'
-#' @return plot
-#' @export
+#' @return ggplot
 #'
-plot_varimp_xgboost <- function(xgb, font = c("", "HiraKakuProN-W3"), ...){
+plot_varimp_xgboost <- function(xgb, font = c("", "HiraKakuProN-W3"), top_n = 10, ...){
 
   font <- match.arg(font)
 
 
   xgb %>%
   xgboost::xgb.importance(model = . ) %>%
-  xgboost::xgb.ggplot.importance(...) +
+  xgboost::xgb.ggplot.importance(..., top_n = top_n) +
     ggplot2::theme_minimal(base_family= font) +
     ggplot2::theme(panel.border = ggplot2::element_blank(),
                    panel.grid.major = ggplot2::element_blank(),
@@ -94,3 +102,4 @@ plot_varimp_xgboost <- function(xgb, font = c("", "HiraKakuProN-W3"), ...){
     ggeasy::easy_remove_legend() +
     ggplot2::ylab("Importance from xgboost")
 }
+

@@ -37,6 +37,7 @@ Imports:
     parsnip,
     recipes,
     rsample,
+    hardhat,
     tune,
     workflows,
     ggstance,
@@ -57,6 +58,8 @@ Suggests:
     knitr,
     rmarkdown,
     markdown,
-    moreparty
+    moreparty,
+    parallel,
+    doParallel
 VignetteBuilder: knitr
 License: MIT + file LICENSE

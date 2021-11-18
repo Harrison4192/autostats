@@ -2,12 +2,9 @@
 % Please edit documentation in R/tidy_ctree.R
 \name{tidy_ctree}
 \alias{tidy_ctree}
-\alias{plot_ctree}
 \title{tidy ctree}
 \usage{
 tidy_ctree(.data, formula, ...)
-
-plot_ctree(ctree_obj, plot_type = c("sample", "box", "bar"))
 }
 \arguments{
 \item{.data}{dataframe}
@@ -15,15 +12,9 @@ plot_ctree(ctree_obj, plot_type = c("sample", "box", "bar"))
 \item{formula}{formula}
 
 \item{...}{optional parameters to \code{\link[party]{ctree_control}}}
-
-\item{ctree_obj}{output of tidy_ctree}
-
-\item{plot_type}{type of plot}
 }
 \value{
 a ctree object
-
-decision tree plot
 }
 \description{
 tidy conditional inference tree
@@ -43,11 +34,11 @@ tidy_formula(., Sepal.Length) -> sepal_form
 
 iris \%>\%
 tidy_ctree(sepal_form) \%>\%
-plot_ctree()
+visualize_model()
 
 iris \%>\%
 tidy_ctree(sepal_form, minbucket = 30) \%>\%
-plot_ctree
+visualize_model(plot_type = "box")
 
 
 }

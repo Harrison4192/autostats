@@ -10,7 +10,9 @@ auto_tune_xgboost(
   event_level = c("first", "second"),
   n_fold = 5,
   seed = 1,
-  n_iter = 100
+  n_iter = 100,
+  save_output = FALSE,
+  parallel = FALSE
 )
 }
 \arguments{
@@ -25,10 +27,47 @@ auto_tune_xgboost(
 \item{seed}{seed}
 
 \item{n_iter}{n iterations for tuning}
+
+\item{save_output}{FASLE. If set to TRUE will write the output as an rds file}
+
+\item{parallel}{FALSE. If set to TRUE, will enable parallel processing}
 }
 \value{
 workflow object
 }
 \description{
-Automatically tunes an xgboost model
+Automatically tunes an xgboost model using bayesian optimization
+}
+\examples{
+
+if(FALSE){
+
+
+iris \%>\%
+ framecleaner::create_dummies() -> iris1
+
+iris1 \%>\%
+ tidy_formula(target = Petal.Length) -> petal_form
+
+iris1 \%>\%
+ rsample::initial_split() -> iris_split
+
+iris_split \%>\%
+ rsample::analysis() -> iris_train
+
+iris_split \%>\%
+ rsample::assessment() -> iris_val
+
+iris_train \%>\%
+ auto_tune_xgboost(formula = petal_form, n_iter = 10, parallel = TRUE) -> xgb_tuned
+
+xgb_tuned \%>\%
+ fit(iris_train) \%>\%
+ hardhat::extract_fit_engine() -> xgb_tuned_fit
+
+xgb_tuned_fit \%>\%
+ tidy_predict(newdata = iris_val, form = petal_form) -> iris_val1
+
+
+}
 }

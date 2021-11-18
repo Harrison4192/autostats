@@ -61,8 +61,8 @@ auto_model_accuracy <- function(data,
     recipes::recipe(formula, data = data)  %>%
     recipes::step_nzv(recipes::all_numeric(), -recipes::all_outcomes()) %>%
     recipes::step_corr(recipes::all_numeric(), -recipes::all_outcomes()) %>%
-    recipes::step_medianimpute(recipes::all_numeric()) %>%
-    recipes::step_modeimpute(recipes::all_nominal()) %>%
+    recipes::step_impute_median(recipes::all_numeric()) %>%
+    recipes::step_impute_mode(recipes::all_nominal()) %>%
     recipes::step_dummy(recipes::all_nominal(), -recipes::all_outcomes())
 
   my_workflow <-

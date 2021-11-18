@@ -2,26 +2,17 @@
 % Please edit documentation in R/tidyModels.R
 \name{tidy_glm}
 \alias{tidy_glm}
-\alias{plot_coefs_glm}
 \title{tidy glm}
 \usage{
 tidy_glm(data, formula)
-
-plot_coefs_glm(glm, font = c("", "HiraKakuProN-W3"))
 }
 \arguments{
 \item{data}{dataframe}
 
 \item{formula}{formula}
-
-\item{glm}{glm}
-
-\item{font}{font}
 }
 \value{
 glm model
-
-plot
 }
 \description{
 Runs either a linear regression, logistic regression, or multinomial classification. The model is
@@ -37,22 +28,24 @@ tidy_formula(., target = Petal.Width)) -> glm1
 glm1
 
 glm1 \%>\%
-plot_coefs_glm
+visualize_model()
 
 # multinomial classification
+
+tidy_formula(iris, target = Species) -> species_form
+
 iris \%>\%
-tidy_glm(
-tidy_formula(., target = Species)) -> glm2
+tidy_glm(species_form) -> glm2
 
 
 glm2 \%>\%
-plot_coefs_glm
+visualize_model()
 
 #  logistic regression
 iris \%>\%
-dplyr::filter(Species != "versicolor") \%>\%
-tidy_glm(
-tidy_formula(., target = Species)) -> glm3
+dplyr::filter(Species != "setosa") \%>\%
+tidy_glm(species_form) -> glm3
 
-glm3
+glm3 \%>\%
+visualize_model()
 }

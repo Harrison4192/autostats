@@ -21,7 +21,7 @@
 #' iris_cfor
 #'
 #' iris_cfor %>%
-#' plot_varimp_cforest
+#' visualize_model()
 
 tidy_cforest <- function(data, formula, seed = 1) {
   set.seed(seed)
@@ -47,12 +47,10 @@ tidy_cforest <- function(data, formula, seed = 1) {
 
 #' plot cforest variable importance
 #'
-#' @rdname tidy_cforest
 #' @param cfar cforest model
 #' @param font font
 #'
 #' @return ggplot
-#' @export
 plot_varimp_cforest <- function(cfar, font = c("", "HiraKakuProN-W3")) {
 
   font = match.arg(font)
@@ -162,24 +160,27 @@ plot_varimp_cforest <- function(cfar, font = c("", "HiraKakuProN-W3")) {
 #' glm1
 #'
 #' glm1 %>%
-#' plot_coefs_glm
+#' visualize_model()
 #'
 #' # multinomial classification
+#'
+#' tidy_formula(iris, target = Species) -> species_form
+#'
 #' iris %>%
-#' tidy_glm(
-#' tidy_formula(., target = Species)) -> glm2
+#' tidy_glm(species_form) -> glm2
 #'
 #'
 #' glm2 %>%
-#' plot_coefs_glm
+#' visualize_model()
 #'
 #' #  logistic regression
 #' iris %>%
-#' dplyr::filter(Species != "versicolor") %>%
-#' tidy_glm(
-#' tidy_formula(., target = Species)) -> glm3
+#' dplyr::filter(Species != "setosa") %>%
+#' tidy_glm(species_form) -> glm3
 #'
-#' glm3
+#'suppressWarnings({
+#' glm3 %>%
+#' visualize_model()})
 tidy_glm <- function(data, formula) {
 
   formula %>%
@@ -243,12 +244,10 @@ tidy_glm <- function(data, formula) {
 
 #' plot glm coefs
 #'
-#' @rdname tidy_glm
 #' @param glm glm
 #' @param font font
 #'
 #' @return plot
-#' @export
 plot_coefs_glm <- function(glm, font = c("", "HiraKakuProN-W3")){
 
   font = match.arg(font)

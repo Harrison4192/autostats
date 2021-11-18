@@ -2,28 +2,19 @@
 % Please edit documentation in R/tidy_xgboost.R
 \name{tidy_xgboost}
 \alias{tidy_xgboost}
-\alias{plot_varimp_xgboost}
 \title{tidy xgboost}
 \usage{
-tidy_xgboost(.data, formula)
-
-plot_varimp_xgboost(xgb, font = c("", "HiraKakuProN-W3"), ...)
+tidy_xgboost(.data, formula, ...)
 }
 \arguments{
 \item{.data}{dataframe}
 
 \item{formula}{formula}
 
-\item{xgb}{xgb.Booster model}
-
-\item{font}{font}
-
-\item{...}{additional arguments for \code{\link[xgboost]{xgb.ggplot.importance}}}
+\item{...}{additional parameters to be passed to  \code{\link[parsnip]{boost_tree}}}
 }
 \value{
 xgb.Booster model
-
-plot
 }
 \description{
 Accepts a formula to run an xgboost model. Automatically determines whether the formula is
@@ -33,9 +24,11 @@ for classification or regression. Returns the xgboost model.
 
 iris \%>\%
 tidy_xgboost(
-  tidy_formula(., target= Petal.Length, tidyselect::everything())
+  tidy_formula(., target= Petal.Length),
+  trees = 500,
+  mtry = 2
 )  -> xg1
 
 xg1 \%>\%
-  plot_varimp_xgboost()
+  visualize_model(top_n = 2)
 }

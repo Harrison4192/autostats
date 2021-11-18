@@ -8,7 +8,7 @@ p_load(rstudioapi, devtools, roxygen2, usethis, pkgdown,
        ymlthis, magrittr, fs, covr, gitcreds, credentials,
        badger, hexSticker, gh, tidyverse)
 
-usethis::use_vignette("autostats")
+usethis::use_vignette("tidyModels")
 # add this file to .Rbuildignore ------------------------------------------
 
 
@@ -73,7 +73,7 @@ usethis::use_package("lightgbm")
 
 
 
-usethis::use_r("tidy_rpart")
+usethis::use_r("visualize_model")
 usethis::use_package("badger", type = "Suggests")
 
 
@@ -139,7 +139,7 @@ devtools::install_github("Harrison4192/framecleaner")
 # install.packages("devtools")
 devtools::install_github("Harrison4192/tidyBins")
 # install.packages("devtools")
-devtools::install_github("Harrison4192/presenteR")
+devtools::install_github("Harrison4192/presenter")
 # install.packages("devtools")
 # devtools::install_github("Harrison4192/autoStats")
 
@@ -150,9 +150,10 @@ devtools::document()
 devtools::build_readme()
 devtools::build_site()
 devtools::check()
+devtools::check(vignettes = F)
 devtools::preview_site()
 devtools::load_all()
-devtools::build_vignettes()
+devtools::build_vignettes(clean = TRUE, quiet = FALSE)
 devtools::spell_check()
 devtools::release(check = T)
 
@@ -160,7 +161,7 @@ usethis::use_cran_comments(open = rlang::is_interactive())
 devtools::check_win_devel()
 devtools::check_rhub()
 
-use_r("get_unique_col_names")
+usethis::use_r("tidy_shap")
 
 p_load(tidyverse)
 p_load(treesnip)

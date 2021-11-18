@@ -1,0 +1,184 @@
+---
+title: "tidyModels"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{tidyModels}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+options(rlang_trace_top_env = rlang::current_env())
+```
+
+```{r setup, message=FALSE, warning=FALSE, results='hide'}
+library(autostats)
+library(workflows)
+library(dplyr)
+library(tune)
+library(rsample)
+library(hardhat)
+```
+
+`autostats` provides convenient wrappers for modeling, visualizing, and predicting using a tidy workflow. The emphasis is on rapid iteration and quick results using an intuitive interface based off the `tibble` and `tidy_formula`. 
+
+# Prepare data 
+
+Set up the iris data set for modeling. Create dummies and any new columns before making the formula. This way the same formula can be use throughout the modeling and prediction process. 
+
+
+```{r}
+set.seed(34)
+
+ iris %>%
+  dplyr::as_tibble() %>% 
+  framecleaner::create_dummies(remove_first_dummy  = TRUE) -> iris1
+
+ iris1 %>%
+ tidy_formula(target = Petal.Length) -> petal_form
+ 
+ petal_form
+
+```
+Use the rsample package to split into train and validation sets.
+
+```{r}
+iris1 %>%
+  rsample::initial_split() -> iris_split
+
+iris_split %>%
+  rsample::analysis() -> iris_train
+
+iris_split %>%
+  rsample::assessment() -> iris_val
+
+iris_split
+```
+
+
+# Fit boosting models and visualize
+
+Fit models to the training set using the formula to predict `Petal.Length`. Variable importance using gain for each `xgboost` model can be visualized.
+
+## xgboost with bayesian hyperparameter optimization
+
+`auto_tune_xgboost` returns a workflow object with tuned parameters and requires some postprocessing to get a traind `xgb.Booster` object like `tidy_xgboost`. Tuning iterations set to `1` just so the vignette builds quickly. Default is `n_iter = 100`
+
+```{r}
+iris_train %>%
+  auto_tune_xgboost(formula = petal_form, n_iter = 1L) -> xgb_tuned
+
+xgb_tuned %>%
+  fit(iris_train) %>% 
+  hardhat::extract_fit_engine() -> xgb_tuned_fit
+
+xgb_tuned_fit %>% 
+  visualize_model()
+
+```
+
+## xgboost with default parameters
+
+```{r}
+iris_train %>%
+  tidy_xgboost(formula = petal_form) -> xgb_base
+
+xgb_base %>% 
+  visualize_model()
+```
+
+
+## xgboost with hand-picked parameters
+
+```{r}
+iris_train %>% 
+  tidy_xgboost(petal_form, 
+               trees = 500, 
+               tree_depth = 3, 
+               sample_size = .5,
+               mtry = 3,
+               min_n = 4) -> xgb_opt
+
+xgb_opt %>% 
+  visualize_model()
+```
+
+## agtboost
+
+automated gradient descent boosting with information-criterion heuristics that don't need tuning
+
+```{r}
+iris_train %>% 
+  tidy_agtboost(petal_form) -> agtb
+
+```
+
+# predict on validation set
+
+## make predictions 
+
+Predictions are iteratively added to the validation data frame. The name of the column is
+automatically created using the models name and the prediction target. 
+
+
+```{r}
+xgb_tuned_fit %>%
+  tidy_predict(newdata = iris_val, form = petal_form)  -> iris_val1
+
+xgb_base %>%
+  tidy_predict(newdata = iris_val1, form = petal_form) -> iris_val2
+
+xgb_opt %>% 
+  tidy_predict(newdata = iris_val2, petal_form) -> iris_val3
+
+agtb %>% 
+    tidy_predict(newdata = iris_val3, petal_form)-> iris_val4
+
+iris_val4 %>% 
+  names()
+```
+
+## Compare predictions using yardstick
+
+
+```{r}
+bind_rows(
+
+iris_val4 %>%
+  yardstick::rmse(truth = Petal.Length, estimate = Petal.Length_preds_xgb_tuned_fit) %>% 
+  mutate(model = "tuned"),
+
+iris_val4 %>%
+  yardstick::rmse(truth = Petal.Length, estimate = Petal.Length_preds_xgb_base) %>% 
+  mutate(model = "baseline"),
+
+iris_val4 %>%
+  yardstick::rmse(truth = Petal.Length, estimate = Petal.Length_preds_xgb_opt) %>% 
+  mutate(model = "hand_picked"),
+
+iris_val4 %>%
+  yardstick::rmse(truth = Petal.Length, estimate = Petal.Length_preds_agtb) %>% 
+  mutate(model = "agtboost")
+
+)
+```
+
+# get shapley values
+
+`tidy_shap` has similar syntax to `tidy_predict` and can be used to get shapley values from `xgboost` models on a validation set. 
+
+```{r}
+xgb_base %>% 
+  tidy_shap(newdata = iris_val, form = petal_form)
+```
+
+```{r}
+xgb_tuned_fit %>% 
+  tidy_shap(newdata = iris_val, form = petal_form)
+```
+

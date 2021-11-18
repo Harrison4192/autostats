@@ -5,6 +5,7 @@
 #'
 #' @param lhs lhs atomic chr vec
 #' @param rhs rhs chr vec
+#' @param .data optional dataframe. Include if parsing a \code{.} into the column names it represents
 #'
 #' @return formula
 #' @export
@@ -76,16 +77,28 @@ tidy_formula <- function(data, target, ...){
 #'
 #' f %>%
 #' f_formula_to_charvec()
-f_formula_to_charvec <- function(f, include_lhs = FALSE){
+f_formula_to_charvec <- function(f, include_lhs = FALSE, .data = NULL){
 
   f %>%
     rlang::f_lhs() %>%
     as.character() -> lhs
 
+
+
   f %>%
     rlang::f_text() %>%
     stringr::str_split(pattern = stringr::boundary("word"), simplify = T) %>%
     as.vector() -> form
+
+  f %>%
+    rlang::f_rhs() -> rhs
+
+  if(!is.null(.data) &rhs == "."){
+
+    .data %>%
+      names() %>%
+      setdiff(lhs) -> form
+  }
 
   if(include_lhs){
 

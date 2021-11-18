@@ -4,7 +4,7 @@
 \alias{f_formula_to_charvec}
 \title{Formula_rhs to chr vec}
 \usage{
-f_formula_to_charvec(f, include_lhs = FALSE)
+f_formula_to_charvec(f, include_lhs = FALSE, .data = NULL)
 }
 \arguments{
 \item{f}{formula}

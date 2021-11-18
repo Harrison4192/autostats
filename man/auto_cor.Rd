@@ -44,4 +44,9 @@ Additional parameters for the correlation test can be specified as in \code{\lin
 
 iris \%>\%
 auto_cor()
+
+# don't use sparse if you're interested in only one target variable
+iris \%>\%
+auto_cor(sparse = FALSE) \%>\%
+dplyr::filter(x = Petal.Length)
 }

@@ -10,6 +10,8 @@ f_charvec_to_formula(lhs, rhs)
 \item{lhs}{lhs atomic chr vec}
 
 \item{rhs}{rhs chr vec}
+
+\item{.data}{optional dataframe. Include if parsing a \code{.} into the column names it represents}
 }
 \value{
 formula

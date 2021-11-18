@@ -8,7 +8,9 @@ auto_anova(
   data,
   ...,
   baseline = c("mean", "median", "first_level", "user_supplied"),
-  user_supplied_baseline = NULL
+  user_supplied_baseline = NULL,
+  sparse = FALSE,
+  pval_thresh = 0.1
 )
 }
 \arguments{
@@ -19,6 +21,10 @@ auto_anova(
 \item{baseline}{choose from "mean", "median", "first_level", "user_supplied". what is the baseline to compare each category to? can use the mean and median of the target variable as a global baseline}
 
 \item{user_supplied_baseline}{if intercept is "user_supplied", can enter a numeric value}
+
+\item{sparse}{default FALSE; if true returns a truncated output with only significant results}
+
+\item{pval_thresh}{control significance level for sparse output filtering}
 }
 \value{
 data frame
