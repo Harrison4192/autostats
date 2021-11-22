@@ -87,6 +87,7 @@ f_formula_to_charvec <- function(f, include_lhs = FALSE, .data = NULL){
 
   f %>%
     rlang::f_text() %>%
+    enc2utf8() %>%
     stringr::str_split(pattern = stringr::boundary("word"), simplify = T) %>%
     as.vector() -> form
 
