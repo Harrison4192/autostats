@@ -144,6 +144,7 @@ devtools::install_github("Harrison4192/presenter")
 # devtools::install_github("Harrison4192/autoStats")
 
 
+
 # build and check ---------------------------------------------------------
 
 devtools::document()
@@ -160,8 +161,9 @@ devtools::release(check = T)
 usethis::use_cran_comments(open = rlang::is_interactive())
 devtools::check_win_devel()
 devtools::check_rhub()
+devtools::run_examples()
 
-usethis::use_r("tidy_shap")
+usethis::use_r("determine_pred_type")
 
 p_load(tidyverse)
 p_load(treesnip)

@@ -132,7 +132,7 @@
  <span class="va">petal_form</span>
 <span class="co">#&gt; Petal.Length ~ Sepal.Length + Sepal.Width + Petal.Width + Species_versicolor + </span>
 <span class="co">#&gt;     Species_virginica</span>
-<span class="co">#&gt; &lt;environment: 0x7fec07715438&gt;</span></code></pre></div>
+<span class="co">#&gt; &lt;environment: 0x7feba68505f8&gt;</span></code></pre></div>
 <p>Use the rsample package to split into train and validation sets.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">iris1</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
@@ -202,6 +202,7 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">iris_train</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/tidy_xgboost.html">tidy_xgboost</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="va">petal_form</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">xgb_base</span>
+<span class="co">#&gt; Warning: `early_stop` was reduced to 14.</span>
 
 <span class="va">xgb_base</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/visualize_model.html">visualize_model</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
@@ -218,6 +219,7 @@
                sample_size <span class="op">=</span> <span class="fl">.5</span>,
                mtry <span class="op">=</span> <span class="fl">3</span>,
                min_n <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">xgb_opt</span>
+<span class="co">#&gt; Warning: `early_stop` was reduced to 499.</span>
 
 <span class="va">xgb_opt</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/visualize_model.html">visualize_model</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
@@ -290,8 +292,8 @@
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">1</span> rmse    standard       0.338 tuned      </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">2</span> rmse    standard       0.352 baseline   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> rmse    standard       0.336 hand_picked</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> rmse    standard       0.318 agtboost</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> rmse    standard       0.364 hand_picked</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> rmse    standard       0.317 agtboost</span></code></pre></div>
 </div>
 </div>
 <div class="section level1">

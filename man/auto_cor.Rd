@@ -48,5 +48,5 @@ auto_cor()
 # don't use sparse if you're interested in only one target variable
 iris \%>\%
 auto_cor(sparse = FALSE) \%>\%
-dplyr::filter(x = Petal.Length)
+dplyr::filter(x == "Petal.Length")
 }

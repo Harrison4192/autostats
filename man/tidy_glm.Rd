@@ -46,6 +46,7 @@ iris \%>\%
 dplyr::filter(Species != "setosa") \%>\%
 tidy_glm(species_form) -> glm3
 
+suppressWarnings({
 glm3 \%>\%
-visualize_model()
+visualize_model()})
 }

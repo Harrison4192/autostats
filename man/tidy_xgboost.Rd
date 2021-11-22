@@ -4,14 +4,42 @@
 \alias{tidy_xgboost}
 \title{tidy xgboost}
 \usage{
-tidy_xgboost(.data, formula, ...)
+tidy_xgboost(
+  .data,
+  formula,
+  ...,
+  mtry = NULL,
+  trees = 15L,
+  min_n = 1L,
+  tree_depth = 6L,
+  learn_rate = 0.3,
+  loss_reduction = 0,
+  sample_size = 1,
+  stop_iter = Inf
+)
 }
 \arguments{
 \item{.data}{dataframe}
 
 \item{formula}{formula}
 
-\item{...}{additional parameters to be passed to  \code{\link[parsnip]{boost_tree}}}
+\item{...}{additional parameters to be passed to  \code{\link[parsnip]{set_engine}}}
+
+\item{tree_depth:}{Tree Depth (type: integer, default: 6L); Typical values: 3-10}
+
+\item{trees:}{# Trees (type: integer, default: 15L)}
+
+\item{learn_rate:}{Learning Rate (type: double, default: 0.3); Typical values: 0.01-0.3}
+
+\item{mtry:}{# Randomly Selected Predictors (type: integer)}
+
+\item{min_n:}{Minimal Node Size (type: integer, default: 1L); Keep small value For highly imbalanced class data where leaf nodes can have smaller size groups.}
+
+\item{loss_reduction:}{Minimum Loss Reduction (type: double, default: 0.0); gamma; reange: 0 to Inf; typical value: 0 - 1 assuming low-mid tree depth}
+
+\item{sample_size:}{Proportion Observations Sampled (type: double, default: 1.0); Typical values: 0.5 - 1}
+
+\item{stop_iter:}{# Iterations Before Stopping (type: integer, default: Inf)}
 }
 \value{
 xgb.Booster model
@@ -22,6 +50,8 @@ for classification or regression. Returns the xgboost model.
 }
 \examples{
 
+options(rlang_trace_top_env = rlang::current_env())
+
 iris \%>\%
 tidy_xgboost(
   tidy_formula(., target= Petal.Length),
@@ -31,4 +61,32 @@ tidy_xgboost(
 
 xg1 \%>\%
   visualize_model(top_n = 2)
+
+# multiclass classification that returns labels
+
+
+iris \%>\%
+ tidy_formula(Species) -> species_form
+
+iris \%>\%
+tidy_xgboost(species_form,
+            objective = "multi:softmax",
+            trees = 100,
+            tree_depth = 3L,
+            loss_reduction = 0.5) -> xgb2
+
+
+xgb2 \%>\%
+ tidy_predict(newdata = iris, form = species_form) -> iris_preds
+
+# labels are given as integers
+
+iris_preds \%>\%
+ dplyr::count(Species, Species_preds_xgb2)
+
+ # return to original labels
+
+ iris_preds \%>\%
+ dplyr::mutate(Species_preds_xgb2 = factor(Species_preds_xgb2, labels = unique(Species))) \%>\%
+ dplyr::count(Species, Species_preds_xgb2)
 }

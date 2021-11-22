@@ -23,7 +23,7 @@
 #' # don't use sparse if you're interested in only one target variable
 #' iris %>%
 #' auto_cor(sparse = FALSE) %>%
-#' dplyr::filter(x = Petal.Length)
+#' dplyr::filter(x == "Petal.Length")
 auto_cor <- function(.data, ...,
                      use = c("pairwise.complete.obs", "all.obs", "complete.obs",
                                          "everything", "na.or.complete"),

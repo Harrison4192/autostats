@@ -3,6 +3,7 @@
 S3method(tidy_predict,Rcpp_ENSEMBLE)
 S3method(tidy_predict,default)
 S3method(tidy_predict,glm)
+S3method(tidy_predict,xgb.Booster)
 S3method(visualize_model,BinaryTree)
 S3method(visualize_model,RandomForest)
 S3method(visualize_model,default)
