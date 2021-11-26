@@ -73,7 +73,7 @@ usethis::use_package("lightgbm")
 
 
 
-usethis::use_r("visualize_model")
+usethis::use_r("get_params")
 usethis::use_package("badger", type = "Suggests")
 
 

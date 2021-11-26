@@ -98,11 +98,11 @@ xgb_base %>%
 ```{r}
 iris_train %>% 
   tidy_xgboost(petal_form, 
-               trees = 500, 
-               tree_depth = 3, 
+               trees = 250L, 
+               tree_depth = 3L, 
                sample_size = .5,
-               mtry = 3,
-               min_n = 4) -> xgb_opt
+               mtry = .5,
+               min_n = 2) -> xgb_opt
 
 xgb_opt %>% 
   visualize_model()
@@ -143,29 +143,13 @@ iris_val4 %>%
   names()
 ```
 
-## Compare predictions using yardstick
+## predictions with eval_preds
 
+Instead of evaluationg these prediction 1 by 1, This step is automated with `eval_preds`. This function is specifically designed to evaluate predicted columns with names given from `tidy_predict`.
 
 ```{r}
-bind_rows(
-
-iris_val4 %>%
-  yardstick::rmse(truth = Petal.Length, estimate = Petal.Length_preds_xgb_tuned_fit) %>% 
-  mutate(model = "tuned"),
-
-iris_val4 %>%
-  yardstick::rmse(truth = Petal.Length, estimate = Petal.Length_preds_xgb_base) %>% 
-  mutate(model = "baseline"),
-
-iris_val4 %>%
-  yardstick::rmse(truth = Petal.Length, estimate = Petal.Length_preds_xgb_opt) %>% 
-  mutate(model = "hand_picked"),
-
-iris_val4 %>%
-  yardstick::rmse(truth = Petal.Length, estimate = Petal.Length_preds_agtb) %>% 
-  mutate(model = "agtboost")
-
-)
+iris_val4 %>% 
+  eval_preds() 
 ```
 
 # get shapley values
@@ -180,5 +164,31 @@ xgb_base %>%
 ```{r}
 xgb_tuned_fit %>% 
   tidy_shap(newdata = iris_val, form = petal_form)
+```
+## understand xgboost with other functions from the original package
+
+Overfittingin the base config may be related to growing deep trees. 
+
+```{r}
+ xgb_base %>% 
+  xgboost::xgb.plot.deepness()
+```
+
+
+```{r}
+ xgb_tuned_fit %>% 
+  xgboost::xgb.plot.deepness()
+```
+Plot the first tree in the model. The small \emph{cover} in terminal leaves suggests overfitting in the base model. 
+```{r message=FALSE, warning=FALSE}
+xgb_base %>% 
+  xgboost::xgb.plot.tree(model = ., trees = 1)
+```
+
+compare to 
+
+```{r}
+xgb_tuned_fit %>% 
+  xgboost::xgb.plot.tree(model = ., trees = 1)
 ```
 

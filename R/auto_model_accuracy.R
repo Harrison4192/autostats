@@ -10,6 +10,9 @@
 #' @param as_flextable if FALSE, returns a tibble
 #' @param theme make_flextable theme
 #' @param seed seed
+#' @inheritParams tidy_xgboost
+#' @param penalty linear regularization parameter
+#' @param mixture linear model parameter, combines l1 and l2 regularization
 #'
 #' @return a table
 #' @export
@@ -19,11 +22,22 @@ auto_model_accuracy <- function(data,
                                n_folds = 4,
                                as_flextable = TRUE,
                                theme = "tron",
-                               seed = 1){
+                               seed = 1,
+                               mtry = 1.0,
+                               trees = 15L,
+                               min_n = 1L,
+                               tree_depth = 6L,
+                               learn_rate = 0.3,
+                               loss_reduction = 0.0,
+                               sample_size = 1.0,
+                               stop_iter = Inf,
+                               counts = FALSE,
+                               penalty = .015,
+                               mixture = .35){
 
   set.seed(seed)
 
-  data1 <- rlang::ensym(data)
+  data1 <- rlang::enexpr(data)
 
   .config <- model <- .metric <- n <- .estimator <- NULL
 
@@ -36,19 +50,19 @@ auto_model_accuracy <- function(data,
 
   if(target_levels == 2){
     linear_spec <-
-      parsnip::logistic_reg(penalty = .015, mixture = .35)
+      parsnip::logistic_reg(penalty = penalty, mixture = mixture)
 
     data %>%
       dplyr::mutate(!!target := factor(!!target)) -> data
 
   } else if(target_levels != 2 & !is_tg_numeric){
     linear_spec <-
-      parsnip::multinom_reg(penalty = .015, mixture = .35)
+      parsnip::multinom_reg(penalty = penalty, mixture = mixture)
 
     data %>%
       dplyr::mutate(!!target := factor(!!target)) -> data
   } else {
-    linear_spec <-  parsnip::linear_reg(penalty = .015, mixture = .35)}
+    linear_spec <-  parsnip::linear_reg(penalty = penalty, mixture = mixture)}
 
 
   if(is_tg_numeric){
@@ -70,9 +84,18 @@ auto_model_accuracy <- function(data,
     workflows::add_recipe(my_rec)
 
   boost_spec <-
-    parsnip::boost_tree() %>%
+    parsnip::boost_tree(   mtry = mtry,
+                           trees = trees,
+                           min_n = min_n,
+                           tree_depth = tree_depth,
+                           learn_rate = learn_rate,
+                           loss_reduction = loss_reduction,
+                           sample_size = sample_size,
+                           stop_iter = stop_iter) %>%
     parsnip::set_mode(mode) %>%
-    parsnip::set_engine("xgboost")
+    parsnip::set_engine("xgboost", counts = counts)
+
+
 
 
   boost_workflow <-
@@ -126,7 +149,7 @@ auto_model_accuracy <- function(data,
 
     res %>%
       dplyr::select(-n_folds) %>%
-      dplyr::mutate(dplyr::across(where(is.numeric), ~format(., digits = 3, trim = T))) -> res
+      dplyr::mutate(dplyr::across(where(is.numeric), ~format(., digits = 3L, trim = T))) -> res
 
     title <- stringr::str_c(n_folds, " - fold ", " cross-validated accuracy for ", mode, " model of ", target_nm, " on dataset ", tbl_name )
 

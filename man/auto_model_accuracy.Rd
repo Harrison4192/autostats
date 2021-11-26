@@ -10,7 +10,18 @@ auto_model_accuracy(
   n_folds = 4,
   as_flextable = TRUE,
   theme = "tron",
-  seed = 1
+  seed = 1,
+  mtry = 1,
+  trees = 15L,
+  min_n = 1L,
+  tree_depth = 6L,
+  learn_rate = 0.3,
+  loss_reduction = 0,
+  sample_size = 1,
+  stop_iter = Inf,
+  counts = FALSE,
+  penalty = 0.015,
+  mixture = 0.35
 )
 }
 \arguments{
@@ -25,6 +36,10 @@ auto_model_accuracy(
 \item{theme}{make_flextable theme}
 
 \item{seed}{seed}
+
+\item{penalty}{linear regularization parameter}
+
+\item{mixture}{linear model parameter, combines l1 and l2 regularization}
 }
 \value{
 a table

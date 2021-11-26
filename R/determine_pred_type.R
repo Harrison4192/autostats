@@ -13,7 +13,11 @@ determine_pred_type <- function(x){
 
     type <- "binary"
 
-  } else if(target_levels > 2 & !is_tg_numeric){
+  } else if(framecleaner:::is_probability(x)){
+
+    type <- "binaryprob"}
+
+  else if(target_levels > 2 & !is_tg_numeric){
 
     type <- "multiclass"
   } else {

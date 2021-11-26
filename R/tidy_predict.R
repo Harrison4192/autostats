@@ -91,8 +91,10 @@ tidy_predict.default <- function(model, newdata, form = NULL, ...){
 
   predict(model, newdata = newdata2, ...) -> preds
 
-  new_name <- form %>%
-    rlang::f_lhs() %>%
+  form %>%
+    rlang::f_lhs() -> target
+
+  new_name <- target %>%
     stringr::str_c("_preds_", model_name)
 
   newdata %>%
@@ -113,6 +115,7 @@ tidy_predict.xgb.Booster <- function(model, newdata, form = NULL, ...){
   form %>%
     f_formula_to_charvec(.data = newdata) -> predictors
 
+
   newdata %>%
     dplyr::select(tidyselect::all_of(predictors)) -> newdata1
 
@@ -124,27 +127,62 @@ tidy_predict.xgb.Booster <- function(model, newdata, form = NULL, ...){
 
   predict(model, newdata = newdata2, ...) -> preds
 
-   form %>%
-    rlang::f_lhs() -> lhs1
 
-   lhs1 %>%
-    stringr::str_c("_preds_", model_name) -> new_name
+ form %>%
+  rlang::f_lhs() -> lhs1
+
+ lhs1 %>%
+  stringr::str_c("_preds_", model_name) -> new_name
+
+
+
+
+if(objective == "multi:softmax" ){
 
 
   newdata %>%
     dplyr::mutate("{new_name}" := preds) -> newdata1
 
+  newdata1 %>%
+    mutate("{new_name}" := factor(newdata1[[new_name]], labels = unique(newdata1[[lhs1]]))) -> newdata1
+} else if(objective == "multi:softprob" ){
+  datarows <- newdata[[lhs1]] %>% length
+  datanames <- newdata[[lhs1]] %>% levels %>% stringr::str_c("_preds_", model_name)
+  datacols <-  datanames %>% length
 
 
-  if(objective == "multi:softmax" ){
+
+
+  preds %>%
+    matrix(datacols, datarows) %>%
+    tibble::as_tibble() %>%
+    presenter::pivot_summary() %>%
+    dplyr::select(-tidyselect::all_of(1)) %>%
+    rlang::set_names(datanames) -> preds1
+
+
+     newdata %>%
+       dplyr::bind_cols(preds1) -> newdata1
+
+  } else if(objective == "binary:logistic"){
+
+
+    newdata %>%
+      dplyr::mutate("{new_name}" := preds) -> newdata1
+
+    classpred_name <-  lhs1 %>% stringr::str_c("_preds_", "class_", model_name)
+
     newdata1 %>%
-      mutate("{new_name}" := factor(newdata1[[new_name]], labels = unique(newdata1[[lhs1]]))) -> newdata1
-  }
-  if(objective == "binary:hinge"){
+    dplyr::mutate("{classpred_name}" := factor(ifelse(preds > .5,
+                                                            levels(!!rlang::sym(lhs1))[1],
+                                                            levels(!!rlang::sym(lhs1))[2] ))) -> newdata1
 
 
-    # newdata1 %>%
-    #   mutate("{new_name}" := factor(newdata1[[new_name]], labels = levels(newdata1[[lhs1]]))) -> newdata1
+  } else{
+
+
+    newdata %>%
+      dplyr::mutate("{new_name}" := preds) -> newdata1
   }
 
   newdata1

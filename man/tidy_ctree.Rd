@@ -4,12 +4,16 @@
 \alias{tidy_ctree}
 \title{tidy ctree}
 \usage{
-tidy_ctree(.data, formula, ...)
+tidy_ctree(.data, formula, minbucket = 7L, mincriterion = 0.95, ...)
 }
 \arguments{
 \item{.data}{dataframe}
 
 \item{formula}{formula}
+
+\item{minbucket}{minimum amount of samples in terminal leaves, default is 7}
+
+\item{mincriterion}{(1 - alpha)   value between 0 -1, default is .95. lowering this value creates more splits, but less significant}
 
 \item{...}{optional parameters to \code{\link[party]{ctree_control}}}
 }
@@ -17,15 +21,11 @@ tidy_ctree(.data, formula, ...)
 a ctree object
 }
 \description{
-tidy conditional inference tree
+tidy conditional inference tree. Creates easily interpretable decision tree models that be shown with the \code{\link{visualize_model}} function.
+Statistical significance required for a split , and minimum necessary samples in a terminal leaf can be controlled to create the desired tree visual.
 }
 \details{
-recommended parameters to control;
-
-\itemize{
-\item{\code{minbucket}}{ minimum amount of samples in terminal leaves, default is 7}
-\item{\code{mincriterion}}{(1 - alpha)   value between 0 -1, default is .95. lowering this value creates more splits, but less significant}
-}
+\href{https://cran.r-project.org/web/packages/partykit/vignettes/ctree.pdf}{ctree vignette}
 }
 \examples{
 

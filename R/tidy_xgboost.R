@@ -6,15 +6,15 @@
 #' @param .data dataframe
 #' @param formula formula
 #' @param ... additional parameters to be passed to  \code{\link[parsnip]{set_engine}}
-#' @param tree_depth: Tree Depth (type: integer, default: 6L); Typical values: 3-10
-#' @param trees: # Trees (type: integer, default: 15L)
-#' @param learn_rate: Learning Rate (type: double, default: 0.3); Typical values: 0.01-0.3
-#' @param mtry: # Randomly Selected Predictors (type: integer)
-#' @param min_n: Minimal Node Size (type: integer, default: 1L); Keep small value For highly imbalanced class data where leaf nodes can have smaller size groups.
-#' @param loss_reduction: Minimum Loss Reduction (type: double, default: 0.0); gamma; reange: 0 to Inf; typical value: 0 - 1 assuming low-mid tree depth
-#' @param sample_size: Proportion Observations Sampled (type: double, default: 1.0); Typical values: 0.5 - 1
-#' @param stop_iter: # Iterations Before Stopping (type: integer, default: Inf)
-#'
+#' @param tree_depth: Tree Depth (xgboost: max_depth) (type: integer, default: 6L); Typical values: 3-10
+#' @param trees: # Trees (xgboost: nrounds) (type: integer, default: 15L)
+#' @param learn_rate: Learning Rate (xgboost: eta) (type: double, default: 0.3); Typical values: 0.01-0.3
+#' @param mtry: # Randomly Selected Predictors (xgboost: colsample_bynode) (type: numeric, range 0 - 1) (or type: integer if \code{count = TRUE})
+#' @param min_n:  Minimal Node Size (xgboost: min_child_weight) (type: integer, default: 1L); Keep small value for highly imbalanced class data where leaf nodes can have smaller size groups.
+#' @param loss_reduction: Minimum Loss Reduction (xgboost: gamma) (type: double, default: 0.0);  range: 0 to Inf; typical value: 0 - 1 assuming low-mid tree depth
+#' @param sample_size: Proportion Observations Sampled (xgboost: subsample) (type: double, default: 1.0); Typical values: 0.5 - 1
+#' @param stop_iter: # Iterations Before Stopping (xgboost: early_stop) (type: integer, default: Inf)
+#' @param counts: if \code{TRUE} specify \code{mtry} as an integer number of cols. Default \code{FALSE} to specify \code{mtry} as fraction of cols from 0 to 1
 #'
 #' @return xgb.Booster model
 #' @export
@@ -61,14 +61,15 @@
 #'  dplyr::mutate(Species_preds_xgb2 = factor(Species_preds_xgb2, labels = unique(Species))) %>%
 #'  dplyr::count(Species, Species_preds_xgb2)
 tidy_xgboost <- function(.data, formula, ...,
-                         mtry = NULL,
+                         mtry = 1.0,
                          trees = 15L,
                          min_n = 1L,
                          tree_depth = 6L,
                          learn_rate = 0.3,
                          loss_reduction = 0.0,
                          sample_size = 1.0,
-                         stop_iter = Inf){
+                         stop_iter = Inf,
+                         counts = FALSE){
 
 
 
@@ -87,7 +88,7 @@ tidy_xgboost <- function(.data, formula, ...,
 
 
   xgboost_spec0 <-  parsnip::boost_tree(
-                                        mtry = NULL,
+                                        mtry = mtry,
                                         trees = trees,
                                         min_n = min_n,
                                         tree_depth = tree_depth,
@@ -102,7 +103,7 @@ tidy_xgboost <- function(.data, formula, ...,
 
     xgboost_spec0 %>%
       parsnip::set_mode(mode_set) %>%
-      parsnip::set_engine("xgboost", ...) -> xgboost_spec
+      parsnip::set_engine("xgboost", ..., counts = counts) -> xgboost_spec
 
   } else{
     mode_set <- "classification"
@@ -113,7 +114,7 @@ tidy_xgboost <- function(.data, formula, ...,
 
     xgboost_spec0 %>%
       parsnip::set_mode(mode_set) %>%
-      parsnip::set_engine("xgboost", ...) -> xgboost_spec
+      parsnip::set_engine("xgboost", ..., counts = counts) -> xgboost_spec
 
   }
 
