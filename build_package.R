@@ -73,7 +73,7 @@ usethis::use_package("lightgbm")
 
 
 
-usethis::use_r("get_params")
+usethis::use_r("grouped_t_test")
 usethis::use_package("badger", type = "Suggests")
 
 

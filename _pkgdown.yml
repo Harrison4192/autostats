@@ -13,6 +13,7 @@ reference:
 - title: Automated modeling
   contents:
   - '`auto_anova`'
+  - '`auto_t_test`'
   - '`auto_model_accuracy`'
   - '`auto_variable_contributions`'
   - '`auto_boxplot`'
@@ -36,6 +37,8 @@ reference:
   - '`tidy_predict`'
   - '`tidy_shap`'
   - '`visualize_model`'
+  - '`get_params`'
+
 
 
 - title: Manipulate Formulas
