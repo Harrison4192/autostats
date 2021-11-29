@@ -7,12 +7,14 @@
 auto_tune_xgboost(
   .data,
   formula,
+  tune_method = c("grid", "bayes"),
   event_level = c("first", "second"),
   n_fold = 5,
   seed = 1,
   n_iter = 100,
+  grid_size = 100,
   save_output = FALSE,
-  parallel = FALSE
+  parallel = TRUE
 )
 }
 \arguments{
@@ -20,17 +22,21 @@ auto_tune_xgboost(
 
 \item{formula}{formula}
 
+\item{tune_method}{method of tuning}
+
 \item{event_level}{for binary classification, which factor level is the positive class. specify "second" for second level}
 
 \item{n_fold}{integer. n folds in resamples}
 
 \item{seed}{seed}
 
-\item{n_iter}{n iterations for tuning}
+\item{n_iter}{n iterations for tuning (bayes)}
+
+\item{grid_size}{paramter grid size (grid)}
 
 \item{save_output}{FASLE. If set to TRUE will write the output as an rds file}
 
-\item{parallel}{FALSE. If set to TRUE, will enable parallel processing}
+\item{parallel}{default TRUE; If set to TRUE, will enable parallel processing on resamples for grid tuning}
 }
 \value{
 workflow object
@@ -63,7 +69,7 @@ iris_train \%>\%
 
 xgb_tuned \%>\%
  fit(iris_train) \%>\%
- hardhat::extract_fit_engine() -> xgb_tuned_fit
+ parsnip::extract_fit_engine() -> xgb_tuned_fit
 
 xgb_tuned_fit \%>\%
  tidy_predict(newdata = iris_val, form = petal_form) -> iris_val1

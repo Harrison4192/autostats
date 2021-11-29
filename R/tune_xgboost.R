@@ -5,12 +5,14 @@
 #'
 #' @param .data dataframe
 #' @param formula formula
+#' @param tune_method method of tuning
 #' @param event_level for binary classification, which factor level is the positive class. specify "second" for second level
 #' @param n_fold integer. n folds in resamples
 #' @param seed seed
-#' @param n_iter n iterations for tuning
+#' @param n_iter n iterations for tuning (bayes)
+#' @param grid_size paramter grid size (grid)
 #' @param save_output FASLE. If set to TRUE will write the output as an rds file
-#' @param parallel FALSE. If set to TRUE, will enable parallel processing
+#' @param parallel default TRUE; If set to TRUE, will enable parallel processing on resamples for grid tuning
 #'
 #' @return workflow object
 #' @export
@@ -39,7 +41,7 @@
 #'
 #'xgb_tuned %>%
 #'  fit(iris_train) %>%
-#'  hardhat::extract_fit_engine() -> xgb_tuned_fit
+#'  parsnip::extract_fit_engine() -> xgb_tuned_fit
 #'
 #'xgb_tuned_fit %>%
 #'  tidy_predict(newdata = iris_val, form = petal_form) -> iris_val1
@@ -48,15 +50,18 @@
 #' }
 auto_tune_xgboost <- function(.data,
                               formula,
+                              tune_method = c("grid", "bayes"),
                               event_level = c("first", "second"),
                               n_fold = 5,
                               seed = 1,
                               n_iter = 100,
+                              grid_size = 100,
                               save_output = FALSE,
-                              parallel = FALSE){
+                              parallel = TRUE){
 
   presenter::get_piped_name() -> data_name
 
+  tune_method <- match.arg(tune_method)
   event_level <- match.arg(event_level)
 
   formula %>%
@@ -84,7 +89,7 @@ xgboost_spec1 <-
              learn_rate = tune::tune(),
              loss_reduction = tune::tune(),
              sample_size = tune::tune(),
-             stop_iter = 10
+             stop_iter = tune::tune()
              ) %>%
   parsnip::set_mode(mode_set) %>%
   parsnip::set_engine("xgboost", nthread = 8)) %>%
@@ -116,6 +121,8 @@ if(mode_set == "regression"){
   metrics_boost <- yardstick::metric_set(yardstick::roc_auc, yardstick::accuracy)
 }
 
+if(tune_method == "bayes"){
+
 xgboost_tune <-
   xgboost_spec1 %>%
   tune::tune_bayes(
@@ -129,12 +136,41 @@ xgboost_tune <-
                                   no_improve = 30L,
                                   seed = seed,
                                   uncertain = 15,
-                                  parallel_over = "everything",
+                                  parallel_over = "resamples",
                                   event_level = event_level
                                   )
   )
 
+} else if(tune_method == "grid"){
+  grid_params <- dials::parameters(
+      dials::trees(),
+      dials::min_n(),
+      dials::mtry() ,
+      dials::tree_depth() ,
+      dials::learn_rate() ,
+      dials::loss_reduction(),
+      dials::sample_prop(),
+      dials::stop_iter()
+  ) %>%
+    dials::finalize(.data)
 
+  grid_tbl <- dials::grid_max_entropy(grid_params,
+                          size= grid_size)
+
+  xgboost_tune <-
+    xgboost_spec1 %>%
+    tune::tune_grid(
+      resamples = folds_tune,
+      param_info = grid_params,
+      grid = grid_tbl,
+      metrics = metrics_boost,
+      control = tune::control_grid(allow_par = parallel,
+                                    verbose = TRUE,
+                                    parallel_over = "everything",
+                                    event_level = event_level)
+      )
+
+}
 
 if(parallel){
 
@@ -159,6 +195,7 @@ xgboost_wkflow_tuned %>%
 }
 
 xgboost_wkflow_tuned
+
 }
 
 

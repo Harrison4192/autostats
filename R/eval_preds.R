@@ -9,7 +9,7 @@ eval_preds <- function(.data, col = NULL){
   else {
     .data %>%
       names %>%
-      str_subset("_preds_") %>%
+      stringr::str_subset("_preds_") %>%
       stringr::str_remove("_preds_.*") %>%
       unique() -> col_chr
 

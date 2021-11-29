@@ -89,7 +89,7 @@ f_formula_to_charvec <- function(f, include_lhs = FALSE, .data = NULL){
     rlang::f_text() %>%
     enc2utf8() %>%
     stringr::str_split(pattern = "\\+ ", simplify = T) %>%
-    str_remove("\n") %>%
+    stringr::str_remove("\n") %>%
     trimws() %>%
     as.vector() -> form
 

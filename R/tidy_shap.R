@@ -1,6 +1,15 @@
 #' tidy shap
 #'
-#' plot shapley values from an xgboost model
+#' plot and summarize shapley values from an xgboost model
+#'
+#' returns a list with the following entries
+#'
+#' \describe{
+#' \item{\emph{shap_vals}}{: table of shaply values}
+#' \item{\emph{shaps_sum}}{: table summarizing shapley values. Includes correlation between shaps and feature values.}
+#' \item{\emph{swarm_plot}}{: one plot showing the relation between shaps and features}
+#' \item{\emph{scatterplots}}{: returns the top 9 most important features as determined by sum of absolute shapley values, as a facetted scatterplot of feature vs shap}
+#' }
 #'
 #' @param model xgboost model
 #' @param newdata dataframe similar to model input
@@ -8,7 +17,7 @@
 #' @param ... additional parameters for shapley value
 #' @param top_n top n features
 #'
-#' @return ggplot
+#' @return list
 #' @export
 tidy_shap <- function(model, newdata, form = NULL, ..., top_n = 12){
 
@@ -28,6 +37,8 @@ tidy_shap <- function(model, newdata, form = NULL, ..., top_n = 12){
 
   predict(model, newdata = newdata2, predcontrib = TRUE) -> preds
 
+## swarm plot
+
   xgboost::xgb.ggplot.shap.summary(newdata2, preds, model = model, top_n = top_n, ...)  -> shaps
 
 
@@ -36,5 +47,66 @@ tidy_shap <- function(model, newdata, form = NULL, ..., top_n = 12){
     stringr::str_c(" shaps from model ", model_name, " on dataset ", data_name)
 
 shaps +
-  ggplot2::labs(title = new_name, color = "normalized feature value", x = "shapley value")
+  ggplot2::labs(title = new_name, color = "normalized feature value", x = "shapley value") -> swarm_plot
+
+## preds
+name <- FEATURE <- SHAP <- BIAS <- TYPE <- NULL
+suppressWarnings({
+
+preds %>%
+  tibble::as_tibble() %>%
+  dplyr::select(-BIAS) -> preds1
+
+# long shaps
+
+preds1 %>%
+  mutate(TYPE = "SHAP") %>%
+  tidyr::pivot_longer(cols = -TYPE) %>%
+  dplyr::bind_rows(
+    newdata1 %>%
+      dplyr::select(-tidyselect::any_of(rlang::f_lhs(form))) %>%
+      tibble::as_tibble() %>%
+      mutate(TYPE = "FEATURE") %>%
+      tidyr::pivot_longer(cols = -TYPE)
+  ) %>%
+  dplyr::arrange(name, TYPE) %>%
+  tidyr::pivot_wider(names_from = TYPE, values_from = value) %>%
+  tidyr::unnest(c(FEATURE, SHAP)) ->  gplottbl
+
+## shaps summary
+
+
+gplottbl %>%
+  group_by(name) %>%
+  summarise(cor = cor(FEATURE, SHAP),
+            var = var(SHAP),
+            sum = sum(SHAP),
+            sum_abs = sum(abs(SHAP))) %>%
+  dplyr::arrange(dplyr::desc(sum_abs)) -> shaps_sum
+
+## scatterplots
+
+shaps_sum %>%
+  dplyr::slice(1:9) %>%
+  dplyr::pull(name) -> top_9
+
+gplottbl %>%
+  dplyr::filter(name %in% top_9) %>%
+ggplot2::ggplot(aes(x = FEATURE, y = SHAP, color = name)) +
+  ggplot2::geom_jitter(alpha = .5) +
+  ggplot2::geom_smooth() +
+  ggplot2::theme_minimal() +
+  ggplot2::facet_wrap(~name, scales = "free_x") +
+  ggplot2::theme(legend.position = "none") -> scatterplots
+
+})
+
+list(
+  shap_vals = preds1,
+  shaps_sum = shaps_sum,
+  swarm_plot = swarm_plot,
+  scatterplots = scatterplots
+) -> shapslist
+
+shapslist
 }
