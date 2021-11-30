@@ -154,7 +154,6 @@ xgboost_tune <-
     xgboost_spec1 %>%
     tune::tune_grid(
       resamples = folds_tune,
-      param_info = grid_params,
       grid = grid_tbl,
       metrics = metrics_boost,
       control = tune::control_grid(allow_par = parallel,
