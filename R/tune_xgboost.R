@@ -1,7 +1,9 @@
 
 #' auto_tune_xgboost
 #'
-#' Automatically tunes an xgboost model using bayesian optimization
+#' Automatically tunes an xgboost model using grid or bayesian optimization
+#'
+#' Default is to tune all 7 xgboost parameters. Individual parameter values can be optionally fixed to reduce tuning complexity.
 #'
 #' @param .data dataframe
 #' @param formula formula
@@ -9,10 +11,10 @@
 #' @param event_level for binary classification, which factor level is the positive class. specify "second" for second level
 #' @param n_fold integer. n folds in resamples
 #' @param seed seed
-#' @param n_iter n iterations for tuning (bayes)
-#' @param grid_size paramter grid size (grid)
+#' @param n_iter n iterations for tuning (bayes); paramter grid size (grid)
 #' @param save_output FASLE. If set to TRUE will write the output as an rds file
 #' @param parallel default TRUE; If set to TRUE, will enable parallel processing on resamples for grid tuning
+#' @inheritParams tidy_xgboost
 #'
 #' @return workflow object
 #' @export
@@ -37,7 +39,7 @@
 #'  rsample::assessment() -> iris_val
 #'
 #'iris_train %>%
-#'  auto_tune_xgboost(formula = petal_form, n_iter = 10, parallel = TRUE) -> xgb_tuned
+#'  auto_tune_xgboost(formula = petal_form, n_iter = 10, parallel = TRUE, method = "bayes") -> xgb_tuned
 #'
 #'xgb_tuned %>%
 #'  fit(iris_train) %>%
@@ -46,18 +48,24 @@
 #'xgb_tuned_fit %>%
 #'  tidy_predict(newdata = iris_val, form = petal_form) -> iris_val1
 #'
-#'
 #' }
 auto_tune_xgboost <- function(.data,
                               formula,
                               tune_method = c("grid", "bayes"),
                               event_level = c("first", "second"),
-                              n_fold = 5,
+                              n_fold = 5L,
                               seed = 1,
-                              n_iter = 100,
-                              grid_size = 100,
+                              n_iter = 100L,
                               save_output = FALSE,
-                              parallel = TRUE){
+                              parallel = TRUE,
+                              trees = tune::tune(),
+                              min_n = tune::tune(),
+                              mtry = tune::tune(),
+                              tree_depth = tune::tune(),
+                              learn_rate = tune::tune(),
+                              loss_reduction = tune::tune(),
+                              sample_size = tune::tune(),
+                              stop_iter = tune::tune()){
 
   presenter::get_piped_name() -> data_name
 
@@ -82,28 +90,25 @@ xgboost_spec1 <-
   workflows::workflow() %>%
   workflows::add_model(
   parsnip::boost_tree(
-             trees = tune::tune(),
-             min_n = tune::tune(),
-             mtry = tune::tune(),
-             tree_depth = tune::tune(),
-             learn_rate = tune::tune(),
-             loss_reduction = tune::tune(),
-             sample_size = tune::tune(),
-             stop_iter = tune::tune()
+             trees = !!trees,
+             min_n = !!min_n,
+             mtry = !!mtry,
+             tree_depth = !!tree_depth,
+             learn_rate = !!learn_rate,
+             loss_reduction = !!loss_reduction,
+             sample_size = !!sample_size,
+             stop_iter = !!stop_iter
              ) %>%
   parsnip::set_mode(mode_set) %>%
   parsnip::set_engine("xgboost", nthread = 8)) %>%
   workflows::add_recipe(
     recipe = recipes::recipe( formula = formula,
                      data = .data))
-    # %>%   recipes::step_zv(recipes::all_predictors()) %>%
-    #   recipes::step_dummy(where(is.character) | where(is.factor), -!!target)
-
-  # )
 
 
-params <- dials::parameters(xgboost_spec1) %>%
+params <- tune::parameters(xgboost_spec1) %>%
   dials::finalize(.data)
+
 
 
 .data %>%
@@ -142,20 +147,8 @@ xgboost_tune <-
   )
 
 } else if(tune_method == "grid"){
-  grid_params <- dials::parameters(
-      dials::trees(),
-      dials::min_n(),
-      dials::mtry() ,
-      dials::tree_depth() ,
-      dials::learn_rate() ,
-      dials::loss_reduction(),
-      dials::sample_prop(),
-      dials::stop_iter()
-  ) %>%
-    dials::finalize(.data)
 
-  grid_tbl <- dials::grid_max_entropy(grid_params,
-                          size= grid_size)
+  grid_tbl <- dials::grid_max_entropy(params,  size = n_iter)
 
   xgboost_tune <-
     xgboost_spec1 %>%
@@ -186,12 +179,17 @@ xgboost_wkflow_tuned <- tune::finalize_workflow(
 
 if(save_output){
 
-lubridate::now() -> timenow
+lubridate::now() %>%
+    janitor::make_clean_names( )-> timenow
 
 file_name <- stringr::str_c("xgboost", "wkflow_tuned_", data_name, "_", timenow, ".rds")
 
+tryCatch({
+
 xgboost_wkflow_tuned %>%
   readr::write_rds(file_name)
+}, error = function(e) "model didn't save to rds",
+warning = function(e) "model didn't save to rds")
 }
 
 xgboost_wkflow_tuned

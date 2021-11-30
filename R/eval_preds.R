@@ -1,4 +1,4 @@
-eval_preds <- function(.data, col = NULL){
+eval_preds <- function(.data, col = NULL, softprob_model = NULL){
 
   col <- rlang::enexpr(col)
 
@@ -29,6 +29,12 @@ stringr::str_c(col_chr, "_preds_") %>%
 pred_cols %>%
   stringr::str_subset("_class_", negate = TRUE) -> pred_cols
 
+if(!is.null(softprob_model)) {
+
+ softprob_cols <- .data %>% names %>% stringr::str_subset(softprob_model)
+
+ pred_cols <- setdiff(softprob_cols)
+}
 
 
 
@@ -38,6 +44,8 @@ pred_cols %>%
 
 
  metric_list <- list()
+
+ print(pred_cols)
 
   for(pred in pred_cols){
 
@@ -54,6 +62,7 @@ pred_cols %>%
 
     pred %>%
       stringr::str_remove("_preds_.*")  -> col_chr
+
 
     if(!col_chr %in% names(.data)){
       rlang::abort(stringr::str_c("the truth column ", col_chr, " for estimate ", pred, " is not available in the data"))
@@ -76,14 +85,12 @@ pred_cols %>%
 
     } else if(pred_type == "multiclass") {
 
-      yardstick::metric_set( yardstick::roc_auc, yardstick::accuracy) -> eval_func
-
       class_preds <- stringr::str_c(col_chr, "_preds_", "class_", model_name)
 
 
       yardstick::metric_set(yardstick::f_meas, yardstick::roc_auc, yardstick::accuracy) -> eval_func
 
-      list(eval_func(.data, truth = !!rlang::sym(col_chr), !!rlang::sym(pred)) %>%
+      list(eval_func(.data, truth = !!rlang::sym(col_chr), ..., estimate = !!rlang::sym(class_preds)) %>%
              mutate(model = model_name,
                     target = col_chr)) %>%
         rlist::list.append(metric_list) -> metric_list

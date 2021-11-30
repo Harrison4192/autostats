@@ -9,12 +9,19 @@ auto_tune_xgboost(
   formula,
   tune_method = c("grid", "bayes"),
   event_level = c("first", "second"),
-  n_fold = 5,
+  n_fold = 5L,
   seed = 1,
-  n_iter = 100,
-  grid_size = 100,
+  n_iter = 100L,
   save_output = FALSE,
-  parallel = TRUE
+  parallel = TRUE,
+  trees = tune::tune(),
+  min_n = tune::tune(),
+  mtry = tune::tune(),
+  tree_depth = tune::tune(),
+  learn_rate = tune::tune(),
+  loss_reduction = tune::tune(),
+  sample_size = tune::tune(),
+  stop_iter = tune::tune()
 )
 }
 \arguments{
@@ -30,9 +37,7 @@ auto_tune_xgboost(
 
 \item{seed}{seed}
 
-\item{n_iter}{n iterations for tuning (bayes)}
-
-\item{grid_size}{paramter grid size (grid)}
+\item{n_iter}{n iterations for tuning (bayes); paramter grid size (grid)}
 
 \item{save_output}{FASLE. If set to TRUE will write the output as an rds file}
 
@@ -42,7 +47,10 @@ auto_tune_xgboost(
 workflow object
 }
 \description{
-Automatically tunes an xgboost model using bayesian optimization
+Automatically tunes an xgboost model using grid or bayesian optimization
+}
+\details{
+Default is to tune all 7 xgboost parameters. Individual parameter values can be optionally fixed to reduce tuning complexity.
 }
 \examples{
 
@@ -65,7 +73,7 @@ iris_split \%>\%
  rsample::assessment() -> iris_val
 
 iris_train \%>\%
- auto_tune_xgboost(formula = petal_form, n_iter = 10, parallel = TRUE) -> xgb_tuned
+ auto_tune_xgboost(formula = petal_form, n_iter = 10, parallel = TRUE, method = "bayes") -> xgb_tuned
 
 xgb_tuned \%>\%
  fit(iris_train) \%>\%
@@ -73,7 +81,6 @@ xgb_tuned \%>\%
 
 xgb_tuned_fit \%>\%
  tidy_predict(newdata = iris_val, form = petal_form) -> iris_val1
-
 
 }
 }

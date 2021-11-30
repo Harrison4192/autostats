@@ -5,9 +5,9 @@
 #' returns a list with the following entries
 #'
 #' \describe{
-#' \item{\emph{shap_vals}}{: table of shaply values}
-#' \item{\emph{shaps_sum}}{: table summarizing shapley values. Includes correlation between shaps and feature values.}
-#' \item{\emph{swarm_plot}}{: one plot showing the relation between shaps and features}
+#' \item{\emph{shap_tbl}}{: table of shaply values}
+#' \item{\emph{shap_summary}}{: table summarizing shapley values. Includes correlation between shaps and feature values.}
+#' \item{\emph{swarmplot}}{: one plot showing the relation between shaps and features}
 #' \item{\emph{scatterplots}}{: returns the top 9 most important features as determined by sum of absolute shapley values, as a facetted scatterplot of feature vs shap}
 #' }
 #'
@@ -102,9 +102,9 @@ ggplot2::ggplot(aes(x = FEATURE, y = SHAP, color = name)) +
 })
 
 list(
-  shap_vals = preds1,
-  shaps_sum = shaps_sum,
-  swarm_plot = swarm_plot,
+  shap_tbl = preds1,
+  shap_summary = shaps_sum,
+  swarmplot = swarm_plot,
   scatterplots = scatterplots
 ) -> shapslist
 

@@ -1,5 +1,5 @@
 ---
-title: "tidyModels"
+title: "tidy xgboost"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{tidyModels}
@@ -71,13 +71,29 @@ Fit models to the training set using the formula to predict `Petal.Length`. Vari
 
 ```{r}
 iris_train %>%
-  auto_tune_xgboost(formula = petal_form, n_iter = 1L) -> xgb_tuned
+  auto_tune_xgboost(formula = petal_form, n_iter = 1L, method = "bayes") -> xgb_tuned_bayes
 
-xgb_tuned %>%
+xgb_tuned_bayes %>%
   fit(iris_train) %>% 
   hardhat::extract_fit_engine() -> xgb_tuned_fit
 
-xgb_tuned_fit %>% 
+xgb_tuned_fit_bayes %>% 
+  visualize_model()
+
+```
+## xgboost with grid search hyperparameter optimization
+
+`xgboost` also can be tuned using a grid that is created internally using `dials::grid_max_entropy`. The `n_iter` parameter is passed to `grid_size`. Parallelization is highly effective in this method, so the default argument `parallel = TRUE` is recommended. 
+
+```{r}
+iris_train %>%
+  auto_tune_xgboost(formula = petal_form, n_iter = 7L, method = "grid") -> xgb_tuned_grid
+
+xgb_tuned_grid %>%
+  fit(iris_train) %>% 
+  hardhat::extract_fit_engine() -> xgb_tuned_fit_grid
+
+xgb_tuned_fit_grid %>% 
   visualize_model()
 
 ```
@@ -163,8 +179,28 @@ xgb_base %>%
 
 ```{r}
 xgb_tuned_fit %>% 
-  tidy_shap(newdata = iris_val, form = petal_form)
+  tidy_shap(newdata = iris_val, form = petal_form) -> shap_list
+
+shap_list %>% 
+  str()
 ```
+
+```{r}
+shap_list$shap_tbl
+```
+
+```{r}
+shap_list$shap_summary
+```
+
+```{r}
+shap_list$swarmplot
+```
+
+```{r}
+shap_list$scatterplots
+```
+
 ## understand xgboost with other functions from the original package
 
 Overfittingin the base config may be related to growing deep trees. 

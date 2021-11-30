@@ -139,15 +139,17 @@ tidy_predict.xgb.Booster <- function(model, newdata, form = NULL, ...){
 
 if(objective == "multi:softmax" ){
 
+  classpred_name <-  lhs1 %>% stringr::str_c("_preds_", "class_", model_name)
+
 
   newdata %>%
-    dplyr::mutate("{new_name}" := preds) -> newdata1
+    dplyr::mutate("{classpred_name}" := preds) -> newdata1
 
   newdata1 %>%
-    mutate("{new_name}" := factor(newdata1[[new_name]], labels = unique(newdata1[[lhs1]]))) -> newdata1
+    mutate("{classpred_name}" := factor(newdata1[[classpred_name]], labels = unique(newdata1[[lhs1]]))) -> newdata1
 } else if(objective == "multi:softprob" ){
   datarows <- newdata[[lhs1]] %>% length
-  datanames <- newdata[[lhs1]] %>% levels %>% stringr::str_c("_preds_", model_name)
+  datanames <- newdata[[lhs1]] %>% levels %>% stringr::str_c("_preds_", "prob_", model_name)
   datacols <-  datanames %>% length
 
 
