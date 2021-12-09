@@ -62,6 +62,7 @@ Suggests:
     markdown,
     moreparty,
     parallel,
-    doParallel
+    doParallel,
+    igraph
 VignetteBuilder: knitr
 License: MIT + file LICENSE
