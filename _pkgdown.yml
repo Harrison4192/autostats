@@ -38,6 +38,8 @@ reference:
   - '`tidy_shap`'
   - '`visualize_model`'
   - '`get_params`'
+  - '`eval_preds`'
+
 
 
 

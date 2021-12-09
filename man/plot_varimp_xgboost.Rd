@@ -26,3 +26,4 @@ recommended parameters to control;
 \item{\code{top_n}}{ number of features to include in the graph}
 }
 }
+\keyword{internal}

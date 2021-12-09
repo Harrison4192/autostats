@@ -17,3 +17,4 @@ plot
 \description{
 plot glm coefs
 }
+\keyword{internal}

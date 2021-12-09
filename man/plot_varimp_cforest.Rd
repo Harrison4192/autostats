@@ -17,3 +17,4 @@ ggplot
 \description{
 plot cforest variable importance
 }
+\keyword{internal}

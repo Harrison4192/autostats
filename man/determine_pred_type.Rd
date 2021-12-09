@@ -15,3 +15,4 @@ a string
 \description{
 determine pred type
 }
+\keyword{internal}

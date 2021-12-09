@@ -1,6 +1,7 @@
 #' determine pred type
 #'
 #' @param x  a vector
+#' @keywords internal
 #'
 #' @return a string
 #'

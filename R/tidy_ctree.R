@@ -46,6 +46,7 @@ party::ctree(formula = formula,
 #'
 #' @param ctree_obj output of tidy_ctree
 #' @param plot_type type of plot
+#' @keywords internal
 #'
 #' @return decision tree plot
 plot_ctree <- function(ctree_obj, plot_type = c("sample", "box", "bar")){

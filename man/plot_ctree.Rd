@@ -17,3 +17,4 @@ decision tree plot
 \description{
 plot ctree
 }
+\keyword{internal}

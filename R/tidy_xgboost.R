@@ -198,6 +198,7 @@ tidy_xgboost <- function(.data, formula, ...,
 #' @param font font
 #' @param top_n top n important variables
 #' @param ... additional arguments for \code{\link[xgboost]{xgb.ggplot.importance}}
+#' @keywords internal
 #'
 #' @return ggplot
 #'

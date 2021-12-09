@@ -189,7 +189,7 @@ shap_list$shap_summary
 shap_list$swarmplot
 ```
 
-```{r message=FALSE, warning=FALSE}
+```{r eval=FALSE, message=FALSE, warning=FALSE}
 shap_list$scatterplots
 ```
 

@@ -49,6 +49,7 @@ tidy_cforest <- function(data, formula, seed = 1) {
 #'
 #' @param cfar cforest model
 #' @param font font
+#' @keywords internal
 #'
 #' @return ggplot
 plot_varimp_cforest <- function(cfar, font = c("", "HiraKakuProN-W3")) {
@@ -246,6 +247,7 @@ tidy_glm <- function(data, formula) {
 #'
 #' @param glm glm
 #' @param font font
+#' @keywords internal
 #'
 #' @return plot
 plot_coefs_glm <- function(glm, font = c("", "HiraKakuProN-W3")){
