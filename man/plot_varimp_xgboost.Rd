@@ -11,6 +11,8 @@ plot_varimp_xgboost(xgb, font = c("", "HiraKakuProN-W3"), top_n = 10, ...)
 
 \item{font}{font}
 
+\item{top_n}{top n important variables}
+
 \item{...}{additional arguments for \code{\link[xgboost]{xgb.ggplot.importance}}}
 }
 \value{

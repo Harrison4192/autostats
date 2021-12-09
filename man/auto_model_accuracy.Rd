@@ -37,6 +37,24 @@ auto_model_accuracy(
 
 \item{seed}{seed}
 
+\item{mtry}{# Randomly Selected Predictors (xgboost: colsample_bynode) (type: numeric, range 0 - 1) (or type: integer if \code{count = TRUE})}
+
+\item{trees}{# Trees (xgboost: nrounds) (type: integer, default: 15L)}
+
+\item{min_n}{Minimal Node Size (xgboost: min_child_weight) (type: integer, default: 1L); Keep small value for highly imbalanced class data where leaf nodes can have smaller size groups.}
+
+\item{tree_depth}{Tree Depth (xgboost: max_depth) (type: integer, default: 6L); Typical values: 3-10}
+
+\item{learn_rate}{Learning Rate (xgboost: eta) (type: double, default: 0.3); Typical values: 0.01-0.3}
+
+\item{loss_reduction}{Minimum Loss Reduction (xgboost: gamma) (type: double, default: 0.0);  range: 0 to Inf; typical value: 0 - 1 assuming low-mid tree depth}
+
+\item{sample_size}{Proportion Observations Sampled (xgboost: subsample) (type: double, default: 1.0); Typical values: 0.5 - 1}
+
+\item{stop_iter}{# Iterations Before Stopping (xgboost: early_stop) (type: integer, default: Inf)}
+
+\item{counts}{if \code{TRUE} specify \code{mtry} as an integer number of cols. Default \code{FALSE} to specify \code{mtry} as fraction of cols from 0 to 1}
+
 \item{penalty}{linear regularization parameter}
 
 \item{mixture}{linear model parameter, combines l1 and l2 regularization}

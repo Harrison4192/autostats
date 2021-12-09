@@ -262,3 +262,9 @@ plot_coefs_glm <- function(glm, font = c("", "HiraKakuProN-W3")){
     ggplot2::ylab(label = "") +
     ggplot2::xlab(stringr::str_c("Coefficients from ",  glm$family$family, " model"))
 }
+
+is_probability <- function (x)
+{
+  is.double(x) && all(dplyr::between(x, 0, 1), na.rm = T) &
+    dplyr::n_distinct(x) > 2
+}

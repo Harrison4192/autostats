@@ -21,7 +21,8 @@ auto_tune_xgboost(
   learn_rate = tune::tune(),
   loss_reduction = tune::tune(),
   sample_size = tune::tune(),
-  stop_iter = tune::tune()
+  stop_iter = tune::tune(),
+  counts = FALSE
 )
 }
 \arguments{
@@ -29,7 +30,7 @@ auto_tune_xgboost(
 
 \item{formula}{formula}
 
-\item{tune_method}{method of tuning}
+\item{tune_method}{method of tuning. defaults to grid}
 
 \item{event_level}{for binary classification, which factor level is the positive class. specify "second" for second level}
 
@@ -42,6 +43,24 @@ auto_tune_xgboost(
 \item{save_output}{FASLE. If set to TRUE will write the output as an rds file}
 
 \item{parallel}{default TRUE; If set to TRUE, will enable parallel processing on resamples for grid tuning}
+
+\item{trees}{# Trees (xgboost: nrounds) (type: integer, default: 15L)}
+
+\item{min_n}{Minimal Node Size (xgboost: min_child_weight) (type: integer, default: 1L); Keep small value for highly imbalanced class data where leaf nodes can have smaller size groups.}
+
+\item{mtry}{# Randomly Selected Predictors (xgboost: colsample_bynode) (type: numeric, range 0 - 1) (or type: integer if \code{count = TRUE})}
+
+\item{tree_depth}{Tree Depth (xgboost: max_depth) (type: integer, default: 6L); Typical values: 3-10}
+
+\item{learn_rate}{Learning Rate (xgboost: eta) (type: double, default: 0.3); Typical values: 0.01-0.3}
+
+\item{loss_reduction}{Minimum Loss Reduction (xgboost: gamma) (type: double, default: 0.0);  range: 0 to Inf; typical value: 0 - 1 assuming low-mid tree depth}
+
+\item{sample_size}{Proportion Observations Sampled (xgboost: subsample) (type: double, default: 1.0); Typical values: 0.5 - 1}
+
+\item{stop_iter}{# Iterations Before Stopping (xgboost: early_stop) (type: integer, default: Inf)}
+
+\item{counts}{if \code{TRUE} specify \code{mtry} as an integer number of cols. Default \code{FALSE} to specify \code{mtry} as fraction of cols from 0 to 1}
 }
 \value{
 workflow object
@@ -73,7 +92,8 @@ iris_split \%>\%
  rsample::assessment() -> iris_val
 
 iris_train \%>\%
- auto_tune_xgboost(formula = petal_form, n_iter = 10, parallel = TRUE, method = "bayes") -> xgb_tuned
+ auto_tune_xgboost(formula = petal_form, n_iter = 10,
+ parallel = TRUE, method = "bayes") -> xgb_tuned
 
 xgb_tuned \%>\%
  fit(iris_train) \%>\%

@@ -27,6 +27,6 @@ Performs a t.test on 2 populations for numeric variables.
 
 
 iris \%>\%
- filter(Species != "setosa") \%>\%
+ dplyr::filter(Species != "setosa") \%>\%
  auto_t_test(col = Species)
 }

@@ -40,10 +40,19 @@
     <loc>/reference/auto_model_accuracy.html</loc>
   </url>
   <url>
+    <loc>/reference/auto_t_test.html</loc>
+  </url>
+  <url>
     <loc>/reference/auto_tune_xgboost.html</loc>
   </url>
   <url>
     <loc>/reference/auto_variable_contributions.html</loc>
+  </url>
+  <url>
+    <loc>/reference/determine_pred_type.html</loc>
+  </url>
+  <url>
+    <loc>/reference/eval_preds.html</loc>
   </url>
   <url>
     <loc>/reference/f_charvec_to_formula.html</loc>
@@ -53,6 +62,9 @@
   </url>
   <url>
     <loc>/reference/f_modify_formula.html</loc>
+  </url>
+  <url>
+    <loc>/reference/get_params.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>

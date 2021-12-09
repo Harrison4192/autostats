@@ -21,6 +21,8 @@
 #' @export
 tidy_shap <- function(model, newdata, form = NULL, ..., top_n = 12){
 
+  value <- sum_abs <- NULL
+
   presenter::get_piped_name() -> model_name
 
   rlang::as_name(rlang::ensym(newdata)) -> data_name
@@ -60,13 +62,13 @@ preds %>%
 # long shaps
 
 preds1 %>%
-  mutate(TYPE = "SHAP") %>%
+  dplyr::mutate(TYPE = "SHAP") %>%
   tidyr::pivot_longer(cols = -TYPE) %>%
   dplyr::bind_rows(
     newdata1 %>%
       dplyr::select(-tidyselect::any_of(rlang::f_lhs(form))) %>%
       tibble::as_tibble() %>%
-      mutate(TYPE = "FEATURE") %>%
+      dplyr::mutate(TYPE = "FEATURE") %>%
       tidyr::pivot_longer(cols = -TYPE)
   ) %>%
   dplyr::arrange(name, TYPE) %>%
@@ -77,9 +79,9 @@ preds1 %>%
 
 
 gplottbl %>%
-  group_by(name) %>%
-  summarise(cor = cor(FEATURE, SHAP),
-            var = var(SHAP),
+  dplyr::group_by(name) %>%
+  dplyr::summarise(cor = stats::cor(FEATURE, SHAP),
+            var = stats::var(SHAP),
             sum = sum(SHAP),
             sum_abs = sum(abs(SHAP))) %>%
   dplyr::arrange(dplyr::desc(sum_abs)) -> shaps_sum
@@ -92,7 +94,7 @@ shaps_sum %>%
 
 gplottbl %>%
   dplyr::filter(name %in% top_9) %>%
-ggplot2::ggplot(aes(x = FEATURE, y = SHAP, color = name)) +
+ggplot2::ggplot(ggplot2::aes(x = FEATURE, y = SHAP, color = name)) +
   ggplot2::geom_jitter(alpha = .5) +
   ggplot2::geom_smooth() +
   ggplot2::theme_minimal() +

@@ -148,12 +148,17 @@ Additional parameters for the correlation test can be specified as in <code><a h
 <span class="r-in"><span class="co"># don't use sparse if you're interested in only one target variable</span></span>
 <span class="r-in"><span class="va">iris</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in"><span class="fu">auto_cor</span><span class="op">(</span>sparse <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in"><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">x</span> <span class="op">==</span> <span class="st">"Petal.Length"</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 1 column(s) have become 3 dummy columns</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> Problem with `filter()` input `..1`.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">✖</span> Input `..1` is named.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">ℹ</span> This usually means that you've used `=` instead of `==`.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">ℹ</span> Did you mean `x == Petal.Length`?</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   x            y                     cor  p.value significance</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Petal.Length Sepal.Length        0.872 1.04<span style="color: #949494;">e</span><span style="color: #BB0000;">-47</span> ***         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> Petal.Length Sepal.Width        -<span style="color: #BB0000;">0.428</span> 4.51<span style="color: #949494;">e</span><span style="color: #BB0000;">- 8</span> ***         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> Petal.Length Petal.Width         0.963 4.68<span style="color: #949494;">e</span><span style="color: #BB0000;">-86</span> ***         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> Petal.Length Species_setosa     -<span style="color: #BB0000;">0.923</span> 3.62<span style="color: #949494;">e</span><span style="color: #BB0000;">-63</span> ***         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> Petal.Length Species_versicolor  0.202 1.33<span style="color: #949494;">e</span><span style="color: #BB0000;">- 2</span> *           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> Petal.Length Species_virginica   0.721 2.38<span style="color: #949494;">e</span><span style="color: #BB0000;">-25</span> ***         </span>
 </code></pre></div>
     </div>
   </div>

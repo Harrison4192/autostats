@@ -26,23 +26,23 @@ tidy_xgboost(
 
 \item{...}{additional parameters to be passed to  \code{\link[parsnip]{set_engine}}}
 
-\item{tree_depth:}{Tree Depth (xgboost: max_depth) (type: integer, default: 6L); Typical values: 3-10}
+\item{mtry}{# Randomly Selected Predictors (xgboost: colsample_bynode) (type: numeric, range 0 - 1) (or type: integer if \code{count = TRUE})}
 
-\item{trees:}{# Trees (xgboost: nrounds) (type: integer, default: 15L)}
+\item{trees}{# Trees (xgboost: nrounds) (type: integer, default: 15L)}
 
-\item{learn_rate:}{Learning Rate (xgboost: eta) (type: double, default: 0.3); Typical values: 0.01-0.3}
+\item{min_n}{Minimal Node Size (xgboost: min_child_weight) (type: integer, default: 1L); Keep small value for highly imbalanced class data where leaf nodes can have smaller size groups.}
 
-\item{mtry:}{# Randomly Selected Predictors (xgboost: colsample_bynode) (type: numeric, range 0 - 1) (or type: integer if \code{count = TRUE})}
+\item{tree_depth}{Tree Depth (xgboost: max_depth) (type: integer, default: 6L); Typical values: 3-10}
 
-\item{min_n:}{Minimal Node Size (xgboost: min_child_weight) (type: integer, default: 1L); Keep small value for highly imbalanced class data where leaf nodes can have smaller size groups.}
+\item{learn_rate}{Learning Rate (xgboost: eta) (type: double, default: 0.3); Typical values: 0.01-0.3}
 
-\item{loss_reduction:}{Minimum Loss Reduction (xgboost: gamma) (type: double, default: 0.0);  range: 0 to Inf; typical value: 0 - 1 assuming low-mid tree depth}
+\item{loss_reduction}{Minimum Loss Reduction (xgboost: gamma) (type: double, default: 0.0);  range: 0 to Inf; typical value: 0 - 1 assuming low-mid tree depth}
 
-\item{sample_size:}{Proportion Observations Sampled (xgboost: subsample) (type: double, default: 1.0); Typical values: 0.5 - 1}
+\item{sample_size}{Proportion Observations Sampled (xgboost: subsample) (type: double, default: 1.0); Typical values: 0.5 - 1}
 
-\item{stop_iter:}{# Iterations Before Stopping (xgboost: early_stop) (type: integer, default: Inf)}
+\item{stop_iter}{# Iterations Before Stopping (xgboost: early_stop) (type: integer, default: Inf)}
 
-\item{counts:}{if \code{TRUE} specify \code{mtry} as an integer number of cols. Default \code{FALSE} to specify \code{mtry} as fraction of cols from 0 to 1}
+\item{counts}{if \code{TRUE} specify \code{mtry} as an integer number of cols. Default \code{FALSE} to specify \code{mtry} as fraction of cols from 0 to 1}
 }
 \value{
 xgb.Booster model
@@ -55,41 +55,93 @@ for classification or regression. Returns the xgboost model.
 
 options(rlang_trace_top_env = rlang::current_env())
 
+
+# regression on numeric variable
+
 iris \%>\%
-tidy_xgboost(
-  tidy_formula(., target= Petal.Length),
-  trees = 500,
-  mtry = 2
-)  -> xg1
+ framecleaner::create_dummies(Species) -> iris_dummy
+
+iris_dummy \%>\%
+ tidy_formula(target= Petal.Length) -> petal_form
+
+iris_dummy \%>\%
+ tidy_xgboost(
+   petal_form,
+   trees = 500,
+   mtry = .5
+ )  -> xg1
 
 xg1 \%>\%
-  visualize_model(top_n = 2)
+ visualize_model(top_n = 2)
 
-# multiclass classification that returns labels
+xg1 \%>\%
+ tidy_predict(newdata = iris_dummy, form = petal_form) -> iris_preds
 
+iris_preds \%>\%
+ eval_preds()
+
+
+# binary classification
+# returns probabilty and labels
 
 iris \%>\%
  tidy_formula(Species) -> species_form
 
 iris \%>\%
-tidy_xgboost(species_form,
-            objective = "multi:softmax",
-            trees = 100,
-            tree_depth = 3L,
-            loss_reduction = 0.5) -> xgb2
+ dplyr::filter(Species != "versicolor") \%>\%
+ dplyr::mutate(Species = forcats::fct_drop(Species)) -> iris_binary
+
+iris_binary \%>\%
+ tidy_xgboost(formula = species_form, trees = 50L, mtry = 0.2) -> xgb_bin
+
+xgb_bin \%>\%
+ tidy_predict(newdata = iris_binary, form = species_form) -> iris_binary1
+
+iris_binary1 \%>\%
+ eval_preds()
+
+
+# multiclass classification that returns labels
+
+
+
+
+iris \%>\%
+ tidy_xgboost(species_form,
+              objective = "multi:softmax",
+              trees = 100,
+              tree_depth = 3L,
+              loss_reduction = 0.5) -> xgb2
+
 
 
 xgb2 \%>\%
  tidy_predict(newdata = iris, form = species_form) -> iris_preds
 
-# labels are given as integers
-
 iris_preds \%>\%
- dplyr::count(Species, Species_preds_xgb2)
+ eval_preds(yardstick::j_index)
 
- # return to original labels
 
- iris_preds \%>\%
- dplyr::mutate(Species_preds_xgb2 = factor(Species_preds_xgb2, labels = unique(Species))) \%>\%
- dplyr::count(Species, Species_preds_xgb2)
+# multiclass classification that returns probabilities
+
+
+iris \%>\%
+ tidy_xgboost(species_form,
+              objective = "multi:softprob",
+              trees = 50L,
+              sample_size = .2,
+              mtry = .5,
+              tree_depth = 2L,
+              loss_reduction = 3) -> xgb2_prob
+
+xgb2_prob \%>\%
+ tidy_predict(newdata = iris_preds, form = species_form) -> iris_preds1
+
+# also requires the labels in the dataframe to evaluate preds
+# the model name must be supplied as well. Then roc metrics can be calculated
+iris_preds1 \%>\%
+ eval_preds(softprob_model = "xgb2_prob", yardstick::average_precision
+ )
+
+
 }

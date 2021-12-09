@@ -47,7 +47,7 @@
 auto_anova <- function(data, ... , baseline = c("mean", "median", "first_level", "user_supplied"), user_supplied_baseline = NULL, sparse = FALSE, pval_thresh = .1){
 
   everything <- p.value <- term <- target <- predictor <- predictor_p.value <- predictor_significance <- NULL
-  std.error <- statistic <- level_p.value <- n <- level <- NULL
+  std.error <- statistic <- level_p.value <- n <- level <- conclusion <- NULL
   value <- estimate <- intercept <- intercept_name <- level_significance <- star_meaning <- anova_meaning <- NULL
   baseline <-  match.arg(baseline)
 

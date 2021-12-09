@@ -5,7 +5,6 @@
 #'
 #' @param lhs lhs atomic chr vec
 #' @param rhs rhs chr vec
-#' @param .data optional dataframe. Include if parsing a \code{.} into the column names it represents
 #'
 #' @return formula
 #' @export
@@ -64,6 +63,7 @@ tidy_formula <- function(data, target, ...){
 #'
 #' @param f formula
 #' @param include_lhs FALSE. If TRUE, appends lhs to beginning of vector
+#' @param .data dataframe for names if necessary
 #'
 #' @return chr vector
 #' @export

@@ -2,6 +2,7 @@
 #'
 #' @param model model
 #' @param newdata dataframe
+#' @importFrom stats predict
 #' @param form the formula used for the model
 #' @param ... other parameters to pass to \code{predict}
 #'
@@ -33,6 +34,7 @@ tidy_predict.Rcpp_ENSEMBLE <- function(model, newdata, form = NULL, ...){
     as.matrix() -> newdata2
 
   predict(model, newdata = newdata2) -> preds
+
 
   new_name <- form %>%
     rlang::f_lhs() %>%
@@ -146,7 +148,7 @@ if(objective == "multi:softmax" ){
     dplyr::mutate("{classpred_name}" := preds) -> newdata1
 
   newdata1 %>%
-    mutate("{classpred_name}" := factor(newdata1[[classpred_name]], labels = unique(newdata1[[lhs1]]))) -> newdata1
+    dplyr::mutate("{classpred_name}" := factor(newdata1[[classpred_name]], labels = unique(newdata1[[lhs1]]))) -> newdata1
 } else if(objective == "multi:softprob" ){
   datarows <- newdata[[lhs1]] %>% length
   datanames <- newdata[[lhs1]] %>% levels %>% stringr::str_c("_preds_", "prob_", model_name)
@@ -168,9 +170,12 @@ if(objective == "multi:softmax" ){
 
   } else if(objective == "binary:logistic"){
 
+    prob_pred_name <-  lhs1 %>% stringr::str_c("_preds_", "prob_", model_name)
+    print(prob_pred_name)
+
 
     newdata %>%
-      dplyr::mutate("{new_name}" := preds) -> newdata1
+      dplyr::mutate("{prob_pred_name}" := preds) -> newdata1
 
     classpred_name <-  lhs1 %>% stringr::str_c("_preds_", "class_", model_name)
 

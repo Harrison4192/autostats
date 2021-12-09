@@ -7,7 +7,7 @@
 #'
 #' @param .data dataframe
 #' @param formula formula
-#' @param tune_method method of tuning
+#' @param tune_method method of tuning. defaults to grid
 #' @param event_level for binary classification, which factor level is the positive class. specify "second" for second level
 #' @param n_fold integer. n folds in resamples
 #' @param seed seed
@@ -39,7 +39,8 @@
 #'  rsample::assessment() -> iris_val
 #'
 #'iris_train %>%
-#'  auto_tune_xgboost(formula = petal_form, n_iter = 10, parallel = TRUE, method = "bayes") -> xgb_tuned
+#'  auto_tune_xgboost(formula = petal_form, n_iter = 10,
+#'  parallel = TRUE, method = "bayes") -> xgb_tuned
 #'
 #'xgb_tuned %>%
 #'  fit(iris_train) %>%
@@ -65,7 +66,8 @@ auto_tune_xgboost <- function(.data,
                               learn_rate = tune::tune(),
                               loss_reduction = tune::tune(),
                               sample_size = tune::tune(),
-                              stop_iter = tune::tune()){
+                              stop_iter = tune::tune(),
+                              counts = FALSE){
 
   presenter::get_piped_name() -> data_name
 
@@ -100,7 +102,7 @@ xgboost_spec1 <-
              stop_iter = !!stop_iter
              ) %>%
   parsnip::set_mode(mode_set) %>%
-  parsnip::set_engine("xgboost", nthread = 8)) %>%
+  parsnip::set_engine("xgboost", nthread = 8, counts = counts)) %>%
   workflows::add_recipe(
     recipe = recipes::recipe( formula = formula,
                      data = .data))

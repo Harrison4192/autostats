@@ -69,13 +69,13 @@ Fit models to the training set using the formula to predict `Petal.Length`. Vari
 
 `auto_tune_xgboost` returns a workflow object with tuned parameters and requires some postprocessing to get a traind `xgb.Booster` object like `tidy_xgboost`. Tuning iterations set to `1` just so the vignette builds quickly. Default is `n_iter = 100`
 
-```{r}
+```{r eval=FALSE}
 iris_train %>%
-  auto_tune_xgboost(formula = petal_form, n_iter = 1L, method = "bayes") -> xgb_tuned_bayes
+  auto_tune_xgboost(formula = petal_form, n_iter = 7L, tune_method = "bayes") -> xgb_tuned_bayes
 
 xgb_tuned_bayes %>%
-  fit(iris_train) %>% 
-  hardhat::extract_fit_engine() -> xgb_tuned_fit
+  parsnip::fit(iris_train) %>% 
+  hardhat::extract_fit_engine() -> xgb_tuned_fit_bayes
 
 xgb_tuned_fit_bayes %>% 
   visualize_model()
@@ -85,18 +85,18 @@ xgb_tuned_fit_bayes %>%
 
 `xgboost` also can be tuned using a grid that is created internally using `dials::grid_max_entropy`. The `n_iter` parameter is passed to `grid_size`. Parallelization is highly effective in this method, so the default argument `parallel = TRUE` is recommended. 
 
-```{r}
+```{r eval=FALSE}
 iris_train %>%
-  auto_tune_xgboost(formula = petal_form, n_iter = 7L, method = "grid") -> xgb_tuned_grid
+  auto_tune_xgboost(formula = petal_form, n_iter = 5L,trees = 20L, loss_reduction = 2, mtry = .5, tune_method = "grid", parallel = FALSE) -> xgb_tuned_grid
 
 xgb_tuned_grid %>%
-  fit(iris_train) %>% 
-  hardhat::extract_fit_engine() -> xgb_tuned_fit_grid
+  parsnip::fit(iris_train) %>% 
+  parsnip::extract_fit_engine() -> xgb_tuned_fit_grid
 
 xgb_tuned_fit_grid %>% 
   visualize_model()
-
 ```
+
 
 ## xgboost with default parameters
 
@@ -143,11 +143,9 @@ automatically created using the models name and the prediction target.
 
 
 ```{r}
-xgb_tuned_fit %>%
-  tidy_predict(newdata = iris_val, form = petal_form)  -> iris_val1
 
 xgb_base %>%
-  tidy_predict(newdata = iris_val1, form = petal_form) -> iris_val2
+  tidy_predict(newdata = iris_val, form = petal_form) -> iris_val2
 
 xgb_opt %>% 
   tidy_predict(newdata = iris_val2, petal_form) -> iris_val3
@@ -172,17 +170,11 @@ iris_val4 %>%
 
 `tidy_shap` has similar syntax to `tidy_predict` and can be used to get shapley values from `xgboost` models on a validation set. 
 
+
 ```{r}
 xgb_base %>% 
-  tidy_shap(newdata = iris_val, form = petal_form)
-```
-
-```{r}
-xgb_tuned_fit %>% 
   tidy_shap(newdata = iris_val, form = petal_form) -> shap_list
 
-shap_list %>% 
-  str()
 ```
 
 ```{r}
@@ -197,7 +189,7 @@ shap_list$shap_summary
 shap_list$swarmplot
 ```
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 shap_list$scatterplots
 ```
 
@@ -212,7 +204,7 @@ Overfittingin the base config may be related to growing deep trees.
 
 
 ```{r}
- xgb_tuned_fit %>% 
+ xgb_base %>% 
   xgboost::xgb.plot.deepness()
 ```
 Plot the first tree in the model. The small \emph{cover} in terminal leaves suggests overfitting in the base model. 
@@ -221,10 +213,4 @@ xgb_base %>%
   xgboost::xgb.plot.tree(model = ., trees = 1)
 ```
 
-compare to 
-
-```{r}
-xgb_tuned_fit %>% 
-  xgboost::xgb.plot.tree(model = ., trees = 1)
-```
 

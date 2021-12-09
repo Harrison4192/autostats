@@ -40,6 +40,7 @@ Imports:
     hardhat,
     tune,
     workflows,
+    forcats,
     ggstance,
     Ckmeans.1d.dp,
     glmnet,
@@ -50,7 +51,8 @@ Imports:
     dials,
     readr,
     lubridate,
-    party
+    party,
+    agtboost
 RoxygenNote: 7.1.2
 URL: https://harrison4192.github.io/autostats/, https://github.com/Harrison4192/autostats
 BugReports: https://github.com/Harrison4192/autostats/issues

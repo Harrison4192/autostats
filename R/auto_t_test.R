@@ -15,11 +15,11 @@
 #'
 #'
 #'iris %>%
-#'  filter(Species != "setosa") %>%
+#'  dplyr::filter(Species != "setosa") %>%
 #'  auto_t_test(col = Species)
 auto_t_test <- function(data, col, ..., var_equal = FALSE, abbrv = TRUE){
 
-  values <- group <- name <- NULL
+  values <- group <- name <- value <- t_test <- estimate1 <- estimate2 <- p.value <- NULL
 
   data %>%
     framecleaner::select_otherwise(..., otherwise = where(is.numeric), col = {{col}}, return_type = "df") %>%

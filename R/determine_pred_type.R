@@ -13,7 +13,7 @@ determine_pred_type <- function(x){
 
     type <- "binary"
 
-  } else if(framecleaner:::is_probability(x)){
+  } else if(is_probability(x)){
 
     type <- "binaryprob"}
 
