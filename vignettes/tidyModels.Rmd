@@ -2,7 +2,7 @@
 title: "tidy xgboost"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{tidyModels}
+  %\VignetteIndexEntry{tidyXGBOOST}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -208,7 +208,7 @@ Overfittingin the base config may be related to growing deep trees.
   xgboost::xgb.plot.deepness()
 ```
 Plot the first tree in the model. The small \emph{cover} in terminal leaves suggests overfitting in the base model. 
-```{r message=FALSE, warning=FALSE}
+```{r eval=FALSE, message=FALSE, warning=FALSE}
 xgb_base %>% 
   xgboost::xgb.plot.tree(model = ., trees = 1)
 ```
