@@ -1,7 +1,8 @@
 pandoc: 2.7.3
-pkgdown: 1.6.1
+pkgdown: 2.0.1
 pkgdown_sha: ~
 articles:
   autostats: autostats.html
-last_built: 2021-11-11T11:53Z
+  tidyModels: tidyModels.html
+last_built: 2021-12-09T17:57Z
 
