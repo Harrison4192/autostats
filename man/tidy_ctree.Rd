@@ -24,9 +24,6 @@ a ctree object
 tidy conditional inference tree. Creates easily interpretable decision tree models that be shown with the \code{\link{visualize_model}} function.
 Statistical significance required for a split , and minimum necessary samples in a terminal leaf can be controlled to create the desired tree visual.
 }
-\details{
-\href{https://cran.r-project.org/web/packages/partykit/vignettes/ctree.pdf}{ctree vignette}
-}
 \examples{
 
 iris \%>\%

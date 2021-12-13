@@ -171,7 +171,6 @@ if(objective == "multi:softmax" ){
   } else if(objective == "binary:logistic"){
 
     prob_pred_name <-  lhs1 %>% stringr::str_c("_preds_", "prob_", model_name)
-    print(prob_pred_name)
 
 
     newdata %>%
@@ -182,7 +181,8 @@ if(objective == "multi:softmax" ){
     newdata1 %>%
     dplyr::mutate("{classpred_name}" := factor(ifelse(preds > .5,
                                                             levels(!!rlang::sym(lhs1))[1],
-                                                            levels(!!rlang::sym(lhs1))[2] ))) -> newdata1
+                                                            levels(!!rlang::sym(lhs1))[2] ),
+                                                levels = levels(!!rlang::sym(lhs1)))) -> newdata1
 
 
   } else{

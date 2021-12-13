@@ -164,6 +164,9 @@ devtools::check_rhub()
 devtools::run_examples()
 
 usethis::use_r("determine_pred_type")
+usethis::use_version(which = "minor")
+devtools::submit_cran()
+
 
 p_load(tidyverse)
 p_load(treesnip)
