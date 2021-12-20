@@ -24,7 +24,7 @@ Additional parameters for the correlation test can be specified as in cor.test">
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">autostats</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -82,7 +82,8 @@ Additional parameters for the correlation test can be specified as in cor.test">
 Additional parameters for the correlation test can be specified as in <code><a href="https://rdrr.io/r/stats/cor.test.html" class="external-link">cor.test</a></code></p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">auto_cor</span><span class="op">(</span>
+    <div id="ref-usage">
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">auto_cor</span><span class="op">(</span>
   <span class="va">.data</span>,
   <span class="va">...</span>,
   use <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"pairwise.complete.obs"</span>, <span class="st">"all.obs"</span>, <span class="st">"complete.obs"</span>, <span class="st">"everything"</span>,
@@ -93,8 +94,8 @@ Additional parameters for the correlation test can be specified as in <code><a h
   sparse <span class="op">=</span> <span class="cn">TRUE</span>,
   pval_thresh <span class="op">=</span> <span class="fl">0.1</span>
 <span class="op">)</span></code></pre></div>
+    </div>
 
-    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>.data</dt>
@@ -118,11 +119,10 @@ Additional parameters for the correlation test can be specified as in <code><a h
     <h2>Value</h2>
     <p>data frame of correlations</p>
     </div>
-    </div>
 
-    <div id="examples">
+    <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="va">iris</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in"><span class="fu">auto_cor</span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 1 column(s) have become 3 dummy columns</span>
@@ -173,7 +173,7 @@ Additional parameters for the correlation test can be specified as in <code><a h
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer></div>

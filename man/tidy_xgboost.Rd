@@ -15,8 +15,15 @@ tidy_xgboost(
   learn_rate = 0.3,
   loss_reduction = 0,
   sample_size = 1,
-  stop_iter = Inf,
-  counts = FALSE
+  stop_iter = 15L,
+  counts = FALSE,
+  tree_method = c("auto", "exact", "approx", "hist", "gpu_hist"),
+  monotone_constraints = 0L,
+  num_parallel_tree = 1L,
+  lambda = 1,
+  alpha = 0,
+  scale_pos_weight = 1,
+  verbosity = 0L
 )
 }
 \arguments{
@@ -30,19 +37,33 @@ tidy_xgboost(
 
 \item{trees}{# Trees (xgboost: nrounds) (type: integer, default: 15L)}
 
-\item{min_n}{Minimal Node Size (xgboost: min_child_weight) (type: integer, default: 1L); Keep small value for highly imbalanced class data where leaf nodes can have smaller size groups.}
+\item{min_n}{Minimal Node Size (xgboost: min_child_weight) (type: integer, default: 1L); [typical range: 2-10] Keep small value for highly imbalanced class data where leaf nodes can have smaller size groups. Otherwise increase size to prevent overfitting outliers.}
 
 \item{tree_depth}{Tree Depth (xgboost: max_depth) (type: integer, default: 6L); Typical values: 3-10}
 
 \item{learn_rate}{Learning Rate (xgboost: eta) (type: double, default: 0.3); Typical values: 0.01-0.3}
 
-\item{loss_reduction}{Minimum Loss Reduction (xgboost: gamma) (type: double, default: 0.0);  range: 0 to Inf; typical value: 0 - 1 assuming low-mid tree depth}
+\item{loss_reduction}{Minimum Loss Reduction (xgboost: gamma) (type: double, default: 0.0);  range: 0 to Inf; typical value: 0 - 20 assuming low-mid tree depth}
 
 \item{sample_size}{Proportion Observations Sampled (xgboost: subsample) (type: double, default: 1.0); Typical values: 0.5 - 1}
 
-\item{stop_iter}{# Iterations Before Stopping (xgboost: early_stop) (type: integer, default: Inf)}
+\item{stop_iter}{# Iterations Before Stopping (xgboost: early_stop) (type: integer, default: 15L) only enabled if validation set is provided}
 
 \item{counts}{if \code{TRUE} specify \code{mtry} as an integer number of cols. Default \code{FALSE} to specify \code{mtry} as fraction of cols from 0 to 1}
+
+\item{tree_method}{xgboost tree_method. default is \code{auto}. reference: \href{https://xgboost.readthedocs.io/en/stable/treemethod.html}{tree method docs}}
+
+\item{monotone_constraints}{an integer vector with length of the predictor cols, of \code{-1, 1, 0} corresponding to decreasing, increasing, and no constraint respectively for the index of the predictor col. reference: \href{https://xgboost.readthedocs.io/en/stable/tutorials/monotonic.html}{monotonicity docs}.}
+
+\item{num_parallel_tree}{should be set to the size of the forest being trained. default 1L}
+
+\item{lambda}{[default=1] L2 regularization term on weights. Increasing this value will make model more conservative.}
+
+\item{alpha}{[default=0] L1 regularization term on weights. Increasing this value will make model more conservative.}
+
+\item{scale_pos_weight}{[default=1] Control the balance of positive and negative weights, useful for unbalanced classes. A typical value to consider: sum(negative instances) / sum(positive instances)}
+
+\item{verbosity}{[default=1] Verbosity of printing messages. Valid values are 0 (silent), 1 (warning), 2 (info), 3 (debug).}
 }
 \value{
 xgb.Booster model
@@ -50,6 +71,9 @@ xgb.Booster model
 \description{
 Accepts a formula to run an xgboost model. Automatically determines whether the formula is
 for classification or regression. Returns the xgboost model.
+}
+\details{
+reference for parameters: \href{https://xgboost.readthedocs.io/en/stable/parameter.html}{xgboost docs}
 }
 \examples{
 
@@ -118,6 +142,8 @@ iris \%>\%
 xgb2 \%>\%
  tidy_predict(newdata = iris, form = species_form) -> iris_preds
 
+# additional yardstick metrics can be supplied to the dots in eval_preds
+
 iris_preds \%>\%
  eval_preds(yardstick::j_index)
 
@@ -134,13 +160,16 @@ iris \%>\%
               tree_depth = 2L,
               loss_reduction = 3) -> xgb2_prob
 
+# predict on the data that already has the class labels, so the resulting data frame
+# has class and prob predictions
+
 xgb2_prob \%>\%
  tidy_predict(newdata = iris_preds, form = species_form) -> iris_preds1
 
 # also requires the labels in the dataframe to evaluate preds
 # the model name must be supplied as well. Then roc metrics can be calculated
 iris_preds1 \%>\%
- eval_preds(softprob_model = "xgb2_prob", yardstick::average_precision
+ eval_preds( yardstick::average_precision, softprob_model = "xgb2_prob"
  )
 
 

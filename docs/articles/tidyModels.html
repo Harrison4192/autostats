@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">autostats</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -93,8 +93,7 @@
 
       
 
-      </header><script src="tidyModels_files/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="tidyModels_files/viz-1.8.2/viz.js"></script><link href="tidyModels_files/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
-<script src="tidyModels_files/grViz-binding-1.0.6.1/grViz.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>tidy xgboost</h1>
@@ -133,7 +132,7 @@
  <span class="va">petal_form</span>
 <span class="co">#&gt; Petal.Length ~ Sepal.Length + Sepal.Width + Petal.Width + Species_versicolor + </span>
 <span class="co">#&gt;     Species_virginica</span>
-<span class="co">#&gt; &lt;environment: 0x7fcd33b066a8&gt;</span></code></pre></div>
+<span class="co">#&gt; &lt;environment: 0x7ff20d92f848&gt;</span></code></pre></div>
 <p>Use the rsample package to split into train and validation sets.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">iris1</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
@@ -206,7 +205,6 @@
                sample_size <span class="op">=</span> <span class="fl">.5</span>,
                mtry <span class="op">=</span> <span class="fl">.5</span>,
                min_n <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">xgb_opt</span>
-<span class="co">#&gt; Warning: `early_stop` was reduced to 249.</span>
 
 <span class="va">xgb_opt</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/visualize_model.html">visualize_model</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
@@ -234,9 +232,11 @@
 <code class="sourceCode R">
 <span class="va">xgb_base</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/tidy_predict.html">tidy_predict</a></span><span class="op">(</span>newdata <span class="op">=</span> <span class="va">iris_val</span>, form <span class="op">=</span> <span class="va">petal_form</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">iris_val2</span>
+<span class="co">#&gt; created the following column: Petal.Length_preds_xgb_base</span>
 
 <span class="va">xgb_opt</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/tidy_predict.html">tidy_predict</a></span><span class="op">(</span>newdata <span class="op">=</span> <span class="va">iris_val2</span>, <span class="va">petal_form</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">iris_val3</span>
+<span class="co">#&gt; created the following column: Petal.Length_preds_xgb_opt</span>
 
 <span class="va">agtb</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
     <span class="fu"><a href="../reference/tidy_predict.html">tidy_predict</a></span><span class="op">(</span>newdata <span class="op">=</span> <span class="va">iris_val3</span>, <span class="va">petal_form</span><span class="op">)</span><span class="op">-&gt;</span> <span class="va">iris_val4</span>
@@ -305,7 +305,6 @@
 <p><img src="tidyModels_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">shap_list</span><span class="op">$</span><span class="va">scatterplots</span></code></pre></div>
-<p><img src="tidyModels_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
 <div class="section level2">
 <h2 id="understand-xgboost-with-other-functions-from-the-original-package">understand xgboost with other functions from the original package<a class="anchor" aria-label="anchor" href="#understand-xgboost-with-other-functions-from-the-original-package"></a>
 </h2>
@@ -321,8 +320,6 @@
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">xgb_base</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu">xgboost</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/xgboost/man/xgb.plot.tree.html" class="external-link">xgb.plot.tree</a></span><span class="op">(</span>model <span class="op">=</span> <span class="va">.</span>, trees <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-c676894ea0bbedfaf363" style="width:700px;height:432.632880098888px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c676894ea0bbedfaf363">{"x":{"diagram":"digraph {\n\ngraph [layout = \"dot\",\n       rankdir = \"LR\"]\n\nnode [color = \"DimGray\",\n      style = \"filled\",\n      fontname = \"Helvetica\"]\n\nedge [color = \"DimGray\",\n     arrowsize = \"1.5\",\n     arrowhead = \"vee\",\n     fontname = \"Helvetica\"]\n\n  \"1\" [label = \"Tree 1\nPetal.Width\nCover: 112\nGain: 143.954163\", shape = \"rectangle\", fontcolor = \"black\", fillcolor = \"Beige\"] \n  \"2\" [label = \"Sepal.Width\nCover: 45\nGain: 3.78191185\", shape = \"rectangle\", fontcolor = \"black\", fillcolor = \"Beige\"] \n  \"3\" [label = \"Leaf\nCover: 67\nValue: 0.941904604\", shape = \"oval\", fontcolor = \"black\", fillcolor = \"Khaki\"] \n  \"4\" [label = \"Leaf\nCover: 6\nValue: 0.458069682\", shape = \"oval\", fontcolor = \"black\", fillcolor = \"Khaki\"] \n  \"5\" [label = \"Sepal.Length\nCover: 39\nGain: 0.0729694366\", shape = \"rectangle\", fontcolor = \"black\", fillcolor = \"Beige\"] \n  \"6\" [label = \"Leaf\nCover: 1\nValue: 0.0477000065\", shape = \"oval\", fontcolor = \"black\", fillcolor = \"Khaki\"] \n  \"7\" [label = \"Leaf\nCover: 38\nValue: 0.202184618\", shape = \"oval\", fontcolor = \"black\", fillcolor = \"Khaki\"] \n\"1\"->\"2\" [label = \"< 1.1500001\", style = \"bold\"] \n\"2\"->\"4\" [label = \"< 2.75\", style = \"bold\"] \n\"5\"->\"6\" [label = \"< 4.35000038\", style = \"bold\"] \n\"1\"->\"3\" [style = \"bold\", style = \"solid\"] \n\"2\"->\"5\" [style = \"solid\", style = \"solid\"] \n\"5\"->\"7\" [style = \"solid\", style = \"solid\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
   </div>
@@ -344,7 +341,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>

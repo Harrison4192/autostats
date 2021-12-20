@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">autostats</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -80,7 +80,8 @@
     <p>Automatically tunes an xgboost model using grid or bayesian optimization</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">auto_tune_xgboost</span><span class="op">(</span>
+    <div id="ref-usage">
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">auto_tune_xgboost</span><span class="op">(</span>
   <span class="va">.data</span>,
   <span class="va">formula</span>,
   tune_method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grid"</span>, <span class="st">"bayes"</span><span class="op">)</span>,
@@ -98,10 +99,17 @@
   loss_reduction <span class="op">=</span> <span class="fu">tune</span><span class="fu">::</span><span class="fu"><a href="https://tune.tidymodels.org/reference/tune.html" class="external-link">tune</a></span><span class="op">(</span><span class="op">)</span>,
   sample_size <span class="op">=</span> <span class="fu">tune</span><span class="fu">::</span><span class="fu"><a href="https://tune.tidymodels.org/reference/tune.html" class="external-link">tune</a></span><span class="op">(</span><span class="op">)</span>,
   stop_iter <span class="op">=</span> <span class="fu">tune</span><span class="fu">::</span><span class="fu"><a href="https://tune.tidymodels.org/reference/tune.html" class="external-link">tune</a></span><span class="op">(</span><span class="op">)</span>,
-  counts <span class="op">=</span> <span class="cn">FALSE</span>
+  counts <span class="op">=</span> <span class="cn">FALSE</span>,
+  tree_method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"auto"</span>, <span class="st">"exact"</span>, <span class="st">"approx"</span>, <span class="st">"hist"</span>, <span class="st">"gpu_hist"</span><span class="op">)</span>,
+  monotone_constraints <span class="op">=</span> <span class="fl">0L</span>,
+  num_parallel_tree <span class="op">=</span> <span class="fl">1L</span>,
+  lambda <span class="op">=</span> <span class="fl">1</span>,
+  alpha <span class="op">=</span> <span class="fl">0</span>,
+  scale_pos_weight <span class="op">=</span> <span class="fl">1</span>,
+  verbosity <span class="op">=</span> <span class="fl">0L</span>
 <span class="op">)</span></code></pre></div>
+    </div>
 
-    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>.data</dt>
@@ -125,7 +133,7 @@
 <dt>trees</dt>
 <dd><p># Trees (xgboost: nrounds) (type: integer, default: 15L)</p></dd>
 <dt>min_n</dt>
-<dd><p>Minimal Node Size (xgboost: min_child_weight) (type: integer, default: 1L); Keep small value for highly imbalanced class data where leaf nodes can have smaller size groups.</p></dd>
+<dd><p>Minimal Node Size (xgboost: min_child_weight) (type: integer, default: 1L); [typical range: 2-10] Keep small value for highly imbalanced class data where leaf nodes can have smaller size groups. Otherwise increase size to prevent overfitting outliers.</p></dd>
 <dt>mtry</dt>
 <dd><p># Randomly Selected Predictors (xgboost: colsample_bynode) (type: numeric, range 0 - 1) (or type: integer if <code>count = TRUE</code>)</p></dd>
 <dt>tree_depth</dt>
@@ -133,13 +141,27 @@
 <dt>learn_rate</dt>
 <dd><p>Learning Rate (xgboost: eta) (type: double, default: 0.3); Typical values: 0.01-0.3</p></dd>
 <dt>loss_reduction</dt>
-<dd><p>Minimum Loss Reduction (xgboost: gamma) (type: double, default: 0.0);  range: 0 to Inf; typical value: 0 - 1 assuming low-mid tree depth</p></dd>
+<dd><p>Minimum Loss Reduction (xgboost: gamma) (type: double, default: 0.0);  range: 0 to Inf; typical value: 0 - 20 assuming low-mid tree depth</p></dd>
 <dt>sample_size</dt>
 <dd><p>Proportion Observations Sampled (xgboost: subsample) (type: double, default: 1.0); Typical values: 0.5 - 1</p></dd>
 <dt>stop_iter</dt>
-<dd><p># Iterations Before Stopping (xgboost: early_stop) (type: integer, default: Inf)</p></dd>
+<dd><p># Iterations Before Stopping (xgboost: early_stop) (type: integer, default: 15L) only enabled if validation set is provided</p></dd>
 <dt>counts</dt>
 <dd><p>if <code>TRUE</code> specify <code>mtry</code> as an integer number of cols. Default <code>FALSE</code> to specify <code>mtry</code> as fraction of cols from 0 to 1</p></dd>
+<dt>tree_method</dt>
+<dd><p>xgboost tree_method. default is <code>auto</code>. reference: <a href="https://xgboost.readthedocs.io/en/stable/treemethod.html" class="external-link">tree method docs</a></p></dd>
+<dt>monotone_constraints</dt>
+<dd><p>an integer vector with length of the predictor cols, of <code>-1, 1, 0</code> corresponding to decreasing, increasing, and no constraint respectively for the index of the predictor col. reference: <a href="https://xgboost.readthedocs.io/en/stable/tutorials/monotonic.html" class="external-link">monotonicity docs</a>.</p></dd>
+<dt>num_parallel_tree</dt>
+<dd><p>should be set to the size of the forest being trained. default 1L</p></dd>
+<dt>lambda</dt>
+<dd><p>[default=1] L2 regularization term on weights. Increasing this value will make model more conservative.</p></dd>
+<dt>alpha</dt>
+<dd><p>[default=0] L1 regularization term on weights. Increasing this value will make model more conservative.</p></dd>
+<dt>scale_pos_weight</dt>
+<dd><p>[default=1] Control the balance of positive and negative weights, useful for unbalanced classes. A typical value to consider: sum(negative instances) / sum(positive instances)</p></dd>
+<dt>verbosity</dt>
+<dd><p>[default=1] Verbosity of printing messages. Valid values are 0 (silent), 1 (warning), 2 (info), 3 (debug).</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -149,11 +171,10 @@
     <h2>Details</h2>
     <p>Default is to tune all 7 xgboost parameters. Individual parameter values can be optionally fixed to reduce tuning complexity.</p>
     </div>
-    </div>
 
-    <div id="examples">
+    <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="kw">if</span><span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">{</span></span>
 <span class="r-in"></span>
 <span class="r-in"></span>
@@ -183,6 +204,7 @@
 <span class="r-in"><span class="va">xgb_tuned_fit</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in"> <span class="fu"><a href="tidy_predict.html">tidy_predict</a></span><span class="op">(</span>newdata <span class="op">=</span> <span class="va">iris_val</span>, form <span class="op">=</span> <span class="va">petal_form</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">iris_val1</span></span>
 <span class="r-in"></span>
+<span class="r-in"></span>
 <span class="r-in"><span class="op">}</span></span>
 </code></pre></div>
     </div>
@@ -198,7 +220,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer></div>

@@ -72,12 +72,14 @@ auto_model_accuracy <- function(data,
   }
 
   my_rec <-
-    recipes::recipe(formula, data = data)  %>%
-    recipes::step_nzv(recipes::all_numeric(), -recipes::all_outcomes()) %>%
-    recipes::step_corr(recipes::all_numeric(), -recipes::all_outcomes()) %>%
-    recipes::step_impute_median(recipes::all_numeric()) %>%
-    recipes::step_impute_mode(recipes::all_nominal()) %>%
+    recipes::recipe(formula, data = data) %>%
     recipes::step_dummy(recipes::all_nominal(), -recipes::all_outcomes())
+
+  # %>%
+  #   recipes::step_nzv(recipes::all_numeric(), -recipes::all_outcomes()) %>%
+  #   recipes::step_corr(recipes::all_numeric(), -recipes::all_outcomes()) %>%
+  #   recipes::step_impute_median(recipes::all_numeric()) %>%
+  #   recipes::step_impute_mode(recipes::all_nominal()) %>%
 
   my_workflow <-
     workflows::workflow() %>%
@@ -114,12 +116,25 @@ auto_model_accuracy <- function(data,
 
   data %>% rsample::vfold_cv(v = n_folds) -> rsamples
 
+  tune::control_resamples(
+    verbose = FALSE,
+    allow_par = TRUE,
+    extract = NULL,
+    save_pred = FALSE,
+    pkgs = NULL,
+    save_workflow = FALSE,
+    event_level = "first",
+    parallel_over = NULL
+  ) -> controls
+
+
 
   boost_workflow %>%
-    tune::fit_resamples(rsamples) -> boost_sam
+    tune::fit_resamples(rsamples, control = controls) -> boost_sam
 
   linear_workflow %>%
-    tune::fit_resamples(rsamples) -> lin_sam
+    tune::fit_resamples(rsamples, control = controls) -> lin_sam
+
 
 
   boost_sam %>%

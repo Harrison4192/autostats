@@ -49,6 +49,7 @@
 #'xgb_tuned_fit %>%
 #'  tidy_predict(newdata = iris_val, form = petal_form) -> iris_val1
 #'
+#'
 #' }
 auto_tune_xgboost <- function(.data,
                               formula,
@@ -67,12 +68,23 @@ auto_tune_xgboost <- function(.data,
                               loss_reduction = tune::tune(),
                               sample_size = tune::tune(),
                               stop_iter = tune::tune(),
-                              counts = FALSE){
+                              counts = FALSE,
+                              tree_method = c("auto", "exact", "approx", "hist", "gpu_hist"),
+                              monotone_constraints = 0L,
+                              num_parallel_tree = 1L,
+                              lambda = 1,
+                              alpha = 0,
+                              scale_pos_weight = 1,
+                              verbosity = 0L){
+
+
 
   presenter::get_piped_name() -> data_name
 
   tune_method <- match.arg(tune_method)
   event_level <- match.arg(event_level)
+  tree_method <- match.arg(tree_method)
+
 
   formula %>%
     rlang::f_lhs() -> target
@@ -102,7 +114,16 @@ xgboost_spec1 <-
              stop_iter = !!stop_iter
              ) %>%
   parsnip::set_mode(mode_set) %>%
-  parsnip::set_engine("xgboost", nthread = 8, counts = counts)) %>%
+  parsnip::set_engine("xgboost",
+                      nthread = 8,
+                      counts = counts,
+                      tree_method = tree_method,
+                      monotone_constraints = monotone_constraints,
+                      num_parallel_tree = num_parallel_tree,
+                      lambda = lambda,
+                      alpha = alpha,
+                      scale_pos_weight = scale_pos_weight,
+                      verbosity = verbosity)) %>%
   workflows::add_recipe(
     recipe = recipes::recipe( formula = formula,
                      data = .data))

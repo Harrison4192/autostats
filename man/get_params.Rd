@@ -23,12 +23,15 @@ s3 method to extract params of a model with names consistent for use in the `aut
 \examples{
 
 iris \%>\%
-tidy_formula(target = Petal.Length) -> p_form
+  framecleaner::create_dummies() -> iris_dummies
 
-iris \%>\%
-tidy_xgboost(p_form, mtry = .5, trees = 5L, loss_reduction = 2, sample_size = .7) -> xgb
+iris_dummies \%>\%
+  tidy_formula(target = Petal.Length) -> p_form
+
+iris_dummies \%>\%
+  tidy_xgboost(p_form, mtry = .5, trees = 5L, loss_reduction = 2, sample_size = .7) -> xgb
 
 ## reuse these parameters to find the cross validated error
 
-rlang::exec(auto_model_accuracy, data = iris, formula = p_form, !!!get_params(xgb))
+rlang::exec(auto_model_accuracy, data = iris_dummies, formula = p_form, !!!get_params(xgb))
 }

@@ -149,6 +149,9 @@ if(objective == "multi:softmax" ){
 
   newdata1 %>%
     dplyr::mutate("{classpred_name}" := factor(newdata1[[classpred_name]], labels = unique(newdata1[[lhs1]]))) -> newdata1
+
+  message(stringr::str_c("created the following column: ", classpred_name))
+
 } else if(objective == "multi:softprob" ){
   datarows <- newdata[[lhs1]] %>% length
   datanames <- newdata[[lhs1]] %>% levels %>% stringr::str_c("_preds_", "prob_", model_name)
@@ -159,7 +162,7 @@ if(objective == "multi:softmax" ){
 
   preds %>%
     matrix(datacols, datarows) %>%
-    tibble::as_tibble() %>%
+    tibble::as_tibble(.name_repair = "minimal") %>%
     presenter::pivot_summary() %>%
     dplyr::select(-tidyselect::all_of(1)) %>%
     rlang::set_names(datanames) -> preds1
@@ -167,6 +170,9 @@ if(objective == "multi:softmax" ){
 
      newdata %>%
        dplyr::bind_cols(preds1) -> newdata1
+
+    message("created the following columns: \n", stringr::str_c( stringr::str_c(datanames, "\n")))
+
 
   } else if(objective == "binary:logistic"){
 
@@ -184,12 +190,16 @@ if(objective == "multi:softmax" ){
                                                             levels(!!rlang::sym(lhs1))[2] ),
                                                 levels = levels(!!rlang::sym(lhs1)))) -> newdata1
 
+    message("created the following columns: \n", stringr::str_c( prob_pred_name, "\n", classpred_name))
 
   } else{
 
 
     newdata %>%
       dplyr::mutate("{new_name}" := preds) -> newdata1
+
+    message(stringr::str_c("created the following column: ", new_name))
+
   }
 
   newdata1

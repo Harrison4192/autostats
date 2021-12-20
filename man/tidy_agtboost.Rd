@@ -11,7 +11,7 @@ tidy_agtboost(.data, formula, ...)
 
 \item{formula}{formula}
 
-\item{...}{additional parameters to pass to \code{link[agtboos]{gbt.train}}}
+\item{...}{additional parameters to pass to \code{\link[agtboost]{gbt.train}}}
 }
 \value{
 agtboost model of class \code{Rcpp_ENSEMBLE}

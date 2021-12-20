@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">autostats</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -80,15 +80,16 @@
     <p>Modify components of a formula by adding / removing vars from the rhs or replacing the lhs.</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">f_modify_formula</span><span class="op">(</span>
+    <div id="ref-usage">
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">f_modify_formula</span><span class="op">(</span>
   <span class="va">f</span>,
   rhs_remove <span class="op">=</span> <span class="cn">NULL</span>,
   rhs_add <span class="op">=</span> <span class="cn">NULL</span>,
   lhs_replace <span class="op">=</span> <span class="cn">NULL</span>,
   negate <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span></code></pre></div>
+    </div>
 
-    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>f</dt>
@@ -106,17 +107,16 @@
     <h2>Value</h2>
     <p>formula</p>
     </div>
-    </div>
 
-    <div id="examples">
+    <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="va">iris</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in"><span class="fu"><a href="tidy_formula.html">tidy_formula</a></span><span class="op">(</span>target <span class="op">=</span> <span class="va">Species</span>, <span class="fu">tidyselect</span><span class="fu">::</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">f</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">f</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7ff255098d58&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7f82c1c45640&gt;</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">f</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in">  <span class="fu">f_modify_formula</span><span class="op">(</span></span>
@@ -124,7 +124,7 @@
 <span class="r-in">rhs_add <span class="op">=</span> <span class="st">"Custom_Variable"</span></span>
 <span class="r-in"><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Species ~ Sepal.Width + Petal.Length + Custom_Variable</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7ff253c877e0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7f82c95bcd60&gt;</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">f</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in">  <span class="fu">f_modify_formula</span><span class="op">(</span></span>
@@ -132,7 +132,7 @@
 <span class="r-in">lhs_replace <span class="op">=</span> <span class="st">"Petal.Length"</span></span>
 <span class="r-in"><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Petal.Length ~ Sepal.Length + Sepal.Width</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7ff254c3ae10&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7f82c5d82a40&gt;</span>
 </code></pre></div>
     </div>
   </div>
@@ -147,7 +147,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer></div>

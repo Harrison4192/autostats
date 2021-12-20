@@ -11,14 +11,17 @@
 #' @examples
 #'
 #' iris %>%
-#' tidy_formula(target = Petal.Length) -> p_form
+#'   framecleaner::create_dummies() -> iris_dummies
 #'
-#' iris %>%
-#' tidy_xgboost(p_form, mtry = .5, trees = 5L, loss_reduction = 2, sample_size = .7) -> xgb
+#' iris_dummies %>%
+#'   tidy_formula(target = Petal.Length) -> p_form
+#'
+#' iris_dummies %>%
+#'   tidy_xgboost(p_form, mtry = .5, trees = 5L, loss_reduction = 2, sample_size = .7) -> xgb
 #'
 #' ## reuse these parameters to find the cross validated error
 #'
-#' rlang::exec(auto_model_accuracy, data = iris, formula = p_form, !!!get_params(xgb))
+#' rlang::exec(auto_model_accuracy, data = iris_dummies, formula = p_form, !!!get_params(xgb))
 get_params <- function(model, ...){
 
   UseMethod("get_params", model)
@@ -30,14 +33,25 @@ get_params <- function(model, ...){
 #' @export
 get_params.xgb.Booster <- function(model, ...){
 
-  model$params %>%
-    `[`(c(1:3, 5:7)) %>%
-    rlang::set_names(c("learn_rate",
-                       "tree_depth",
-                       "loss_reduction",
-                       "mtry",
-                       "min_n",
-                       "sample_size"))
+
+  model$params[c("eta",
+               "max_depth",
+               "gamma",
+               "colsample_bynode",
+               "min_child_weight",
+               "subsample")] %>%
+    c(model[c("niter")]) %>%
+    rlang::set_names(nm = c("eta" = "learn_rate" ,
+                            "max_depth" = "tree_depth",
+                            "gamma" = "loss_reduction",
+                            "colsample_bynode" = "mtry",
+                            "min_child_weight" = "min_n",
+                            "subsample" = "sample_size",
+                            "niter" = "trees"))
+
+
+
 
 }
+
 

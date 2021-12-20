@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">autostats</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -80,9 +80,17 @@
     <p>recommended parameters to control;</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">plot_varimp_xgboost</span><span class="op">(</span><span class="va">xgb</span>, font <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">""</span>, <span class="st">"HiraKakuProN-W3"</span><span class="op">)</span>, top_n <span class="op">=</span> <span class="fl">10</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div id="ref-usage">
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">plot_varimp_xgboost</span><span class="op">(</span>
+  <span class="va">xgb</span>,
+  font <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">""</span>, <span class="st">"HiraKakuProN-W3"</span><span class="op">)</span>,
+  top_n <span class="op">=</span> <span class="fl">10</span>,
+  aggregate <span class="op">=</span> <span class="cn">NULL</span>,
+  as_table <span class="op">=</span> <span class="cn">FALSE</span>,
+  <span class="va">...</span>
+<span class="op">)</span></code></pre></div>
+    </div>
 
-    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>xgb</dt>
@@ -91,6 +99,10 @@
 <dd><p>font</p></dd>
 <dt>top_n</dt>
 <dd><p>top n important variables</p></dd>
+<dt>aggregate</dt>
+<dd><p>a character vector. Predictors containing the string will be aggregated, and renamed to that string.</p></dd>
+<dt>as_table</dt>
+<dd><p>logical, default FALSE. If TRUE returns importances in a data frame</p></dd>
 <dt>...</dt>
 <dd><p>additional arguments for <code><a href="https://rdrr.io/pkg/xgboost/man/xgb.plot.importance.html" class="external-link">xgb.ggplot.importance</a></code></p></dd>
 </dl></div>
@@ -103,7 +115,6 @@
     
 <ul><li><p><code>top_n</code> number of features to include in the graph</p></li>
 </ul></div>
-    </div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -117,7 +128,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer></div>

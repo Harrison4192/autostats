@@ -9,7 +9,7 @@
 #'
 #' @param .data dataframe
 #' @param formula formula
-#' @param ... additional parameters to pass to \code{link[agtboos]{gbt.train}}
+#' @param ... additional parameters to pass to \code{\link[agtboost]{gbt.train}}
 #'
 #' @return agtboost model of class \code{Rcpp_ENSEMBLE}
 #' @export

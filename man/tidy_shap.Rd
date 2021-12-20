@@ -4,7 +4,7 @@
 \alias{tidy_shap}
 \title{tidy shap}
 \usage{
-tidy_shap(model, newdata, form = NULL, ..., top_n = 12)
+tidy_shap(model, newdata, form = NULL, ..., top_n = 12, aggregate = NULL)
 }
 \arguments{
 \item{model}{xgboost model}
@@ -16,6 +16,8 @@ tidy_shap(model, newdata, form = NULL, ..., top_n = 12)
 \item{...}{additional parameters for shapley value}
 
 \item{top_n}{top n features}
+
+\item{aggregate}{a character vector. Predictors containing the string will be aggregated, and renamed to that string.}
 }
 \value{
 list
