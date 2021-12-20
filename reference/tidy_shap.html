@@ -81,7 +81,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">tidy_shap</span><span class="op">(</span><span class="va">model</span>, <span class="va">newdata</span>, form <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span>, top_n <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">tidy_shap</span><span class="op">(</span><span class="va">model</span>, <span class="va">newdata</span>, form <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span>, top_n <span class="op">=</span> <span class="fl">12</span>, aggregate <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -96,6 +96,8 @@
 <dd><p>additional parameters for shapley value</p></dd>
 <dt>top_n</dt>
 <dd><p>top n features</p></dd>
+<dt>aggregate</dt>
+<dd><p>a character vector. Predictors containing the string will be aggregated, and renamed to that string.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>

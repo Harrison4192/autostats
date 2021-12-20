@@ -123,17 +123,17 @@ Automatically determines whether the provided formula is a regression or classif
 <dt>trees</dt>
 <dd><p># Trees (xgboost: nrounds) (type: integer, default: 15L)</p></dd>
 <dt>min_n</dt>
-<dd><p>Minimal Node Size (xgboost: min_child_weight) (type: integer, default: 1L); Keep small value for highly imbalanced class data where leaf nodes can have smaller size groups.</p></dd>
+<dd><p>Minimal Node Size (xgboost: min_child_weight) (type: integer, default: 1L); [typical range: 2-10] Keep small value for highly imbalanced class data where leaf nodes can have smaller size groups. Otherwise increase size to prevent overfitting outliers.</p></dd>
 <dt>tree_depth</dt>
 <dd><p>Tree Depth (xgboost: max_depth) (type: integer, default: 6L); Typical values: 3-10</p></dd>
 <dt>learn_rate</dt>
 <dd><p>Learning Rate (xgboost: eta) (type: double, default: 0.3); Typical values: 0.01-0.3</p></dd>
 <dt>loss_reduction</dt>
-<dd><p>Minimum Loss Reduction (xgboost: gamma) (type: double, default: 0.0);  range: 0 to Inf; typical value: 0 - 1 assuming low-mid tree depth</p></dd>
+<dd><p>Minimum Loss Reduction (xgboost: gamma) (type: double, default: 0.0);  range: 0 to Inf; typical value: 0 - 20 assuming low-mid tree depth</p></dd>
 <dt>sample_size</dt>
 <dd><p>Proportion Observations Sampled (xgboost: subsample) (type: double, default: 1.0); Typical values: 0.5 - 1</p></dd>
 <dt>stop_iter</dt>
-<dd><p># Iterations Before Stopping (xgboost: early_stop) (type: integer, default: Inf)</p></dd>
+<dd><p># Iterations Before Stopping (xgboost: early_stop) (type: integer, default: 15L) only enabled if validation set is provided</p></dd>
 <dt>counts</dt>
 <dd><p>if <code>TRUE</code> specify <code>mtry</code> as an integer number of cols. Default <code>FALSE</code> to specify <code>mtry</code> as fraction of cols from 0 to 1</p></dd>
 <dt>penalty</dt>

@@ -132,7 +132,7 @@
  <span class="va">petal_form</span>
 <span class="co">#&gt; Petal.Length ~ Sepal.Length + Sepal.Width + Petal.Width + Species_versicolor + </span>
 <span class="co">#&gt;     Species_virginica</span>
-<span class="co">#&gt; &lt;environment: 0x7f8c09ccf158&gt;</span></code></pre></div>
+<span class="co">#&gt; &lt;environment: 0x7fe04c0f8860&gt;</span></code></pre></div>
 <p>Use the rsample package to split into train and validation sets.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">iris1</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
@@ -205,7 +205,6 @@
                sample_size <span class="op">=</span> <span class="fl">.5</span>,
                mtry <span class="op">=</span> <span class="fl">.5</span>,
                min_n <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">xgb_opt</span>
-<span class="co">#&gt; Warning: `early_stop` was reduced to 249.</span>
 
 <span class="va">xgb_opt</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/visualize_model.html">visualize_model</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
@@ -233,9 +232,11 @@
 <code class="sourceCode R">
 <span class="va">xgb_base</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/tidy_predict.html">tidy_predict</a></span><span class="op">(</span>newdata <span class="op">=</span> <span class="va">iris_val</span>, form <span class="op">=</span> <span class="va">petal_form</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">iris_val2</span>
+<span class="co">#&gt; created the following column: Petal.Length_preds_xgb_base</span>
 
 <span class="va">xgb_opt</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/tidy_predict.html">tidy_predict</a></span><span class="op">(</span>newdata <span class="op">=</span> <span class="va">iris_val2</span>, <span class="va">petal_form</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">iris_val3</span>
+<span class="co">#&gt; created the following column: Petal.Length_preds_xgb_opt</span>
 
 <span class="va">agtb</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
     <span class="fu"><a href="../reference/tidy_predict.html">tidy_predict</a></span><span class="op">(</span>newdata <span class="op">=</span> <span class="va">iris_val3</span>, <span class="va">petal_form</span><span class="op">)</span><span class="op">-&gt;</span> <span class="va">iris_val4</span>
