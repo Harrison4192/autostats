@@ -8,7 +8,7 @@
 \alias{tidy_predict.xgb.Booster}
 \title{tidy predict}
 \usage{
-tidy_predict(model, newdata, form = NULL, ...)
+tidy_predict(model, newdata, form = NULL, olddata = NULL, ...)
 
 \method{tidy_predict}{Rcpp_ENSEMBLE}(model, newdata, form = NULL, ...)
 
@@ -16,7 +16,7 @@ tidy_predict(model, newdata, form = NULL, ...)
 
 \method{tidy_predict}{default}(model, newdata, form = NULL, ...)
 
-\method{tidy_predict}{xgb.Booster}(model, newdata, form = NULL, ...)
+\method{tidy_predict}{xgb.Booster}(model, newdata, form = NULL, olddata = NULL, ...)
 }
 \arguments{
 \item{model}{model}
@@ -24,6 +24,8 @@ tidy_predict(model, newdata, form = NULL, ...)
 \item{newdata}{dataframe}
 
 \item{form}{the formula used for the model}
+
+\item{olddata}{training data set}
 
 \item{...}{other parameters to pass to \code{predict}}
 }

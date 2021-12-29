@@ -4,11 +4,12 @@
 #' @param newdata dataframe
 #' @importFrom stats predict
 #' @param form the formula used for the model
+#' @param olddata training data set
 #' @param ... other parameters to pass to \code{predict}
 #'
 #' @return dataframe
 #' @export
-tidy_predict <- function(model, newdata, form = NULL, ...){
+tidy_predict <- function(model, newdata, form = NULL, olddata = NULL, ...){
 
 
     UseMethod("tidy_predict", model)
@@ -107,7 +108,7 @@ tidy_predict.default <- function(model, newdata, form = NULL, ...){
 #' @rdname tidy_predict
 #' @method tidy_predict xgb.Booster
 #' @export
-tidy_predict.xgb.Booster <- function(model, newdata, form = NULL, ...){
+tidy_predict.xgb.Booster <- function(model, newdata, form = NULL, olddata = NULL,  ...){
 
   presenter::get_piped_name() -> model_name
 
@@ -147,14 +148,18 @@ if(objective == "multi:softmax" ){
   newdata %>%
     dplyr::mutate("{classpred_name}" := preds) -> newdata1
 
+  olddata %>%
+    dplyr::pull(!!rlang::sym(lhs1)) %>%
+    levels() -> class_levels
+
   newdata1 %>%
-    dplyr::mutate("{classpred_name}" := factor(newdata1[[classpred_name]], labels = unique(newdata1[[lhs1]]))) -> newdata1
+    dplyr::mutate("{classpred_name}" := factor(newdata1[[classpred_name]], labels = class_levels)) -> newdata1
 
   message(stringr::str_c("created the following column: ", classpred_name))
 
 } else if(objective == "multi:softprob" ){
-  datarows <- newdata[[lhs1]] %>% length
-  datanames <- newdata[[lhs1]] %>% levels %>% stringr::str_c("_preds_", "prob_", model_name)
+  datarows <- newdata %>% nrow()
+  datanames <- olddata[[lhs1]] %>% levels %>% stringr::str_c("_preds_", "prob_", model_name)
   datacols <-  datanames %>% length
 
 
@@ -184,11 +189,14 @@ if(objective == "multi:softmax" ){
 
     classpred_name <-  lhs1 %>% stringr::str_c("_preds_", "class_", model_name)
 
+    olddata %>%
+      dplyr::pull(!!rlang::sym(lhs1)) %>%
+      levels() -> class_levels
+
     newdata1 %>%
     dplyr::mutate("{classpred_name}" := factor(ifelse(preds > .5,
-                                                            levels(!!rlang::sym(lhs1))[1],
-                                                            levels(!!rlang::sym(lhs1))[2] ),
-                                                levels = levels(!!rlang::sym(lhs1)))) -> newdata1
+                                                            class_levels[1], class_levels[2]),
+                                                levels = class_levels)) -> newdata1
 
     message("created the following columns: \n", stringr::str_c( prob_pred_name, "\n", classpred_name))
 
