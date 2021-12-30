@@ -9,6 +9,7 @@ auto_model_accuracy(
   formula,
   n_folds = 4,
   as_flextable = TRUE,
+  include_linear = FALSE,
   theme = "tron",
   seed = 1,
   mtry = 1,
@@ -18,7 +19,7 @@ auto_model_accuracy(
   learn_rate = 0.3,
   loss_reduction = 0,
   sample_size = 1,
-  stop_iter = Inf,
+  stop_iter = 15L,
   counts = FALSE,
   penalty = 0.015,
   mixture = 0.35
@@ -32,6 +33,8 @@ auto_model_accuracy(
 \item{n_folds}{number of cross validation folds}
 
 \item{as_flextable}{if FALSE, returns a tibble}
+
+\item{include_linear}{if TRUE includes a regularized linear model}
 
 \item{theme}{make_flextable theme}
 
@@ -58,6 +61,8 @@ auto_model_accuracy(
 \item{penalty}{linear regularization parameter}
 
 \item{mixture}{linear model parameter, combines l1 and l2 regularization}
+
+\item{...}{any other params for xgboost}
 }
 \value{
 a table

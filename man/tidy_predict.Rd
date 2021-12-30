@@ -8,7 +8,14 @@
 \alias{tidy_predict.xgb.Booster}
 \title{tidy predict}
 \usage{
-tidy_predict(model, newdata, form = NULL, olddata = NULL, ...)
+tidy_predict(
+  model,
+  newdata,
+  form = NULL,
+  olddata = NULL,
+  bind_preds = FALSE,
+  ...
+)
 
 \method{tidy_predict}{Rcpp_ENSEMBLE}(model, newdata, form = NULL, ...)
 
@@ -16,7 +23,14 @@ tidy_predict(model, newdata, form = NULL, olddata = NULL, ...)
 
 \method{tidy_predict}{default}(model, newdata, form = NULL, ...)
 
-\method{tidy_predict}{xgb.Booster}(model, newdata, form = NULL, olddata = NULL, ...)
+\method{tidy_predict}{xgb.Booster}(
+  model,
+  newdata,
+  form = NULL,
+  olddata = NULL,
+  bind_preds = FALSE,
+  ...
+)
 }
 \arguments{
 \item{model}{model}
@@ -26,6 +40,8 @@ tidy_predict(model, newdata, form = NULL, olddata = NULL, ...)
 \item{form}{the formula used for the model}
 
 \item{olddata}{training data set}
+
+\item{bind_preds}{set to TURE if newdata is a dataset without any labels, to bind the new and old data with the predictions under the original target name}
 
 \item{...}{other parameters to pass to \code{predict}}
 }

@@ -22,7 +22,7 @@
 #' @param num_parallel_tree should be set to the size of the forest being trained. default 1L
 #' @param lambda [default=1] L2 regularization term on weights. Increasing this value will make model more conservative.
 #' @param alpha [default=0] L1 regularization term on weights. Increasing this value will make model more conservative.
-#' @param scale_pos_weight [default=1] Control the balance of positive and negative weights, useful for unbalanced classes. A typical value to consider: sum(negative instances) / sum(positive instances)
+#' @param scale_pos_weight [default=1] Control the balance of positive and negative weights, useful for unbalanced classes. if set to TRUE, calculates sum(negative instances) / sum(positive instances)
 #' @param verbosity [default=1] Verbosity of printing messages. Valid values are 0 (silent), 1 (warning), 2 (info), 3 (debug).
 #'
 #' @return xgb.Booster model
@@ -151,9 +151,18 @@ tidy_xgboost <- function(.data, formula, ...,
     rlang::f_lhs() -> target
 
 
+
   .data %>%
     dplyr::pull(!!target) %>%
     is.numeric() -> numer_tg
+
+if(isTRUE(scale_pos_weight)){
+  .data %>%
+    dplyr::count(!!target, sort = TRUE) %>%
+    dplyr::pull(n) -> classcounts
+
+  scale_pos_weight <- classcounts[1] / classcounts[2]
+}
 
   xgboost_recipe <-
     recipes::recipe(data = .data, formula = formula) %>%

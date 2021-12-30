@@ -5,11 +5,12 @@
 #' @importFrom stats predict
 #' @param form the formula used for the model
 #' @param olddata training data set
+#' @param bind_preds set to TURE if newdata is a dataset without any labels, to bind the new and old data with the predictions under the original target name
 #' @param ... other parameters to pass to \code{predict}
 #'
 #' @return dataframe
 #' @export
-tidy_predict <- function(model, newdata, form = NULL, olddata = NULL, ...){
+tidy_predict <- function(model, newdata, form = NULL, olddata = NULL, bind_preds = FALSE, ...){
 
 
     UseMethod("tidy_predict", model)
@@ -108,11 +109,16 @@ tidy_predict.default <- function(model, newdata, form = NULL, ...){
 #' @rdname tidy_predict
 #' @method tidy_predict xgb.Booster
 #' @export
-tidy_predict.xgb.Booster <- function(model, newdata, form = NULL, olddata = NULL,  ...){
+tidy_predict.xgb.Booster <- function(model, newdata, form = NULL, olddata = NULL,  bind_preds = FALSE, ...){
 
   presenter::get_piped_name() -> model_name
 
+  .ispred <- n <- NULL
+
   model$call$params$objective -> objective
+
+  if(is.null(olddata)){
+    olddata <- newdata}
 
 
   form %>%
@@ -181,17 +187,21 @@ if(objective == "multi:softmax" ){
 
   } else if(objective == "binary:logistic"){
 
+    olddata %>%
+      dplyr::pull(!!rlang::sym(lhs1)) %>%
+      levels() -> class_levels
+
+
     prob_pred_name <-  lhs1 %>% stringr::str_c("_preds_", "prob_", model_name)
 
 
     newdata %>%
       dplyr::mutate("{prob_pred_name}" := preds) -> newdata1
 
+
     classpred_name <-  lhs1 %>% stringr::str_c("_preds_", "class_", model_name)
 
-    olddata %>%
-      dplyr::pull(!!rlang::sym(lhs1)) %>%
-      levels() -> class_levels
+
 
     newdata1 %>%
     dplyr::mutate("{classpred_name}" := factor(ifelse(preds > .5,
@@ -202,15 +212,26 @@ if(objective == "multi:softmax" ){
 
   } else{
 
+    classpred_name <- new_name
+
 
     newdata %>%
-      dplyr::mutate("{new_name}" := preds) -> newdata1
+      dplyr::mutate("{classpred_name}" := preds) -> newdata1
 
-    message(stringr::str_c("created the following column: ", new_name))
+    message(stringr::str_c("created the following column: ", classpred_name))
 
   }
 
-  newdata1
+
+  if(bind_preds){
+    newdata1 %>%
+      dplyr::rename("{lhs1}" := !!rlang::sym(classpred_name)) %>%
+      dplyr::mutate(.ispred = TRUE) %>%
+      dplyr::bind_rows(olddata %>% dplyr::mutate(.ispred = FALSE)) -> newdata1
+
+  }
+
+ newdata1
 
 }
 

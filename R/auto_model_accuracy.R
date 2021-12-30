@@ -6,8 +6,10 @@
 #'
 #' @param data data frame
 #' @param formula formula
+#' @param ... any other params for xgboost
 #' @param n_folds number of cross validation folds
 #' @param as_flextable if FALSE, returns a tibble
+#' @param include_linear if TRUE includes a regularized linear model
 #' @param theme make_flextable theme
 #' @param seed seed
 #' @inheritParams tidy_xgboost
@@ -21,6 +23,7 @@ auto_model_accuracy <- function(data,
                                formula,
                                n_folds = 4,
                                as_flextable = TRUE,
+                               include_linear = FALSE,
                                theme = "tron",
                                seed = 1,
                                mtry = 1.0,
@@ -30,7 +33,7 @@ auto_model_accuracy <- function(data,
                                learn_rate = 0.3,
                                loss_reduction = 0.0,
                                sample_size = 1.0,
-                               stop_iter = Inf,
+                               stop_iter = 15L,
                                counts = FALSE,
                                penalty = .015,
                                mixture = .35){
@@ -95,7 +98,7 @@ auto_model_accuracy <- function(data,
                            sample_size = sample_size,
                            stop_iter = stop_iter) %>%
     parsnip::set_mode(mode) %>%
-    parsnip::set_engine("xgboost", counts = counts)
+    parsnip::set_engine("xgboost", counts = counts, ...)
 
 
 
@@ -132,8 +135,9 @@ auto_model_accuracy <- function(data,
   boost_workflow %>%
     tune::fit_resamples(rsamples, control = controls) -> boost_sam
 
+  if(include_linear){
   linear_workflow %>%
-    tune::fit_resamples(rsamples, control = controls) -> lin_sam
+    tune::fit_resamples(rsamples, control = controls) -> lin_sam}
 
 
 
@@ -141,11 +145,16 @@ auto_model_accuracy <- function(data,
     tune::collect_metrics() %>%
     dplyr::mutate(.config = "xgboost") -> c1
 
+  if(include_linear){
   lin_sam %>%
     tune::collect_metrics() %>%
     dplyr::mutate(.config = "regularized linear model") -> c2
+  }
 
-  dplyr::bind_rows(c1, c2) %>%
+  if(include_linear){
+    dplyr::bind_rows(c1, c2) -> c1}
+
+   c1 %>%
     dplyr::rename(model = .config) %>%
     dplyr::relocate(model) %>%
     dplyr::arrange(.metric, model ) %>%

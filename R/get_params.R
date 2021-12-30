@@ -34,20 +34,26 @@ get_params <- function(model, ...){
 get_params.xgb.Booster <- function(model, ...){
 
 
-  model$params[c("eta",
-               "max_depth",
-               "gamma",
-               "colsample_bynode",
-               "min_child_weight",
-               "subsample")] %>%
-    c(model[c("niter")]) %>%
-    rlang::set_names(nm = c("eta" = "learn_rate" ,
-                            "max_depth" = "tree_depth",
-                            "gamma" = "loss_reduction",
-                            "colsample_bynode" = "mtry",
-                            "min_child_weight" = "min_n",
-                            "subsample" = "sample_size",
-                            "niter" = "trees"))
+  model ->  model1
+
+  model$params[c("eta", "max_depth", "gamma",
+                 "colsample_bynode", "min_child_weight", "subsample")] %>%
+    c(model[c("niter")])-> newparams
+
+
+  model1$params[c("eta", "max_depth", "gamma",
+                  "colsample_bynode", "min_child_weight", "subsample")] <- NULL
+
+
+
+  newparams %>% rlang::set_names(nm = c(eta = "learn_rate",
+                                        max_depth = "tree_depth",
+                                        gamma = "loss_reduction",
+                                        colsample_bynode = "mtry",
+                                        min_child_weight = "min_n",
+                                        subsample = "sample_size", niter = "trees")) -> newparams1
+  c(newparams1,
+    model1$params)
 
 
 

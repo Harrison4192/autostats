@@ -79,7 +79,7 @@ auto_tune_xgboost(
 
 \item{alpha}{[default=0] L1 regularization term on weights. Increasing this value will make model more conservative.}
 
-\item{scale_pos_weight}{[default=1] Control the balance of positive and negative weights, useful for unbalanced classes. A typical value to consider: sum(negative instances) / sum(positive instances)}
+\item{scale_pos_weight}{[default=1] Control the balance of positive and negative weights, useful for unbalanced classes. if set to TRUE, calculates sum(negative instances) / sum(positive instances)}
 
 \item{verbosity}{[default=1] Verbosity of printing messages. Valid values are 0 (silent), 1 (warning), 2 (info), 3 (debug).}
 }
