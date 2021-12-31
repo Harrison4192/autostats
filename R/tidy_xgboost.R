@@ -24,6 +24,7 @@
 #' @param alpha [default=0] L1 regularization term on weights. Increasing this value will make model more conservative.
 #' @param scale_pos_weight [default=1] Control the balance of positive and negative weights, useful for unbalanced classes. if set to TRUE, calculates sum(negative instances) / sum(positive instances)
 #' @param verbosity [default=1] Verbosity of printing messages. Valid values are 0 (silent), 1 (warning), 2 (info), 3 (debug).
+#' @param validate default TRUE. report accuracy metrics on a validation set.
 #'
 #' @return xgb.Booster model
 #' @export
@@ -142,7 +143,8 @@ tidy_xgboost <- function(.data, formula, ...,
                          lambda = 1,
                          alpha = 0,
                          scale_pos_weight = 1,
-                         verbosity = 0L){
+                         verbosity = 0L,
+                         validate = TRUE){
 
 
   tree_method <- match.arg(tree_method)
@@ -212,8 +214,6 @@ if(isTRUE(scale_pos_weight)){
 
   }
 
-
-
   xgboost_workflow <-
     workflows::workflow() %>%
     workflows::add_recipe(xgboost_recipe) %>%
@@ -224,7 +224,42 @@ if(isTRUE(scale_pos_weight)){
 
   model_fit %>%
     workflows::pull_workflow_fit() %>%
-    purrr::pluck("fit")
+    purrr::pluck("fit") -> xgbooster
+
+  xgbooster$params$objective -> xgb_obj
+
+
+  if(validate & xgb_obj != "multi:softprob"){
+
+    rsample::initial_split(.data) -> split1
+    rsample::assessment(split1) -> assessment_set
+    rsample::analysis(split1) -> analysis_set
+
+    xgboost_workflow %>%
+      parsnip::fit(assessment_set) -> val_fit
+
+    val_fit %>%
+      workflows::pull_workflow_fit() %>%
+      purrr::pluck("fit") -> val_booster
+suppressMessages({
+    val_booster %>%
+      tidy_predict(newdata = analysis_set, form = formula) -> val_frame
+})
+model <- NULL
+
+    val_frame %>%
+      eval_preds() %>%
+      dplyr::select(-model) -> val_acc
+
+    message("accuracy tested on a validation set")
+
+    print(val_acc)
+  }
+
+
+
+xgbooster
+
 
 }
 
