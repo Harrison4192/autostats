@@ -256,7 +256,9 @@ model <- NULL
     print(val_acc)
   }
 
+visualize_model(xgbooster) -> imp_plot
 
+print(imp_plot)
 
 xgbooster
 
@@ -276,16 +278,17 @@ xgbooster
 #' @param top_n top n important variables
 #' @param aggregate a character vector. Predictors containing the string will be aggregated, and renamed to that string.
 #' @param as_table logical, default FALSE. If TRUE returns importances in a data frame
+#' @param JPN logical. if TRUE renders japanese text
 #' @param ... additional arguments for \code{\link[xgboost]{xgb.ggplot.importance}}
 #' @keywords internal
 #'
 #' @return ggplot
 #'
-plot_varimp_xgboost <- function(xgb, font = c("", "HiraKakuProN-W3"), top_n = 10, aggregate = NULL, as_table = FALSE, ...){
+plot_varimp_xgboost <- function(xgb, JPN = FALSE, top_n = 10L, aggregate = NULL, as_table = FALSE, ...){
 
   agg <- Feature <- NULL
 
-  font <- match.arg(font)
+  font <- ifelse(JPN, "", "HiraKakuProN-W3")
 
   xgb %>%
     xgboost::xgb.importance(model = . ) -> xgb_imp

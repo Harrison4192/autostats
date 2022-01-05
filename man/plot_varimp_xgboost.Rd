@@ -6,8 +6,8 @@
 \usage{
 plot_varimp_xgboost(
   xgb,
-  font = c("", "HiraKakuProN-W3"),
-  top_n = 10,
+  JPN = FALSE,
+  top_n = 10L,
   aggregate = NULL,
   as_table = FALSE,
   ...
@@ -16,7 +16,7 @@ plot_varimp_xgboost(
 \arguments{
 \item{xgb}{xgb.Booster model}
 
-\item{font}{font}
+\item{JPN}{logical. if TRUE renders japanese text}
 
 \item{top_n}{top n important variables}
 
@@ -25,6 +25,8 @@ plot_varimp_xgboost(
 \item{as_table}{logical, default FALSE. If TRUE returns importances in a data frame}
 
 \item{...}{additional arguments for \code{\link[xgboost]{xgb.ggplot.importance}}}
+
+\item{font}{font}
 }
 \value{
 ggplot

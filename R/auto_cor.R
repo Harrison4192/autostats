@@ -3,12 +3,14 @@
 #' Finds the correlation between numeric variables in a data frame, chosen using tidyselect.
 #' Additional parameters for the correlation test can be specified as in \code{\link[stats]{cor.test}}
 #'
+#' includes the asymmetric correlation coefficient xi from \code{\link[XICOR]{xicor}}
+#'
 #' @param .data data frame
 #' @param ... tidyselect cols
 #' @param use method to deal with na. Default is to remove rows with NA
-#' @param method correlation method
+#' @param method correlation method. default is pearson, but also supports xicor.
 #' @param include_nominals logicals, default TRUE. Dummify nominal variables?
-#' @param max_levels maximum numbers of dummmies to be created from nominal variables
+#' @param max_levels maximum numbers of dummies to be created from nominal variables
 #' @param sparse logical, default TRUE. Filters and arranges cor table
 #' @param pval_thresh threshold to filter out weak correlations
 #'
@@ -27,7 +29,7 @@
 auto_cor <- function(.data, ...,
                      use = c("pairwise.complete.obs", "all.obs", "complete.obs",
                                          "everything", "na.or.complete"),
-                     method =  c("pearson", "kendall", "spearman"),
+                     method =  c("pearson", "kendall", "spearman", "xicor"),
                      include_nominals = TRUE,
                      max_levels = 5L,
                      sparse = TRUE,
@@ -65,7 +67,11 @@ names(.data) -> dnames
 
 setdiff(dnames, dnames0) -> dummy_names
 
-
+if(cor.method == "xicor"){
+  cor_fun <- calc_xicor
+} else{
+  cor_fun <- calc_cor
+}
 
 
 cor_list <- list()
@@ -78,12 +84,7 @@ if(!sparse){
 
       if(check_same_dummy(.data, i, j, dummy_names)) {next}
 
-      stats::cor.test(.data[[i]], .data[[j]], use = na.method, method = cor.method) -> cor1
-
-      cor_list <- cor_list %>%
-        rlist::list.append(
-      tibble::tibble(x = i, y = j, cor = cor1$estimate, p.value = cor1$p.value)
-        )
+      cor_fun(.data, i, j, cor_list, na.method, cor.method) -> cor_list
     }
   }
 
@@ -104,12 +105,8 @@ for(i in ldnames){
 
     if(check_same_dummy(.data, n1, n2, dummy_names)) {next}
 
-    stats::cor.test(.data[[n1]], .data[[n2]], use = na.method, method = cor.method) -> cor1
+    cor_fun(.data, n1, n2, cor_list, na.method, cor.method) -> cor_list
 
-    cor_list <- cor_list %>%
-      rlist::list.append(
-        tibble::tibble(x = n1, y = n2, cor = cor1$estimate, p.value = cor1$p.value, statistic = abs(cor1$statistic))
-      )
   }
 }
 
@@ -117,8 +114,9 @@ for(i in ldnames){
     dplyr::mutate(significance = gtools::stars.pval(p.value)) -> corlist
 
   corlist %>%
-    dplyr::arrange(dplyr::desc(statistic)) %>%
-    dplyr::filter(p.value < pval_thresh) -> corlist
+    dplyr::arrange(dplyr::desc(abs(cor))) %>%
+    dplyr::filter(p.value < pval_thresh) %>%
+    dplyr::mutate(method = cor.method) -> corlist
 }
 
 
@@ -135,6 +133,24 @@ check_same_dummy <- function(db, nm1, nm2, dummynames){
 }
 
 
+calc_cor <- function(.data, n1, n2, cor_list, na.method, cor.method){
 
+  stats::cor.test(.data[[n1]], .data[[n2]], use = na.method, method = cor.method) -> cor1
 
+  cor_list <- cor_list %>%
+    rlist::list.append(
+      tibble::tibble(x = n1, y = n2, cor = cor1$estimate, p.value = cor1$p.value)
+    )
+
+}
+
+calc_xicor <- function(.data, n1, n2, cor_list, ...){
+
+  XICOR::xicor(.data[[n1]], .data[[n2]], pvalue = TRUE) -> cor1
+
+  cor_list <- cor_list %>%
+    rlist::list.append(
+      tibble::tibble(x = n1, y = n2, cor = cor1$xi, p.value = cor1$pval)
+    )
+}
 

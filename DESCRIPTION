@@ -54,7 +54,8 @@ Imports:
     party,
     agtboost,
     data.table,
-    FOCI
+    FOCI,
+    XICOR
 RoxygenNote: 7.1.2
 URL: https://harrison4192.github.io/autostats/, https://github.com/Harrison4192/autostats
 BugReports: https://github.com/Harrison4192/autostats/issues

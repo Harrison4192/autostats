@@ -23,7 +23,8 @@ tidy_xgboost(
   lambda = 1,
   alpha = 0,
   scale_pos_weight = 1,
-  verbosity = 0L
+  verbosity = 0L,
+  validate = TRUE
 )
 }
 \arguments{
@@ -64,6 +65,8 @@ tidy_xgboost(
 \item{scale_pos_weight}{[default=1] Control the balance of positive and negative weights, useful for unbalanced classes. if set to TRUE, calculates sum(negative instances) / sum(positive instances)}
 
 \item{verbosity}{[default=1] Verbosity of printing messages. Valid values are 0 (silent), 1 (warning), 2 (info), 3 (debug).}
+
+\item{validate}{default TRUE. report accuracy metrics on a validation set.}
 }
 \value{
 xgb.Booster model

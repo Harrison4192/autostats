@@ -9,7 +9,7 @@ auto_cor(
   ...,
   use = c("pairwise.complete.obs", "all.obs", "complete.obs", "everything",
     "na.or.complete"),
-  method = c("pearson", "kendall", "spearman"),
+  method = c("pearson", "kendall", "spearman", "xicor"),
   include_nominals = TRUE,
   max_levels = 5L,
   sparse = TRUE,
@@ -23,11 +23,11 @@ auto_cor(
 
 \item{use}{method to deal with na. Default is to remove rows with NA}
 
-\item{method}{correlation method}
+\item{method}{correlation method. default is pearson, but also supports xicor.}
 
 \item{include_nominals}{logicals, default TRUE. Dummify nominal variables?}
 
-\item{max_levels}{maximum numbers of dummmies to be created from nominal variables}
+\item{max_levels}{maximum numbers of dummies to be created from nominal variables}
 
 \item{sparse}{logical, default TRUE. Filters and arranges cor table}
 
@@ -39,6 +39,9 @@ data frame of correlations
 \description{
 Finds the correlation between numeric variables in a data frame, chosen using tidyselect.
 Additional parameters for the correlation test can be specified as in \code{\link[stats]{cor.test}}
+}
+\details{
+includes the asymmetric correlation coefficient xi from \code{\link[XICOR]{xicor}}
 }
 \examples{
 
