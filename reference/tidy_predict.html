@@ -81,7 +81,14 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">tidy_predict</span><span class="op">(</span><span class="va">model</span>, <span class="va">newdata</span>, form <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">tidy_predict</span><span class="op">(</span>
+  <span class="va">model</span>,
+  <span class="va">newdata</span>,
+  form <span class="op">=</span> <span class="cn">NULL</span>,
+  olddata <span class="op">=</span> <span class="cn">NULL</span>,
+  bind_preds <span class="op">=</span> <span class="cn">FALSE</span>,
+  <span class="va">...</span>
+<span class="op">)</span>
 
 <span class="co"># S3 method for Rcpp_ENSEMBLE</span>
 <span class="fu">tidy_predict</span><span class="op">(</span><span class="va">model</span>, <span class="va">newdata</span>, form <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
@@ -93,7 +100,14 @@
 <span class="fu">tidy_predict</span><span class="op">(</span><span class="va">model</span>, <span class="va">newdata</span>, form <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
 
 <span class="co"># S3 method for xgb.Booster</span>
-<span class="fu">tidy_predict</span><span class="op">(</span><span class="va">model</span>, <span class="va">newdata</span>, form <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+<span class="fu">tidy_predict</span><span class="op">(</span>
+  <span class="va">model</span>,
+  <span class="va">newdata</span>,
+  form <span class="op">=</span> <span class="cn">NULL</span>,
+  olddata <span class="op">=</span> <span class="cn">NULL</span>,
+  bind_preds <span class="op">=</span> <span class="cn">FALSE</span>,
+  <span class="va">...</span>
+<span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -104,6 +118,10 @@
 <dd><p>dataframe</p></dd>
 <dt>form</dt>
 <dd><p>the formula used for the model</p></dd>
+<dt>olddata</dt>
+<dd><p>training data set</p></dd>
+<dt>bind_preds</dt>
+<dd><p>set to TURE if newdata is a dataset without any labels, to bind the new and old data with the predictions under the original target name</p></dd>
 <dt>...</dt>
 <dd><p>other parameters to pass to <code>predict</code></p></dd>
 </dl></div>

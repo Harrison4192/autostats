@@ -112,6 +112,15 @@
 <span class="r-in"><span class="va">iris_dummies</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in">  <span class="fu"><a href="tidy_xgboost.html">tidy_xgboost</a></span><span class="op">(</span><span class="va">p_form</span>, mtry <span class="op">=</span> <span class="fl">.5</span>, trees <span class="op">=</span> <span class="fl">5L</span>, loss_reduction <span class="op">=</span> <span class="fl">2</span>, sample_size <span class="op">=</span> <span class="fl">.7</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">xgb</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`early_stop` was reduced to 4.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`early_stop` was reduced to 4.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> accuracy tested on a validation set</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .metric .estimator .estimate target      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> ccc     standard       0.794 Petal.Length</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> rmse    standard       1.01  Petal.Length</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> rsq     standard       0.883 Petal.Length</span>
+<span class="r-plt img"><img src="get_params-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## reuse these parameters to find the cross validated error</span></span>
 <span class="r-in"></span>
@@ -126,13 +135,11 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `model`, `metric`, `mean_score`, `std_err` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 2 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> body has 4 row(s) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> body has 2 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                      model metric mean_score std_err</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 regularized linear model   rmse      0.267 0.01855</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                  xgboost   rmse      0.788 0.07592</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 regularized linear model    rsq      0.977 0.00317</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                  xgboost    rsq      0.949 0.01759</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     model metric mean_score std_err</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 xgboost   rmse      0.788  0.0759</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 xgboost    rsq      0.949  0.0176</span>
 </code></pre></div>
     </div>
   </div>

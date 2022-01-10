@@ -88,7 +88,7 @@ Additional parameters for the correlation test can be specified as in <code><a h
   <span class="va">...</span>,
   use <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"pairwise.complete.obs"</span>, <span class="st">"all.obs"</span>, <span class="st">"complete.obs"</span>, <span class="st">"everything"</span>,
     <span class="st">"na.or.complete"</span><span class="op">)</span>,
-  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"pearson"</span>, <span class="st">"kendall"</span>, <span class="st">"spearman"</span><span class="op">)</span>,
+  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"pearson"</span>, <span class="st">"kendall"</span>, <span class="st">"spearman"</span>, <span class="st">"xicor"</span><span class="op">)</span>,
   include_nominals <span class="op">=</span> <span class="cn">TRUE</span>,
   max_levels <span class="op">=</span> <span class="fl">5L</span>,
   sparse <span class="op">=</span> <span class="cn">TRUE</span>,
@@ -105,11 +105,11 @@ Additional parameters for the correlation test can be specified as in <code><a h
 <dt>use</dt>
 <dd><p>method to deal with na. Default is to remove rows with NA</p></dd>
 <dt>method</dt>
-<dd><p>correlation method</p></dd>
+<dd><p>correlation method. default is pearson, but also supports xicor.</p></dd>
 <dt>include_nominals</dt>
 <dd><p>logicals, default TRUE. Dummify nominal variables?</p></dd>
 <dt>max_levels</dt>
-<dd><p>maximum numbers of dummmies to be created from nominal variables</p></dd>
+<dd><p>maximum numbers of dummies to be created from nominal variables</p></dd>
 <dt>sparse</dt>
 <dd><p>logical, default TRUE. Filters and arranges cor table</p></dd>
 <dt>pval_thresh</dt>
@@ -119,6 +119,10 @@ Additional parameters for the correlation test can be specified as in <code><a h
     <h2>Value</h2>
     <p>data frame of correlations</p>
     </div>
+    <div id="details">
+    <h2>Details</h2>
+    <p>includes the asymmetric correlation coefficient xi from <code><a href="https://rdrr.io/pkg/XICOR/man/xicor.html" class="external-link">xicor</a></code></p>
+    </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
@@ -127,23 +131,23 @@ Additional parameters for the correlation test can be specified as in <code><a h
 <span class="r-in"><span class="fu">auto_cor</span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 1 column(s) have become 3 dummy columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 15 × 6</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    x                  y               cor  p.value statistic significance</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Petal.Width        Petal.Length  0.963 4.68<span style="color: #949494;">e</span><span style="color: #BB0000;">-86</span>     43.4  ***         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Species_setosa     Petal.Length -<span style="color: #BB0000;">0.923</span> 3.62<span style="color: #949494;">e</span><span style="color: #BB0000;">-63</span>     29.1  ***         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Species_setosa     Petal.Width  -<span style="color: #BB0000;">0.887</span> 1.29<span style="color: #949494;">e</span><span style="color: #BB0000;">-51</span>     23.4  ***         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Petal.Length       Sepal.Length  0.872 1.04<span style="color: #949494;">e</span><span style="color: #BB0000;">-47</span>     21.6  ***         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Petal.Width        Sepal.Length  0.818 2.33<span style="color: #949494;">e</span><span style="color: #BB0000;">-37</span>     17.3  ***         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Species_virginica  Petal.Width   0.769 1.30<span style="color: #949494;">e</span><span style="color: #BB0000;">-30</span>     14.7  ***         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Species_virginica  Petal.Length  0.721 2.38<span style="color: #949494;">e</span><span style="color: #BB0000;">-25</span>     12.7  ***         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Species_setosa     Sepal.Length -<span style="color: #BB0000;">0.717</span> 5.29<span style="color: #949494;">e</span><span style="color: #BB0000;">-25</span>     12.5  ***         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Species_virginica  Sepal.Length  0.638 1.62<span style="color: #949494;">e</span><span style="color: #BB0000;">-18</span>     10.1  ***         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Species_setosa     Sepal.Width   0.603 3.05<span style="color: #949494;">e</span><span style="color: #BB0000;">-16</span>      9.20 ***         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> Species_versicolor Sepal.Width  -<span style="color: #BB0000;">0.468</span> 1.60<span style="color: #949494;">e</span><span style="color: #BB0000;">- 9</span>      6.44 ***         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> Petal.Length       Sepal.Width  -<span style="color: #BB0000;">0.428</span> 4.51<span style="color: #949494;">e</span><span style="color: #BB0000;">- 8</span>      5.77 ***         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> Petal.Width        Sepal.Width  -<span style="color: #BB0000;">0.366</span> 4.07<span style="color: #949494;">e</span><span style="color: #BB0000;">- 6</span>      4.79 ***         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> Species_versicolor Petal.Length  0.202 1.33<span style="color: #949494;">e</span><span style="color: #BB0000;">- 2</span>      2.51 *           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> Species_virginica  Sepal.Width  -<span style="color: #BB0000;">0.136</span> 9.79<span style="color: #949494;">e</span><span style="color: #BB0000;">- 2</span>      1.67 .           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    x                  y               cor  p.value significance method </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Petal.Width        Petal.Length  0.963 4.68<span style="color: #949494;">e</span><span style="color: #BB0000;">-86</span> ***          pearson</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Species_setosa     Petal.Length -<span style="color: #BB0000;">0.923</span> 3.62<span style="color: #949494;">e</span><span style="color: #BB0000;">-63</span> ***          pearson</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Species_setosa     Petal.Width  -<span style="color: #BB0000;">0.887</span> 1.29<span style="color: #949494;">e</span><span style="color: #BB0000;">-51</span> ***          pearson</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Petal.Length       Sepal.Length  0.872 1.04<span style="color: #949494;">e</span><span style="color: #BB0000;">-47</span> ***          pearson</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Petal.Width        Sepal.Length  0.818 2.33<span style="color: #949494;">e</span><span style="color: #BB0000;">-37</span> ***          pearson</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Species_virginica  Petal.Width   0.769 1.30<span style="color: #949494;">e</span><span style="color: #BB0000;">-30</span> ***          pearson</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Species_virginica  Petal.Length  0.721 2.38<span style="color: #949494;">e</span><span style="color: #BB0000;">-25</span> ***          pearson</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Species_setosa     Sepal.Length -<span style="color: #BB0000;">0.717</span> 5.29<span style="color: #949494;">e</span><span style="color: #BB0000;">-25</span> ***          pearson</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Species_virginica  Sepal.Length  0.638 1.62<span style="color: #949494;">e</span><span style="color: #BB0000;">-18</span> ***          pearson</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Species_setosa     Sepal.Width   0.603 3.05<span style="color: #949494;">e</span><span style="color: #BB0000;">-16</span> ***          pearson</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> Species_versicolor Sepal.Width  -<span style="color: #BB0000;">0.468</span> 1.60<span style="color: #949494;">e</span><span style="color: #BB0000;">- 9</span> ***          pearson</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> Petal.Length       Sepal.Width  -<span style="color: #BB0000;">0.428</span> 4.51<span style="color: #949494;">e</span><span style="color: #BB0000;">- 8</span> ***          pearson</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> Petal.Width        Sepal.Width  -<span style="color: #BB0000;">0.366</span> 4.07<span style="color: #949494;">e</span><span style="color: #BB0000;">- 6</span> ***          pearson</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> Species_versicolor Petal.Length  0.202 1.33<span style="color: #949494;">e</span><span style="color: #BB0000;">- 2</span> *            pearson</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> Species_virginica  Sepal.Width  -<span style="color: #BB0000;">0.136</span> 9.79<span style="color: #949494;">e</span><span style="color: #BB0000;">- 2</span> .            pearson</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># don't use sparse if you're interested in only one target variable</span></span>
 <span class="r-in"><span class="va">iris</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
