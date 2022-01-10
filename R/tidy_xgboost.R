@@ -135,7 +135,7 @@ tidy_xgboost <- function(.data, formula, ...,
                          learn_rate = 0.3,
                          loss_reduction = 0.0,
                          sample_size = 1.0,
-                         stop_iter = 15L,
+                         stop_iter = 10L,
                          counts = FALSE,
                          tree_method = c("auto", "exact", "approx", "hist", "gpu_hist"),
                          monotone_constraints = 0L,
@@ -152,6 +152,7 @@ tidy_xgboost <- function(.data, formula, ...,
   formula %>%
     rlang::f_lhs() -> target
 
+  n <- NULL
 
 
   .data %>%
@@ -288,7 +289,7 @@ plot_varimp_xgboost <- function(xgb, JPN = FALSE, top_n = 10L, aggregate = NULL,
 
   agg <- Feature <- NULL
 
-  font <- ifelse(JPN, "", "HiraKakuProN-W3")
+  font <- ifelse(JPN, "HiraKakuProN-W3", "")
 
   xgb %>%
     xgboost::xgb.importance(model = . ) -> xgb_imp

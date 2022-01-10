@@ -83,12 +83,7 @@ the contributions of explanatory variables in a supervised model</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">auto_variable_contributions</span><span class="op">(</span>
-  <span class="va">data</span>,
-  <span class="va">formula</span>,
-  scale <span class="op">=</span> <span class="cn">TRUE</span>,
-  font <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">""</span>, <span class="st">"HiraKakuProN-W3"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">auto_variable_contributions</span><span class="op">(</span><span class="va">data</span>, <span class="va">formula</span>, scale <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -99,8 +94,6 @@ the contributions of explanatory variables in a supervised model</p>
 <dd><p>formula</p></dd>
 <dt>scale</dt>
 <dd><p>logical. If FALSE puts coefficients on original scale</p></dd>
-<dt>font</dt>
-<dd><p>font</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -116,12 +109,14 @@ the contributions of explanatory variables in a supervised model</p>
 <span class="r-in"> <span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required namespace: broom.mixed</span>
 <span class="r-plt img"><img src="auto_variable_contributions-1.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="auto_variable_contributions-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">iris</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in"><span class="fu">auto_variable_contributions</span><span class="op">(</span></span>
 <span class="r-in"><span class="fu"><a href="tidy_formula.html">tidy_formula</a></span><span class="op">(</span><span class="va">.</span>, target <span class="op">=</span> <span class="va">Species</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">)</span></span>
-<span class="r-plt img"><img src="auto_variable_contributions-2.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="auto_variable_contributions-3.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="auto_variable_contributions-4.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>

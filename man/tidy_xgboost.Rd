@@ -15,7 +15,7 @@ tidy_xgboost(
   learn_rate = 0.3,
   loss_reduction = 0,
   sample_size = 1,
-  stop_iter = 15L,
+  stop_iter = 10L,
   counts = FALSE,
   tree_method = c("auto", "exact", "approx", "hist", "gpu_hist"),
   monotone_constraints = 0L,

@@ -21,6 +21,7 @@
 #'
 auto_model_accuracy <- function(data,
                                formula,
+                               ...,
                                n_folds = 4,
                                as_flextable = TRUE,
                                include_linear = FALSE,
@@ -33,7 +34,7 @@ auto_model_accuracy <- function(data,
                                learn_rate = 0.3,
                                loss_reduction = 0.0,
                                sample_size = 1.0,
-                               stop_iter = 15L,
+                               stop_iter = 10L,
                                counts = FALSE,
                                penalty = .015,
                                mixture = .35){

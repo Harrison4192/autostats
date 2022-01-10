@@ -2,7 +2,7 @@
 title: "tidy xgboost"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{tidyXGBOOST}
+  %\VignetteIndexEntry{tidy xgboost}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

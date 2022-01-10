@@ -7,6 +7,7 @@
 auto_model_accuracy(
   data,
   formula,
+  ...,
   n_folds = 4,
   as_flextable = TRUE,
   include_linear = FALSE,
@@ -19,7 +20,7 @@ auto_model_accuracy(
   learn_rate = 0.3,
   loss_reduction = 0,
   sample_size = 1,
-  stop_iter = 15L,
+  stop_iter = 10L,
   counts = FALSE,
   penalty = 0.015,
   mixture = 0.35
@@ -29,6 +30,8 @@ auto_model_accuracy(
 \item{data}{data frame}
 
 \item{formula}{formula}
+
+\item{...}{any other params for xgboost}
 
 \item{n_folds}{number of cross validation folds}
 
@@ -61,8 +64,6 @@ auto_model_accuracy(
 \item{penalty}{linear regularization parameter}
 
 \item{mixture}{linear model parameter, combines l1 and l2 regularization}
-
-\item{...}{any other params for xgboost}
 }
 \value{
 a table

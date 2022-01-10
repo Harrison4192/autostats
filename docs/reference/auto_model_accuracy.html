@@ -86,8 +86,10 @@ Automatically determines whether the provided formula is a regression or classif
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">auto_model_accuracy</span><span class="op">(</span>
   <span class="va">data</span>,
   <span class="va">formula</span>,
+  <span class="va">...</span>,
   n_folds <span class="op">=</span> <span class="fl">4</span>,
   as_flextable <span class="op">=</span> <span class="cn">TRUE</span>,
+  include_linear <span class="op">=</span> <span class="cn">FALSE</span>,
   theme <span class="op">=</span> <span class="st">"tron"</span>,
   seed <span class="op">=</span> <span class="fl">1</span>,
   mtry <span class="op">=</span> <span class="fl">1</span>,
@@ -97,7 +99,7 @@ Automatically determines whether the provided formula is a regression or classif
   learn_rate <span class="op">=</span> <span class="fl">0.3</span>,
   loss_reduction <span class="op">=</span> <span class="fl">0</span>,
   sample_size <span class="op">=</span> <span class="fl">1</span>,
-  stop_iter <span class="op">=</span> <span class="cn">Inf</span>,
+  stop_iter <span class="op">=</span> <span class="fl">10L</span>,
   counts <span class="op">=</span> <span class="cn">FALSE</span>,
   penalty <span class="op">=</span> <span class="fl">0.015</span>,
   mixture <span class="op">=</span> <span class="fl">0.35</span>
@@ -110,10 +112,14 @@ Automatically determines whether the provided formula is a regression or classif
 <dd><p>data frame</p></dd>
 <dt>formula</dt>
 <dd><p>formula</p></dd>
+<dt>...</dt>
+<dd><p>any other params for xgboost</p></dd>
 <dt>n_folds</dt>
 <dd><p>number of cross validation folds</p></dd>
 <dt>as_flextable</dt>
 <dd><p>if FALSE, returns a tibble</p></dd>
+<dt>include_linear</dt>
+<dd><p>if TRUE includes a regularized linear model</p></dd>
 <dt>theme</dt>
 <dd><p>make_flextable theme</p></dd>
 <dt>seed</dt>

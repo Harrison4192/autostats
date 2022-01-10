@@ -15,7 +15,7 @@
 #' tidy_foci(Species ~ .) -> d1
 #'
 #' d1 %>%
-#'   as_tibble
+#'   tibble::as_tibble()
 tidy_foci <- function(.data, formula, ...) {
   formula %>%
     rlang::f_lhs() -> Y_col
@@ -46,12 +46,12 @@ tidy_foci <- function(.data, formula, ...) {
   }
 
 
-  FOCI::foci(Y = Y1, X = X, ...) -> fc1
+  FOCI::foci(Y = Y1, X = X, ..., numCores = 1) -> fc1
 
   fc1$selectedVar$names -> foci_vars
 
   .data %>%
-    select(tidyselect::any_of(idcols),
+   dplyr:: select(tidyselect::any_of(idcols),
            tidyselect::any_of(foci_vars)) -> .data1
 
   message(stringr::str_c("removed ", length(foci_vars), " variables out of ", length(X_cols)))

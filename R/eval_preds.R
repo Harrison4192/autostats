@@ -126,7 +126,7 @@ if(!is.null(softprob_model)) {
 
     } else if(pred_type == "numeric"){
 
-      yardstick::metric_set(yardstick::rmse, yardstick::rsq, ...) -> eval_func
+      yardstick::metric_set(yardstick::rmse, yardstick::rsq, yardstick::ccc, ...) -> eval_func
 
 
       list(eval_func(.data, truth = !!rlang::sym(col_chr), estimate = !!rlang::sym(pred)) %>%

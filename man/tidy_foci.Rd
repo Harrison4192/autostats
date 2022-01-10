@@ -25,5 +25,5 @@ iris \%>\%
 tidy_foci(Species ~ .) -> d1
 
 d1 \%>\%
-  as_tibble
+  tibble::as_tibble()
 }

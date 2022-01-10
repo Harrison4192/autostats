@@ -4,12 +4,7 @@
 \alias{auto_variable_contributions}
 \title{Plot Variable Contributions}
 \usage{
-auto_variable_contributions(
-  data,
-  formula,
-  scale = TRUE,
-  font = c("", "HiraKakuProN-W3")
-)
+auto_variable_contributions(data, formula, scale = TRUE)
 }
 \arguments{
 \item{data}{dataframe}
@@ -17,8 +12,6 @@ auto_variable_contributions(
 \item{formula}{formula}
 
 \item{scale}{logical. If FALSE puts coefficients on original scale}
-
-\item{font}{font}
 }
 \value{
 a ggplot object

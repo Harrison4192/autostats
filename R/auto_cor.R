@@ -113,6 +113,8 @@ for(i in ldnames){
   rlist::list.rbind(cor_list) %>%
     dplyr::mutate(significance = gtools::stars.pval(p.value)) -> corlist
 
+  cor <- NULL
+
   corlist %>%
     dplyr::arrange(dplyr::desc(abs(cor))) %>%
     dplyr::filter(p.value < pval_thresh) %>%

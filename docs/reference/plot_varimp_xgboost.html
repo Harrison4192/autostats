@@ -83,8 +83,8 @@
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">plot_varimp_xgboost</span><span class="op">(</span>
   <span class="va">xgb</span>,
-  font <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">""</span>, <span class="st">"HiraKakuProN-W3"</span><span class="op">)</span>,
-  top_n <span class="op">=</span> <span class="fl">10</span>,
+  JPN <span class="op">=</span> <span class="cn">FALSE</span>,
+  top_n <span class="op">=</span> <span class="fl">10L</span>,
   aggregate <span class="op">=</span> <span class="cn">NULL</span>,
   as_table <span class="op">=</span> <span class="cn">FALSE</span>,
   <span class="va">...</span>
@@ -95,8 +95,8 @@
     <h2>Arguments</h2>
     <dl><dt>xgb</dt>
 <dd><p>xgb.Booster model</p></dd>
-<dt>font</dt>
-<dd><p>font</p></dd>
+<dt>JPN</dt>
+<dd><p>logical. if TRUE renders japanese text</p></dd>
 <dt>top_n</dt>
 <dd><p>top n important variables</p></dd>
 <dt>aggregate</dt>
@@ -105,6 +105,8 @@
 <dd><p>logical, default FALSE. If TRUE returns importances in a data frame</p></dd>
 <dt>...</dt>
 <dd><p>additional arguments for <code><a href="https://rdrr.io/pkg/xgboost/man/xgb.plot.importance.html" class="external-link">xgb.ggplot.importance</a></code></p></dd>
+<dt>font</dt>
+<dd><p>font</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>

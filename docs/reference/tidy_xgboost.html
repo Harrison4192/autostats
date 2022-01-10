@@ -94,7 +94,7 @@ for classification or regression. Returns the xgboost model.</p>
   learn_rate <span class="op">=</span> <span class="fl">0.3</span>,
   loss_reduction <span class="op">=</span> <span class="fl">0</span>,
   sample_size <span class="op">=</span> <span class="fl">1</span>,
-  stop_iter <span class="op">=</span> <span class="fl">15L</span>,
+  stop_iter <span class="op">=</span> <span class="fl">10L</span>,
   counts <span class="op">=</span> <span class="cn">FALSE</span>,
   tree_method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"auto"</span>, <span class="st">"exact"</span>, <span class="st">"approx"</span>, <span class="st">"hist"</span>, <span class="st">"gpu_hist"</span><span class="op">)</span>,
   monotone_constraints <span class="op">=</span> <span class="fl">0L</span>,
@@ -102,7 +102,8 @@ for classification or regression. Returns the xgboost model.</p>
   lambda <span class="op">=</span> <span class="fl">1</span>,
   alpha <span class="op">=</span> <span class="fl">0</span>,
   scale_pos_weight <span class="op">=</span> <span class="fl">1</span>,
-  verbosity <span class="op">=</span> <span class="fl">0L</span>
+  verbosity <span class="op">=</span> <span class="fl">0L</span>,
+  validate <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span></code></pre></div>
     </div>
 
@@ -143,9 +144,11 @@ for classification or regression. Returns the xgboost model.</p>
 <dt>alpha</dt>
 <dd><p>[default=0] L1 regularization term on weights. Increasing this value will make model more conservative.</p></dd>
 <dt>scale_pos_weight</dt>
-<dd><p>[default=1] Control the balance of positive and negative weights, useful for unbalanced classes. A typical value to consider: sum(negative instances) / sum(positive instances)</p></dd>
+<dd><p>[default=1] Control the balance of positive and negative weights, useful for unbalanced classes. if set to TRUE, calculates sum(negative instances) / sum(positive instances)</p></dd>
 <dt>verbosity</dt>
 <dd><p>[default=1] Verbosity of printing messages. Valid values are 0 (silent), 1 (warning), 2 (info), 3 (debug).</p></dd>
+<dt>validate</dt>
+<dd><p>default TRUE. report accuracy metrics on a validation set.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -177,10 +180,18 @@ for classification or regression. Returns the xgboost model.</p>
 <span class="r-in">   trees <span class="op">=</span> <span class="fl">500</span>,</span>
 <span class="r-in">   mtry <span class="op">=</span> <span class="fl">.5</span></span>
 <span class="r-in"> <span class="op">)</span>  <span class="op">-&gt;</span> <span class="va">xg1</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> accuracy tested on a validation set</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .metric .estimator .estimate target      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> ccc     standard       0.976 Petal.Length</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> rmse    standard       0.305 Petal.Length</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> rsq     standard       0.970 Petal.Length</span>
+<span class="r-plt img"><img src="tidy_xgboost-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">xg1</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in"> <span class="fu"><a href="visualize_model.html">visualize_model</a></span><span class="op">(</span>top_n <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="tidy_xgboost-1.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="tidy_xgboost-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">xg1</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in"> <span class="fu"><a href="tidy_predict.html">tidy_predict</a></span><span class="op">(</span>newdata <span class="op">=</span> <span class="va">iris_dummy</span>, form <span class="op">=</span> <span class="va">petal_form</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">iris_preds</span></span>
@@ -188,11 +199,12 @@ for classification or regression. Returns the xgboost model.</p>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">iris_preds</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in"> <span class="fu"><a href="eval_preds.html">eval_preds</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .metric .estimator .estimate model target      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> rmse    standard      0.041<span style="text-decoration: underline;">2</span> xg1   Petal.Length</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> rsq     standard      0.999  xg1   Petal.Length</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> ccc     standard      0.993  xg1   Petal.Length</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> rmse    standard      0.041<span style="text-decoration: underline;">2</span> xg1   Petal.Length</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> rsq     standard      0.999  xg1   Petal.Length</span>
 <span class="r-in"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># binary classification</span></span>
@@ -207,6 +219,14 @@ for classification or regression. Returns the xgboost model.</p>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">iris_binary</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in"> <span class="fu">tidy_xgboost</span><span class="op">(</span>formula <span class="op">=</span> <span class="va">species_form</span>, trees <span class="op">=</span> <span class="fl">50L</span>, mtry <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">xgb_bin</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> accuracy tested on a validation set</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .metric  .estimator .estimate target </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> accuracy binary             1 Species</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> f_meas   binary             1 Species</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> roc_auc  binary             1 Species</span>
+<span class="r-plt img"><img src="tidy_xgboost-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">xgb_bin</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in"> <span class="fu"><a href="tidy_predict.html">tidy_predict</a></span><span class="op">(</span>newdata <span class="op">=</span> <span class="va">iris_binary</span>, form <span class="op">=</span> <span class="va">species_form</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">iris_binary1</span></span>
@@ -235,6 +255,13 @@ for classification or regression. Returns the xgboost model.</p>
 <span class="r-in">              trees <span class="op">=</span> <span class="fl">100</span>,</span>
 <span class="r-in">              tree_depth <span class="op">=</span> <span class="fl">3L</span>,</span>
 <span class="r-in">              loss_reduction <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">xgb2</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> accuracy tested on a validation set</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .metric  .estimator .estimate target </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> accuracy multiclass     0.938 Species</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> f_meas   macro          0.931 Species</span>
+<span class="r-plt img"><img src="tidy_xgboost-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"></span>
 <span class="r-in"></span>
@@ -265,6 +292,7 @@ for classification or regression. Returns the xgboost model.</p>
 <span class="r-in">              mtry <span class="op">=</span> <span class="fl">.5</span>,</span>
 <span class="r-in">              tree_depth <span class="op">=</span> <span class="fl">2L</span>,</span>
 <span class="r-in">              loss_reduction <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">xgb2_prob</span></span>
+<span class="r-plt img"><img src="tidy_xgboost-5.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># predict on the data that already has the class labels, so the resulting data frame</span></span>
 <span class="r-in"><span class="co"># has class and prob predictions</span></span>
@@ -287,7 +315,7 @@ for classification or regression. Returns the xgboost model.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> accuracy          multiclass     0.987 xgb2  Species</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> average_precision macro          0.991 xgb2  Species</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> f_meas            macro          0.987 xgb2  Species</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> roc_auc           hand_till      0.994 xgb2  Species</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> roc_auc           hand_till      0.996 xgb2  Species</span>
 <span class="r-in"></span>
 <span class="r-in"></span>
 </code></pre></div>

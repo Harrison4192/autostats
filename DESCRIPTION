@@ -33,7 +33,6 @@ Imports:
     tidyr,
     xgboost,
     flextable,
-    nnet,
     parsnip,
     recipes,
     rsample,
@@ -42,8 +41,6 @@ Imports:
     workflows,
     forcats,
     ggstance,
-    Ckmeans.1d.dp,
-    glmnet,
     framecleaner,
     presenter,
     yardstick,
@@ -52,10 +49,7 @@ Imports:
     readr,
     lubridate,
     party,
-    agtboost,
-    data.table,
-    FOCI,
-    XICOR
+    data.table
 RoxygenNote: 7.1.2
 URL: https://harrison4192.github.io/autostats/, https://github.com/Harrison4192/autostats
 BugReports: https://github.com/Harrison4192/autostats/issues
@@ -66,6 +60,12 @@ Suggests:
     moreparty,
     parallel,
     doParallel,
-    igraph
+    igraph,
+    FOCI,
+    XICOR,
+    agtboost,
+    Ckmeans.1d.dp,
+    glmnet,
+    nnet,
 VignetteBuilder: knitr
 License: MIT + file LICENSE
