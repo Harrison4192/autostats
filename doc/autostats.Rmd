@@ -82,10 +82,6 @@ petal_formula
 ```
 
 
-```{r cache=F}
-iris %>% 
-  auto_variable_contributions(petal_formula)
-```
 
 
 ```{r  cache=TRUE}

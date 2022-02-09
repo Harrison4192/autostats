@@ -122,9 +122,9 @@
 #'
 #'# also requires the labels in the dataframe to evaluate preds
 #'# the model name must be supplied as well. Then roc metrics can be calculated
-#'iris_preds1 %>%
-#'  eval_preds( yardstick::average_precision, softprob_model = "xgb2_prob"
-#'  )
+#'#iris_preds1 %>%
+#'#  eval_preds( yardstick::average_precision, softprob_model = "xgb2_prob"
+#'#  )
 #'
 #'
 tidy_xgboost <- function(.data, formula, ...,

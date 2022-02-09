@@ -42,10 +42,6 @@ iris %>%
 
 petal_formula
 
-## ----cache=F------------------------------------------------------------------
-iris %>% 
-  auto_variable_contributions(petal_formula)
-
 ## ----cache=TRUE---------------------------------------------------------------
 iris %>% 
   auto_model_accuracy(petal_formula)

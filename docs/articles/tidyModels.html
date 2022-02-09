@@ -132,7 +132,7 @@
  <span class="va">petal_form</span>
 <span class="co">#&gt; Petal.Length ~ Sepal.Length + Sepal.Width + Petal.Width + Species_versicolor + </span>
 <span class="co">#&gt;     Species_virginica</span>
-<span class="co">#&gt; &lt;environment: 0x7fd209eec970&gt;</span></code></pre></div>
+<span class="co">#&gt; &lt;environment: 0x7fc664ca8638&gt;</span></code></pre></div>
 <p>Use the rsample package to split into train and validation sets.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">iris1</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
@@ -192,9 +192,9 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 4</span></span>
 <span class="co">#&gt;   .metric .estimator .estimate target      </span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ccc     standard       0.971 Petal.Length</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> rmse    standard       0.319 Petal.Length</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> rsq     standard       0.968 Petal.Length</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ccc     standard       0.964 Petal.Length</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> rmse    standard       0.375 Petal.Length</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> rsq     standard       0.953 Petal.Length</span></code></pre></div>
 <p><img src="tidyModels_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
@@ -217,9 +217,9 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 4</span></span>
 <span class="co">#&gt;   .metric .estimator .estimate target      </span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ccc     standard       0.960 Petal.Length</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> rmse    standard       0.421 Petal.Length</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> rsq     standard       0.949 Petal.Length</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ccc     standard       0.955 Petal.Length</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> rmse    standard       0.434 Petal.Length</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> rsq     standard       0.960 Petal.Length</span></code></pre></div>
 <p><img src="tidyModels_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
@@ -278,13 +278,13 @@
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ccc     standard       0.957 agtb     Petal.Length</span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">2</span> ccc     standard       0.954 xgb_base Petal.Length</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> ccc     standard       0.954 xgb_opt  Petal.Length</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> ccc     standard       0.960 xgb_opt  Petal.Length</span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">4</span> rmse    standard       0.319 agtb     Petal.Length</span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">5</span> rmse    standard       0.352 xgb_base Petal.Length</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> rmse    standard       0.357 xgb_opt  Petal.Length</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> rmse    standard       0.299 xgb_opt  Petal.Length</span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">7</span> rsq     standard       0.975 agtb     Petal.Length</span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">8</span> rsq     standard       0.969 xgb_base Petal.Length</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">9</span> rsq     standard       0.964 xgb_opt  Petal.Length</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">9</span> rsq     standard       0.976 xgb_opt  Petal.Length</span></code></pre></div>
 </div>
 </div>
 <div class="section level1">
