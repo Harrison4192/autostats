@@ -23,6 +23,7 @@ the contributions of explanatory variables in a supervised model
 \examples{
 
 iris \%>\%
+framecleaner::create_dummies() \%>\%
 auto_variable_contributions(
  tidy_formula(., target = Petal.Width)
  )

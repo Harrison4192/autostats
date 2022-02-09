@@ -168,9 +168,9 @@ if(isTRUE(scale_pos_weight)){
 }
 
   xgboost_recipe <-
-    recipes::recipe(data = .data, formula = formula) %>%
-    recipes::step_zv(recipes::all_predictors()) %>%
-    recipes::step_dummy(where(is.character) | where(is.factor), -!!target)
+    recipes::recipe(data = .data, formula = formula)
+    # recipes::step_zv(recipes::all_predictors()) %>%
+    # recipes::step_dummy(where(is.character) | where(is.factor), -!!target)
 
 
   xgboost_spec0 <-  parsnip::boost_tree(

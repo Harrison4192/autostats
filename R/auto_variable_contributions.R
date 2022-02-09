@@ -12,6 +12,7 @@
 #' @examples
 #'
 #' iris %>%
+#' framecleaner::create_dummies() %>%
 #' auto_variable_contributions(
 #'  tidy_formula(., target = Petal.Width)
 #'  )
@@ -26,6 +27,8 @@ auto_variable_contributions <- function(data, formula, scale = TRUE){
 
   formula %>%
     rlang::f_lhs() -> target
+
+
 
   suppressWarnings({
     rlang::as_name(rlang::ensym(target)) -> trg
