@@ -5,6 +5,7 @@
 \alias{tidy_predict.Rcpp_ENSEMBLE}
 \alias{tidy_predict.glm}
 \alias{tidy_predict.default}
+\alias{tidy_predict.BinaryTree}
 \alias{tidy_predict.xgb.Booster}
 \title{tidy predict}
 \usage{
@@ -22,6 +23,8 @@ tidy_predict(
 \method{tidy_predict}{glm}(model, newdata, form = NULL, ...)
 
 \method{tidy_predict}{default}(model, newdata, form = NULL, ...)
+
+\method{tidy_predict}{BinaryTree}(model, newdata, form = NULL, ...)
 
 \method{tidy_predict}{xgb.Booster}(
   model,
