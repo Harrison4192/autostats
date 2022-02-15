@@ -107,6 +107,35 @@ tidy_predict.default <- function(model, newdata, form = NULL, ...){
 }
 
 #' @rdname tidy_predict
+#' @method tidy_predict BinaryTree
+#' @export
+tidy_predict.BinaryTree <- function(model, newdata, form = NULL, ...){
+
+  presenter::get_piped_name() -> model_name
+
+
+
+  form %>%
+    f_formula_to_charvec(.data = newdata) -> predictors
+
+  newdata %>%
+    dplyr::select(tidyselect::all_of(predictors)) -> newdata1
+
+
+  predict(model, newdata = newdata1, ...) %>% as.vector() -> preds
+
+  form %>%
+    rlang::f_lhs() -> target
+
+  new_name <- target %>%
+    stringr::str_c("_preds_", model_name)
+
+  newdata %>%
+    dplyr::mutate("{new_name}" := preds)
+
+}
+
+#' @rdname tidy_predict
 #' @method tidy_predict xgb.Booster
 #' @export
 tidy_predict.xgb.Booster <- function(model, newdata, form = NULL, olddata = NULL,  bind_preds = FALSE, ...){
