@@ -146,7 +146,6 @@ devtools::install_github("Harrison4192/presenter")
 
 
 # build and check ---------------------------------------------------------
-
 devtools::document()
 devtools::build_readme()
 devtools::build_site()
@@ -164,7 +163,7 @@ devtools::check_win_devel()
 devtools::check_rhub()
 devtools::run_examples()
 
-usethis::use_r("determine_pred_type")
+usethis::use_r("impute_recosystem")
 usethis::use_version(which = "minor")
 devtools::submit_cran()
 

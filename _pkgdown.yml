@@ -19,6 +19,8 @@ reference:
   - '`auto_boxplot`'
   - '`auto_tune_xgboost`'
   - '`auto_cor`'
+  - '`impute_recosystem`'
+
 
 
 

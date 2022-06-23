@@ -25,7 +25,7 @@ of a categorical variable."><!-- mathjax --><script src="https://cdnjs.cloudflar
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">autostats</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -143,7 +143,7 @@ the categorical variable.</p>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">iris_anova1</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>width <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 16 × 12</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 16 x 12</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    target       predictor level                   estimate target_mean     n</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Petal.Length Species   (Intercept)_GLOBAL_MEAN   3.76         3.76    150</span>
@@ -200,22 +200,22 @@ the categorical variable.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> ***                   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    conclusion                                                                   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                                        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> the mean of Petal.Length is HIGHLY significantly different  between the leve…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> the setosa group in Species has a Petal.Length mean of 1.462 which is HIGHLY…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> the versicolor group in Species has a Petal.Length mean of 4.260 which is si…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> the virginica group in Species has a Petal.Length mean of 5.552 which is HIG…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> the mean of Petal.Width is HIGHLY significantly different  between the level…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> the setosa group in Species has a Petal.Width mean of 0.246 which is HIGHLY …</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> the versicolor group in Species has a Petal.Width mean of 1.326 which is NOT…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> the virginica group in Species has a Petal.Width mean of 2.026 which is HIGH…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> the mean of Sepal.Length is HIGHLY significantly different  between the leve…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> the setosa group in Species has a Sepal.Length mean of 5.006 which is HIGHLY…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> the versicolor group in Species has a Sepal.Length mean of 5.936 which is NO…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> the virginica group in Species has a Sepal.Length mean of 6.588 which is HIG…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> the mean of Sepal.Width is HIGHLY significantly different  between the level…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> the setosa group in Species has a Sepal.Width mean of 3.428 which is HIGHLY …</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> the versicolor group in Species has a Sepal.Width mean of 2.770 which is HIG…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> the virginica group in Species has a Sepal.Width mean of 2.974 which is NOT …</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> the mean of Petal.Length is HIGHLY significantly different  between the leve~</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> the setosa group in Species has a Petal.Length mean of 1.462 which is HIGHLY~</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> the versicolor group in Species has a Petal.Length mean of 4.260 which is si~</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> the virginica group in Species has a Petal.Length mean of 5.552 which is HIG~</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> the mean of Petal.Width is HIGHLY significantly different  between the level~</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> the setosa group in Species has a Petal.Width mean of 0.246 which is HIGHLY ~</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> the versicolor group in Species has a Petal.Width mean of 1.326 which is NOT~</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> the virginica group in Species has a Petal.Width mean of 2.026 which is HIGH~</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> the mean of Sepal.Length is HIGHLY significantly different  between the leve~</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> the setosa group in Species has a Sepal.Length mean of 5.006 which is HIGHLY~</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> the versicolor group in Species has a Sepal.Length mean of 5.936 which is NO~</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> the virginica group in Species has a Sepal.Length mean of 6.588 which is HIG~</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> the mean of Sepal.Width is HIGHLY significantly different  between the level~</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> the setosa group in Species has a Sepal.Width mean of 3.428 which is HIGHLY ~</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> the versicolor group in Species has a Sepal.Width mean of 2.770 which is HIG~</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> the virginica group in Species has a Sepal.Width mean of 2.974 which is NOT ~</span>
 </code></pre></div>
     </div>
   </div>
@@ -230,7 +230,7 @@ the categorical variable.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer></div>

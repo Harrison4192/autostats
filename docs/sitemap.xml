@@ -4,12 +4,6 @@
     <loc>/404.html</loc>
   </url>
   <url>
-    <loc>/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE.html</loc>
-  </url>
-  <url>
     <loc>/articles/autostats.html</loc>
   </url>
   <url>
@@ -23,6 +17,12 @@
   </url>
   <url>
     <loc>/index.html</loc>
+  </url>
+  <url>
+    <loc>/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>/LICENSE.html</loc>
   </url>
   <url>
     <loc>/news/index.html</loc>
@@ -40,10 +40,10 @@
     <loc>/reference/auto_model_accuracy.html</loc>
   </url>
   <url>
-    <loc>/reference/auto_t_test.html</loc>
+    <loc>/reference/auto_tune_xgboost.html</loc>
   </url>
   <url>
-    <loc>/reference/auto_tune_xgboost.html</loc>
+    <loc>/reference/auto_t_test.html</loc>
   </url>
   <url>
     <loc>/reference/auto_variable_contributions.html</loc>
@@ -68,6 +68,9 @@
   </url>
   <url>
     <loc>/reference/get_params.html</loc>
+  </url>
+  <url>
+    <loc>/reference/impute_recosystem.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
