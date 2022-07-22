@@ -4,19 +4,10 @@
 \alias{plot_varimp_xgboost}
 \title{Plot varimp xgboost}
 \usage{
-plot_varimp_xgboost(
-  xgb,
-  JPN = FALSE,
-  top_n = 10L,
-  aggregate = NULL,
-  as_table = FALSE,
-  ...
-)
+plot_varimp_xgboost(xgb, top_n = 10L, aggregate = NULL, as_table = FALSE, ...)
 }
 \arguments{
 \item{xgb}{xgb.Booster model}
-
-\item{JPN}{logical. if TRUE renders japanese text}
 
 \item{top_n}{top n important variables}
 

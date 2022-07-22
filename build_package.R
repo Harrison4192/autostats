@@ -2,7 +2,7 @@
 xfun::gsub_dir(dir = "R", pattern = "presenteR", replacement = "presenter")
 
 
-
+install.packages("pacman")
 library(pacman)
 p_load(rstudioapi, devtools, roxygen2, usethis, pkgdown,
        ymlthis, magrittr, fs, covr, gitcreds, credentials,
@@ -73,7 +73,7 @@ usethis::use_package("lightgbm")
 
 
 
-usethis::use_r("tidy_foci")
+usethis::use_r("cap_outliers")
 usethis::use_package("badger", type = "Suggests")
 
 

@@ -279,20 +279,33 @@ xgbooster
 #' @param top_n top n important variables
 #' @param aggregate a character vector. Predictors containing the string will be aggregated, and renamed to that string.
 #' @param as_table logical, default FALSE. If TRUE returns importances in a data frame
-#' @param JPN logical. if TRUE renders japanese text
 #' @param ... additional arguments for \code{\link[xgboost]{xgb.ggplot.importance}}
 #' @keywords internal
 #'
 #' @return ggplot
 #'
-plot_varimp_xgboost <- function(xgb, JPN = FALSE, top_n = 10L, aggregate = NULL, as_table = FALSE, ...){
+plot_varimp_xgboost <- function(xgb,  top_n = 10L, aggregate = NULL, as_table = FALSE, ...){
 
   agg <- Feature <- NULL
 
-  font <- ifelse(JPN, "HiraKakuProN-W3", "")
+  xgb$feature_names -> f1
 
-  xgb %>%
-    xgboost::xgb.importance(model = . ) -> xgb_imp
+  length(f1) -> lf
+
+  as.character(1:lf) -> nms
+
+  xgb$feature_names <- nms
+
+  xgboost::xgb.importance(model = xgb ) -> xgb_imp
+
+  as.integer(xgb_imp$Feature) -> rg_ind
+
+  f1[rg_ind] -> unscrambled_names
+
+  xgb_imp$Feature <- unscrambled_names
+
+  xgb$feature_names <- f1
+
 
   if(!is.null(aggregate)){
 
@@ -304,13 +317,12 @@ plot_varimp_xgboost <- function(xgb, JPN = FALSE, top_n = 10L, aggregate = NULL,
       dplyr::group_by(Feature) %>%
       dplyr::summarise(dplyr::across(where(is.numeric), sum)) %>%
       data.table::as.data.table() -> xgb_imp
-
   }
 
 
- xgb_imp %>%
-  xgboost::xgb.ggplot.importance(..., top_n = top_n) +
-    ggplot2::theme_minimal(base_family= font) +
+  xgb_imp %>%
+    xgboost::xgb.ggplot.importance(..., top_n = top_n) +
+    ggplot2::theme_minimal() +
     ggplot2::theme(panel.border = ggplot2::element_blank(),
                    panel.grid.major = ggplot2::element_blank(),
                    panel.grid.minor = ggplot2::element_blank(),
@@ -318,14 +330,14 @@ plot_varimp_xgboost <- function(xgb, JPN = FALSE, top_n = 10L, aggregate = NULL,
     ggeasy::easy_remove_legend() +
     ggplot2::ylab("Importance from xgboost") -> xgb_plot
 
- if(as_table){
+  if(as_table){
 
-   imp_out <- xgb_imp
- } else{
-   imp_out <- xgb_plot
- }
+    imp_out <- xgb_imp
+  } else{
+    imp_out <- xgb_plot
+  }
 
- imp_out
+  imp_out
 }
 
 

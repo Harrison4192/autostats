@@ -58,7 +58,7 @@ Imports:
     nnet,
     recosystem,
     igraph
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1
 URL: https://harrison4192.github.io/autostats/, https://github.com/Harrison4192/autostats
 BugReports: https://github.com/Harrison4192/autostats/issues
 Suggests: 
