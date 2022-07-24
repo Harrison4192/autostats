@@ -20,6 +20,9 @@ reference:
   - '`auto_tune_xgboost`'
   - '`auto_cor`'
   - '`impute_recosystem`'
+  - '`cap_outliers`'
+
+
 
 
 

@@ -2,24 +2,25 @@
 % Please edit documentation in R/cap_outliers.R
 \name{cap_outliers}
 \alias{cap_outliers}
-\title{cap outliers}
+\title{cap_outliers}
 \usage{
 cap_outliers(x, q = 0.05, type = c("both", "upper", "lower"))
 }
 \arguments{
 \item{x}{numeric vector}
 
-\item{q}{decimal input to quantile function. Default q = .05 means capping at the 95% and 5% percentiles}
+\item{q}{decimal input to the quantile function to set cap. default .05 caps at the 95 and 5th percentile}
 
-\item{type}{default is to do an upper and lower cap, but can choose to do only one}
+\item{type}{chr vector. where to cap: both, upper, or lower}
 }
 \value{
-numeric vector with capped values
+numeric vector
 }
 \description{
-Caps the outliers of a numeric vector using quantiles. Also returns a plot of the density showing where the caps are placed.
+Caps the outliers of a numeric vector by percentiles. Also outputs a plot of the capped distribution
 }
 \examples{
 
-cap_outliers(iris$Petal.Width)
+ cap_outliers(iris$Petal.Width)
+
 }

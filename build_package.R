@@ -147,6 +147,7 @@ devtools::install_github("Harrison4192/presenter")
 
 # build and check ---------------------------------------------------------
 devtools::document()
+devtools::load_all()
 devtools::build_readme()
 devtools::build_site()
 devtools::check()
@@ -167,7 +168,7 @@ usethis::use_r("impute_recosystem")
 usethis::use_version(which = "minor")
 devtools::submit_cran()
 
-
+pkgdown::check_pkgdown()
 p_load(tidyverse)
 p_load(treesnip)
 iris %>%

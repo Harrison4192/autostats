@@ -1,17 +1,19 @@
-#' cap outliers
+#' cap_outliers
 #'
-#' Caps the outliers of a numeric vector using quantiles. Also returns a plot of the density showing where the caps are placed.
+#' Caps the outliers of a numeric vector by percentiles. Also outputs a plot of the capped distribution
+#'
 #'
 #' @param x numeric vector
-#' @param q decimal input to quantile function. Default q = .05 means capping at the 95% and 5% percentiles
-#' @param type default is to do an upper and lower cap, but can choose to do only one
+#' @param q decimal input to the quantile function to set cap. default .05 caps at the 95 and 5th percentile
+#' @param type chr vector. where to cap: both, upper, or lower
 #'
-#' @return numeric vector with capped values
+#' @return numeric vector
 #' @export
 #'
 #' @examples
 #'
-#' cap_outliers(iris$Petal.Width)
+#'  cap_outliers(iris$Petal.Width)
+#'
 cap_outliers <- function(x, q = .05, type = c("both", "upper", "lower")){
 
   xname <-rlang::enexpr(x)
