@@ -227,8 +227,11 @@ if(isTRUE(scale_pos_weight)){
     workflows::pull_workflow_fit() %>%
     purrr::pluck("fit") -> xgbooster
 
-  xgbooster$params$objective -> xgb_obj
-
+  if (utils::packageVersion("parsnip") > "1.0.0") {
+    xgbooster$call$objective -> xgb_obj
+  } else {
+    xgbooster$call$params$objective -> xgb_obj
+  }
 
   if(validate & xgb_obj != "multi:softprob"){
 
