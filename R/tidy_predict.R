@@ -144,9 +144,9 @@ tidy_predict.xgb.Booster <- function(model, newdata, form = NULL, olddata = NULL
 
   .ispred <- n <- NULL
 
-  if (utils::packageVersion("parsnip") > "1.0.0") {
-    model$call$objective -> objective
-  } else {
+  model$call$objective -> objective
+
+  if (is.null(objective)) {
     model$call$params$objective -> objective
   }
 
