@@ -41,6 +41,8 @@ impute_recosystem(
 \item{verbose}{show training loss?}
 
 \item{nfold}{folds for tune validation}
+
+\item{seed}{seed for randomness}
 }
 \value{
 long format data frame

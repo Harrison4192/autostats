@@ -28,6 +28,7 @@
 #' @param niter training iterations for tune
 #' @param verbose show training loss?
 #' @param nfold folds for tune validation
+#' @param seed seed for randomness
 #'
 #' @return long format data frame
 #' @export
@@ -46,7 +47,7 @@ impute_recosystem <- function(.data,
                               seed = 1){
 
 
-  user <- item <- rating <- user_index <- item_index <- NULL
+  type <- user <- item <- rating <- user_index <- item_index <- NULL
 
   stopifnot(
     ncol(.data) == 3,
@@ -143,7 +144,7 @@ suppressMessages({
 
 reco_preds_df %>%
   dplyr::left_join(name_index_dict) %>%
-  dplyr::select(-matches("index"))  -> reco_preds_df1
+  dplyr::select(-tidyselect::matches("index"))  -> reco_preds_df1
 
 })
 
@@ -207,7 +208,7 @@ yardstick::rsq_vec(dtest$rating, reco_pred_val) -> r2
 print(stringr::str_c("R^2 score on a 2/3 validation split is ", round(r2, digits = 3)))
 
 reco_full_df %>%
-  ggplot2::ggplot(aes(x = rating, color = type)) +
+  ggplot2::ggplot(ggplot2::aes(x = rating, color = type)) +
   ggplot2::geom_density() +
   ggplot2::theme_light() +
   ggplot2::ggtitle("Distribution of predictions vs. actual values") -> ggpred

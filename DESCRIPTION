@@ -21,9 +21,7 @@ Imports:
     stats,
     rlist,
     broom,
-    broom.mixed,
     magrittr,
-    Matrix,
     ggeasy,
     ggplot2,
     jtools,
@@ -36,15 +34,12 @@ Imports:
     parsnip,
     recipes,
     rsample,
-    hardhat,
     tune,
     workflows,
     forcats,
-    ggstance,
     framecleaner,
     presenter,
     yardstick,
-    BBmisc,
     dials,
     readr,
     lubridate,
@@ -53,21 +48,19 @@ Imports:
     FOCI,
     XICOR,
     agtboost,
-    Ckmeans.1d.dp,
-    glmnet,
     nnet,
     recosystem,
-    igraph
+    doParallel,
 RoxygenNote: 7.2.1
 URL: https://harrison4192.github.io/autostats/, https://github.com/Harrison4192/autostats
 BugReports: https://github.com/Harrison4192/autostats/issues
 Suggests: 
     knitr,
     rmarkdown,
-    markdown,
-    moreparty,
     parallel,
-    doParallel,
-    igraph
+    igraph,
+    moreparty,
+    broom.mixed,
+    hardhat
 VignetteBuilder: knitr
 License: MIT + file LICENSE

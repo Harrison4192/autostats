@@ -21,6 +21,6 @@ Caps the outliers of a numeric vector by percentiles. Also outputs a plot of the
 }
 \examples{
 
- cap_outliers(iris$Petal.Width)
+cap_outliers(iris$Petal.Width)
 
 }
