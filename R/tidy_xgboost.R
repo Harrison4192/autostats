@@ -227,8 +227,11 @@ if(isTRUE(scale_pos_weight)){
     workflows::pull_workflow_fit() %>%
     purrr::pluck("fit") -> xgbooster
 
-  xgbooster$params$objective -> xgb_obj
+  xgbooster$call$objective -> xgb_obj
 
+  if (is.null(xgb_obj)) {
+    xgbooster$call$params$objective -> xgb_obj
+  }
 
   if(validate & xgb_obj != "multi:softprob"){
 

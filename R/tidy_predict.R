@@ -144,7 +144,11 @@ tidy_predict.xgb.Booster <- function(model, newdata, form = NULL, olddata = NULL
 
   .ispred <- n <- NULL
 
-  model$call$params$objective -> objective
+  model$call$objective -> objective
+
+  if (is.null(objective)) {
+    model$call$params$objective -> objective
+  }
 
   if(is.null(olddata)){
     olddata <- newdata}
