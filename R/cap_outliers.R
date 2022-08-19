@@ -12,7 +12,7 @@
 #'
 #' @examples
 #'
-#'  cap_outliers(iris$Petal.Width)
+#' cap_outliers(iris$Petal.Width)
 #'
 cap_outliers <- function(x, q = .05, type = c("both", "upper", "lower")){
 

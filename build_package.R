@@ -8,6 +8,9 @@ p_load(rstudioapi, devtools, roxygen2, usethis, pkgdown,
        ymlthis, magrittr, fs, covr, gitcreds, credentials,
        badger, hexSticker, gh, tidyverse)
 
+p_load(installr)
+installr::check.for.updates.R()
+
 usethis::use_vignette("tidyModels")
 # add this file to .Rbuildignore ------------------------------------------
 
@@ -173,5 +176,7 @@ p_load(tidyverse)
 p_load(treesnip)
 iris %>%
   get_unique_col_names() -> ko
+
+usethis::use_github_action("pkgdown")
 
 
