@@ -61,6 +61,7 @@ Suggests:
     igraph,
     moreparty,
     broom.mixed,
-    hardhat
+    hardhat,
+    glmnet
 VignetteBuilder: knitr
 License: MIT + file LICENSE
