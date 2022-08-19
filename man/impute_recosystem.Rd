@@ -49,7 +49,7 @@ long format data frame
 }
 \description{
 Imputes missing values of a numeric matrix using stochastic gradient descent.
-\href{https://cran.r-project.org/web/packages/recosystem/vignettes/introduction.html}{recosystem}
+\href{https://CRAN.r-project.org/package=recosystem}{recosystem}
 }
 \details{
 input is a long data frame with 3 columns: ID col, Item col (the column names from pivoting longer),
