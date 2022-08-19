@@ -62,6 +62,7 @@ Suggests:
     moreparty,
     broom.mixed,
     hardhat,
-    glmnet
+    glmnet,
+    Ckmeans.1d.dp
 VignetteBuilder: knitr
 License: MIT + file LICENSE
