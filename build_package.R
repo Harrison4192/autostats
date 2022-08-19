@@ -161,6 +161,7 @@ devtools::build_vignettes(clean = TRUE, quiet = FALSE)
 devtools::spell_check()
 devtools::release(check = T)
 devtools::run_examples()
+devtools::build_vignettes()
 
 usethis::use_cran_comments(open = rlang::is_interactive())
 devtools::check_win_devel()
