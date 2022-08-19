@@ -1,7 +1,7 @@
 Package: autostats
 Type: Package
 Title: Auto Stats
-Version: 0.3.0
+Version: 0.3.1
 Authors@R: 
     person(given = "Harrison",
            family = "Tietze",
