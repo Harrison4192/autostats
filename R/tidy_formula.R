@@ -19,6 +19,8 @@
 f_charvec_to_formula <- function(lhs, rhs){
 
   if(rlang::is_empty(rhs)){return(NULL)} else{
+    rhs <- as.character(rhs)
+    lhs <- as.character(lhs)
 
     stringr::str_c(rhs, collapse = " + ") %>%
       stringr::str_c(lhs, " ~ ", ., collapse = "")  %>%
@@ -151,9 +153,6 @@ f_modify_formula <- function(f,
   if(length(rhs_remove) > 1){
     rhs_remove <- stringr::str_c(rhs_remove, collapse = "|")
   }
-
-
-
   f %>%
     f_formula_to_charvec() %>%
     stringr::str_subset(rhs_remove, negate = negate) %>%
