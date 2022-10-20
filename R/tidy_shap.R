@@ -85,6 +85,7 @@ if(!is.null(aggregate)){
 
    new_name <- form %>%
      rlang::f_lhs() %>%
+     as.character() %>%
      stringr::str_c(" shaps from model ", model_name, " on dataset ", data_name)
 
  shaps +
