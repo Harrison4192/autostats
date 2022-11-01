@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">autostats</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -113,11 +113,16 @@
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tune.tidymodels.org/" class="external-link">tune</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rsample.tidymodels.org" class="external-link">rsample</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/hardhat" class="external-link">hardhat</a></span><span class="op">)</span></span></code></pre></div>
-<p><code>autostats</code> provides convenient wrappers for modeling, visualizing, and predicting using a tidy workflow. The emphasis is on rapid iteration and quick results using an intuitive interface based off the <code>tibble</code> and <code>tidy_formula</code>.</p>
+<p><code>autostats</code> provides convenient wrappers for modeling,
+visualizing, and predicting using a tidy workflow. The emphasis is on
+rapid iteration and quick results using an intuitive interface based off
+the <code>tibble</code> and <code>tidy_formula</code>.</p>
 <div class="section level2">
 <h2 id="prepare-data">Prepare data<a class="anchor" aria-label="anchor" href="#prepare-data"></a>
 </h2>
-<p>Set up the iris data set for modeling. Create dummies and any new columns before making the formula. This way the same formula can be use throughout the modeling and prediction process.</p>
+<p>Set up the iris data set for modeling. Create dummies and any new
+columns before making the formula. This way the same formula can be use
+throughout the modeling and prediction process.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">34</span><span class="op">)</span></span>
 <span></span>
@@ -132,7 +137,7 @@
 <span> <span class="va">petal_form</span></span>
 <span><span class="co">#&gt; Petal.Length ~ Sepal.Length + Sepal.Width + Petal.Width + Species_versicolor + </span></span>
 <span><span class="co">#&gt;     Species_virginica</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x5564d3f21c00&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; &lt;environment: 0x55cdd79edcf0&gt;</span></span></code></pre></div>
 <p>Use the rsample package to split into train and validation sets.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris1</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -151,11 +156,17 @@
 <div class="section level2">
 <h2 id="fit-boosting-models-and-visualize">Fit boosting models and visualize<a class="anchor" aria-label="anchor" href="#fit-boosting-models-and-visualize"></a>
 </h2>
-<p>Fit models to the training set using the formula to predict <code>Petal.Length</code>. Variable importance using gain for each <code>xgboost</code> model can be visualized.</p>
+<p>Fit models to the training set using the formula to predict
+<code>Petal.Length</code>. Variable importance using gain for each
+<code>xgboost</code> model can be visualized.</p>
 <div class="section level3">
 <h3 id="xgboost-with-bayesian-hyperparameter-optimization">xgboost with bayesian hyperparameter optimization<a class="anchor" aria-label="anchor" href="#xgboost-with-bayesian-hyperparameter-optimization"></a>
 </h3>
-<p><code>auto_tune_xgboost</code> returns a workflow object with tuned parameters and requires some postprocessing to get a traind <code>xgb.Booster</code> object like <code>tidy_xgboost</code>. Tuning iterations set to <code>1</code> just so the vignette builds quickly. Default is <code>n_iter = 100</code></p>
+<p><code>auto_tune_xgboost</code> returns a workflow object with tuned
+parameters and requires some postprocessing to get a traind
+<code>xgb.Booster</code> object like <code>tidy_xgboost</code>. Tuning
+iterations set to <code>1</code> just so the vignette builds quickly.
+Default is <code>n_iter = 100</code></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris_train</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/auto_tune_xgboost.html">auto_tune_xgboost</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="va">petal_form</span>, n_iter <span class="op">=</span> <span class="fl">7L</span>, tune_method <span class="op">=</span> <span class="st">"bayes"</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">xgb_tuned_bayes</span></span>
@@ -170,7 +181,11 @@
 <div class="section level3">
 <h3 id="xgboost-with-grid-search-hyperparameter-optimization">xgboost with grid search hyperparameter optimization<a class="anchor" aria-label="anchor" href="#xgboost-with-grid-search-hyperparameter-optimization"></a>
 </h3>
-<p><code>xgboost</code> also can be tuned using a grid that is created internally using <code><a href="https://dials.tidymodels.org/reference/grid_max_entropy.html" class="external-link">dials::grid_max_entropy</a></code>. The <code>n_iter</code> parameter is passed to <code>grid_size</code>. Parallelization is highly effective in this method, so the default argument <code>parallel = TRUE</code> is recommended.</p>
+<p><code>xgboost</code> also can be tuned using a grid that is created
+internally using <code><a href="https://dials.tidymodels.org/reference/grid_max_entropy.html" class="external-link">dials::grid_max_entropy</a></code>. The
+<code>n_iter</code> parameter is passed to <code>grid_size</code>.
+Parallelization is highly effective in this method, so the default
+argument <code>parallel = TRUE</code> is recommended.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris_train</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/auto_tune_xgboost.html">auto_tune_xgboost</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="va">petal_form</span>, n_iter <span class="op">=</span> <span class="fl">5L</span>,trees <span class="op">=</span> <span class="fl">20L</span>, loss_reduction <span class="op">=</span> <span class="fl">2</span>, mtry <span class="op">=</span> <span class="fl">.5</span>, tune_method <span class="op">=</span> <span class="st">"grid"</span>, parallel <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">xgb_tuned_grid</span></span>
@@ -189,12 +204,12 @@
 <code class="sourceCode R"><span><span class="va">iris_train</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/tidy_xgboost.html">tidy_xgboost</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="va">petal_form</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">xgb_base</span></span>
 <span><span class="co">#&gt; accuracy tested on a validation set</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 4</span></span></span>
-<span><span class="co">#&gt;   .metric .estimator .estimate target      </span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ccc     standard       0.975 Petal.Length</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> rmse    standard       0.375 Petal.Length</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> rsq     standard       0.953 Petal.Length</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 2</span></span></span>
+<span><span class="co">#&gt;   .metric .estimate</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ccc         0.975</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> rmse        0.375</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> rsq         0.953</span></span></code></pre></div>
 <p><img src="tidyModels_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
@@ -214,12 +229,12 @@
 <span>               mtry <span class="op">=</span> <span class="fl">.5</span>,</span>
 <span>               min_n <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">xgb_opt</span></span>
 <span><span class="co">#&gt; accuracy tested on a validation set</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 4</span></span></span>
-<span><span class="co">#&gt;   .metric .estimator .estimate target      </span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ccc     standard       0.979 Petal.Length</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> rmse    standard       0.347 Petal.Length</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> rsq     standard       0.964 Petal.Length</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 2</span></span></span>
+<span><span class="co">#&gt;   .metric .estimate</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ccc         0.979</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> rmse        0.347</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> rsq         0.964</span></span></code></pre></div>
 <p><img src="tidyModels_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
@@ -230,7 +245,8 @@
 <div class="section level3">
 <h3 id="agtboost">agtboost<a class="anchor" aria-label="anchor" href="#agtboost"></a>
 </h3>
-<p>automated gradient descent boosting with information-criterion heuristics that don’t need tuning</p>
+<p>automated gradient descent boosting with information-criterion
+heuristics that don’t need tuning</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris_train</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/tidy_agtboost.html">tidy_agtboost</a></span><span class="op">(</span><span class="va">petal_form</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">agtb</span></span>
@@ -244,7 +260,9 @@
 <div class="section level3">
 <h3 id="make-predictions">make predictions<a class="anchor" aria-label="anchor" href="#make-predictions"></a>
 </h3>
-<p>Predictions are iteratively added to the validation data frame. The name of the column is automatically created using the models name and the prediction target.</p>
+<p>Predictions are iteratively added to the validation data frame. The
+name of the column is automatically created using the models name and
+the prediction target.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">xgb_base</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -268,7 +286,10 @@
 <div class="section level3">
 <h3 id="predictions-with-eval_preds">predictions with eval_preds<a class="anchor" aria-label="anchor" href="#predictions-with-eval_preds"></a>
 </h3>
-<p>Instead of evaluationg these prediction 1 by 1, This step is automated with <code>eval_preds</code>. This function is specifically designed to evaluate predicted columns with names given from <code>tidy_predict</code>.</p>
+<p>Instead of evaluationg these prediction 1 by 1, This step is
+automated with <code>eval_preds</code>. This function is specifically
+designed to evaluate predicted columns with names given from
+<code>tidy_predict</code>.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris_val4</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/eval_preds.html">eval_preds</a></span><span class="op">(</span><span class="op">)</span> </span>
@@ -283,7 +304,9 @@
 <div class="section level2">
 <h2 id="get-shapley-values">get shapley values<a class="anchor" aria-label="anchor" href="#get-shapley-values"></a>
 </h2>
-<p><code>tidy_shap</code> has similar syntax to <code>tidy_predict</code> and can be used to get shapley values from <code>xgboost</code> models on a validation set.</p>
+<p><code>tidy_shap</code> has similar syntax to
+<code>tidy_predict</code> and can be used to get shapley values from
+<code>xgboost</code> models on a validation set.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">xgb_base</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/tidy_shap.html">tidy_shap</a></span><span class="op">(</span>newdata <span class="op">=</span> <span class="va">iris_val</span>, form <span class="op">=</span> <span class="va">petal_form</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">shap_list</span></span></code></pre></div>
@@ -319,9 +342,11 @@
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">shap_list</span><span class="op">$</span><span class="va">scatterplots</span></span></code></pre></div>
 <div class="section level3">
-<h3 id="understand-xgboost-with-other-functions-from-the-original-package">understand xgboost with other functions from the original package<a class="anchor" aria-label="anchor" href="#understand-xgboost-with-other-functions-from-the-original-package"></a>
+<h3 id="understand-xgboost-with-other-functions-from-the-original-package">understand xgboost with other functions from the original
+package<a class="anchor" aria-label="anchor" href="#understand-xgboost-with-other-functions-from-the-original-package"></a>
 </h3>
-<p>Overfittingin the base config may be related to growing deep trees.</p>
+<p>Overfittingin the base config may be related to growing deep
+trees.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> <span class="va">xgb_base</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">xgboost</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/xgboost/man/xgb.plot.deepness.html" class="external-link">xgb.plot.deepness</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -329,7 +354,9 @@
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> <span class="va">xgb_base</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">xgboost</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/xgboost/man/xgb.plot.deepness.html" class="external-link">xgb.plot.deepness</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tidyModels_files/figure-html/unnamed-chunk-17-1.png" width="700"> Plot the first tree in the model. The small  in terminal leaves suggests overfitting in the base model.</p>
+<p><img src="tidyModels_files/figure-html/unnamed-chunk-17-1.png" width="700">
+Plot the first tree in the model. The small in terminal leaves suggests
+overfitting in the base model.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">xgb_base</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">xgboost</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/xgboost/man/xgb.plot.tree.html" class="external-link">xgb.plot.tree</a></span><span class="op">(</span>model <span class="op">=</span> <span class="va">.</span>, trees <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>

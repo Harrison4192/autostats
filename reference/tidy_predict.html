@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">autostats</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -103,6 +103,16 @@
 <span><span class="fu">tidy_predict</span><span class="op">(</span><span class="va">model</span>, <span class="va">newdata</span>, form <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for xgb.Booster</span></span>
+<span><span class="fu">tidy_predict</span><span class="op">(</span></span>
+<span>  <span class="va">model</span>,</span>
+<span>  <span class="va">newdata</span>,</span>
+<span>  form <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  olddata <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  bind_preds <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for lgb.Booster</span></span>
 <span><span class="fu">tidy_predict</span><span class="op">(</span></span>
 <span>  <span class="va">model</span>,</span>
 <span>  <span class="va">newdata</span>,</span>

@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">autostats</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -87,8 +87,8 @@
 <span>  tune_method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grid"</span>, <span class="st">"bayes"</span><span class="op">)</span>,</span>
 <span>  event_level <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"first"</span>, <span class="st">"second"</span><span class="op">)</span>,</span>
 <span>  n_fold <span class="op">=</span> <span class="fl">5L</span>,</span>
-<span>  seed <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  n_iter <span class="op">=</span> <span class="fl">100L</span>,</span>
+<span>  seed <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  save_output <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  parallel <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  trees <span class="op">=</span> <span class="fu">tune</span><span class="fu">::</span><span class="fu"><a href="https://hardhat.tidymodels.org/reference/tune.html" class="external-link">tune</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -102,7 +102,7 @@
 <span>  counts <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  tree_method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"auto"</span>, <span class="st">"exact"</span>, <span class="st">"approx"</span>, <span class="st">"hist"</span>, <span class="st">"gpu_hist"</span><span class="op">)</span>,</span>
 <span>  monotone_constraints <span class="op">=</span> <span class="fl">0L</span>,</span>
-<span>  num_parallel_tree <span class="op">=</span> <span class="fl">1L</span>,</span>
+<span>  num_parallel_tree <span class="op">=</span> <span class="fu">tune</span><span class="fu">::</span><span class="fu"><a href="https://hardhat.tidymodels.org/reference/tune.html" class="external-link">tune</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  lambda <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  alpha <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  scale_pos_weight <span class="op">=</span> <span class="fl">1</span>,</span>
@@ -132,12 +132,12 @@
 <dd><p>integer. n folds in resamples</p></dd>
 
 
-<dt>seed</dt>
-<dd><p>seed</p></dd>
-
-
 <dt>n_iter</dt>
 <dd><p>n iterations for tuning (bayes); paramter grid size (grid)</p></dd>
+
+
+<dt>seed</dt>
+<dd><p>seed</p></dd>
 
 
 <dt>save_output</dt>
@@ -205,7 +205,7 @@
 
 
 <dt>scale_pos_weight</dt>
-<dd><p>[default=1] Control the balance of positive and negative weights, useful for unbalanced classes. if set to TRUE, calculates sum(negative instances) / sum(positive instances)</p></dd>
+<dd><p>[default=1] Control the balance of positive and negative weights, useful for unbalanced classes. if set to TRUE, calculates sum(negative instances) / sum(positive instances). If first level is majority class, use values &lt; 1, otherwise normally values &gt;1 are used to balance the class distribution.</p></dd>
 
 
 <dt>verbosity</dt>
