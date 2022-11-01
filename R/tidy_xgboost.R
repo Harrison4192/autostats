@@ -269,19 +269,27 @@ suppressMessages({
 
 })
 
-model <- NULL
+model <- .estimate <- .estimator <- .metric <-  NULL
 
+  if(mode_set == "regression"){
     val_frame %>%
       eval_preds() %>%
-      dplyr::select(.metric, .estimate) %>%
-      dplyr::mutate(.formula = NA) %>%
-      dplyr::filter(.metric == "roc_auc") -> val_acc
+      dplyr::select(.metric, .estimate) -> val_acc
 
-    val_frame %>%
-      yardstick::conf_mat(truth = !!target
-                          , estimate = -1) -> val_conf
+  }
 
-    if(mode_set == "classification"){
+
+    else if(xgb_obj == "binary:logistic"){
+
+      val_frame %>%
+        eval_preds() %>%
+        dplyr::select(.metric, .estimate) %>%
+        dplyr::filter(.metric == "roc_auc") -> val_acc
+
+      val_frame %>%
+        yardstick::conf_mat(truth = !!target
+                            , estimate = -1) -> val_conf
+
       val_frame %>%
         dplyr::count(!!target, sort = T) %>%
         dplyr::pull(n) -> target_counts
@@ -297,8 +305,8 @@ model <- NULL
 
       val_conf_mat %>%
         summary %>%
-        select(-.estimator) %>%
-        mutate(.formula = c("TP + TN / total",
+        dplyr::select(-.estimator) %>%
+        dplyr::mutate(.formula = c("TP + TN / total",
                             NA,
                             "TP / actually P",
                             "TN / actually N",
@@ -312,7 +320,7 @@ model <- NULL
                             "sens, TPR",
                             "HM(ppv, sens)")) -> val_conf_tbl
 
-      print(yardstick:::autoplot.conf_mat(val_conf_mat, type = "heatmap"))
+      print(ggplot2::autoplot(val_conf_mat, type = "heatmap"))
 
       event_prop <- target_counts[1] / (target_counts[1] + target_counts[2])
 
@@ -323,6 +331,24 @@ model <- NULL
       val_conf_tbl %>%
         dplyr::bind_rows(baseline_acc, val_acc)-> val_acc
     }
+
+else if(xgb_obj == "multi:softmax"){
+
+
+
+
+  val_frame %>%
+    yardstick::conf_mat(truth = !!target, estimate = -1) -> val_conf_mat
+
+  val_conf_mat %>%
+    summary %>%
+    dplyr::select(-.estimator) -> val_acc
+
+  print(ggplot2::autoplot(val_conf_mat, type = "heatmap"))
+
+
+}
+
 
     message("accuracy tested on a validation set")
 

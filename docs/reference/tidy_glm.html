@@ -24,7 +24,7 @@ automatically determined based off the nature of the target variable."><!-- math
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">autostats</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
       </span>
     </div>
 
@@ -42,7 +42,7 @@ automatically determined based off the nature of the target variable."><!-- math
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -83,30 +83,35 @@ automatically determined based off the nature of the target variable.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">tidy_glm</span><span class="op">(</span><span class="va">data</span>, <span class="va">formula</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tidy_glm</span><span class="op">(</span><span class="va">data</span>, <span class="va">formula</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>data</dt>
 <dd><p>dataframe</p></dd>
+
+
 <dt>formula</dt>
 <dd><p>formula</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>glm model</p>
+    
+
+<p>glm model</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co"># linear regression</span></span>
-<span class="r-in"><span class="va">iris</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in"><span class="fu">tidy_glm</span><span class="op">(</span></span>
-<span class="r-in"><span class="fu"><a href="tidy_formula.html">tidy_formula</a></span><span class="op">(</span><span class="va">.</span>, target <span class="op">=</span> <span class="va">Petal.Width</span><span class="op">)</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">glm1</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">glm1</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># linear regression</span></span></span>
+<span class="r-in"><span><span class="va">iris</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="fu">tidy_glm</span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="tidy_formula.html">tidy_formula</a></span><span class="op">(</span><span class="va">.</span>, target <span class="op">=</span> <span class="va">Petal.Width</span><span class="op">)</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">glm1</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">glm1</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:  stats::glm(formula = formula, family = glm_family, data = data)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -119,31 +124,31 @@ automatically determined based off the nature of the target variable.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Degrees of Freedom: 149 Total (i.e. Null);  144 Residual</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Null Deviance:	    86.57 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residual Deviance: 3.998 	AIC: -104.1</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">glm1</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in"><span class="fu"><a href="visualize_model.html">visualize_model</a></span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">glm1</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="fu"><a href="visualize_model.html">visualize_model</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="tidy_glm-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># multinomial classification</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="tidy_formula.html">tidy_formula</a></span><span class="op">(</span><span class="va">iris</span>, target <span class="op">=</span> <span class="va">Species</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">species_form</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">iris</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in"><span class="fu">tidy_glm</span><span class="op">(</span><span class="va">species_form</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">glm2</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">glm2</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in"><span class="fu"><a href="visualize_model.html">visualize_model</a></span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># multinomial classification</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="tidy_formula.html">tidy_formula</a></span><span class="op">(</span><span class="va">iris</span>, target <span class="op">=</span> <span class="va">Species</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">species_form</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">iris</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="fu">tidy_glm</span><span class="op">(</span><span class="va">species_form</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">glm2</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">glm2</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="fu"><a href="visualize_model.html">visualize_model</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="tidy_glm-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#  logistic regression</span></span>
-<span class="r-in"><span class="va">iris</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in"><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">!=</span> <span class="st">"setosa"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in"><span class="fu">tidy_glm</span><span class="op">(</span><span class="va">species_form</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">glm3</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/warning.html" class="external-link">suppressWarnings</a></span><span class="op">(</span><span class="op">{</span></span>
-<span class="r-in"><span class="va">glm3</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in"><span class="fu"><a href="visualize_model.html">visualize_model</a></span><span class="op">(</span><span class="op">)</span><span class="op">}</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#  logistic regression</span></span></span>
+<span class="r-in"><span><span class="va">iris</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">!=</span> <span class="st">"setosa"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="fu">tidy_glm</span><span class="op">(</span><span class="va">species_form</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">glm3</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/warning.html" class="external-link">suppressWarnings</a></span><span class="op">(</span><span class="op">{</span></span></span>
+<span class="r-in"><span><span class="va">glm3</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="fu"><a href="visualize_model.html">visualize_model</a></span><span class="op">(</span><span class="op">)</span><span class="op">}</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="tidy_glm-3.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -159,7 +164,7 @@ automatically determined based off the nature of the target variable.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

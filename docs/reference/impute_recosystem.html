@@ -24,7 +24,7 @@ recosystem"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">autostats</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
       </span>
     </div>
 
@@ -42,7 +42,7 @@ recosystem"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -79,54 +79,81 @@ recosystem"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/
 
     <div class="ref-description">
     <p>Imputes missing values of a numeric matrix using stochastic gradient descent.
-<a href="https://cran.r-project.org/web/packages/recosystem/vignettes/introduction.html" class="external-link">recosystem</a></p>
+<a href="https://CRAN.r-project.org/package=recosystem" class="external-link">recosystem</a></p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">impute_recosystem</span><span class="op">(</span>
-  <span class="va">.data</span>,
-  lrate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.05</span>, <span class="fl">0.1</span><span class="op">)</span>,
-  costp_l1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.05</span><span class="op">)</span>,
-  costq_l1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.05</span><span class="op">)</span>,
-  costp_l2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.05</span><span class="op">)</span>,
-  costq_l2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.05</span><span class="op">)</span>,
-  nthread <span class="op">=</span> <span class="fl">8</span>,
-  loss <span class="op">=</span> <span class="st">"l2"</span>,
-  niter <span class="op">=</span> <span class="fl">15</span>,
-  verbose <span class="op">=</span> <span class="cn">FALSE</span>,
-  nfold <span class="op">=</span> <span class="fl">4</span>,
-  seed <span class="op">=</span> <span class="fl">1</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">impute_recosystem</span><span class="op">(</span></span>
+<span>  <span class="va">.data</span>,</span>
+<span>  lrate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.05</span>, <span class="fl">0.1</span><span class="op">)</span>,</span>
+<span>  costp_l1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.05</span><span class="op">)</span>,</span>
+<span>  costq_l1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.05</span><span class="op">)</span>,</span>
+<span>  costp_l2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.05</span><span class="op">)</span>,</span>
+<span>  costq_l2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.05</span><span class="op">)</span>,</span>
+<span>  nthread <span class="op">=</span> <span class="fl">8</span>,</span>
+<span>  loss <span class="op">=</span> <span class="st">"l2"</span>,</span>
+<span>  niter <span class="op">=</span> <span class="fl">15</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  nfold <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>  seed <span class="op">=</span> <span class="fl">1</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>.data</dt>
 <dd><p>long format data frame</p></dd>
+
+
 <dt>lrate</dt>
 <dd><p>learning rate</p></dd>
+
+
 <dt>costp_l1</dt>
 <dd><p>l1 cost p</p></dd>
+
+
 <dt>costq_l1</dt>
 <dd><p>l1 cost q</p></dd>
+
+
 <dt>costp_l2</dt>
 <dd><p>l2 cost p</p></dd>
+
+
 <dt>costq_l2</dt>
 <dd><p>l2 cost q</p></dd>
+
+
 <dt>nthread</dt>
 <dd><p>nthreads</p></dd>
+
+
 <dt>loss</dt>
 <dd><p>loss function. also can use "l1"</p></dd>
+
+
 <dt>niter</dt>
 <dd><p>training iterations for tune</p></dd>
+
+
 <dt>verbose</dt>
 <dd><p>show training loss?</p></dd>
+
+
 <dt>nfold</dt>
 <dd><p>folds for tune validation</p></dd>
+
+
+<dt>seed</dt>
+<dd><p>seed for randomness</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>long format data frame</p>
+    
+
+<p>long format data frame</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -152,7 +179,7 @@ recosystem"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

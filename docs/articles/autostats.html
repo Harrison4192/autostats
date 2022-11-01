@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">autostats</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
       </span>
     </div>
 
@@ -58,7 +58,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -93,7 +93,9 @@
 
       
 
-      </header><div class="row">
+      </header><link href="autostats_files/tabwid-1.0.0/tabwid.css" rel="stylesheet">
+<link href="autostats_files/tabwid-1.0.0/scrool.css" rel="stylesheet">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>autostats</h1>
@@ -107,30 +109,32 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://harrison4192.github.io/autostats/" class="external-link">autostats</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://harrison4192.github.io/autostats/" class="external-link">autostats</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="plot-variable-contributions">plot variable contributions<a class="anchor" aria-label="anchor" href="#plot-variable-contributions"></a>
 </h2>
 <div class="section level3">
 <h3 id="multiclass-target">multiclass target<a class="anchor" aria-label="anchor" href="#multiclass-target"></a>
 </h3>
-<p>Species is a 3-level factor so it will be automatically modelled with a multiclass neural network and a light gbm with multiclass objective function.</p>
+<p>Species is a 3-level factor so it will be automatically modelled with
+a multiclass neural network and a light gbm with multiclass objective
+function.</p>
 <p>First set define the formula to use for modeling.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/tidy_formula.html">tidy_formula</a></span><span class="op">(</span>target <span class="op">=</span> <span class="va">Species</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">species_formula</span>
-
-<span class="va">species_formula</span>
-<span class="co">#&gt; Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width</span>
-<span class="co">#&gt; &lt;environment: 0x0000000012fddd18&gt;</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/tidy_formula.html">tidy_formula</a></span><span class="op">(</span>target <span class="op">=</span> <span class="va">Species</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">species_formula</span></span>
+<span></span>
+<span><span class="va">species_formula</span></span>
+<span><span class="co">#&gt; Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width</span></span>
+<span><span class="co">#&gt; &lt;environment: 0x000001cb9eced4b8&gt;</span></span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/auto_variable_contributions.html">auto_variable_contributions</a></span><span class="op">(</span><span class="va">species_formula</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/auto_variable_contributions.html">auto_variable_contributions</a></span><span class="op">(</span><span class="va">species_formula</span><span class="op">)</span></span></code></pre></div>
 <p><img src="autostats_files/figure-html/unnamed-chunk-3-1.png" width="700"><img src="autostats_files/figure-html/unnamed-chunk-3-2.png" width="700"></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/auto_model_accuracy.html">auto_model_accuracy</a></span><span class="op">(</span><span class="va">species_formula</span><span class="op">)</span></code></pre></div>
-<template id="4c710649-c406-4a94-ba70-3f3e2a1ec76a"><style>
+<code class="sourceCode R"><span><span class="va">iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/auto_model_accuracy.html">auto_model_accuracy</a></span><span class="op">(</span><span class="va">species_formula</span><span class="op">)</span></span></code></pre></div>
+<template id="f4689eb4-6bef-4e85-9719-5d76c7d08861"><style>
 .tabwid table{
   border-spacing:0px !important;
   border-collapse:collapse;
@@ -166,35 +170,35 @@ background-color: transparent;
 }
 </style>
 <div class="tabwid">
-<style>.cl-8a6ea654{}.cl-8a64ece0{font-family:'Arial';font-size:16pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(255, 255, 255, 1.00);background-color:transparent;}.cl-8a64ece1{font-family:'Arial';font-size:12pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(115, 115, 115, 1.00);background-color:transparent;}.cl-8a64ece2{font-family:'Arial';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(164, 206, 229, 1.00);background-color:transparent;}.cl-8a6513e6{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-8a656206{width:113.9pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8a656207{width:72.6pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8a656208{width:67.7pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1pt solid rgba(164, 206, 229, 1.00);border-left: 3pt solid rgba(135, 206, 235, 1.00);border-right: 1pt solid rgba(164, 206, 229, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8a656209{width:74.8pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8a65620a{width:113.9pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8a65620b{width:72.6pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8a65620c{width:67.7pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1pt solid rgba(164, 206, 229, 1.00);border-left: 3pt solid rgba(135, 206, 235, 1.00);border-right: 1pt solid rgba(164, 206, 229, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8a65620d{width:74.8pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8a65620e{width:113.9pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8a65620f{width:72.6pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8a656210{width:67.7pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 3pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8a658916{width:74.8pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
-<table class="table cl-8a6ea654">
+<style>.cl-fe27abd8{}.cl-fe1d3b26{font-family:'Arial';font-size:16pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(255, 255, 255, 1.00);background-color:transparent;}.cl-fe1d3b30{font-family:'Arial';font-size:12pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(115, 115, 115, 1.00);background-color:transparent;}.cl-fe1d3b3a{font-family:'Arial';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(164, 206, 229, 1.00);background-color:transparent;}.cl-fe1d5b2e{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-fe1d9486{width:113.9pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fe1d9490{width:72.6pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fe1d949a{width:67.7pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1pt solid rgba(164, 206, 229, 1.00);border-left: 3pt solid rgba(135, 206, 235, 1.00);border-right: 1pt solid rgba(164, 206, 229, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fe1d94a4{width:74.8pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fe1d94a5{width:113.9pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fe1d94ae{width:72.6pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fe1d94af{width:74.8pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fe1d94b0{width:113.9pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fe1d94b8{width:72.6pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fe1d94b9{width:67.7pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 3pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fe1d94c2{width:74.8pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<table class="table cl-fe27abd8">
 <thead>
-<tr style="overflow-wrap:break-word;"><td colspan="4" class="cl-8a656210"><p class="cl-8a6513e6"><span class="cl-8a64ece0">4 - fold  cross-validated accuracy for classification model of Species on dataset iris</span></p></td></tr>
+<tr style="overflow-wrap:break-word;"><td colspan="4" class="cl-fe1d94b9"><p class="cl-fe1d5b2e"><span class="cl-fe1d3b26">4 - fold  cross-validated accuracy for classification model of Species on dataset iris</span></p></td></tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-8a656210"><p class="cl-8a6513e6"><span class="cl-8a64ece0">model</span></p></td>
-<td class="cl-8a65620f"><p class="cl-8a6513e6"><span class="cl-8a64ece0">metric</span></p></td>
-<td class="cl-8a65620e"><p class="cl-8a6513e6"><span class="cl-8a64ece0">mean_score</span></p></td>
-<td class="cl-8a658916"><p class="cl-8a6513e6"><span class="cl-8a64ece0">std_err</span></p></td>
+<td class="cl-fe1d94b9"><p class="cl-fe1d5b2e"><span class="cl-fe1d3b26">model</span></p></td>
+<td class="cl-fe1d94b8"><p class="cl-fe1d5b2e"><span class="cl-fe1d3b26">metric</span></p></td>
+<td class="cl-fe1d94b0"><p class="cl-fe1d5b2e"><span class="cl-fe1d3b26">mean_score</span></p></td>
+<td class="cl-fe1d94c2"><p class="cl-fe1d5b2e"><span class="cl-fe1d3b26">std_err</span></p></td>
 </tr>
 </thead>
 <tbody>
 <tr style="overflow-wrap:break-word;">
-<td rowspan="2" class="cl-8a656208"><p class="cl-8a6513e6"><span class="cl-8a64ece1">xgboost</span></p></td>
-<td class="cl-8a656207"><p class="cl-8a6513e6"><span class="cl-8a64ece1">accuracy</span></p></td>
-<td class="cl-8a656206"><p class="cl-8a6513e6"><span class="cl-8a64ece2">0.960</span></p></td>
-<td class="cl-8a656209"><p class="cl-8a6513e6"><span class="cl-8a64ece2">0.01363</span></p></td>
+<td rowspan="2" class="cl-fe1d949a"><p class="cl-fe1d5b2e"><span class="cl-fe1d3b30">xgboost</span></p></td>
+<td class="cl-fe1d9490"><p class="cl-fe1d5b2e"><span class="cl-fe1d3b30">accuracy</span></p></td>
+<td class="cl-fe1d9486"><p class="cl-fe1d5b2e"><span class="cl-fe1d3b3a">0.960</span></p></td>
+<td class="cl-fe1d94a4"><p class="cl-fe1d5b2e"><span class="cl-fe1d3b3a">0.01363</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-8a65620b"><p class="cl-8a6513e6"><span class="cl-8a64ece1">roc_auc</span></p></td>
-<td class="cl-8a65620a"><p class="cl-8a6513e6"><span class="cl-8a64ece2">0.995</span></p></td>
-<td class="cl-8a65620d"><p class="cl-8a6513e6"><span class="cl-8a64ece2">0.00406</span></p></td>
+<td class="cl-fe1d94ae"><p class="cl-fe1d5b2e"><span class="cl-fe1d3b30">roc_auc</span></p></td>
+<td class="cl-fe1d94a5"><p class="cl-fe1d5b2e"><span class="cl-fe1d3b3a">0.995</span></p></td>
+<td class="cl-fe1d94af"><p class="cl-fe1d5b2e"><span class="cl-fe1d3b3a">0.00406</span></p></td>
 </tr>
 </tbody>
 </table>
-</div></template><div class="flextable-shadow-host" id="1b02801e-f4a6-4672-a2b0-2cabfbafb148"></div>
+</div></template><div class="flextable-shadow-host" id="f0ece1b7-b8f7-4e56-9a13-8210265dce91"></div>
 <script>
-var dest = document.getElementById("1b02801e-f4a6-4672-a2b0-2cabfbafb148");
-var template = document.getElementById("4c710649-c406-4a94-ba70-3f3e2a1ec76a");
+var dest = document.getElementById("f0ece1b7-b8f7-4e56-9a13-8210265dce91");
+var template = document.getElementById("f4689eb4-6bef-4e85-9719-5d76c7d08861");
 var caption = template.content.querySelector("caption");
 if(caption) {
   caption.style.cssText = "display:block;text-align:center;";
@@ -210,20 +214,22 @@ fantome.appendChild(templateContent);
 <div class="section level3">
 <h3 id="binary-target">binary target<a class="anchor" aria-label="anchor" href="#binary-target"></a>
 </h3>
-<p>Linear models uses weighted logistic regression for modeling the coefficients</p>
+<p>Linear models uses weighted logistic regression for modeling the
+coefficients</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">!=</span> <span class="st">"setosa"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/auto_variable_contributions.html">auto_variable_contributions</a></span><span class="op">(</span><span class="va">species_formula</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">!=</span> <span class="st">"setosa"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/auto_variable_contributions.html">auto_variable_contributions</a></span><span class="op">(</span><span class="va">species_formula</span><span class="op">)</span></span></code></pre></div>
 <p><img src="autostats_files/figure-html/unnamed-chunk-5-1.png" width="700"><img src="autostats_files/figure-html/unnamed-chunk-5-2.png" width="700"></p>
-<p>For the variable contributions the linear model uses penalized logistic regression provided by glmnet.</p>
+<p>For the variable contributions the linear model uses penalized
+logistic regression provided by glmnet.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">!=</span> <span class="st">"setosa"</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">iris_binary</span>
-
-<span class="va">iris_binary</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/auto_model_accuracy.html">auto_model_accuracy</a></span><span class="op">(</span><span class="va">species_formula</span><span class="op">)</span></code></pre></div>
-<template id="21d43438-4d6d-4402-8f86-bc06d3b79642"><style>
+<code class="sourceCode R"><span><span class="va">iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">!=</span> <span class="st">"setosa"</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">iris_binary</span></span>
+<span></span>
+<span><span class="va">iris_binary</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/auto_model_accuracy.html">auto_model_accuracy</a></span><span class="op">(</span><span class="va">species_formula</span><span class="op">)</span></span></code></pre></div>
+<template id="3278203d-0af5-492c-83ee-536fd2d952a0"><style>
 .tabwid table{
   border-spacing:0px !important;
   border-collapse:collapse;
@@ -259,35 +265,35 @@ background-color: transparent;
 }
 </style>
 <div class="tabwid">
-<style>.cl-8dc394e0{}.cl-8db9f50c{font-family:'Arial';font-size:16pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(255, 255, 255, 1.00);background-color:transparent;}.cl-8db9f50d{font-family:'Arial';font-size:12pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(115, 115, 115, 1.00);background-color:transparent;}.cl-8db9f50e{font-family:'Arial';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(164, 206, 229, 1.00);background-color:transparent;}.cl-8db9f50f{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-8dba1c26{width:113.9pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8dba1c27{width:72.6pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8dba1c28{width:67.7pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1pt solid rgba(164, 206, 229, 1.00);border-left: 3pt solid rgba(135, 206, 235, 1.00);border-right: 1pt solid rgba(164, 206, 229, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8dba1c29{width:74.8pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8dba1c2a{width:113.9pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8dba1c2b{width:72.6pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8dba1c2c{width:67.7pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1pt solid rgba(164, 206, 229, 1.00);border-left: 3pt solid rgba(135, 206, 235, 1.00);border-right: 1pt solid rgba(164, 206, 229, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8dba1c2d{width:74.8pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8dba1c2e{width:113.9pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8dba1c2f{width:72.6pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8dba1c30{width:67.7pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 3pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8dba4336{width:74.8pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
-<table class="table cl-8dc394e0">
+<style>.cl-004f1626{}.cl-004565cc{font-family:'Arial';font-size:16pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(255, 255, 255, 1.00);background-color:transparent;}.cl-004565d6{font-family:'Arial';font-size:12pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(115, 115, 115, 1.00);background-color:transparent;}.cl-004565e0{font-family:'Arial';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(164, 206, 229, 1.00);background-color:transparent;}.cl-004579a4{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-0045abc2{width:113.9pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0045abcc{width:72.6pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0045abcd{width:67.7pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1pt solid rgba(164, 206, 229, 1.00);border-left: 3pt solid rgba(135, 206, 235, 1.00);border-right: 1pt solid rgba(164, 206, 229, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0045abd6{width:74.8pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0045abe0{width:113.9pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0045abe1{width:72.6pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0045abea{width:74.8pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0045abeb{width:113.9pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0045abf4{width:72.6pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0045abf5{width:67.7pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 3pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0045abfe{width:74.8pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<table class="table cl-004f1626">
 <thead>
-<tr style="overflow-wrap:break-word;"><td colspan="4" class="cl-8dba1c30"><p class="cl-8db9f50f"><span class="cl-8db9f50c">4 - fold  cross-validated accuracy for classification model of Species on dataset iris_binary</span></p></td></tr>
+<tr style="overflow-wrap:break-word;"><td colspan="4" class="cl-0045abf5"><p class="cl-004579a4"><span class="cl-004565cc">4 - fold  cross-validated accuracy for classification model of Species on dataset iris_binary</span></p></td></tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-8dba1c30"><p class="cl-8db9f50f"><span class="cl-8db9f50c">model</span></p></td>
-<td class="cl-8dba1c2f"><p class="cl-8db9f50f"><span class="cl-8db9f50c">metric</span></p></td>
-<td class="cl-8dba1c2e"><p class="cl-8db9f50f"><span class="cl-8db9f50c">mean_score</span></p></td>
-<td class="cl-8dba4336"><p class="cl-8db9f50f"><span class="cl-8db9f50c">std_err</span></p></td>
+<td class="cl-0045abf5"><p class="cl-004579a4"><span class="cl-004565cc">model</span></p></td>
+<td class="cl-0045abf4"><p class="cl-004579a4"><span class="cl-004565cc">metric</span></p></td>
+<td class="cl-0045abeb"><p class="cl-004579a4"><span class="cl-004565cc">mean_score</span></p></td>
+<td class="cl-0045abfe"><p class="cl-004579a4"><span class="cl-004565cc">std_err</span></p></td>
 </tr>
 </thead>
 <tbody>
 <tr style="overflow-wrap:break-word;">
-<td rowspan="2" class="cl-8dba1c28"><p class="cl-8db9f50f"><span class="cl-8db9f50d">xgboost</span></p></td>
-<td class="cl-8dba1c27"><p class="cl-8db9f50f"><span class="cl-8db9f50d">accuracy</span></p></td>
-<td class="cl-8dba1c26"><p class="cl-8db9f50f"><span class="cl-8db9f50e">0.92</span></p></td>
-<td class="cl-8dba1c29"><p class="cl-8db9f50f"><span class="cl-8db9f50e">0.049</span></p></td>
+<td rowspan="2" class="cl-0045abcd"><p class="cl-004579a4"><span class="cl-004565d6">xgboost</span></p></td>
+<td class="cl-0045abcc"><p class="cl-004579a4"><span class="cl-004565d6">accuracy</span></p></td>
+<td class="cl-0045abc2"><p class="cl-004579a4"><span class="cl-004565e0">0.92</span></p></td>
+<td class="cl-0045abd6"><p class="cl-004579a4"><span class="cl-004565e0">0.049</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-8dba1c2b"><p class="cl-8db9f50f"><span class="cl-8db9f50d">roc_auc</span></p></td>
-<td class="cl-8dba1c2a"><p class="cl-8db9f50f"><span class="cl-8db9f50e">0.98</span></p></td>
-<td class="cl-8dba1c2d"><p class="cl-8db9f50f"><span class="cl-8db9f50e">0.020</span></p></td>
+<td class="cl-0045abe1"><p class="cl-004579a4"><span class="cl-004565d6">roc_auc</span></p></td>
+<td class="cl-0045abe0"><p class="cl-004579a4"><span class="cl-004565e0">0.98</span></p></td>
+<td class="cl-0045abea"><p class="cl-004579a4"><span class="cl-004565e0">0.020</span></p></td>
 </tr>
 </tbody>
 </table>
-</div></template><div class="flextable-shadow-host" id="64c65eea-5a32-467c-9040-b5aa243c43fc"></div>
+</div></template><div class="flextable-shadow-host" id="097f14bc-158f-42e7-9e68-aef4fb9ea127"></div>
 <script>
-var dest = document.getElementById("64c65eea-5a32-467c-9040-b5aa243c43fc");
-var template = document.getElementById("21d43438-4d6d-4402-8f86-bc06d3b79642");
+var dest = document.getElementById("097f14bc-158f-42e7-9e68-aef4fb9ea127");
+var template = document.getElementById("3278203d-0af5-492c-83ee-536fd2d952a0");
 var caption = template.content.querySelector("caption");
 if(caption) {
   caption.style.cssText = "display:block;text-align:center;";
@@ -306,16 +312,16 @@ fantome.appendChild(templateContent);
 <p>Models are automatically adapted for a continuous target.</p>
 <p>Define the new formula</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/tidy_formula.html">tidy_formula</a></span><span class="op">(</span>target <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">petal_formula</span>
-
-<span class="va">petal_formula</span>
-<span class="co">#&gt; Petal.Length ~ Sepal.Length + Sepal.Width + Petal.Width + Species</span>
-<span class="co">#&gt; &lt;environment: 0x00000000125aa448&gt;</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/tidy_formula.html">tidy_formula</a></span><span class="op">(</span>target <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">petal_formula</span></span>
+<span></span>
+<span><span class="va">petal_formula</span></span>
+<span><span class="co">#&gt; Petal.Length ~ Sepal.Length + Sepal.Width + Petal.Width + Species</span></span>
+<span><span class="co">#&gt; &lt;environment: 0x000001cba73078c8&gt;</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/auto_model_accuracy.html">auto_model_accuracy</a></span><span class="op">(</span><span class="va">petal_formula</span><span class="op">)</span></code></pre></div>
-<template id="82edab2d-8b95-4ec7-a687-d57307500b74"><style>
+<code class="sourceCode R"><span><span class="va">iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/auto_model_accuracy.html">auto_model_accuracy</a></span><span class="op">(</span><span class="va">petal_formula</span><span class="op">)</span></span></code></pre></div>
+<template id="c57bc381-3013-4b64-a944-19f390ef6528"><style>
 .tabwid table{
   border-spacing:0px !important;
   border-collapse:collapse;
@@ -351,35 +357,35 @@ background-color: transparent;
 }
 </style>
 <div class="tabwid">
-<style>.cl-902697c8{}.cl-901ce61a{font-family:'Arial';font-size:16pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(255, 255, 255, 1.00);background-color:transparent;}.cl-901ce61b{font-family:'Arial';font-size:12pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(115, 115, 115, 1.00);background-color:transparent;}.cl-901ce61c{font-family:'Arial';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(164, 206, 229, 1.00);background-color:transparent;}.cl-901d0d2a{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-901d343a{width:113.9pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-901d343b{width:68.6pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-901d343c{width:67.7pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1pt solid rgba(164, 206, 229, 1.00);border-left: 3pt solid rgba(135, 206, 235, 1.00);border-right: 1pt solid rgba(164, 206, 229, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-901d343d{width:74.8pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-901d343e{width:113.9pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-901d343f{width:68.6pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-901d3440{width:67.7pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1pt solid rgba(164, 206, 229, 1.00);border-left: 3pt solid rgba(135, 206, 235, 1.00);border-right: 1pt solid rgba(164, 206, 229, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-901d3441{width:74.8pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-901d3442{width:113.9pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-901d3443{width:68.6pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-901d3444{width:67.7pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 3pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-901d5b54{width:74.8pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
-<table class="table cl-902697c8">
+<style>.cl-01c28ab0{}.cl-01b81f30{font-family:'Arial';font-size:16pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(255, 255, 255, 1.00);background-color:transparent;}.cl-01b81f3a{font-family:'Arial';font-size:12pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(115, 115, 115, 1.00);background-color:transparent;}.cl-01b81f44{font-family:'Arial';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(164, 206, 229, 1.00);background-color:transparent;}.cl-01b83434{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-01b86242{width:113.9pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-01b8624c{width:68.6pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-01b86256{width:67.7pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1pt solid rgba(164, 206, 229, 1.00);border-left: 3pt solid rgba(135, 206, 235, 1.00);border-right: 1pt solid rgba(164, 206, 229, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-01b86257{width:74.8pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-01b86260{width:113.9pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-01b86261{width:68.6pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-01b8626a{width:74.8pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-01b8626b{width:113.9pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-01b86274{width:68.6pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-01b86275{width:67.7pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 3pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-01b8627e{width:74.8pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<table class="table cl-01c28ab0">
 <thead>
-<tr style="overflow-wrap:break-word;"><td colspan="4" class="cl-901d3444"><p class="cl-901d0d2a"><span class="cl-901ce61a">4 - fold  cross-validated accuracy for regression model of Petal.Length on dataset iris</span></p></td></tr>
+<tr style="overflow-wrap:break-word;"><td colspan="4" class="cl-01b86275"><p class="cl-01b83434"><span class="cl-01b81f30">4 - fold  cross-validated accuracy for regression model of Petal.Length on dataset iris</span></p></td></tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-901d3444"><p class="cl-901d0d2a"><span class="cl-901ce61a">model</span></p></td>
-<td class="cl-901d3443"><p class="cl-901d0d2a"><span class="cl-901ce61a">metric</span></p></td>
-<td class="cl-901d3442"><p class="cl-901d0d2a"><span class="cl-901ce61a">mean_score</span></p></td>
-<td class="cl-901d5b54"><p class="cl-901d0d2a"><span class="cl-901ce61a">std_err</span></p></td>
+<td class="cl-01b86275"><p class="cl-01b83434"><span class="cl-01b81f30">model</span></p></td>
+<td class="cl-01b86274"><p class="cl-01b83434"><span class="cl-01b81f30">metric</span></p></td>
+<td class="cl-01b8626b"><p class="cl-01b83434"><span class="cl-01b81f30">mean_score</span></p></td>
+<td class="cl-01b8627e"><p class="cl-01b83434"><span class="cl-01b81f30">std_err</span></p></td>
 </tr>
 </thead>
 <tbody>
 <tr style="overflow-wrap:break-word;">
-<td rowspan="2" class="cl-901d343c"><p class="cl-901d0d2a"><span class="cl-901ce61b">xgboost</span></p></td>
-<td class="cl-901d343b"><p class="cl-901d0d2a"><span class="cl-901ce61b">rmse</span></p></td>
-<td class="cl-901d343a"><p class="cl-901d0d2a"><span class="cl-901ce61c">0.279</span></p></td>
-<td class="cl-901d343d"><p class="cl-901d0d2a"><span class="cl-901ce61c">0.01256</span></p></td>
+<td rowspan="2" class="cl-01b86256"><p class="cl-01b83434"><span class="cl-01b81f3a">xgboost</span></p></td>
+<td class="cl-01b8624c"><p class="cl-01b83434"><span class="cl-01b81f3a">rmse</span></p></td>
+<td class="cl-01b86242"><p class="cl-01b83434"><span class="cl-01b81f44">0.279</span></p></td>
+<td class="cl-01b86257"><p class="cl-01b83434"><span class="cl-01b81f44">0.01256</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-901d343f"><p class="cl-901d0d2a"><span class="cl-901ce61b">rsq</span></p></td>
-<td class="cl-901d343e"><p class="cl-901d0d2a"><span class="cl-901ce61c">0.974</span></p></td>
-<td class="cl-901d3441"><p class="cl-901d0d2a"><span class="cl-901ce61c">0.00262</span></p></td>
+<td class="cl-01b86261"><p class="cl-01b83434"><span class="cl-01b81f3a">rsq</span></p></td>
+<td class="cl-01b86260"><p class="cl-01b83434"><span class="cl-01b81f44">0.974</span></p></td>
+<td class="cl-01b8626a"><p class="cl-01b83434"><span class="cl-01b81f44">0.00262</span></p></td>
 </tr>
 </tbody>
 </table>
-</div></template><div class="flextable-shadow-host" id="a731c9e7-a529-4b74-92b1-a2b1a74a8536"></div>
+</div></template><div class="flextable-shadow-host" id="5cd7a3d2-2d0a-44c8-a5cd-0beb6066e72d"></div>
 <script>
-var dest = document.getElementById("a731c9e7-a529-4b74-92b1-a2b1a74a8536");
-var template = document.getElementById("82edab2d-8b95-4ec7-a687-d57307500b74");
+var dest = document.getElementById("5cd7a3d2-2d0a-44c8-a5cd-0beb6066e72d");
+var template = document.getElementById("c57bc381-3013-4b64-a944-19f390ef6528");
 var caption = template.content.querySelector("caption");
 if(caption) {
   caption.style.cssText = "display:block;text-align:center;";
@@ -396,21 +402,30 @@ fantome.appendChild(templateContent);
 <div class="section level2">
 <h2 id="auto-anova">auto anova<a class="anchor" aria-label="anchor" href="#auto-anova"></a>
 </h2>
-<p>auto anova automatically regresses each continuous variable supplied against each categorical variable supplied. Lm is called separately for each continuous/ categorical variable pair, but the results are reported in one dataframe. Whether the outcome differs amongst categorical levels is determined by the p.value. The interpretation is affected by the choice of baseline for comparison. Traditionally the first level of the factor is used, however option to use the mean of the continuous variable as the baseline intercept is a helpful comparison.</p>
+<p>auto anova automatically regresses each continuous variable supplied
+against each categorical variable supplied. Lm is called separately for
+each continuous/ categorical variable pair, but the results are reported
+in one dataframe. Whether the outcome differs amongst categorical levels
+is determined by the p.value. The interpretation is affected by the
+choice of baseline for comparison. Traditionally the first level of the
+factor is used, however option to use the mean of the continuous
+variable as the baseline intercept is a helpful comparison.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/auto_anova.html">auto_anova</a></span><span class="op">(</span><span class="va">Species</span>, <span class="fu">matches</span><span class="op">(</span><span class="st">"Petal"</span><span class="op">)</span>, baseline <span class="op">=</span> <span class="st">"first_level"</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 x 12</span></span>
-<span class="co">#&gt;   target      predictor level estimate target_mean     n std.error level_p.value</span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Petal.Leng~ Species   (Int~    1.46        1.46     50    0.060<span style="text-decoration: underline;">9</span>      9.30<span style="color: #949494;">e</span><span style="color: #BB0000;">-53</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Petal.Leng~ Species   vers~    2.80        4.26     50    0.086<span style="text-decoration: underline;">1</span>      5.25<span style="color: #949494;">e</span><span style="color: #BB0000;">-69</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Petal.Leng~ Species   virg~    4.09        5.55     50    0.086<span style="text-decoration: underline;">1</span>      4.11<span style="color: #949494;">e</span><span style="color: #BB0000;">-91</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Petal.Width Species   (Int~    0.246       0.246    50    0.028<span style="text-decoration: underline;">9</span>      1.96<span style="color: #949494;">e</span><span style="color: #BB0000;">-14</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Petal.Width Species   vers~    1.08        1.33     50    0.040<span style="text-decoration: underline;">9</span>      1.25<span style="color: #949494;">e</span><span style="color: #BB0000;">-57</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Petal.Width Species   virg~    1.78        2.03     50    0.040<span style="text-decoration: underline;">9</span>      7.95<span style="color: #949494;">e</span><span style="color: #BB0000;">-86</span></span>
-<span class="co">#&gt; <span style="color: #949494;"># ... with 4 more variables: level_significance &lt;chr&gt;, predictor_p.value &lt;dbl&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   predictor_significance &lt;chr&gt;, conclusion &lt;chr&gt;</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/auto_anova.html">auto_anova</a></span><span class="op">(</span><span class="va">Species</span>, <span class="fu">matches</span><span class="op">(</span><span class="st">"Petal"</span><span class="op">)</span>, baseline <span class="op">=</span> <span class="st">"first_level"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 12</span></span></span>
+<span><span class="co">#&gt;   target   predi…¹ level estim…² targe…³     n std.e…⁴ level_…⁵ level…⁶ predic…⁷</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Petal.L… Species (Int…   1.46    1.46     50  0.060<span style="text-decoration: underline;">9</span> 9.30<span style="color: #949494;">e</span><span style="color: #BB0000;">-53</span> ***     2.86<span style="color: #949494;">e</span><span style="color: #BB0000;">-91</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Petal.L… Species vers…   2.80    4.26     50  0.086<span style="text-decoration: underline;">1</span> 5.25<span style="color: #949494;">e</span><span style="color: #BB0000;">-69</span> ***     2.86<span style="color: #949494;">e</span><span style="color: #BB0000;">-91</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Petal.L… Species virg…   4.09    5.55     50  0.086<span style="text-decoration: underline;">1</span> 4.11<span style="color: #949494;">e</span><span style="color: #BB0000;">-91</span> ***     2.86<span style="color: #949494;">e</span><span style="color: #BB0000;">-91</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Petal.W… Species (Int…   0.246   0.246    50  0.028<span style="text-decoration: underline;">9</span> 1.96<span style="color: #949494;">e</span><span style="color: #BB0000;">-14</span> ***     4.17<span style="color: #949494;">e</span><span style="color: #BB0000;">-85</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Petal.W… Species vers…   1.08    1.33     50  0.040<span style="text-decoration: underline;">9</span> 1.25<span style="color: #949494;">e</span><span style="color: #BB0000;">-57</span> ***     4.17<span style="color: #949494;">e</span><span style="color: #BB0000;">-85</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Petal.W… Species virg…   1.78    2.03     50  0.040<span style="text-decoration: underline;">9</span> 7.95<span style="color: #949494;">e</span><span style="color: #BB0000;">-86</span> ***     4.17<span style="color: #949494;">e</span><span style="color: #BB0000;">-85</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 2 more variables: predictor_significance &lt;chr&gt;, conclusion &lt;chr&gt;, and</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   abbreviated variable names ¹​predictor, ²​estimate, ³​target_mean, ⁴​std.error,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   ⁵​level_p.value, ⁶​level_significance, ⁷​predictor_p.value</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ Use `colnames()` to see all variable names</span></span></span></code></pre></div>
 </div>
   </div>
 
@@ -431,7 +446,7 @@ fantome.appendChild(templateContent);
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

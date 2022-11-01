@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">autostats</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
       </span>
     </div>
 
@@ -41,7 +41,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -81,47 +81,64 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">auto_boxplot</span><span class="op">(</span>
-  <span class="va">.data</span>,
-  <span class="va">continuous_outcome</span>,
-  <span class="va">categorical_variable</span>,
-  categorical_facets <span class="op">=</span> <span class="cn">NULL</span>,
-  alpha <span class="op">=</span> <span class="fl">0.3</span>,
-  width <span class="op">=</span> <span class="fl">0.15</span>,
-  color_dots <span class="op">=</span> <span class="st">"black"</span>,
-  color_box <span class="op">=</span> <span class="st">"red"</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">auto_boxplot</span><span class="op">(</span></span>
+<span>  <span class="va">.data</span>,</span>
+<span>  <span class="va">continuous_outcome</span>,</span>
+<span>  <span class="va">categorical_variable</span>,</span>
+<span>  categorical_facets <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="fl">0.3</span>,</span>
+<span>  width <span class="op">=</span> <span class="fl">0.15</span>,</span>
+<span>  color_dots <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>  color_box <span class="op">=</span> <span class="st">"red"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>.data</dt>
 <dd><p>data</p></dd>
+
+
 <dt>continuous_outcome</dt>
 <dd><p>continuous y variable. unquoted column name</p></dd>
+
+
 <dt>categorical_variable</dt>
 <dd><p>categorical x variable. unquoted column name</p></dd>
+
+
 <dt>categorical_facets</dt>
 <dd><p>categorical facet variable. unquoted column name</p></dd>
+
+
 <dt>alpha</dt>
 <dd><p>alpha points</p></dd>
+
+
 <dt>width</dt>
 <dd><p>width of jitter</p></dd>
+
+
 <dt>color_dots</dt>
 <dd><p>dot color</p></dd>
+
+
 <dt>color_box</dt>
 <dd><p>box color</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>ggplot</p>
+    
+
+<p>ggplot</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="va">iris</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in"><span class="fu">auto_boxplot</span><span class="op">(</span>continuous_outcome <span class="op">=</span> <span class="va">Petal.Width</span>, categorical_variable <span class="op">=</span> <span class="va">Species</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">iris</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="fu">auto_boxplot</span><span class="op">(</span>continuous_outcome <span class="op">=</span> <span class="va">Petal.Width</span>, categorical_variable <span class="op">=</span> <span class="va">Species</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="auto_boxplot-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -137,7 +154,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

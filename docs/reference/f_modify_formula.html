@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">autostats</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
       </span>
     </div>
 
@@ -41,7 +41,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -81,58 +81,69 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">f_modify_formula</span><span class="op">(</span>
-  <span class="va">f</span>,
-  rhs_remove <span class="op">=</span> <span class="cn">NULL</span>,
-  rhs_add <span class="op">=</span> <span class="cn">NULL</span>,
-  lhs_replace <span class="op">=</span> <span class="cn">NULL</span>,
-  negate <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">f_modify_formula</span><span class="op">(</span></span>
+<span>  <span class="va">f</span>,</span>
+<span>  rhs_remove <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rhs_add <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  lhs_replace <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  negate <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>f</dt>
 <dd><p>formula</p></dd>
+
+
 <dt>rhs_remove</dt>
 <dd><p>regex or character vector for dropping variables from the rhs</p></dd>
+
+
 <dt>rhs_add</dt>
 <dd><p>character vector for adding variables to rhs</p></dd>
+
+
 <dt>lhs_replace</dt>
 <dd><p>string to replace formula lhs if supplied</p></dd>
+
+
 <dt>negate</dt>
 <dd><p>should <code>rhs_remove</code> keep or remove the specified vars. Set to <code>FALSE</code> to keep</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>formula</p>
+    
+
+<p>formula</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="va">iris</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in"><span class="fu"><a href="tidy_formula.html">tidy_formula</a></span><span class="op">(</span>target <span class="op">=</span> <span class="va">Species</span>, <span class="fu">tidyselect</span><span class="fu">::</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">f</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">f</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">iris</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="fu"><a href="tidy_formula.html">tidy_formula</a></span><span class="op">(</span>target <span class="op">=</span> <span class="va">Species</span>, <span class="fu">tidyselect</span><span class="fu">::</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">f</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">f</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x000000004b976460&gt;</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">f</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">f_modify_formula</span><span class="op">(</span></span>
-<span class="r-in">rhs_remove <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Petal.Width"</span>, <span class="st">"Sepal.Length"</span><span class="op">)</span>,</span>
-<span class="r-in">rhs_add <span class="op">=</span> <span class="st">"Custom_Variable"</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x000002781f27a690&gt;</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">f</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">f_modify_formula</span><span class="op">(</span></span></span>
+<span class="r-in"><span>rhs_remove <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Petal.Width"</span>, <span class="st">"Sepal.Length"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>rhs_add <span class="op">=</span> <span class="st">"Custom_Variable"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Species ~ Sepal.Width + Petal.Length + Custom_Variable</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x000000004b7b5488&gt;</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">f</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">f_modify_formula</span><span class="op">(</span></span>
-<span class="r-in">rhs_remove <span class="op">=</span> <span class="st">"Petal"</span>,</span>
-<span class="r-in">lhs_replace <span class="op">=</span> <span class="st">"Petal.Length"</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x000002781f34f158&gt;</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">f</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">f_modify_formula</span><span class="op">(</span></span></span>
+<span class="r-in"><span>rhs_remove <span class="op">=</span> <span class="st">"Petal"</span>,</span></span>
+<span class="r-in"><span>lhs_replace <span class="op">=</span> <span class="st">"Petal.Length"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Petal.Length ~ Sepal.Length + Sepal.Width</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x000000004b737738&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x000002781f3bac78&gt;</span>
 </code></pre></div>
     </div>
   </div>
@@ -147,7 +158,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

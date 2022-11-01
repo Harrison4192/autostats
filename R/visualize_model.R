@@ -63,11 +63,9 @@ visualize_model.default <- function(model, ..., method){
   summary(model)
 }
 
-#' @rdname visualize_model
-#' @method visualize_model lgb.Booster
-#' @export
-visualize_model.lgb.Booster <- function(model, ..., method){
 
-  lgb.importance(model, ...) %>%
-    lgb.plot.importance()
-  }
+#' visualize_model.lgb.Booster <- function(model, ..., method){
+#'
+#'   lgb.importance(model, ...) %>%
+#'     lgb.plot.importance()
+#'   }

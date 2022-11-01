@@ -8,7 +8,6 @@
 \alias{visualize_model.multinom}
 \alias{visualize_model.xgb.Booster}
 \alias{visualize_model.default}
-\alias{visualize_model.lgb.Booster}
 \title{visualize model}
 \usage{
 visualize_model(model, ..., method = NULL)
@@ -24,8 +23,6 @@ visualize_model(model, ..., method = NULL)
 \method{visualize_model}{xgb.Booster}(model, ..., method)
 
 \method{visualize_model}{default}(model, ..., method)
-
-\method{visualize_model}{lgb.Booster}(model, ..., method)
 }
 \arguments{
 \item{model}{a model}

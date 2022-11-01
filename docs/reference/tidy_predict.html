@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">autostats</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
       </span>
     </div>
 
@@ -41,7 +41,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -81,56 +81,79 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">tidy_predict</span><span class="op">(</span>
-  <span class="va">model</span>,
-  <span class="va">newdata</span>,
-  form <span class="op">=</span> <span class="cn">NULL</span>,
-  olddata <span class="op">=</span> <span class="cn">NULL</span>,
-  bind_preds <span class="op">=</span> <span class="cn">FALSE</span>,
-  <span class="va">...</span>
-<span class="op">)</span>
-
-<span class="co"># S3 method for Rcpp_ENSEMBLE</span>
-<span class="fu">tidy_predict</span><span class="op">(</span><span class="va">model</span>, <span class="va">newdata</span>, form <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for glm</span>
-<span class="fu">tidy_predict</span><span class="op">(</span><span class="va">model</span>, <span class="va">newdata</span>, form <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for default</span>
-<span class="fu">tidy_predict</span><span class="op">(</span><span class="va">model</span>, <span class="va">newdata</span>, form <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for BinaryTree</span>
-<span class="fu">tidy_predict</span><span class="op">(</span><span class="va">model</span>, <span class="va">newdata</span>, form <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for xgb.Booster</span>
-<span class="fu">tidy_predict</span><span class="op">(</span>
-  <span class="va">model</span>,
-  <span class="va">newdata</span>,
-  form <span class="op">=</span> <span class="cn">NULL</span>,
-  olddata <span class="op">=</span> <span class="cn">NULL</span>,
-  bind_preds <span class="op">=</span> <span class="cn">FALSE</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tidy_predict</span><span class="op">(</span></span>
+<span>  <span class="va">model</span>,</span>
+<span>  <span class="va">newdata</span>,</span>
+<span>  form <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  olddata <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  bind_preds <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for Rcpp_ENSEMBLE</span></span>
+<span><span class="fu">tidy_predict</span><span class="op">(</span><span class="va">model</span>, <span class="va">newdata</span>, form <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for glm</span></span>
+<span><span class="fu">tidy_predict</span><span class="op">(</span><span class="va">model</span>, <span class="va">newdata</span>, form <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">tidy_predict</span><span class="op">(</span><span class="va">model</span>, <span class="va">newdata</span>, form <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for BinaryTree</span></span>
+<span><span class="fu">tidy_predict</span><span class="op">(</span><span class="va">model</span>, <span class="va">newdata</span>, form <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for xgb.Booster</span></span>
+<span><span class="fu">tidy_predict</span><span class="op">(</span></span>
+<span>  <span class="va">model</span>,</span>
+<span>  <span class="va">newdata</span>,</span>
+<span>  form <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  olddata <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  bind_preds <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for lgb.Booster</span></span>
+<span><span class="fu">tidy_predict</span><span class="op">(</span></span>
+<span>  <span class="va">model</span>,</span>
+<span>  <span class="va">newdata</span>,</span>
+<span>  form <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  olddata <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  bind_preds <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>model</dt>
 <dd><p>model</p></dd>
+
+
 <dt>newdata</dt>
 <dd><p>dataframe</p></dd>
+
+
 <dt>form</dt>
 <dd><p>the formula used for the model</p></dd>
+
+
 <dt>olddata</dt>
 <dd><p>training data set</p></dd>
+
+
 <dt>bind_preds</dt>
 <dd><p>set to TURE if newdata is a dataset without any labels, to bind the new and old data with the predictions under the original target name</p></dd>
+
+
 <dt>...</dt>
 <dd><p>other parameters to pass to <code>predict</code></p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>dataframe</p>
+    
+
+<p>dataframe</p>
     </div>
 
   </div>
@@ -145,7 +168,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

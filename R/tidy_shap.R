@@ -116,7 +116,7 @@ if(!is.null(aggregate)){
  shaps_sum %>%
    dplyr::pull(name) %>%
    setdiff(binaries) %>%
-   head(9) -> top_9
+   utils::head(9) -> top_9
 
  if(!rlang::is_empty(top_9)){
 
@@ -138,7 +138,7 @@ if(!is.null(aggregate)){
   shaps_sum %>%
     dplyr::pull(name) %>%
     intersect(binaries) %>%
-    head(9) -> top_9_binary
+    utils::head(9) -> top_9_binary
 
 
   if(!rlang::is_empty(top_9_binary)){

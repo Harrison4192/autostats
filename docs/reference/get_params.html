@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">autostats</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
       </span>
     </div>
 
@@ -41,7 +41,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -81,53 +81,58 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">get_params</span><span class="op">(</span><span class="va">model</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for xgb.Booster</span>
-<span class="fu">get_params</span><span class="op">(</span><span class="va">model</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_params</span><span class="op">(</span><span class="va">model</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for xgb.Booster</span></span>
+<span><span class="fu">get_params</span><span class="op">(</span><span class="va">model</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for workflow</span></span>
+<span><span class="fu">get_params</span><span class="op">(</span><span class="va">model</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>model</dt>
 <dd><p>a model</p></dd>
+
+
 <dt>...</dt>
 <dd><p>additional arguments</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>list of params</p>
+    
+
+<p>list of params</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="va">iris</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">framecleaner</span><span class="fu">::</span><span class="fu"><a href="https://harrison4192.github.io/framecleaner/reference/create_dummies.html" class="external-link">create_dummies</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">iris_dummies</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">iris</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">framecleaner</span><span class="fu">::</span><span class="fu"><a href="https://harrison4192.github.io/framecleaner/reference/create_dummies.html" class="external-link">create_dummies</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">iris_dummies</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 1 column(s) have become 3 dummy columns</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">iris_dummies</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="tidy_formula.html">tidy_formula</a></span><span class="op">(</span>target <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">p_form</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">iris_dummies</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="tidy_xgboost.html">tidy_xgboost</a></span><span class="op">(</span><span class="va">p_form</span>, mtry <span class="op">=</span> <span class="fl">.5</span>, trees <span class="op">=</span> <span class="fl">5L</span>, loss_reduction <span class="op">=</span> <span class="fl">2</span>, sample_size <span class="op">=</span> <span class="fl">.7</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">xgb</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">iris_dummies</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="tidy_formula.html">tidy_formula</a></span><span class="op">(</span>target <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">p_form</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">iris_dummies</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="tidy_xgboost.html">tidy_xgboost</a></span><span class="op">(</span><span class="va">p_form</span>, mtry <span class="op">=</span> <span class="fl">.5</span>, trees <span class="op">=</span> <span class="fl">5L</span>, loss_reduction <span class="op">=</span> <span class="fl">2</span>, sample_size <span class="op">=</span> <span class="fl">.7</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">xgb</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`early_stop` was reduced to 4.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`early_stop` was reduced to 4.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> accuracy tested on a validation set</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 x 4</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .metric .estimator .estimate target      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> ccc     standard       0.864 Petal.Length</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> rmse    standard       0.815 Petal.Length</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> rsq     standard       0.931 Petal.Length</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .metric .estimate</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> ccc         0.825</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> rmse        0.974</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> rsq         0.893</span>
 <span class="r-plt img"><img src="get_params-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## reuse these parameters to find the cross validated error</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/exec.html" class="external-link">exec</a></span><span class="op">(</span><span class="va">auto_model_accuracy</span>, data <span class="op">=</span> <span class="va">iris_dummies</span>, formula <span class="op">=</span> <span class="va">p_form</span>, <span class="op">!</span><span class="op">!</span><span class="op">!</span><span class="fu">get_params</span><span class="op">(</span><span class="va">xgb</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Registered S3 method overwritten by 'tune':</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   method                   from   </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   required_pkgs.model_spec parsnip</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## reuse these parameters to find the cross validated error</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/exec.html" class="external-link">exec</a></span><span class="op">(</span><span class="va">auto_model_accuracy</span>, data <span class="op">=</span> <span class="va">iris_dummies</span>, formula <span class="op">=</span> <span class="va">p_form</span>, <span class="op">!</span><span class="op">!</span><span class="op">!</span><span class="fu">get_params</span><span class="op">(</span><span class="va">xgb</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> <span style="color: #BBBB00;">Fold1: preprocessor 1/1, model 1/1: `early_stop` was reduced to 4.</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> <span style="color: #BBBB00;">Fold2: preprocessor 1/1, model 1/1: `early_stop` was reduced to 4.</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> <span style="color: #BBBB00;">Fold3: preprocessor 1/1, model 1/1: `early_stop` was reduced to 4.</span></span>
@@ -154,7 +159,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

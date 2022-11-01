@@ -24,7 +24,7 @@ Statistical significance required for a split , and minimum necessary samples in
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">autostats</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
       </span>
     </div>
 
@@ -42,7 +42,7 @@ Statistical significance required for a split , and minimum necessary samples in
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -83,44 +83,55 @@ Statistical significance required for a split , and minimum necessary samples in
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">tidy_ctree</span><span class="op">(</span><span class="va">.data</span>, <span class="va">formula</span>, minbucket <span class="op">=</span> <span class="fl">7L</span>, mincriterion <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tidy_ctree</span><span class="op">(</span><span class="va">.data</span>, <span class="va">formula</span>, minbucket <span class="op">=</span> <span class="fl">7L</span>, mincriterion <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>.data</dt>
 <dd><p>dataframe</p></dd>
+
+
 <dt>formula</dt>
 <dd><p>formula</p></dd>
+
+
 <dt>minbucket</dt>
 <dd><p>minimum amount of samples in terminal leaves, default is 7</p></dd>
+
+
 <dt>mincriterion</dt>
 <dd><p>(1 - alpha)   value between 0 -1, default is .95. lowering this value creates more splits, but less significant</p></dd>
+
+
 <dt>...</dt>
 <dd><p>optional parameters to <code><a href="https://rdrr.io/pkg/party/man/ctree_control.html" class="external-link">ctree_control</a></code></p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a ctree object</p>
+    
+
+<p>a ctree object</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="va">iris</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in"><span class="fu"><a href="tidy_formula.html">tidy_formula</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">Sepal.Length</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">sepal_form</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">iris</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in"><span class="fu">tidy_ctree</span><span class="op">(</span><span class="va">sepal_form</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in"><span class="fu"><a href="visualize_model.html">visualize_model</a></span><span class="op">(</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">iris</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="fu"><a href="tidy_formula.html">tidy_formula</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">Sepal.Length</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">sepal_form</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">iris</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="fu">tidy_ctree</span><span class="op">(</span><span class="va">sepal_form</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="fu"><a href="visualize_model.html">visualize_model</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="tidy_ctree-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">iris</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in"><span class="fu">tidy_ctree</span><span class="op">(</span><span class="va">sepal_form</span>, minbucket <span class="op">=</span> <span class="fl">30</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in"><span class="fu"><a href="visualize_model.html">visualize_model</a></span><span class="op">(</span>plot_type <span class="op">=</span> <span class="st">"box"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">iris</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="fu">tidy_ctree</span><span class="op">(</span><span class="va">sepal_form</span>, minbucket <span class="op">=</span> <span class="fl">30</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="fu"><a href="visualize_model.html">visualize_model</a></span><span class="op">(</span>plot_type <span class="op">=</span> <span class="st">"box"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="tidy_ctree-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -135,7 +146,7 @@ Statistical significance required for a split , and minimum necessary samples in
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
