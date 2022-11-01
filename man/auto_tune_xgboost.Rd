@@ -10,8 +10,8 @@ auto_tune_xgboost(
   tune_method = c("grid", "bayes"),
   event_level = c("first", "second"),
   n_fold = 5L,
-  seed = 1,
   n_iter = 100L,
+  seed = 1,
   save_output = FALSE,
   parallel = TRUE,
   trees = tune::tune(),
@@ -25,7 +25,7 @@ auto_tune_xgboost(
   counts = FALSE,
   tree_method = c("auto", "exact", "approx", "hist", "gpu_hist"),
   monotone_constraints = 0L,
-  num_parallel_tree = 1L,
+  num_parallel_tree = tune::tune(),
   lambda = 1,
   alpha = 0,
   scale_pos_weight = 1,
@@ -43,9 +43,9 @@ auto_tune_xgboost(
 
 \item{n_fold}{integer. n folds in resamples}
 
-\item{seed}{seed}
-
 \item{n_iter}{n iterations for tuning (bayes); paramter grid size (grid)}
+
+\item{seed}{seed}
 
 \item{save_output}{FASLE. If set to TRUE will write the output as an rds file}
 
@@ -79,7 +79,7 @@ auto_tune_xgboost(
 
 \item{alpha}{[default=0] L1 regularization term on weights. Increasing this value will make model more conservative.}
 
-\item{scale_pos_weight}{[default=1] Control the balance of positive and negative weights, useful for unbalanced classes. if set to TRUE, calculates sum(negative instances) / sum(positive instances)}
+\item{scale_pos_weight}{[default=1] Control the balance of positive and negative weights, useful for unbalanced classes. if set to TRUE, calculates sum(negative instances) / sum(positive instances). If first level is majority class, use values < 1, otherwise normally values >1 are used to balance the class distribution.}
 
 \item{verbosity}{[default=1] Verbosity of printing messages. Valid values are 0 (silent), 1 (warning), 2 (info), 3 (debug).}
 }

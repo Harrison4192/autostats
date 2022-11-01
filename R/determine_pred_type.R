@@ -10,7 +10,7 @@ determine_pred_type <- function(x){
   x %>% dplyr::n_distinct() -> target_levels
   x %>% is.numeric() -> is_tg_numeric
 
-  if(target_levels == 2){
+  if(target_levels <= 2){
 
     type <- "binary"
 

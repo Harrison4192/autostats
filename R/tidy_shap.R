@@ -88,7 +88,9 @@ if(!is.null(aggregate)){
      stringr::str_c(" shaps from model ", model_name, " on dataset ", data_name)
 
  shaps +
-   ggplot2::labs(title = new_name, color = "normalized feature value", x = "shapley value") -> swarm_plot
+   ggplot2::labs(title = new_name, color = "normalized feature value", x = "shapley value") +
+   ggplot2::xlab("shapley value") +
+   ggplot2::ylab("feature name") -> swarm_plot
 
 
 
@@ -103,7 +105,7 @@ if(!is.null(aggregate)){
              sum_abs = sum(abs(SHAP))) %>%
    dplyr::arrange(dplyr::desc(sum_abs)) -> shaps_sum
 
- ## scatterplots
+ ## continuous scatterplots
 
  newdata %>%
    purrr::map_lgl(~dplyr::n_distinct(.) <= 2) %>%
@@ -111,9 +113,11 @@ if(!is.null(aggregate)){
    names -> binaries
 
  shaps_sum %>%
-   dplyr::slice(1:9) %>%
    dplyr::pull(name) %>%
-   setdiff(binaries)-> top_9
+   setdiff(binaries) %>%
+   head(9) -> top_9
+
+ if(!rlang::is_empty(top_9)){
 
  gplottbl %>%
    dplyr::filter(name %in% top_9) %>%
@@ -123,14 +127,40 @@ if(!is.null(aggregate)){
    ggplot2::theme_minimal() +
    ggplot2::facet_wrap(~name, scales = "free_x") +
    ggplot2::theme(legend.position = "none") -> scatterplots
-
+ } else {
+   scatterplots <- "no continuous vars"
+ }
   })
+
+# binary boxplots
+
+  shaps_sum %>%
+    dplyr::pull(name) %>%
+    intersect(binaries) %>%
+    head(9) -> top_9_binary
+
+
+  if(!rlang::is_empty(top_9_binary)){
+
+  gplottbl %>%
+    dplyr::filter(name %in% top_9_binary) %>%
+    ggplot2::ggplot(ggplot2::aes(x = factor(FEATURE), y = SHAP, color = name)) +
+    ggplot2::geom_boxplot(alpha = .5) +
+    ggplot2::theme_minimal() +
+    ggplot2::xlab("BINARY FEATURE") +
+    ggplot2::facet_wrap(~name, scales = "free_x") +
+    ggplot2::theme(legend.position = "none") -> boxplots
+  } else {
+    boxplots <- "no binary vars"
+  }
+  ## combine
 
  list(
    shap_tbl = preds1,
    shap_summary = shaps_sum,
    swarmplot = swarm_plot,
-   scatterplots = scatterplots
+   scatterplots = scatterplots,
+   boxplots = boxplots
  ) -> shapslist
 
 

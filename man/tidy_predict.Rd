@@ -7,6 +7,7 @@
 \alias{tidy_predict.default}
 \alias{tidy_predict.BinaryTree}
 \alias{tidy_predict.xgb.Booster}
+\alias{tidy_predict.lgb.Booster}
 \title{tidy predict}
 \usage{
 tidy_predict(
@@ -27,6 +28,15 @@ tidy_predict(
 \method{tidy_predict}{BinaryTree}(model, newdata, form = NULL, ...)
 
 \method{tidy_predict}{xgb.Booster}(
+  model,
+  newdata,
+  form = NULL,
+  olddata = NULL,
+  bind_preds = FALSE,
+  ...
+)
+
+\method{tidy_predict}{lgb.Booster}(
   model,
   newdata,
   form = NULL,

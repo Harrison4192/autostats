@@ -56,8 +56,8 @@ auto_tune_xgboost <- function(.data,
                               tune_method = c("grid", "bayes"),
                               event_level = c("first", "second"),
                               n_fold = 5L,
-                              seed = 1,
                               n_iter = 100L,
+                              seed = 1,
                               save_output = FALSE,
                               parallel = TRUE,
                               trees = tune::tune(),
@@ -71,7 +71,7 @@ auto_tune_xgboost <- function(.data,
                               counts = FALSE,
                               tree_method = c("auto", "exact", "approx", "hist", "gpu_hist"),
                               monotone_constraints = 0L,
-                              num_parallel_tree = 1L,
+                              num_parallel_tree = tune::tune(),
                               lambda = 1,
                               alpha = 0,
                               scale_pos_weight = 1,
@@ -100,6 +100,7 @@ auto_tune_xgboost <- function(.data,
   }
 
 
+
 xgboost_spec1 <-
   workflows::workflow() %>%
   workflows::add_model(
@@ -120,9 +121,9 @@ xgboost_spec1 <-
                       tree_method = tree_method,
                       monotone_constraints = monotone_constraints,
                       num_parallel_tree = num_parallel_tree,
-                      lambda = lambda,
-                      alpha = alpha,
-                      scale_pos_weight = scale_pos_weight,
+                      lambda = !!lambda,
+                      alpha = !!alpha,
+                      scale_pos_weight = !!scale_pos_weight,
                       verbosity = verbosity)) %>%
   workflows::add_recipe(
     recipe = recipes::recipe( formula = formula,
@@ -145,8 +146,12 @@ doParallel::registerDoParallel(cl)
 
 if(mode_set == "regression"){
   metrics_boost <- yardstick::metric_set(yardstick::rmse, yardstick::rsq)
+
+  select_metric <- "rmse"
 } else {
   metrics_boost <- yardstick::metric_set(yardstick::roc_auc, yardstick::accuracy)
+
+  select_metric <- "roc_auc"
 }
 
 if(tune_method == "bayes"){
@@ -171,7 +176,9 @@ xgboost_tune <-
 
 } else if(tune_method == "grid"){
 
-  grid_tbl <- dials::grid_max_entropy(params,  size = n_iter)
+  grid_tbl <- dials::grid_max_entropy(params,  size = n_iter) %>%
+    mutate(mtry = mtry / length(f_formula_to_charvec(formula)))
+
 
   xgboost_tune <-
     xgboost_spec1 %>%
@@ -196,7 +203,7 @@ parallel::stopCluster(cl)
 
 xgboost_wkflow_tuned <- tune::finalize_workflow(
   xgboost_spec1,
-  tune::select_best(xgboost_tune, "rmse")
+  tune::select_best(xgboost_tune, select_metric)
 )
 
 if(save_output){

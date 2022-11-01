@@ -62,7 +62,7 @@ tidy_xgboost(
 
 \item{alpha}{[default=0] L1 regularization term on weights. Increasing this value will make model more conservative.}
 
-\item{scale_pos_weight}{[default=1] Control the balance of positive and negative weights, useful for unbalanced classes. if set to TRUE, calculates sum(negative instances) / sum(positive instances)}
+\item{scale_pos_weight}{[default=1] Control the balance of positive and negative weights, useful for unbalanced classes. if set to TRUE, calculates sum(negative instances) / sum(positive instances). If first level is majority class, use values < 1, otherwise normally values >1 are used to balance the class distribution.}
 
 \item{verbosity}{[default=1] Verbosity of printing messages. Valid values are 0 (silent), 1 (warning), 2 (info), 3 (debug).}
 
@@ -76,6 +76,9 @@ Accepts a formula to run an xgboost model. Automatically determines whether the 
 for classification or regression. Returns the xgboost model.
 }
 \details{
+In binary classification the target variable must be a factor with the first level set to the event of interest.
+A higher probability will predict the first level.
+
 reference for parameters: \href{https://xgboost.readthedocs.io/en/stable/parameter.html}{xgboost docs}
 }
 \examples{

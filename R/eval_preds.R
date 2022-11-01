@@ -22,39 +22,39 @@ eval_preds <- function(.data, ..., softprob_model = NULL){
 
 
 
-stringr::str_c(col_chr, "_preds_") %>%
-  stringr::str_c(collapse = "|") -> col_regex
+  stringr::str_c(col_chr, "_preds_") %>%
+    stringr::str_c(collapse = "|") -> col_regex
 
 
-.data %>%
-  names %>%
-  stringr::str_subset(col_regex) -> pred_cols
-
-
-
-pred_cols %>%
-  stringr::str_subset("_prob_", negate = TRUE) -> pred_cols
+  .data %>%
+    names %>%
+    stringr::str_subset(col_regex) -> pred_cols
 
 
 
-if(!is.null(softprob_model)) {
-  softprob_model <- rlang::as_name(rlang::enexpr(softprob_model))
-
-
- softprob_cols <- .data %>% names %>% stringr::str_subset(softprob_model)
-
- pred_cols <- setdiff(pred_cols, softprob_cols)
-}
+  pred_cols %>%
+    stringr::str_subset("_prob_", negate = TRUE) -> pred_cols
 
 
 
-#
-#   if(rlang::is_empty(pred_cols) & rlang::is_empty(softprob_cols)  ){
-#     rlang::abort("you only supplied columns that weren't created by tidy_predict")
-#   }
+  if(!is.null(softprob_model)) {
+    softprob_model <- rlang::as_name(rlang::enexpr(softprob_model))
 
 
- metric_list <- list()
+    softprob_cols <- .data %>% names %>% stringr::str_subset(softprob_model)
+
+    pred_cols <- setdiff(pred_cols, softprob_cols)
+  }
+
+
+
+  #
+  #   if(rlang::is_empty(pred_cols) & rlang::is_empty(softprob_cols)  ){
+  #     rlang::abort("you only supplied columns that weren't created by tidy_predict")
+  #   }
+
+
+  metric_list <- list()
 
 
 
@@ -91,11 +91,11 @@ if(!is.null(softprob_model)) {
 
 
 
-      yardstick::metric_set(yardstick::f_meas, yardstick::roc_auc, yardstick::accuracy, ...) -> eval_func
+      yardstick::metric_set(yardstick::f_meas, yardstick::roc_auc, yardstick::accuracy, yardstick::precision, ...) -> eval_func
 
       list(eval_func(.data, truth = !!rlang::sym(col_chr), !!rlang::sym(pred), estimate = !!rlang::sym(class_preds)) %>%
              dplyr::mutate(model = model_name,
-                    target = col_chr)) %>%
+                           target = col_chr)) %>%
         rlist::list.append(metric_list) -> metric_list
 
     } else if(pred_type == "multiclass") {
@@ -105,13 +105,13 @@ if(!is.null(softprob_model)) {
       if(!is.null(softprob_model)) {
 
 
-      yardstick::metric_set(yardstick::f_meas, yardstick::roc_auc, yardstick::accuracy, ...) -> eval_func
-      rlang::syms(softprob_cols) -> softprob_cols1
+        yardstick::metric_set(yardstick::f_meas, yardstick::roc_auc, yardstick::accuracy, ...) -> eval_func
+        rlang::syms(softprob_cols) -> softprob_cols1
 
-      list(eval_func(.data, truth = !!rlang::sym(col_chr), !!!softprob_cols1, estimate = !!rlang::sym(class_preds)) %>%
-             dplyr::mutate(model = model_name,
-                    target = col_chr)) %>%
-        rlist::list.append(metric_list) -> metric_list
+        list(eval_func(.data, truth = !!rlang::sym(col_chr), !!!softprob_cols1, estimate = !!rlang::sym(class_preds)) %>%
+               dplyr::mutate(model = model_name,
+                             target = col_chr)) %>%
+          rlist::list.append(metric_list) -> metric_list
       } else {
 
         yardstick::metric_set(yardstick::f_meas, yardstick::accuracy, ...) -> eval_func
@@ -131,7 +131,7 @@ if(!is.null(softprob_model)) {
 
       list(eval_func(.data, truth = !!rlang::sym(col_chr), estimate = !!rlang::sym(pred)) %>%
              dplyr::mutate(model = model_name,
-                    target = col_chr)) %>%
+                           target = col_chr)) %>%
         append(metric_list) -> metric_list
 
     }
@@ -139,7 +139,7 @@ if(!is.null(softprob_model)) {
 
 
   }
- model <- target <-  .metric <- NULL
+  model <- target <-  .metric <- NULL
 
   metric_list %>%
     rlist::list.rbind() %>%

@@ -61,3 +61,18 @@ get_params.xgb.Booster <- function(model, ...){
 }
 
 
+#' @rdname get_params
+#' @method get_params workflow
+#' @export
+get_params.workflow <- function(model, ...){
+
+
+  model %>%
+    parsnip::extract_fit_engine() %>%
+    get_params()
+
+
+
+}
+
+

@@ -3,11 +3,14 @@
 \name{get_params}
 \alias{get_params}
 \alias{get_params.xgb.Booster}
+\alias{get_params.workflow}
 \title{get params}
 \usage{
 get_params(model, ...)
 
 \method{get_params}{xgb.Booster}(model, ...)
+
+\method{get_params}{workflow}(model, ...)
 }
 \arguments{
 \item{model}{a model}

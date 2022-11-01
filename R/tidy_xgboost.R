@@ -3,6 +3,9 @@
 #' Accepts a formula to run an xgboost model. Automatically determines whether the formula is
 #' for classification or regression. Returns the xgboost model.
 #'
+#' In binary classification the target variable must be a factor with the first level set to the event of interest.
+#' A higher probability will predict the first level.
+#'
 #' reference for parameters: \href{https://xgboost.readthedocs.io/en/stable/parameter.html}{xgboost docs}
 #'
 #' @param .data dataframe
@@ -22,7 +25,7 @@
 #' @param num_parallel_tree should be set to the size of the forest being trained. default 1L
 #' @param lambda [default=1] L2 regularization term on weights. Increasing this value will make model more conservative.
 #' @param alpha [default=0] L1 regularization term on weights. Increasing this value will make model more conservative.
-#' @param scale_pos_weight [default=1] Control the balance of positive and negative weights, useful for unbalanced classes. if set to TRUE, calculates sum(negative instances) / sum(positive instances)
+#' @param scale_pos_weight [default=1] Control the balance of positive and negative weights, useful for unbalanced classes. if set to TRUE, calculates sum(negative instances) / sum(positive instances). If first level is majority class, use values < 1, otherwise normally values >1 are used to balance the class distribution.
 #' @param verbosity [default=1] Verbosity of printing messages. Valid values are 0 (silent), 1 (warning), 2 (info), 3 (debug).
 #' @param validate default TRUE. report accuracy metrics on a validation set.
 #'
@@ -159,13 +162,20 @@ tidy_xgboost <- function(.data, formula, ...,
     dplyr::pull(!!target) %>%
     is.numeric() -> numer_tg
 
+  .data %>%
+    dplyr::pull(!!target) %>%
+    is.character() -> chr_tg
+
 if(isTRUE(scale_pos_weight)){
   .data %>%
-    dplyr::count(!!target, sort = TRUE) %>%
+    dplyr::count(!!target) %>%
     dplyr::pull(n) -> classcounts
 
-  scale_pos_weight <- classcounts[1] / classcounts[2]
+  scale_pos_weight <- classcounts[2] / classcounts[1]
 }
+
+
+
 
   xgboost_recipe <-
     recipes::recipe(data = .data, formula = formula)
@@ -206,6 +216,13 @@ if(isTRUE(scale_pos_weight)){
   } else{
     mode_set <- "classification"
 
+if(chr_tg){
+
+  message("classification requires target to be a factor with the first level as the event class")
+  stop()
+}
+
+
     .data %>%
       dplyr::mutate(!!target := as.factor(!!target) %>% forcats::fct_drop()) -> .data
 
@@ -245,15 +262,67 @@ if(isTRUE(scale_pos_weight)){
     val_fit %>%
       workflows::pull_workflow_fit() %>%
       purrr::pluck("fit") -> val_booster
+
 suppressMessages({
     val_booster %>%
       tidy_predict(newdata = analysis_set, form = formula) -> val_frame
+
 })
+
 model <- NULL
 
     val_frame %>%
       eval_preds() %>%
-      dplyr::select(-model) -> val_acc
+      dplyr::select(.metric, .estimate) %>%
+      dplyr::mutate(.formula = NA) %>%
+      dplyr::filter(.metric == "roc_auc") -> val_acc
+
+    val_frame %>%
+      yardstick::conf_mat(truth = !!target
+                          , estimate = -1) -> val_conf
+
+    if(mode_set == "classification"){
+      val_frame %>%
+        dplyr::count(!!target, sort = T) %>%
+        dplyr::pull(n) -> target_counts
+
+      val_frame %>%
+        dplyr::count(!!target, sort = T) %>%
+        dplyr::slice(1) %>%
+        dplyr::pull(1) -> majority_class
+
+
+      val_frame %>%
+        yardstick::conf_mat(truth = !!target, estimate = -1) -> val_conf_mat
+
+      val_conf_mat %>%
+        summary %>%
+        select(-.estimator) %>%
+        mutate(.formula = c("TP + TN / total",
+                            NA,
+                            "TP / actually P",
+                            "TN / actually N",
+                            "TP / predicted P",
+                            "TN / predicted N",
+                            NA,
+                            NA,
+                            "sens + spec / 2",
+                            "predicted P / total",
+                            "PPV, 1-FDR",
+                            "sens, TPR",
+                            "HM(ppv, sens)")) -> val_conf_tbl
+
+      print(yardstick:::autoplot.conf_mat(val_conf_mat, type = "heatmap"))
+
+      event_prop <- target_counts[1] / (target_counts[1] + target_counts[2])
+
+      tibble::tibble(.metric = "baseline_accuracy",
+                     .estimate = event_prop,
+                     .formula = "majority class / total") -> baseline_acc
+
+      val_conf_tbl %>%
+        dplyr::bind_rows(baseline_acc, val_acc)-> val_acc
+    }
 
     message("accuracy tested on a validation set")
 
