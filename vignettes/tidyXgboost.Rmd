@@ -23,6 +23,7 @@ library(dplyr)
 library(tune)
 library(rsample)
 library(hardhat)
+library(Ckmeans.1d.dp)
 ```
 
 `autostats` provides convenient wrappers for modeling, visualizing, and predicting using a tidy workflow. The emphasis is on rapid iteration and quick results using an intuitive interface based off the `tibble` and `tidy_formula`. 
@@ -104,8 +105,6 @@ xgb_tuned_fit_grid %>%
 iris_train %>%
   tidy_xgboost(formula = petal_form) -> xgb_base
 
-xgb_base %>% 
-  visualize_model()
 ```
 
 
@@ -120,8 +119,7 @@ iris_train %>%
                mtry = .5,
                min_n = 2) -> xgb_opt
 
-xgb_opt %>% 
-  visualize_model()
+
 ```
 
 
