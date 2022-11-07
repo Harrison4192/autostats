@@ -16,7 +16,7 @@
     <loc>/articles/index.html</loc>
   </url>
   <url>
-    <loc>/articles/tidyModels.html</loc>
+    <loc>/articles/tidyXgboost.html</loc>
   </url>
   <url>
     <loc>/authors.html</loc>
@@ -94,16 +94,10 @@
     <loc>/reference/plot_varimp_xgboost.html</loc>
   </url>
   <url>
-    <loc>/reference/tidy_agtboost.html</loc>
-  </url>
-  <url>
     <loc>/reference/tidy_cforest.html</loc>
   </url>
   <url>
     <loc>/reference/tidy_ctree.html</loc>
-  </url>
-  <url>
-    <loc>/reference/tidy_foci.html</loc>
   </url>
   <url>
     <loc>/reference/tidy_formula.html</loc>
