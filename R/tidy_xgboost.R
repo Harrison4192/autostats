@@ -52,8 +52,6 @@
 #'    mtry = .5
 #'  )  -> xg1
 #'
-#'xg1 %>%
-#'  visualize_model(top_n = 2)
 #'
 #'xg1 %>%
 #'  tidy_predict(newdata = iris_dummy, form = petal_form) -> iris_preds
@@ -62,72 +60,74 @@
 #'  eval_preds()
 #'
 #'
-#'# binary classification
-#'# returns probabilty and labels
-#'
-#'iris %>%
-#'  tidy_formula(Species) -> species_form
-#'
-#'iris %>%
-#'  dplyr::filter(Species != "versicolor") %>%
-#'  dplyr::mutate(Species = forcats::fct_drop(Species)) -> iris_binary
-#'
-#'iris_binary %>%
-#'  tidy_xgboost(formula = species_form, trees = 30L, mtry = 0.2) -> xgb_bin
-#'
-#'xgb_bin %>%
-#'  tidy_predict(newdata = iris_binary, form = species_form) -> iris_binary1
-#'
-#'iris_binary1 %>%
-#'  eval_preds()
-#'
-#'
-#'# multiclass classification that returns labels
-#'
-#'
-#'
-#'
-#'iris %>%
-#'  tidy_xgboost(species_form,
-#'               objective = "multi:softmax",
-#'               trees = 15L,
-#'               tree_depth = 3L,
-#'               loss_reduction = 0.5) -> xgb2
-#'
-#'
-#'
-#'xgb2 %>%
-#'  tidy_predict(newdata = iris, form = species_form) -> iris_preds
-#'
-#'# additional yardstick metrics can be supplied to the dots in eval_preds
-#'
-#'iris_preds %>%
-#'  eval_preds(yardstick::j_index)
-#'
-#'
-#'# multiclass classification that returns probabilities
-#'
-#'
-#'iris %>%
-#'  tidy_xgboost(species_form,
-#'               objective = "multi:softprob",
-#'               trees = 20L,
-#'               sample_size = .2,
-#'               mtry = .5,
-#'               tree_depth = 2L,
-#'               loss_reduction = 3) -> xgb2_prob
-#'
-#' # predict on the data that already has the class labels, so the resulting data frame
-#' # has class and prob predictions
-#'
-#'xgb2_prob %>%
-#'  tidy_predict(newdata = iris_preds, form = species_form) -> iris_preds1
-#'
-#'# also requires the labels in the dataframe to evaluate preds
-#'# the model name must be supplied as well. Then roc metrics can be calculated
-#'#iris_preds1 %>%
-#'#  eval_preds( yardstick::average_precision, softprob_model = "xgb2_prob"
-#'#  )
+# # binary classification
+# # returns probability and labels
+# if(FALSE){
+#
+#
+# iris %>%
+#  tidy_formula(Species) -> species_form
+#
+# iris %>%
+#  dplyr::filter(Species != "versicolor") %>%
+#  dplyr::mutate(Species = forcats::fct_drop(Species)) -> iris_binary
+#
+# iris_binary %>%
+#  tidy_xgboost(formula = species_form, trees = 30L, mtry = 0.2) -> xgb_bin
+#
+# xgb_bin %>%
+#  tidy_predict(newdata = iris_binary, form = species_form) -> iris_binary1
+#
+# iris_binary1 %>%
+#  eval_preds()
+#
+#
+# # multiclass classification that returns labels
+#
+#
+#
+#
+# iris %>%
+#  tidy_xgboost(species_form,
+#               objective = "multi:softmax",
+#               trees = 15L,
+#               tree_depth = 3L,
+#               loss_reduction = 0.5) -> xgb2
+#
+#
+#
+# xgb2 %>%
+#  tidy_predict(newdata = iris, form = species_form) -> iris_preds
+#
+# # additional yardstick metrics can be supplied to the dots in eval_preds
+#
+# iris_preds %>%
+#  eval_preds(yardstick::j_index)
+#
+#
+# # multiclass classification that returns probabilities
+#
+#
+# iris %>%
+#  tidy_xgboost(species_form,
+#               objective = "multi:softprob",
+#               trees = 20L,
+#               sample_size = .2,
+#               mtry = .5,
+#               tree_depth = 2L,
+#               loss_reduction = 3) -> xgb2_prob
+#
+# # predict on the data that already has the class labels, so the resulting data frame
+# # has class and prob predictions
+#
+# xgb2_prob %>%
+#  tidy_predict(newdata = iris_preds, form = species_form) -> iris_preds1
+#
+# # also requires the labels in the dataframe to evaluate preds
+# # the model name must be supplied as well. Then roc metrics can be calculated
+# #iris_preds1 %>%
+# #  eval_preds( yardstick::average_precision, softprob_model = "xgb2_prob"
+# #  )}
 #'
 #'
 tidy_xgboost <- function(.data, formula, ...,
