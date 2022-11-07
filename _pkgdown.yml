@@ -33,8 +33,6 @@ reference:
   - '`tidy_ctree`'
   - '`tidy_glm`'
   - '`tidy_xgboost`'
-  - '`tidy_agtboost`'
-  - '`tidy_foci`'
 
 
 
@@ -62,7 +60,7 @@ articles:
 - title: All vignettes
   contents:
   - '`autostats`'
-  - '`tidyModels`'
+  - '`tidyXgboost`'
 navbar:
   structure:
     left:
@@ -94,5 +92,5 @@ navbar:
     articles:
       text: Articles
       menu:
-      - text: tidyModels
-        href: articles/tidyModels.html
+      - text: tidyXgboost
+        href: articles/tidyXgboost.html

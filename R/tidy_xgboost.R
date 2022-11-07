@@ -48,7 +48,7 @@
 #'iris_dummy %>%
 #'  tidy_xgboost(
 #'    petal_form,
-#'    trees = 500,
+#'    trees = 20,
 #'    mtry = .5
 #'  )  -> xg1
 #'
@@ -73,7 +73,7 @@
 #'  dplyr::mutate(Species = forcats::fct_drop(Species)) -> iris_binary
 #'
 #'iris_binary %>%
-#'  tidy_xgboost(formula = species_form, trees = 50L, mtry = 0.2) -> xgb_bin
+#'  tidy_xgboost(formula = species_form, trees = 30L, mtry = 0.2) -> xgb_bin
 #'
 #'xgb_bin %>%
 #'  tidy_predict(newdata = iris_binary, form = species_form) -> iris_binary1
@@ -90,7 +90,7 @@
 #'iris %>%
 #'  tidy_xgboost(species_form,
 #'               objective = "multi:softmax",
-#'               trees = 100,
+#'               trees = 15L,
 #'               tree_depth = 3L,
 #'               loss_reduction = 0.5) -> xgb2
 #'
@@ -111,7 +111,7 @@
 #'iris %>%
 #'  tidy_xgboost(species_form,
 #'               objective = "multi:softprob",
-#'               trees = 50L,
+#'               trees = 20L,
 #'               sample_size = .2,
 #'               mtry = .5,
 #'               tree_depth = 2L,
@@ -224,7 +224,7 @@ if(chr_tg){
 
 
     .data %>%
-      dplyr::mutate(!!target := as.factor(!!target) %>% forcats::fct_drop()) -> .data
+      dplyr::mutate(!!target := !!target) -> .data
 
 
     xgboost_spec0 %>%
@@ -377,14 +377,17 @@ xgbooster
 #' @param top_n top n important variables
 #' @param aggregate a character vector. Predictors containing the string will be aggregated, and renamed to that string.
 #' @param as_table logical, default FALSE. If TRUE returns importances in a data frame
+#' @param measure choose between Gain, Cover, or Frequency for xgboost importance measure
 #' @param ... additional arguments for \code{\link[xgboost]{xgb.ggplot.importance}}
 #' @keywords internal
 #'
 #' @return ggplot
 #'
-plot_varimp_xgboost <- function(xgb,  top_n = 10L, aggregate = NULL, as_table = FALSE, ...){
+plot_varimp_xgboost <- function(xgb,  top_n = 10L, aggregate = NULL, as_table = FALSE, measure = c("Gain", "Cover", "Frequency"), ...){
 
   agg <- Feature <- NULL
+
+  measure <- match.arg(measure)
 
   xgb$feature_names -> f1
 
@@ -419,14 +422,14 @@ plot_varimp_xgboost <- function(xgb,  top_n = 10L, aggregate = NULL, as_table = 
 
 
   xgb_imp %>%
-    xgboost::xgb.ggplot.importance(..., top_n = top_n) +
+    xgboost::xgb.ggplot.importance(..., measure = measure, top_n = top_n) +
     ggplot2::theme_minimal() +
     ggplot2::theme(panel.border = ggplot2::element_blank(),
                    panel.grid.major = ggplot2::element_blank(),
                    panel.grid.minor = ggplot2::element_blank(),
                    axis.line = ggplot2::element_line(colour = "black"))+
     ggeasy::easy_remove_legend() +
-    ggplot2::ylab("Importance from xgboost") -> xgb_plot
+    ggplot2::ylab(stringr::str_c("Importance from xgboost ", measure)) -> xgb_plot
 
   if(as_table){
 

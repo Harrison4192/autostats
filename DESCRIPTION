@@ -30,42 +30,40 @@ Imports:
     patchwork,
     tidyr,
     xgboost,
-    flextable,
     parsnip,
     recipes,
     rsample,
     tune,
     workflows,
-    forcats,
     framecleaner,
     presenter,
     yardstick,
     dials,
-    readr,
-    lubridate,
     party,
     data.table,
-    FOCI,
-    XICOR,
-    agtboost,
     nnet,
-    recosystem,
-    doParallel
+    recosystem
 RoxygenNote: 7.2.1
 URL: https://harrison4192.github.io/autostats/, https://github.com/Harrison4192/autostats
 BugReports: https://github.com/Harrison4192/autostats/issues
 Suggests: 
     knitr,
     rmarkdown,
+    forcats,
     parallel,
+    doParallel,
     igraph,
     moreparty,
     broom.mixed,
     hardhat,
+    flextable,
     glmnet,
     Ckmeans.1d.dp,
     ggstance,
     Matrix,
-    BBmisc
+    BBmisc,
+    XICOR,
+    readr,
+    lubridate
 VignetteBuilder: knitr
 License: MIT + file LICENSE

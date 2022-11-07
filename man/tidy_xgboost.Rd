@@ -97,7 +97,7 @@ iris_dummy \%>\%
 iris_dummy \%>\%
  tidy_xgboost(
    petal_form,
-   trees = 500,
+   trees = 20,
    mtry = .5
  )  -> xg1
 
@@ -122,7 +122,7 @@ iris \%>\%
  dplyr::mutate(Species = forcats::fct_drop(Species)) -> iris_binary
 
 iris_binary \%>\%
- tidy_xgboost(formula = species_form, trees = 50L, mtry = 0.2) -> xgb_bin
+ tidy_xgboost(formula = species_form, trees = 30L, mtry = 0.2) -> xgb_bin
 
 xgb_bin \%>\%
  tidy_predict(newdata = iris_binary, form = species_form) -> iris_binary1
@@ -139,7 +139,7 @@ iris_binary1 \%>\%
 iris \%>\%
  tidy_xgboost(species_form,
               objective = "multi:softmax",
-              trees = 100,
+              trees = 15L,
               tree_depth = 3L,
               loss_reduction = 0.5) -> xgb2
 
@@ -160,7 +160,7 @@ iris_preds \%>\%
 iris \%>\%
  tidy_xgboost(species_form,
               objective = "multi:softprob",
-              trees = 50L,
+              trees = 20L,
               sample_size = .2,
               mtry = .5,
               tree_depth = 2L,

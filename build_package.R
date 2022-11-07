@@ -165,6 +165,7 @@ devtools::build_vignettes()
 
 usethis::use_cran_comments(open = rlang::is_interactive())
 devtools::check_win_devel()
+devtools::check_win_devel()
 devtools::check_rhub()
 devtools::run_examples()
 

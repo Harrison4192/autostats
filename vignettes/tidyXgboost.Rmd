@@ -124,15 +124,6 @@ xgb_opt %>%
   visualize_model()
 ```
 
-## agtboost
-
-automated gradient descent boosting with information-criterion heuristics that don't need tuning
-
-```{r}
-iris_train %>% 
-  tidy_agtboost(petal_form) -> agtb
-
-```
 
 # predict on validation set
 
@@ -150,10 +141,8 @@ xgb_base %>%
 xgb_opt %>% 
   tidy_predict(newdata = iris_val2, petal_form) -> iris_val3
 
-agtb %>% 
-    tidy_predict(newdata = iris_val3, petal_form)-> iris_val4
 
-iris_val4 %>% 
+iris_val3 %>% 
   names()
 ```
 
@@ -162,7 +151,7 @@ iris_val4 %>%
 Instead of evaluationg these prediction 1 by 1, This step is automated with `eval_preds`. This function is specifically designed to evaluate predicted columns with names given from `tidy_predict`.
 
 ```{r}
-iris_val4 %>% 
+iris_val3 %>% 
   eval_preds() 
 ```
 
