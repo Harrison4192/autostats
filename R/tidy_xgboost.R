@@ -244,7 +244,6 @@ if(chr_tg){
     workflows::pull_workflow_fit() %>%
     purrr::pluck("fit") -> xgbooster
 
-xgbooster$feature_names <- f_formula_to_charvec(formula)
 
 
   if (utils::packageVersion("parsnip") > "1.0.0") {
@@ -362,8 +361,10 @@ else if(xgb_obj == "multi:softmax"){
     print(val_acc)
   }
 
+xgbooster1 <- xgbooster
+xgbooster1$feature_names <- f_formula_to_charvec(formula)
 
-visualize_model(xgbooster) -> imp_plot
+visualize_model(xgbooster1) -> imp_plot
 
 print(imp_plot)
 
