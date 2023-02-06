@@ -42,8 +42,9 @@ Imports:
     party,
     data.table,
     nnet,
-    recosystem
-RoxygenNote: 7.2.1
+    recosystem,
+    dsos
+RoxygenNote: 7.2.3
 URL: https://harrison4192.github.io/autostats/, https://github.com/Harrison4192/autostats
 BugReports: https://github.com/Harrison4192/autostats/issues
 Suggests: 

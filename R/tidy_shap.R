@@ -90,8 +90,8 @@ if(!is.null(aggregate)){
 
  shaps +
    ggplot2::labs(title = new_name, color = "normalized feature value", x = "shapley value") +
-   ggplot2::xlab("shapley value") +
-   ggplot2::ylab("feature name") -> swarm_plot
+   ggplot2::ylab("shapley value") +
+   ggplot2::xlab("feature name") -> swarm_plot
 
 
 

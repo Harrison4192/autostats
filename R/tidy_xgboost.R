@@ -131,20 +131,20 @@
 #'
 #'
 tidy_xgboost <- function(.data, formula, ...,
-                         mtry = 1.0,
-                         trees = 15L,
-                         min_n = 1L,
-                         tree_depth = 6L,
-                         learn_rate = 0.3,
-                         loss_reduction = 0.0,
-                         sample_size = 1.0,
-                         stop_iter = 10L,
+                         mtry = 0.75,
+                         trees = 500L,
+                         min_n = 2L,
+                         tree_depth = 7L,
+                         learn_rate = 0.05,
+                         loss_reduction = 1,
+                         sample_size = 0.75,
+                         stop_iter = 15L,
                          counts = FALSE,
                          tree_method = c("auto", "exact", "approx", "hist", "gpu_hist"),
                          monotone_constraints = 0L,
                          num_parallel_tree = 1L,
-                         lambda = 1,
-                         alpha = 0,
+                         lambda = 0.1,
+                         alpha = 0.1,
                          scale_pos_weight = 1,
                          verbosity = 0L,
                          validate = TRUE){
@@ -244,6 +244,9 @@ if(chr_tg){
     workflows::pull_workflow_fit() %>%
     purrr::pluck("fit") -> xgbooster
 
+xgbooster$feature_names <- f_formula_to_charvec(formula)
+
+
   if (utils::packageVersion("parsnip") > "1.0.0") {
     xgbooster$call$objective -> xgb_obj
   } else {
@@ -255,6 +258,10 @@ if(chr_tg){
     rsample::initial_split(.data) -> split1
     rsample::assessment(split1) -> assessment_set
     rsample::analysis(split1) -> analysis_set
+
+  dsos::at_oob(x_train = assessment_set, x_test = analysis_set, dsos::split_cp) -> dataset_shift
+  print(plot(dataset_shift) +
+        ggplot2::ggtitle("Test for adverse shift in validation set"))
 
     xgboost_workflow %>%
       parsnip::fit(assessment_set) -> val_fit
@@ -354,6 +361,7 @@ else if(xgb_obj == "multi:softmax"){
 
     print(val_acc)
   }
+
 
 visualize_model(xgbooster) -> imp_plot
 

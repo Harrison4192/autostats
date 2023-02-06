@@ -76,7 +76,7 @@ usethis::use_package("lightgbm")
 
 
 
-usethis::use_r("cap_outliers")
+usethis::use_r("tidy_lm")
 usethis::use_package("badger", type = "Suggests")
 
 
