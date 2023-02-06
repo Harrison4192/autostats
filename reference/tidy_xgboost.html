@@ -87,20 +87,20 @@ for classification or regression. Returns the xgboost model.</p>
 <span>  <span class="va">.data</span>,</span>
 <span>  <span class="va">formula</span>,</span>
 <span>  <span class="va">...</span>,</span>
-<span>  mtry <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  trees <span class="op">=</span> <span class="fl">15L</span>,</span>
-<span>  min_n <span class="op">=</span> <span class="fl">1L</span>,</span>
-<span>  tree_depth <span class="op">=</span> <span class="fl">6L</span>,</span>
-<span>  learn_rate <span class="op">=</span> <span class="fl">0.3</span>,</span>
-<span>  loss_reduction <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>  sample_size <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  stop_iter <span class="op">=</span> <span class="fl">10L</span>,</span>
+<span>  mtry <span class="op">=</span> <span class="fl">0.75</span>,</span>
+<span>  trees <span class="op">=</span> <span class="fl">500L</span>,</span>
+<span>  min_n <span class="op">=</span> <span class="fl">2L</span>,</span>
+<span>  tree_depth <span class="op">=</span> <span class="fl">7L</span>,</span>
+<span>  learn_rate <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<span>  loss_reduction <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  sample_size <span class="op">=</span> <span class="fl">0.75</span>,</span>
+<span>  stop_iter <span class="op">=</span> <span class="fl">15L</span>,</span>
 <span>  counts <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  tree_method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"auto"</span>, <span class="st">"exact"</span>, <span class="st">"approx"</span>, <span class="st">"hist"</span>, <span class="st">"gpu_hist"</span><span class="op">)</span>,</span>
 <span>  monotone_constraints <span class="op">=</span> <span class="fl">0L</span>,</span>
 <span>  num_parallel_tree <span class="op">=</span> <span class="fl">1L</span>,</span>
-<span>  lambda <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  alpha <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  lambda <span class="op">=</span> <span class="fl">0.1</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="fl">0.1</span>,</span>
 <span>  scale_pos_weight <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  verbosity <span class="op">=</span> <span class="fl">0L</span>,</span>
 <span>  validate <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -223,161 +223,32 @@ A higher probability will predict the first level.</p>
 <span class="r-in"><span>   trees <span class="op">=</span> <span class="fl">20</span>,</span></span>
 <span class="r-in"><span>   mtry <span class="op">=</span> <span class="fl">.5</span></span></span>
 <span class="r-in"><span> <span class="op">)</span>  <span class="op">-&gt;</span> <span class="va">xg1</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Transformation introduced infinite values in continuous y-axis</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> accuracy tested on a validation set</span>
+<span class="r-plt img"><img src="tidy_xgboost-1.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .metric .estimate</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> ccc         0.974</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> rmse        0.390</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> rsq         0.954</span>
-<span class="r-plt img"><img src="tidy_xgboost-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">xg1</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span> <span class="fu"><a href="visualize_model.html">visualize_model</a></span><span class="op">(</span>top_n <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> ccc         0.651</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> rmse        1.41 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> rsq         0.972</span>
 <span class="r-plt img"><img src="tidy_xgboost-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">xg1</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span> <span class="fu"><a href="tidy_predict.html">tidy_predict</a></span><span class="op">(</span>newdata <span class="op">=</span> <span class="va">iris_dummy</span>, form <span class="op">=</span> <span class="va">petal_form</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">iris_preds</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> created the following column: Petal.Length_preds_Table</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> created the following column: Petal.Length_preds_xg1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">iris_preds</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span> <span class="fu"><a href="eval_preds.html">eval_preds</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .metric .estimator .estimate model target      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> ccc     standard       0.998 Table Petal.Length</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> rmse    standard       0.111 Table Petal.Length</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> rsq     standard       0.996 Table Petal.Length</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> ccc     standard       0.674 xg1   Petal.Length</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> rmse    standard       1.36  xg1   Petal.Length</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> rsq     standard       0.982 xg1   Petal.Length</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># binary classification</span></span></span>
-<span class="r-in"><span><span class="co"># returns probabilty and labels</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">iris</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span> <span class="fu"><a href="tidy_formula.html">tidy_formula</a></span><span class="op">(</span><span class="va">Species</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">species_form</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">iris</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">!=</span> <span class="st">"versicolor"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>Species <span class="op">=</span> <span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_drop.html" class="external-link">fct_drop</a></span><span class="op">(</span><span class="va">Species</span><span class="op">)</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">iris_binary</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">iris_binary</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span> <span class="fu">tidy_xgboost</span><span class="op">(</span>formula <span class="op">=</span> <span class="va">species_form</span>, trees <span class="op">=</span> <span class="fl">30L</span>, mtry <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">xgb_bin</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> accuracy tested on a validation set</span>
-<span class="r-plt img"><img src="tidy_xgboost-3.png" alt="" width="700" height="433"></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 15 × 3</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    .metric              .estimate .formula              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> accuracy                 1     TP + TN / total       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> kap                      1     <span style="color: #BB0000;">NA</span>                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> sens                     1     TP / actually P       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> spec                     1     TN / actually N       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> ppv                      1     TP / predicted P      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> npv                      1     TN / predicted N      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> mcc                      1     <span style="color: #BB0000;">NA</span>                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> j_index                  1     <span style="color: #BB0000;">NA</span>                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> bal_accuracy             1     sens + spec / 2       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> detection_prevalence     0.547 predicted P / total   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> precision                1     PPV, 1-FDR            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> recall                   1     sens, TPR             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> f_meas                   1     HM(ppv, sens)         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> baseline_accuracy        0.547 majority class / total</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> roc_auc                  1     <span style="color: #BB0000;">NA</span>                    </span>
-<span class="r-plt img"><img src="tidy_xgboost-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">xgb_bin</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span> <span class="fu"><a href="tidy_predict.html">tidy_predict</a></span><span class="op">(</span>newdata <span class="op">=</span> <span class="va">iris_binary</span>, form <span class="op">=</span> <span class="va">species_form</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">iris_binary1</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> created the following columns: </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Species_preds_prob_Table</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Species_preds_class_Table</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">iris_binary1</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span> <span class="fu"><a href="eval_preds.html">eval_preds</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 5</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .metric   .estimator .estimate model target </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> accuracy  binary             1 Table Species</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> f_meas    binary             1 Table Species</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> precision binary             1 Table Species</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> roc_auc   binary             1 Table Species</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># multiclass classification that returns labels</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">iris</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span> <span class="fu">tidy_xgboost</span><span class="op">(</span><span class="va">species_form</span>,</span></span>
-<span class="r-in"><span>              objective <span class="op">=</span> <span class="st">"multi:softmax"</span>,</span></span>
-<span class="r-in"><span>              trees <span class="op">=</span> <span class="fl">15L</span>,</span></span>
-<span class="r-in"><span>              tree_depth <span class="op">=</span> <span class="fl">3L</span>,</span></span>
-<span class="r-in"><span>              loss_reduction <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">xgb2</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> accuracy tested on a validation set</span>
-<span class="r-plt img"><img src="tidy_xgboost-5.png" alt="" width="700" height="433"></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 13 × 2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    .metric              .estimate</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> accuracy                 0.938</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> kap                      0.906</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> sens                     0.933</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> spec                     0.968</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> ppv                      0.943</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> npv                      0.971</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> mcc                      0.909</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> j_index                  0.901</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> bal_accuracy             0.950</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> detection_prevalence     0.333</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> precision                0.943</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> recall                   0.933</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> f_meas                   0.935</span>
-<span class="r-plt img"><img src="tidy_xgboost-6.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">xgb2</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span> <span class="fu"><a href="tidy_predict.html">tidy_predict</a></span><span class="op">(</span>newdata <span class="op">=</span> <span class="va">iris</span>, form <span class="op">=</span> <span class="va">species_form</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">iris_preds</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> created the following column: Species_preds_class_Table</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># additional yardstick metrics can be supplied to the dots in eval_preds</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">iris_preds</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span> <span class="fu"><a href="eval_preds.html">eval_preds</a></span><span class="op">(</span><span class="fu">yardstick</span><span class="fu">::</span><span class="va"><a href="https://yardstick.tidymodels.org/reference/j_index.html" class="external-link">j_index</a></span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 5</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .metric  .estimator .estimate model target </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> accuracy multiclass     0.987 Table Species</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> f_meas   macro          0.987 Table Species</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> j_index  macro          0.98  Table Species</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># multiclass classification that returns probabilities</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">iris</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span> <span class="fu">tidy_xgboost</span><span class="op">(</span><span class="va">species_form</span>,</span></span>
-<span class="r-in"><span>              objective <span class="op">=</span> <span class="st">"multi:softprob"</span>,</span></span>
-<span class="r-in"><span>              trees <span class="op">=</span> <span class="fl">20L</span>,</span></span>
-<span class="r-in"><span>              sample_size <span class="op">=</span> <span class="fl">.2</span>,</span></span>
-<span class="r-in"><span>              mtry <span class="op">=</span> <span class="fl">.5</span>,</span></span>
-<span class="r-in"><span>              tree_depth <span class="op">=</span> <span class="fl">2L</span>,</span></span>
-<span class="r-in"><span>              loss_reduction <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">xgb2_prob</span></span></span>
-<span class="r-plt img"><img src="tidy_xgboost-7.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># predict on the data that already has the class labels, so the resulting data frame</span></span></span>
-<span class="r-in"><span><span class="co"># has class and prob predictions</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">xgb2_prob</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span> <span class="fu"><a href="tidy_predict.html">tidy_predict</a></span><span class="op">(</span>newdata <span class="op">=</span> <span class="va">iris_preds</span>, form <span class="op">=</span> <span class="va">species_form</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">iris_preds1</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> created the following columns: </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> setosa_preds_prob_Table</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> versicolor_preds_prob_Table</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> virginica_preds_prob_Table</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># also requires the labels in the dataframe to evaluate preds</span></span></span>
-<span class="r-in"><span><span class="co"># the model name must be supplied as well. Then roc metrics can be calculated</span></span></span>
-<span class="r-in"><span><span class="co">#iris_preds1 %&gt;%</span></span></span>
-<span class="r-in"><span><span class="co">#  eval_preds( yardstick::average_precision, softprob_model = "xgb2_prob"</span></span></span>
-<span class="r-in"><span><span class="co">#  )</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
@@ -394,7 +265,7 @@ A higher probability will predict the first level.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
