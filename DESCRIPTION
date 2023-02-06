@@ -65,6 +65,7 @@ Suggests:
     BBmisc,
     XICOR,
     readr,
-    lubridate
+    lubridate,
+    ranger
 VignetteBuilder: knitr
 License: MIT + file LICENSE
