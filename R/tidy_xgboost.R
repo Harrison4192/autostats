@@ -258,9 +258,6 @@ if(chr_tg){
     rsample::assessment(split1) -> assessment_set
     rsample::analysis(split1) -> analysis_set
 
-  dsos::at_oob(x_train = assessment_set, x_test = analysis_set, dsos::split_cp) -> dataset_shift
-  print(plot(dataset_shift) +
-        ggplot2::ggtitle("Test for adverse shift in validation set"))
 
     xgboost_workflow %>%
       parsnip::fit(assessment_set) -> val_fit
@@ -279,7 +276,7 @@ model <- .estimate <- .estimator <- .metric <-  NULL
 
   if(mode_set == "regression"){
     val_frame %>%
-      eval_preds() %>%
+      eval_preds(yardstick::smape) %>%
       dplyr::select(.metric, .estimate) -> val_acc
 
   }
