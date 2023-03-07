@@ -406,11 +406,26 @@ plot_varimp_xgboost <- function(xgb,
     new_names <- xgb$feature_names
   }
 
+  xgb$feature_names <- new_names
+  xgb$feature_names -> f1
+
+  length(f1) -> lf
+
+  as.character(1:lf) -> nms
+
   measure <- match.arg(measure)
 
-  xgb$feature_names <- new_names
+  xgb$feature_names <- nms
 
   xgboost::xgb.importance(model = xgb ) -> xgb_imp
+
+  as.integer(xgb_imp$Feature) -> rg_ind
+
+  f1[rg_ind] -> unscrambled_names
+
+  xgb_imp$Feature <- unscrambled_names
+
+  xgb$feature_names <- f1
 
 
 
