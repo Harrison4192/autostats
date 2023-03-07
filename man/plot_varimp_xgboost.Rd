@@ -9,6 +9,7 @@ plot_varimp_xgboost(
   top_n = 10L,
   aggregate = NULL,
   as_table = FALSE,
+  formula = NULL,
   measure = c("Gain", "Cover", "Frequency"),
   ...
 )
@@ -21,6 +22,8 @@ plot_varimp_xgboost(
 \item{aggregate}{a character vector. Predictors containing the string will be aggregated, and renamed to that string.}
 
 \item{as_table}{logical, default FALSE. If TRUE returns importances in a data frame}
+
+\item{formula}{formula for the model. Use to provide original names if xgboost is scrambling the names internally}
 
 \item{measure}{choose between Gain, Cover, or Frequency for xgboost importance measure}
 

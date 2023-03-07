@@ -9,7 +9,7 @@
 #'
 #' @return a plot
 #' @export
-visualize_model <- function(model, ..., method = NULL){
+visualize_model <- function(model, ...){
 
     UseMethod("visualize_model", model)
 }
@@ -50,9 +50,20 @@ visualize_model.multinom <- function(model, ..., method){
 #' @rdname visualize_model
 #' @method visualize_model xgb.Booster
 #' @export
-visualize_model.xgb.Booster <- function(model, ..., method){
+visualize_model.xgb.Booster <- function(model,
+                                        top_n = 10L,
+                                        aggregate = NULL,
+                                        as_table = FALSE,
+                                        formula = NULL,
+                                        measure = c("Gain", "Cover", "Frequency"), ..., method){
 
-  plot_varimp_xgboost(model, ...)
+  plot_varimp_xgboost(model,
+                      top_n,
+                      aggregate,
+                      as_table,
+                      formula,
+                      measure,
+                      ...)
 }
 
 #' @rdname visualize_model

@@ -383,35 +383,35 @@ xgbooster
 #' @param top_n top n important variables
 #' @param aggregate a character vector. Predictors containing the string will be aggregated, and renamed to that string.
 #' @param as_table logical, default FALSE. If TRUE returns importances in a data frame
+#' @param formula formula for the model. Use to provide original names if xgboost is scrambling the names internally
 #' @param measure choose between Gain, Cover, or Frequency for xgboost importance measure
 #' @param ... additional arguments for \code{\link[xgboost]{xgb.ggplot.importance}}
 #' @keywords internal
 #'
 #' @return ggplot
 #'
-plot_varimp_xgboost <- function(xgb,  top_n = 10L, aggregate = NULL, as_table = FALSE, measure = c("Gain", "Cover", "Frequency"), ...){
+plot_varimp_xgboost <- function(xgb,
+                                top_n = 10L,
+                                aggregate = NULL,
+                                as_table = FALSE,
+                                formula = NULL,
+                                measure = c("Gain", "Cover", "Frequency"), ...){
 
-  agg <- Feature <- NULL
+  agg <- Feature <- new_names <- NULL
+
+  if(!is.null(formula)){
+    new_names <- formula %>%
+      f_formula_to_charvec()
+  } else {
+    new_names <- xgb$feature_names
+  }
 
   measure <- match.arg(measure)
 
-  xgb$feature_names -> f1
-
-  length(f1) -> lf
-
-  as.character(1:lf) -> nms
-
-  xgb$feature_names <- nms
+  xgb$feature_names <- new_names
 
   xgboost::xgb.importance(model = xgb ) -> xgb_imp
 
-  as.integer(xgb_imp$Feature) -> rg_ind
-
-  f1[rg_ind] -> unscrambled_names
-
-  xgb_imp$Feature <- unscrambled_names
-
-  xgb$feature_names <- f1
 
 
   if(!is.null(aggregate)){

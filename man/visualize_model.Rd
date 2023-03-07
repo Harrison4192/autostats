@@ -10,7 +10,7 @@
 \alias{visualize_model.default}
 \title{visualize model}
 \usage{
-visualize_model(model, ..., method = NULL)
+visualize_model(model, ...)
 
 \method{visualize_model}{RandomForest}(model, ..., method)
 
@@ -20,7 +20,16 @@ visualize_model(model, ..., method = NULL)
 
 \method{visualize_model}{multinom}(model, ..., method)
 
-\method{visualize_model}{xgb.Booster}(model, ..., method)
+\method{visualize_model}{xgb.Booster}(
+  model,
+  top_n = 10L,
+  aggregate = NULL,
+  as_table = FALSE,
+  formula = NULL,
+  measure = c("Gain", "Cover", "Frequency"),
+  ...,
+  method
+)
 
 \method{visualize_model}{default}(model, ..., method)
 }
