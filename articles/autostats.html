@@ -93,8 +93,8 @@
 
       
 
-      </header><link href="autostats_files/tabwid-1.1.2/tabwid.css" rel="stylesheet">
-<div class="row">
+      </header><link href="autostats_files/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+<script src="autostats_files/tabwid-1.1.3/tabwid.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>autostats</h1>
@@ -125,7 +125,7 @@ function.</p>
 <span></span>
 <span><span class="va">species_formula</span></span>
 <span><span class="co">#&gt; Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x55627c6460c8&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; &lt;environment: 0x562406b8d100&gt;</span></span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/auto_variable_contributions.html">auto_variable_contributions</a></span><span class="op">(</span><span class="va">species_formula</span><span class="op">)</span></span></code></pre></div>
@@ -133,79 +133,33 @@ function.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/auto_model_accuracy.html">auto_model_accuracy</a></span><span class="op">(</span><span class="va">species_formula</span><span class="op">)</span></span></code></pre></div>
-<template id="626e896f-fbb4-4a58-acad-45729ed3c8c0"><style>
-.tabwid table{
-  border-spacing:0px !important;
-  border-collapse:collapse;
-  line-height:1;
-  margin-left:auto;
-  margin-right:auto;
-  border-width: 0;
-  border-color: transparent;
-  caption-side: top;
-}
-.tabwid-caption-bottom table{
-  caption-side: bottom;
-}
-.tabwid_left table{
-  margin-left:0;
-}
-.tabwid_right table{
-  margin-right:0;
-}
-.tabwid td, .tabwid th {
-    padding: 0;
-}
-.tabwid a {
-  text-decoration: none;
-}
-.tabwid thead {
-    background-color: transparent;
-}
-.tabwid tfoot {
-    background-color: transparent;
-}
-.tabwid table tr {
-background-color: transparent;
-}
-.katex-display {
-    margin: 0 0 !important;
-}
-</style>
 <div class="tabwid">
-<style>.cl-e4a8ee54{}.cl-e49d560c{font-family:'DejaVu Sans';font-size:16pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(255, 255, 255, 1.00);background-color:transparent;}.cl-e49d5620{font-family:'DejaVu Sans';font-size:12pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(115, 115, 115, 1.00);background-color:transparent;}.cl-e49d562a{font-family:'DejaVu Sans';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(164, 206, 229, 1.00);background-color:transparent;}.cl-e4a239ec{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-e4a25b02{width:1.055in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 3pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4a25b0c{width:1.116in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4a25b0d{width:1.764in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4a25b16{width:1.164in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4a25b17{width:1.055in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1pt solid rgba(164, 206, 229, 1.00);border-left: 3pt solid rgba(135, 206, 235, 1.00);border-right: 1pt solid rgba(164, 206, 229, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4a25b18{width:1.116in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4a25b20{width:1.764in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4a25b2a{width:1.164in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4a25b2b{width:1.116in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4a25b2c{width:1.764in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4a25b34{width:1.164in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
-<table data-quarto-disable-processing="true" class="table cl-e4a8ee54">
+<style>.cl-27eb98fa{}.cl-27df3a74{font-family:'DejaVu Sans';font-size:16pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(255, 255, 255, 1.00);background-color:transparent;}.cl-27df3a88{font-family:'DejaVu Sans';font-size:12pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(115, 115, 115, 1.00);background-color:transparent;}.cl-27df3a92{font-family:'DejaVu Sans';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(164, 206, 229, 1.00);background-color:transparent;}.cl-27e47818{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-27e49ab4{width:1.055in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 3pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-27e49ac8{width:1.116in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-27e49ac9{width:1.764in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-27e49ad2{width:1.164in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-27e49ad3{width:1.055in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 0.75pt solid rgba(164, 206, 229, 1.00);border-left: 3pt solid rgba(135, 206, 235, 1.00);border-right: 0.75pt solid rgba(164, 206, 229, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-27e49adc{width:1.116in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-27e49add{width:1.764in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-27e49ade{width:1.164in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-27e49ae6{width:1.116in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-27e49af0{width:1.764in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-27e49afa{width:1.164in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<table data-quarto-disable-processing="true" class="table cl-27eb98fa">
 <thead>
-<tr style="overflow-wrap:break-word;"><th colspan="4" class="cl-e4a25b02"><p class="cl-e4a239ec"><span class="cl-e49d560c">4 - fold  cross-validated accuracy for classification model of Species on dataset iris</span></p></th></tr>
+<tr style="overflow-wrap:break-word;"><th colspan="4" class="cl-27e49ab4"><p class="cl-27e47818"><span class="cl-27df3a74">4 - fold  cross-validated accuracy for classification model of Species on dataset iris</span></p></th></tr>
 <tr style="overflow-wrap:break-word;">
-<th class="cl-e4a25b02"><p class="cl-e4a239ec"><span class="cl-e49d560c">model</span></p></th>
-<th class="cl-e4a25b0c"><p class="cl-e4a239ec"><span class="cl-e49d560c">metric</span></p></th>
-<th class="cl-e4a25b0d"><p class="cl-e4a239ec"><span class="cl-e49d560c">mean_score</span></p></th>
-<th class="cl-e4a25b16"><p class="cl-e4a239ec"><span class="cl-e49d560c">std_err</span></p></th>
+<th class="cl-27e49ab4"><p class="cl-27e47818"><span class="cl-27df3a74">model</span></p></th>
+<th class="cl-27e49ac8"><p class="cl-27e47818"><span class="cl-27df3a74">metric</span></p></th>
+<th class="cl-27e49ac9"><p class="cl-27e47818"><span class="cl-27df3a74">mean_score</span></p></th>
+<th class="cl-27e49ad2"><p class="cl-27e47818"><span class="cl-27df3a74">std_err</span></p></th>
 </tr>
 </thead>
 <tbody>
 <tr style="overflow-wrap:break-word;">
-<td rowspan="2" class="cl-e4a25b17"><p class="cl-e4a239ec"><span class="cl-e49d5620">xgboost</span></p></td>
-<td class="cl-e4a25b18"><p class="cl-e4a239ec"><span class="cl-e49d5620">accuracy</span></p></td>
-<td class="cl-e4a25b20"><p class="cl-e4a239ec"><span class="cl-e49d562a">0.960</span></p></td>
-<td class="cl-e4a25b2a"><p class="cl-e4a239ec"><span class="cl-e49d562a">0.01363</span></p></td>
+<td rowspan="2" class="cl-27e49ad3"><p class="cl-27e47818"><span class="cl-27df3a88">xgboost</span></p></td>
+<td class="cl-27e49adc"><p class="cl-27e47818"><span class="cl-27df3a88">accuracy</span></p></td>
+<td class="cl-27e49add"><p class="cl-27e47818"><span class="cl-27df3a92">0.960</span></p></td>
+<td class="cl-27e49ade"><p class="cl-27e47818"><span class="cl-27df3a92">0.01363</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-e4a25b2b"><p class="cl-e4a239ec"><span class="cl-e49d5620">roc_auc</span></p></td>
-<td class="cl-e4a25b2c"><p class="cl-e4a239ec"><span class="cl-e49d562a">0.995</span></p></td>
-<td class="cl-e4a25b34"><p class="cl-e4a239ec"><span class="cl-e49d562a">0.00406</span></p></td>
+<td class="cl-27e49ae6"><p class="cl-27e47818"><span class="cl-27df3a88">roc_auc</span></p></td>
+<td class="cl-27e49af0"><p class="cl-27e47818"><span class="cl-27df3a92">0.995</span></p></td>
+<td class="cl-27e49afa"><p class="cl-27e47818"><span class="cl-27df3a92">0.00406</span></p></td>
 </tr>
 </tbody>
 </table>
-</div></template><div class="flextable-shadow-host" id="f9530200-377d-417e-87d7-78b5e5699588"></div>
-<script>
-var dest = document.getElementById("f9530200-377d-417e-87d7-78b5e5699588");
-var template = document.getElementById("626e896f-fbb4-4a58-acad-45729ed3c8c0");
-var fantome = dest.attachShadow({mode: 'open'});
-var templateContent = template.content;
-fantome.appendChild(templateContent);
-</script>
+</div>
 </div>
 <div class="section level3">
 <h3 id="binary-target">binary target<a class="anchor" aria-label="anchor" href="#binary-target"></a>
@@ -225,79 +179,33 @@ logistic regression provided by glmnet.</p>
 <span></span>
 <span><span class="va">iris_binary</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/auto_model_accuracy.html">auto_model_accuracy</a></span><span class="op">(</span><span class="va">species_formula</span><span class="op">)</span></span></code></pre></div>
-<template id="60b297bc-860f-4121-a342-903b8d6492b3"><style>
-.tabwid table{
-  border-spacing:0px !important;
-  border-collapse:collapse;
-  line-height:1;
-  margin-left:auto;
-  margin-right:auto;
-  border-width: 0;
-  border-color: transparent;
-  caption-side: top;
-}
-.tabwid-caption-bottom table{
-  caption-side: bottom;
-}
-.tabwid_left table{
-  margin-left:0;
-}
-.tabwid_right table{
-  margin-right:0;
-}
-.tabwid td, .tabwid th {
-    padding: 0;
-}
-.tabwid a {
-  text-decoration: none;
-}
-.tabwid thead {
-    background-color: transparent;
-}
-.tabwid tfoot {
-    background-color: transparent;
-}
-.tabwid table tr {
-background-color: transparent;
-}
-.katex-display {
-    margin: 0 0 !important;
-}
-</style>
 <div class="tabwid">
-<style>.cl-e8032538{}.cl-e7f8811e{font-family:'DejaVu Sans';font-size:16pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(255, 255, 255, 1.00);background-color:transparent;}.cl-e7f88132{font-family:'DejaVu Sans';font-size:12pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(115, 115, 115, 1.00);background-color:transparent;}.cl-e7f8813c{font-family:'DejaVu Sans';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(164, 206, 229, 1.00);background-color:transparent;}.cl-e7fd3966{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-e7fd5a4a{width:1.055in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 3pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e7fd5a54{width:1.116in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e7fd5a5e{width:1.764in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e7fd5a68{width:1.164in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e7fd5a69{width:1.055in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1pt solid rgba(164, 206, 229, 1.00);border-left: 3pt solid rgba(135, 206, 235, 1.00);border-right: 1pt solid rgba(164, 206, 229, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e7fd5a72{width:1.116in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e7fd5a73{width:1.764in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e7fd5a7c{width:1.164in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e7fd5a7d{width:1.116in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e7fd5a86{width:1.764in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e7fd5a90{width:1.164in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
-<table data-quarto-disable-processing="true" class="table cl-e8032538">
+<style>.cl-2b8fd46c{}.cl-2b84e386{font-family:'DejaVu Sans';font-size:16pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(255, 255, 255, 1.00);background-color:transparent;}.cl-2b84e39a{font-family:'DejaVu Sans';font-size:12pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(115, 115, 115, 1.00);background-color:transparent;}.cl-2b84e3a4{font-family:'DejaVu Sans';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(164, 206, 229, 1.00);background-color:transparent;}.cl-2b89adee{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-2b89cf40{width:1.055in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 3pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2b89cf4a{width:1.116in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2b89cf54{width:1.764in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2b89cf55{width:1.164in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2b89cf56{width:1.055in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 0.75pt solid rgba(164, 206, 229, 1.00);border-left: 3pt solid rgba(135, 206, 235, 1.00);border-right: 0.75pt solid rgba(164, 206, 229, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2b89cf5e{width:1.116in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2b89cf68{width:1.764in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2b89cf69{width:1.164in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2b89cf72{width:1.116in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2b89cf73{width:1.764in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2b89cf74{width:1.164in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<table data-quarto-disable-processing="true" class="table cl-2b8fd46c">
 <thead>
-<tr style="overflow-wrap:break-word;"><th colspan="4" class="cl-e7fd5a4a"><p class="cl-e7fd3966"><span class="cl-e7f8811e">4 - fold  cross-validated accuracy for classification model of Species on dataset iris_binary</span></p></th></tr>
+<tr style="overflow-wrap:break-word;"><th colspan="4" class="cl-2b89cf40"><p class="cl-2b89adee"><span class="cl-2b84e386">4 - fold  cross-validated accuracy for classification model of Species on dataset iris_binary</span></p></th></tr>
 <tr style="overflow-wrap:break-word;">
-<th class="cl-e7fd5a4a"><p class="cl-e7fd3966"><span class="cl-e7f8811e">model</span></p></th>
-<th class="cl-e7fd5a54"><p class="cl-e7fd3966"><span class="cl-e7f8811e">metric</span></p></th>
-<th class="cl-e7fd5a5e"><p class="cl-e7fd3966"><span class="cl-e7f8811e">mean_score</span></p></th>
-<th class="cl-e7fd5a68"><p class="cl-e7fd3966"><span class="cl-e7f8811e">std_err</span></p></th>
+<th class="cl-2b89cf40"><p class="cl-2b89adee"><span class="cl-2b84e386">model</span></p></th>
+<th class="cl-2b89cf4a"><p class="cl-2b89adee"><span class="cl-2b84e386">metric</span></p></th>
+<th class="cl-2b89cf54"><p class="cl-2b89adee"><span class="cl-2b84e386">mean_score</span></p></th>
+<th class="cl-2b89cf55"><p class="cl-2b89adee"><span class="cl-2b84e386">std_err</span></p></th>
 </tr>
 </thead>
 <tbody>
 <tr style="overflow-wrap:break-word;">
-<td rowspan="2" class="cl-e7fd5a69"><p class="cl-e7fd3966"><span class="cl-e7f88132">xgboost</span></p></td>
-<td class="cl-e7fd5a72"><p class="cl-e7fd3966"><span class="cl-e7f88132">accuracy</span></p></td>
-<td class="cl-e7fd5a73"><p class="cl-e7fd3966"><span class="cl-e7f8813c">0.92</span></p></td>
-<td class="cl-e7fd5a7c"><p class="cl-e7fd3966"><span class="cl-e7f8813c">0.049</span></p></td>
+<td rowspan="2" class="cl-2b89cf56"><p class="cl-2b89adee"><span class="cl-2b84e39a">xgboost</span></p></td>
+<td class="cl-2b89cf5e"><p class="cl-2b89adee"><span class="cl-2b84e39a">accuracy</span></p></td>
+<td class="cl-2b89cf68"><p class="cl-2b89adee"><span class="cl-2b84e3a4">0.92</span></p></td>
+<td class="cl-2b89cf69"><p class="cl-2b89adee"><span class="cl-2b84e3a4">0.049</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-e7fd5a7d"><p class="cl-e7fd3966"><span class="cl-e7f88132">roc_auc</span></p></td>
-<td class="cl-e7fd5a86"><p class="cl-e7fd3966"><span class="cl-e7f8813c">0.98</span></p></td>
-<td class="cl-e7fd5a90"><p class="cl-e7fd3966"><span class="cl-e7f8813c">0.020</span></p></td>
+<td class="cl-2b89cf72"><p class="cl-2b89adee"><span class="cl-2b84e39a">roc_auc</span></p></td>
+<td class="cl-2b89cf73"><p class="cl-2b89adee"><span class="cl-2b84e3a4">0.98</span></p></td>
+<td class="cl-2b89cf74"><p class="cl-2b89adee"><span class="cl-2b84e3a4">0.020</span></p></td>
 </tr>
 </tbody>
 </table>
-</div></template><div class="flextable-shadow-host" id="3670389e-8d4e-48f9-b7fe-7834a44baf63"></div>
-<script>
-var dest = document.getElementById("3670389e-8d4e-48f9-b7fe-7834a44baf63");
-var template = document.getElementById("60b297bc-860f-4121-a342-903b8d6492b3");
-var fantome = dest.attachShadow({mode: 'open'});
-var templateContent = template.content;
-fantome.appendChild(templateContent);
-</script>
+</div>
 </div>
 <div class="section level3">
 <h3 id="continuous-target">continuous target<a class="anchor" aria-label="anchor" href="#continuous-target"></a>
@@ -310,83 +218,37 @@ fantome.appendChild(templateContent);
 <span></span>
 <span><span class="va">petal_formula</span></span>
 <span><span class="co">#&gt; Petal.Length ~ Sepal.Length + Sepal.Width + Petal.Width + Species</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x556289b69e58&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; &lt;environment: 0x5624136a92e8&gt;</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/auto_model_accuracy.html">auto_model_accuracy</a></span><span class="op">(</span><span class="va">petal_formula</span><span class="op">)</span></span></code></pre></div>
-<template id="520c7246-7226-40e1-a184-3cff728cee41"><style>
-.tabwid table{
-  border-spacing:0px !important;
-  border-collapse:collapse;
-  line-height:1;
-  margin-left:auto;
-  margin-right:auto;
-  border-width: 0;
-  border-color: transparent;
-  caption-side: top;
-}
-.tabwid-caption-bottom table{
-  caption-side: bottom;
-}
-.tabwid_left table{
-  margin-left:0;
-}
-.tabwid_right table{
-  margin-right:0;
-}
-.tabwid td, .tabwid th {
-    padding: 0;
-}
-.tabwid a {
-  text-decoration: none;
-}
-.tabwid thead {
-    background-color: transparent;
-}
-.tabwid tfoot {
-    background-color: transparent;
-}
-.tabwid table tr {
-background-color: transparent;
-}
-.katex-display {
-    margin: 0 0 !important;
-}
-</style>
 <div class="tabwid">
-<style>.cl-ea0c94b8{}.cl-ea030740{font-family:'DejaVu Sans';font-size:16pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(255, 255, 255, 1.00);background-color:transparent;}.cl-ea03074a{font-family:'DejaVu Sans';font-size:12pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(115, 115, 115, 1.00);background-color:transparent;}.cl-ea030754{font-family:'DejaVu Sans';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(164, 206, 229, 1.00);background-color:transparent;}.cl-ea06f562{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-ea070e8a{width:1.055in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 3pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ea070e9e{width:1.091in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ea070e9f{width:1.764in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ea070ea8{width:1.164in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ea070ea9{width:1.055in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1pt solid rgba(164, 206, 229, 1.00);border-left: 3pt solid rgba(135, 206, 235, 1.00);border-right: 1pt solid rgba(164, 206, 229, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ea070eb2{width:1.091in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ea070ebc{width:1.764in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ea070ebd{width:1.164in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ea070ec6{width:1.091in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ea070ec7{width:1.764in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ea070ec8{width:1.164in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
-<table data-quarto-disable-processing="true" class="table cl-ea0c94b8">
+<style>.cl-2dc47cec{}.cl-2db96d20{font-family:'DejaVu Sans';font-size:16pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(255, 255, 255, 1.00);background-color:transparent;}.cl-2db96d34{font-family:'DejaVu Sans';font-size:12pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(115, 115, 115, 1.00);background-color:transparent;}.cl-2db96d3e{font-family:'DejaVu Sans';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(164, 206, 229, 1.00);background-color:transparent;}.cl-2dbe5844{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-2dbe7572{width:1.055in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 3pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2dbe757c{width:1.091in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2dbe7586{width:1.764in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2dbe7587{width:1.164in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 3pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2dbe7590{width:1.055in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 0.75pt solid rgba(164, 206, 229, 1.00);border-left: 3pt solid rgba(135, 206, 235, 1.00);border-right: 0.75pt solid rgba(164, 206, 229, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2dbe759a{width:1.091in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2dbe759b{width:1.764in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2dbe75a4{width:1.164in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2dbe75a5{width:1.091in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2dbe75ae{width:1.764in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 1.5pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2dbe75b8{width:1.164in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 3pt solid rgba(135, 206, 235, 1.00);border-top: 1.5pt solid rgba(135, 206, 235, 1.00);border-left: 1.5pt solid rgba(135, 206, 235, 1.00);border-right: 3pt solid rgba(135, 206, 235, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<table data-quarto-disable-processing="true" class="table cl-2dc47cec">
 <thead>
-<tr style="overflow-wrap:break-word;"><th colspan="4" class="cl-ea070e8a"><p class="cl-ea06f562"><span class="cl-ea030740">4 - fold  cross-validated accuracy for regression model of Petal.Length on dataset iris</span></p></th></tr>
+<tr style="overflow-wrap:break-word;"><th colspan="4" class="cl-2dbe7572"><p class="cl-2dbe5844"><span class="cl-2db96d20">4 - fold  cross-validated accuracy for regression model of Petal.Length on dataset iris</span></p></th></tr>
 <tr style="overflow-wrap:break-word;">
-<th class="cl-ea070e8a"><p class="cl-ea06f562"><span class="cl-ea030740">model</span></p></th>
-<th class="cl-ea070e9e"><p class="cl-ea06f562"><span class="cl-ea030740">metric</span></p></th>
-<th class="cl-ea070e9f"><p class="cl-ea06f562"><span class="cl-ea030740">mean_score</span></p></th>
-<th class="cl-ea070ea8"><p class="cl-ea06f562"><span class="cl-ea030740">std_err</span></p></th>
+<th class="cl-2dbe7572"><p class="cl-2dbe5844"><span class="cl-2db96d20">model</span></p></th>
+<th class="cl-2dbe757c"><p class="cl-2dbe5844"><span class="cl-2db96d20">metric</span></p></th>
+<th class="cl-2dbe7586"><p class="cl-2dbe5844"><span class="cl-2db96d20">mean_score</span></p></th>
+<th class="cl-2dbe7587"><p class="cl-2dbe5844"><span class="cl-2db96d20">std_err</span></p></th>
 </tr>
 </thead>
 <tbody>
 <tr style="overflow-wrap:break-word;">
-<td rowspan="2" class="cl-ea070ea9"><p class="cl-ea06f562"><span class="cl-ea03074a">xgboost</span></p></td>
-<td class="cl-ea070eb2"><p class="cl-ea06f562"><span class="cl-ea03074a">rmse</span></p></td>
-<td class="cl-ea070ebc"><p class="cl-ea06f562"><span class="cl-ea030754">0.279</span></p></td>
-<td class="cl-ea070ebd"><p class="cl-ea06f562"><span class="cl-ea030754">0.01256</span></p></td>
+<td rowspan="2" class="cl-2dbe7590"><p class="cl-2dbe5844"><span class="cl-2db96d34">xgboost</span></p></td>
+<td class="cl-2dbe759a"><p class="cl-2dbe5844"><span class="cl-2db96d34">rmse</span></p></td>
+<td class="cl-2dbe759b"><p class="cl-2dbe5844"><span class="cl-2db96d3e">0.279</span></p></td>
+<td class="cl-2dbe75a4"><p class="cl-2dbe5844"><span class="cl-2db96d3e">0.01256</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-ea070ec6"><p class="cl-ea06f562"><span class="cl-ea03074a">rsq</span></p></td>
-<td class="cl-ea070ec7"><p class="cl-ea06f562"><span class="cl-ea030754">0.974</span></p></td>
-<td class="cl-ea070ec8"><p class="cl-ea06f562"><span class="cl-ea030754">0.00262</span></p></td>
+<td class="cl-2dbe75a5"><p class="cl-2dbe5844"><span class="cl-2db96d34">rsq</span></p></td>
+<td class="cl-2dbe75ae"><p class="cl-2dbe5844"><span class="cl-2db96d3e">0.974</span></p></td>
+<td class="cl-2dbe75b8"><p class="cl-2dbe5844"><span class="cl-2db96d3e">0.00262</span></p></td>
 </tr>
 </tbody>
 </table>
-</div></template><div class="flextable-shadow-host" id="c194a32a-e32b-4cc1-9153-6f83c4ac9a7b"></div>
-<script>
-var dest = document.getElementById("c194a32a-e32b-4cc1-9153-6f83c4ac9a7b");
-var template = document.getElementById("520c7246-7226-40e1-a184-3cff728cee41");
-var fantome = dest.attachShadow({mode: 'open'});
-var templateContent = template.content;
-fantome.appendChild(templateContent);
-</script>
+</div>
 </div>
 </div>
 <div class="section level2">
