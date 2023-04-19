@@ -57,13 +57,17 @@ eval_preds <- function(.data, ..., softprob_model = NULL){
   metric_list <- list()
 
 
-
   for(pred in pred_cols){
 
+.data %>%
+      dplyr::select(tidyselect::all_of(pred)) %>%
+      purrr::map_lgl(is.numeric) -> col_is_num
 
     .data %>%
       dplyr::pull(pred) %>%
-      determine_pred_type() -> pred_type
+      determine_pred_type(col_is_num) -> pred_type
+
+
 
 
     pred %>%

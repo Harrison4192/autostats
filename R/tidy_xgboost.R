@@ -206,7 +206,7 @@ if(isTRUE(scale_pos_weight)){
 
 
 
-  if(numer_tg){
+  if (numer_tg) {
     mode_set <- "regression"
 
 
@@ -216,15 +216,10 @@ if(isTRUE(scale_pos_weight)){
   } else{
     mode_set <- "classification"
 
-if(chr_tg){
-
-  message("classification requires target to be a factor with the first level as the event class")
-  stop()
-}
-
-
-    .data %>%
-      dplyr::mutate(!!target := !!target) -> .data
+    if (chr_tg) {
+      message("classification requires target to be a factor with the first level as the event class")
+      stop()
+    }
 
 
     xgboost_spec0 %>%
@@ -268,21 +263,20 @@ if(chr_tg){
 
 suppressMessages({
     val_booster %>%
-      tidy_predict(newdata = analysis_set, form = formula) -> val_frame
+      tidy_predict(newdata = analysis_set, form = formula) -> val_frame})
 
-})
+}
 
 model <- .estimate <- .estimator <- .metric <-  NULL
 
   if(mode_set == "regression"){
     val_frame %>%
-      eval_preds(yardstick::smape) %>%
+      eval_preds() %>%
       dplyr::select(.metric, .estimate) -> val_acc
 
   }
 
-
-    else if(xgb_obj == "binary:logistic"){
+else if(xgb_obj == "binary:logistic"){
 
       val_frame %>%
         eval_preds() %>%
@@ -356,7 +350,6 @@ else if(xgb_obj == "multi:softmax"){
     message("accuracy tested on a validation set")
 
     print(val_acc)
-  }
 
 xgbooster1 <- xgbooster
 xgbooster1$feature_names <- f_formula_to_charvec(formula)
@@ -366,7 +359,6 @@ visualize_model(xgbooster1) -> imp_plot
 print(imp_plot)
 
 xgbooster
-
 
 }
 

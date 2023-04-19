@@ -4,10 +4,12 @@
 \alias{determine_pred_type}
 \title{determine pred type}
 \usage{
-determine_pred_type(x)
+determine_pred_type(x, original_col)
 }
 \arguments{
 \item{x}{a vector}
+
+\item{original_col}{logical. is numeric}
 }
 \value{
 a string
