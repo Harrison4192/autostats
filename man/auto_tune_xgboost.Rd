@@ -25,7 +25,7 @@ auto_tune_xgboost(
   counts = FALSE,
   tree_method = c("auto", "exact", "approx", "hist", "gpu_hist"),
   monotone_constraints = 0L,
-  num_parallel_tree = tune::tune(),
+  num_parallel_tree = 1L,
   lambda = 1,
   alpha = 0,
   scale_pos_weight = 1,
