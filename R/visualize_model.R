@@ -57,13 +57,28 @@ visualize_model.xgb.Booster <- function(model,
                                         formula = NULL,
                                         measure = c("Gain", "Cover", "Frequency"), ..., method){
 
+if(model$params$booster == "gblinear") {
+
+
+  xgboost::xgb.importance(model = model) -> lin_imp
+
+  if(as_table){
+    lin_imp
+  } else {
+
+ lin_imp %>%
+    xgboost::xgb.ggplot.importance(top_n = top_n)
+  }
+
+} else{
+
   plot_varimp_xgboost(model,
                       top_n,
                       aggregate,
                       as_table,
                       formula,
                       measure,
-                      ...)
+                      ...)}
 }
 
 #' @rdname visualize_model

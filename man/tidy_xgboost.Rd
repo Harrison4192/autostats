@@ -20,11 +20,12 @@ tidy_xgboost(
   tree_method = c("auto", "exact", "approx", "hist", "gpu_hist"),
   monotone_constraints = 0L,
   num_parallel_tree = 1L,
-  lambda = 0.1,
+  lambda = 0.5,
   alpha = 0.1,
   scale_pos_weight = 1,
   verbosity = 0L,
-  validate = TRUE
+  validate = TRUE,
+  booster = c("gbtree", "gblinear")
 )
 }
 \arguments{
@@ -34,19 +35,19 @@ tidy_xgboost(
 
 \item{...}{additional parameters to be passed to  \code{\link[parsnip]{set_engine}}}
 
-\item{mtry}{# Randomly Selected Predictors (xgboost: colsample_bynode) (type: numeric, range 0 - 1) (or type: integer if \code{count = TRUE})}
+\item{mtry}{# Randomly Selected Predictors; defaults to .75; (xgboost: colsample_bynode) (type: numeric, range 0 - 1) (or type: integer if \code{count = TRUE})}
 
-\item{trees}{# Trees (xgboost: nrounds) (type: integer, default: 15L)}
+\item{trees}{# Trees (xgboost: nrounds) (type: integer, default: 500L)}
 
-\item{min_n}{Minimal Node Size (xgboost: min_child_weight) (type: integer, default: 1L); [typical range: 2-10] Keep small value for highly imbalanced class data where leaf nodes can have smaller size groups. Otherwise increase size to prevent overfitting outliers.}
+\item{min_n}{Minimal Node Size (xgboost: min_child_weight) (type: integer, default: 2L); [typical range: 2-10] Keep small value for highly imbalanced class data where leaf nodes can have smaller size groups. Otherwise increase size to prevent overfitting outliers.}
 
-\item{tree_depth}{Tree Depth (xgboost: max_depth) (type: integer, default: 6L); Typical values: 3-10}
+\item{tree_depth}{Tree Depth (xgboost: max_depth) (type: integer, default: 7L); Typical values: 3-10}
 
-\item{learn_rate}{Learning Rate (xgboost: eta) (type: double, default: 0.3); Typical values: 0.01-0.3}
+\item{learn_rate}{Learning Rate (xgboost: eta) (type: double, default: 0.05); Typical values: 0.01-0.3}
 
-\item{loss_reduction}{Minimum Loss Reduction (xgboost: gamma) (type: double, default: 0.0);  range: 0 to Inf; typical value: 0 - 20 assuming low-mid tree depth}
+\item{loss_reduction}{Minimum Loss Reduction (xgboost: gamma) (type: double, default: 1.0);  range: 0 to Inf; typical value: 0 - 20 assuming low-mid tree depth}
 
-\item{sample_size}{Proportion Observations Sampled (xgboost: subsample) (type: double, default: 1.0); Typical values: 0.5 - 1}
+\item{sample_size}{Proportion Observations Sampled (xgboost: subsample) (type: double, default: .75); Typical values: 0.5 - 1}
 
 \item{stop_iter}{# Iterations Before Stopping (xgboost: early_stop) (type: integer, default: 15L) only enabled if validation set is provided}
 
@@ -58,15 +59,17 @@ tidy_xgboost(
 
 \item{num_parallel_tree}{should be set to the size of the forest being trained. default 1L}
 
-\item{lambda}{[default=1] L2 regularization term on weights. Increasing this value will make model more conservative.}
+\item{lambda}{[default=.5] L2 regularization term on weights. Increasing this value will make model more conservative.}
 
-\item{alpha}{[default=0] L1 regularization term on weights. Increasing this value will make model more conservative.}
+\item{alpha}{[default=.1] L1 regularization term on weights. Increasing this value will make model more conservative.}
 
 \item{scale_pos_weight}{[default=1] Control the balance of positive and negative weights, useful for unbalanced classes. if set to TRUE, calculates sum(negative instances) / sum(positive instances). If first level is majority class, use values < 1, otherwise normally values >1 are used to balance the class distribution.}
 
 \item{verbosity}{[default=1] Verbosity of printing messages. Valid values are 0 (silent), 1 (warning), 2 (info), 3 (debug).}
 
 \item{validate}{default TRUE. report accuracy metrics on a validation set.}
+
+\item{booster}{defaults to 'gbtree' for tree boosting but can be set to 'gblinear'}
 }
 \value{
 xgb.Booster model

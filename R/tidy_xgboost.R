@@ -11,23 +11,24 @@
 #' @param .data dataframe
 #' @param formula formula
 #' @param ... additional parameters to be passed to  \code{\link[parsnip]{set_engine}}
-#' @param tree_depth Tree Depth (xgboost: max_depth) (type: integer, default: 6L); Typical values: 3-10
-#' @param trees # Trees (xgboost: nrounds) (type: integer, default: 15L)
-#' @param learn_rate Learning Rate (xgboost: eta) (type: double, default: 0.3); Typical values: 0.01-0.3
-#' @param mtry # Randomly Selected Predictors (xgboost: colsample_bynode) (type: numeric, range 0 - 1) (or type: integer if \code{count = TRUE})
-#' @param min_n  Minimal Node Size (xgboost: min_child_weight) (type: integer, default: 1L); [typical range: 2-10] Keep small value for highly imbalanced class data where leaf nodes can have smaller size groups. Otherwise increase size to prevent overfitting outliers.
-#' @param loss_reduction Minimum Loss Reduction (xgboost: gamma) (type: double, default: 0.0);  range: 0 to Inf; typical value: 0 - 20 assuming low-mid tree depth
-#' @param sample_size Proportion Observations Sampled (xgboost: subsample) (type: double, default: 1.0); Typical values: 0.5 - 1
+#' @param tree_depth Tree Depth (xgboost: max_depth) (type: integer, default: 7L); Typical values: 3-10
+#' @param trees # Trees (xgboost: nrounds) (type: integer, default: 500L)
+#' @param learn_rate Learning Rate (xgboost: eta) (type: double, default: 0.05); Typical values: 0.01-0.3
+#' @param mtry # Randomly Selected Predictors; defaults to .75; (xgboost: colsample_bynode) (type: numeric, range 0 - 1) (or type: integer if \code{count = TRUE})
+#' @param min_n  Minimal Node Size (xgboost: min_child_weight) (type: integer, default: 2L); [typical range: 2-10] Keep small value for highly imbalanced class data where leaf nodes can have smaller size groups. Otherwise increase size to prevent overfitting outliers.
+#' @param loss_reduction Minimum Loss Reduction (xgboost: gamma) (type: double, default: 1.0);  range: 0 to Inf; typical value: 0 - 20 assuming low-mid tree depth
+#' @param sample_size Proportion Observations Sampled (xgboost: subsample) (type: double, default: .75); Typical values: 0.5 - 1
 #' @param stop_iter # Iterations Before Stopping (xgboost: early_stop) (type: integer, default: 15L) only enabled if validation set is provided
 #' @param counts if \code{TRUE} specify \code{mtry} as an integer number of cols. Default \code{FALSE} to specify \code{mtry} as fraction of cols from 0 to 1
 #' @param tree_method xgboost tree_method. default is \code{auto}. reference: \href{https://xgboost.readthedocs.io/en/stable/treemethod.html}{tree method docs}
 #' @param monotone_constraints an integer vector with length of the predictor cols, of \code{-1, 1, 0} corresponding to decreasing, increasing, and no constraint respectively for the index of the predictor col. reference: \href{https://xgboost.readthedocs.io/en/stable/tutorials/monotonic.html}{monotonicity docs}.
 #' @param num_parallel_tree should be set to the size of the forest being trained. default 1L
-#' @param lambda [default=1] L2 regularization term on weights. Increasing this value will make model more conservative.
-#' @param alpha [default=0] L1 regularization term on weights. Increasing this value will make model more conservative.
+#' @param lambda [default=.5] L2 regularization term on weights. Increasing this value will make model more conservative.
+#' @param alpha [default=.1] L1 regularization term on weights. Increasing this value will make model more conservative.
 #' @param scale_pos_weight [default=1] Control the balance of positive and negative weights, useful for unbalanced classes. if set to TRUE, calculates sum(negative instances) / sum(positive instances). If first level is majority class, use values < 1, otherwise normally values >1 are used to balance the class distribution.
 #' @param verbosity [default=1] Verbosity of printing messages. Valid values are 0 (silent), 1 (warning), 2 (info), 3 (debug).
 #' @param validate default TRUE. report accuracy metrics on a validation set.
+#' @param booster defaults to 'gbtree' for tree boosting but can be set to 'gblinear'
 #'
 #' @return xgb.Booster model
 #' @export
@@ -143,14 +144,17 @@ tidy_xgboost <- function(.data, formula, ...,
                          tree_method = c("auto", "exact", "approx", "hist", "gpu_hist"),
                          monotone_constraints = 0L,
                          num_parallel_tree = 1L,
-                         lambda = 0.1,
+                         lambda = 0.5,
                          alpha = 0.1,
                          scale_pos_weight = 1,
                          verbosity = 0L,
-                         validate = TRUE){
+                         validate = TRUE,
+                         booster = c("gbtree", "gblinear")){
 
 
   tree_method <- match.arg(tree_method)
+  booster <- match.arg(booster)
+
 
   formula %>%
     rlang::f_lhs() -> target
@@ -201,7 +205,8 @@ if(isTRUE(scale_pos_weight)){
                         lambda = lambda,
                         alpha = alpha,
                         scale_pos_weight = scale_pos_weight,
-                        verbosity = verbosity)
+                        verbosity = verbosity,
+                        booster = booster)
 
 
 
@@ -351,10 +356,11 @@ else if(xgb_obj == "multi:softmax"){
 
     print(val_acc)
 
-xgbooster1 <- xgbooster
-xgbooster1$feature_names <- f_formula_to_charvec(formula)
+# xgbooster1 <- xgbooster
+# xgbooster1$feature_names <- f_formula_to_charvec(formula)
 
-visualize_model(xgbooster1) -> imp_plot
+
+visualize_model(xgbooster) -> imp_plot
 
 print(imp_plot)
 
