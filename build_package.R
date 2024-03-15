@@ -170,7 +170,7 @@ devtools::check_rhub()
 devtools::run_examples()
 
 usethis::use_r("impute_recosystem")
-usethis::use_version(which = "minor")
+usethis::use_version(which = "patch")
 devtools::submit_cran()
 
 pkgdown::check_pkgdown()
@@ -182,3 +182,4 @@ iris %>%
 usethis::use_github_action("pkgdown")
 
 
+install.packages(c('moreparty', 'ggstance', 'BBmisc', 'XICOR', 'ranger'))

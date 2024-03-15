@@ -39,6 +39,16 @@ visualize_model(model, ...)
 \item{...}{additional arguments}
 
 \item{method}{choose amongst different visualization methods}
+
+\item{top_n}{return top n elements}
+
+\item{aggregate}{= summarize}
+
+\item{as_table}{= false, table or graph,}
+
+\item{formula}{= formula,}
+
+\item{measure}{= c("Gain", "Cover", "Frequency")}
 }
 \value{
 a plot

@@ -6,6 +6,11 @@
 #' @param model a model
 #' @param ... additional arguments
 #' @param method choose amongst different visualization methods
+#' @param top_n return top n elements
+#' @param aggregate = summarize
+#' @param as_table = false, table or graph,
+#' @param formula = formula,
+#' @param measure = c("Gain", "Cover", "Frequency")
 #'
 #' @return a plot
 #' @export

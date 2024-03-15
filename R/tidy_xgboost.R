@@ -270,7 +270,7 @@ suppressMessages({
     val_booster %>%
       tidy_predict(newdata = analysis_set, form = formula) -> val_frame})
 
-}
+
 
 model <- .estimate <- .estimator <- .metric <-  NULL
 
@@ -332,9 +332,10 @@ else if(xgb_obj == "binary:logistic"){
 
       val_conf_tbl %>%
         dplyr::bind_rows(baseline_acc, val_acc)-> val_acc
-    }
+}
+}
 
-else if(xgb_obj == "multi:softmax"){
+else if(xgb_obj == "multi:softmax" & validate){
 
 
 
@@ -354,7 +355,9 @@ else if(xgb_obj == "multi:softmax"){
 
     message("accuracy tested on a validation set")
 
-    print(val_acc)
+    if(validate){
+
+    print(val_acc)}
 
 # xgbooster1 <- xgbooster
 # xgbooster1$feature_names <- f_formula_to_charvec(formula)
