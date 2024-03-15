@@ -57,14 +57,15 @@ plot_varimp_cforest <- function(cfar, font = c("", "HiraKakuProN-W3")) {
   font = match.arg(font)
 
   cfar %>%
-    party::varimp() %>%
-    moreparty::ggVarImp() +
-    ggplot2::geom_bar(stat = "identity", fill = "blue") +
-    ggplot2::theme_minimal(base_family=font)+
-    ggplot2::theme(panel.border = ggplot2::element_blank(),
-                   panel.grid.major = ggplot2::element_blank(),
-                   panel.grid.minor = ggplot2::element_blank(),
-                   axis.line = ggplot2::element_line(colour = "black"))
+    party::varimp()
+  # %>%
+  #   moreparty::ggVarImp() +
+  #   ggplot2::geom_bar(stat = "identity", fill = "blue") +
+  #   ggplot2::theme_minimal(base_family=font)+
+  #   ggplot2::theme(panel.border = ggplot2::element_blank(),
+  #                  panel.grid.major = ggplot2::element_blank(),
+  #                  panel.grid.minor = ggplot2::element_blank(),
+  #                  axis.line = ggplot2::element_line(colour = "black"))
 
 }
 
