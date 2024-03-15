@@ -24,7 +24,7 @@ for classification or regression. Returns the xgboost model."><!-- mathjax --><s
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">autostats</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
       </span>
     </div>
 
@@ -99,11 +99,12 @@ for classification or regression. Returns the xgboost model.</p>
 <span>  tree_method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"auto"</span>, <span class="st">"exact"</span>, <span class="st">"approx"</span>, <span class="st">"hist"</span>, <span class="st">"gpu_hist"</span><span class="op">)</span>,</span>
 <span>  monotone_constraints <span class="op">=</span> <span class="fl">0L</span>,</span>
 <span>  num_parallel_tree <span class="op">=</span> <span class="fl">1L</span>,</span>
-<span>  lambda <span class="op">=</span> <span class="fl">0.1</span>,</span>
+<span>  lambda <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>  alpha <span class="op">=</span> <span class="fl">0.1</span>,</span>
 <span>  scale_pos_weight <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  verbosity <span class="op">=</span> <span class="fl">0L</span>,</span>
-<span>  validate <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  validate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  booster <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"gbtree"</span>, <span class="st">"gblinear"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -122,31 +123,31 @@ for classification or regression. Returns the xgboost model.</p>
 
 
 <dt>mtry</dt>
-<dd><p># Randomly Selected Predictors (xgboost: colsample_bynode) (type: numeric, range 0 - 1) (or type: integer if <code>count = TRUE</code>)</p></dd>
+<dd><p># Randomly Selected Predictors; defaults to .75; (xgboost: colsample_bynode) (type: numeric, range 0 - 1) (or type: integer if <code>count = TRUE</code>)</p></dd>
 
 
 <dt>trees</dt>
-<dd><p># Trees (xgboost: nrounds) (type: integer, default: 15L)</p></dd>
+<dd><p># Trees (xgboost: nrounds) (type: integer, default: 500L)</p></dd>
 
 
 <dt>min_n</dt>
-<dd><p>Minimal Node Size (xgboost: min_child_weight) (type: integer, default: 1L); [typical range: 2-10] Keep small value for highly imbalanced class data where leaf nodes can have smaller size groups. Otherwise increase size to prevent overfitting outliers.</p></dd>
+<dd><p>Minimal Node Size (xgboost: min_child_weight) (type: integer, default: 2L); [typical range: 2-10] Keep small value for highly imbalanced class data where leaf nodes can have smaller size groups. Otherwise increase size to prevent overfitting outliers.</p></dd>
 
 
 <dt>tree_depth</dt>
-<dd><p>Tree Depth (xgboost: max_depth) (type: integer, default: 6L); Typical values: 3-10</p></dd>
+<dd><p>Tree Depth (xgboost: max_depth) (type: integer, default: 7L); Typical values: 3-10</p></dd>
 
 
 <dt>learn_rate</dt>
-<dd><p>Learning Rate (xgboost: eta) (type: double, default: 0.3); Typical values: 0.01-0.3</p></dd>
+<dd><p>Learning Rate (xgboost: eta) (type: double, default: 0.05); Typical values: 0.01-0.3</p></dd>
 
 
 <dt>loss_reduction</dt>
-<dd><p>Minimum Loss Reduction (xgboost: gamma) (type: double, default: 0.0);  range: 0 to Inf; typical value: 0 - 20 assuming low-mid tree depth</p></dd>
+<dd><p>Minimum Loss Reduction (xgboost: gamma) (type: double, default: 1.0);  range: 0 to Inf; typical value: 0 - 20 assuming low-mid tree depth</p></dd>
 
 
 <dt>sample_size</dt>
-<dd><p>Proportion Observations Sampled (xgboost: subsample) (type: double, default: 1.0); Typical values: 0.5 - 1</p></dd>
+<dd><p>Proportion Observations Sampled (xgboost: subsample) (type: double, default: .75); Typical values: 0.5 - 1</p></dd>
 
 
 <dt>stop_iter</dt>
@@ -170,11 +171,11 @@ for classification or regression. Returns the xgboost model.</p>
 
 
 <dt>lambda</dt>
-<dd><p>[default=1] L2 regularization term on weights. Increasing this value will make model more conservative.</p></dd>
+<dd><p>[default=.5] L2 regularization term on weights. Increasing this value will make model more conservative.</p></dd>
 
 
 <dt>alpha</dt>
-<dd><p>[default=0] L1 regularization term on weights. Increasing this value will make model more conservative.</p></dd>
+<dd><p>[default=.1] L1 regularization term on weights. Increasing this value will make model more conservative.</p></dd>
 
 
 <dt>scale_pos_weight</dt>
@@ -187,6 +188,10 @@ for classification or regression. Returns the xgboost model.</p>
 
 <dt>validate</dt>
 <dd><p>default TRUE. report accuracy metrics on a validation set.</p></dd>
+
+
+<dt>booster</dt>
+<dd><p>defaults to 'gbtree' for tree boosting but can be set to 'gblinear'</p></dd>
 
 </dl></div>
     <div id="value">
@@ -224,13 +229,12 @@ A higher probability will predict the first level.</p>
 <span class="r-in"><span>   mtry <span class="op">=</span> <span class="fl">.5</span></span></span>
 <span class="r-in"><span> <span class="op">)</span>  <span class="op">-&gt;</span> <span class="va">xg1</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> accuracy tested on a validation set</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .metric .estimate</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> ccc         0.663</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> rmse        1.38 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> rsq         0.966</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> smape      32.4  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> ccc         0.580</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> rmse        1.55 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> rsq         0.910</span>
 <span class="r-plt img"><img src="tidy_xgboost-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
@@ -243,9 +247,9 @@ A higher probability will predict the first level.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .metric .estimator .estimate model target      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> ccc     standard       0.674 xg1   Petal.Length</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> rmse    standard       1.36  xg1   Petal.Length</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> rsq     standard       0.982 xg1   Petal.Length</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> ccc     standard       0.661 xg1   Petal.Length</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> rmse    standard       1.39  xg1   Petal.Length</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> rsq     standard       0.974 xg1   Petal.Length</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>

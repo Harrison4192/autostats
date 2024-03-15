@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">autostats</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
       </span>
     </div>
 
@@ -137,7 +137,7 @@ throughout the modeling and prediction process.</p>
 <span> <span class="va">petal_form</span></span>
 <span><span class="co">#&gt; Petal.Length ~ Sepal.Length + Sepal.Width + Petal.Width + Species_versicolor + </span></span>
 <span><span class="co">#&gt;     Species_virginica</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x55c6f5f57be0&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; &lt;environment: 0x5ec8f6bac0c0&gt;</span></span></code></pre></div>
 <p>Use the rsample package to split into train and validation sets.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris1</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -203,14 +203,21 @@ argument <code>parallel = TRUE</code> is recommended.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris_train</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/tidy_xgboost.html">tidy_xgboost</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="va">petal_form</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">xgb_base</span></span>
+<span><span class="co">#&gt; Warning: `pull_workflow_fit()` was deprecated in workflows 0.2.3.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use `extract_fit_parsnip()` instead.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">autostats</span> package.</span></span>
+<span><span class="co">#&gt;   Please report the issue at</span></span>
+<span><span class="co">#&gt;   <span style="color: #0000BB; font-style: italic;">&lt;https://github.com/Harrison4192/autostats/issues&gt;</span>.</span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span>
 <span><span class="co">#&gt; accuracy tested on a validation set</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 2</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 2</span></span></span>
 <span><span class="co">#&gt;   .metric .estimate</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ccc         0.965</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> rmse        0.415</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> rsq         0.947</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> smape       8.70</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ccc         0.973</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> rmse        0.379</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> rsq         0.964</span></span></code></pre></div>
 <p><img src="tidyXgboost_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 </div>
 <div class="section level3">
@@ -225,13 +232,12 @@ argument <code>parallel = TRUE</code> is recommended.</p>
 <span>               mtry <span class="op">=</span> <span class="fl">.5</span>,</span>
 <span>               min_n <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">xgb_opt</span></span>
 <span><span class="co">#&gt; accuracy tested on a validation set</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 2</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 2</span></span></span>
 <span><span class="co">#&gt;   .metric .estimate</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ccc         0.979</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> rmse        0.331</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> rsq         0.971</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> smape       8.65</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ccc         0.902</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> rmse        0.707</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> rsq         0.876</span></span></code></pre></div>
 <p><img src="tidyXgboost_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 </div>
 </div>
@@ -275,11 +281,11 @@ designed to evaluate predicted columns with names given from
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
 <span><span class="co">#&gt;   .metric .estimator .estimate model    target      </span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ccc     standard       0.981 xgb_base Petal.Length</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> ccc     standard       0.979 xgb_opt  Petal.Length</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> rmse    standard       0.333 xgb_base Petal.Length</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> rmse    standard       0.352 xgb_opt  Petal.Length</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> rsq     standard       0.976 xgb_base Petal.Length</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ccc     standard       0.980 xgb_base Petal.Length</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> ccc     standard       0.977 xgb_opt  Petal.Length</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> rmse    standard       0.338 xgb_base Petal.Length</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> rmse    standard       0.363 xgb_opt  Petal.Length</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> rsq     standard       0.974 xgb_base Petal.Length</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> rsq     standard       0.971 xgb_opt  Petal.Length</span></span></code></pre></div>
 </div>
 </div>
@@ -297,27 +303,27 @@ designed to evaluate predicted columns with names given from
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 38 × 5</span></span></span>
 <span><span class="co">#&gt;    Sepal.Length Sepal.Width Petal.Width Species_versicolor Species_virginica</span></span>
 <span><span class="co">#&gt;           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>      -<span style="color: #BB0000;">0.313</span>      -<span style="color: #BB0000;">0.040</span><span style="color: #BB0000; text-decoration: underline;">4</span>       -<span style="color: #BB0000;">1.55</span>           0.006<span style="text-decoration: underline;">51</span>             -<span style="color: #BB0000;">0.206</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>      -<span style="color: #BB0000;">0.330</span>      -<span style="color: #BB0000;">0.025</span><span style="color: #BB0000; text-decoration: underline;">7</span>       -<span style="color: #BB0000;">1.55</span>           0.006<span style="text-decoration: underline;">51</span>             -<span style="color: #BB0000;">0.204</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>      -<span style="color: #BB0000;">0.060</span><span style="color: #BB0000; text-decoration: underline;">4</span>     -<span style="color: #BB0000;">0.118</span>        -<span style="color: #BB0000;">1.60</span>           0.000<span style="text-decoration: underline;">797</span>            -<span style="color: #BB0000;">0.219</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>      -<span style="color: #BB0000;">0.313</span>      -<span style="color: #BB0000;">0.040</span><span style="color: #BB0000; text-decoration: underline;">4</span>       -<span style="color: #BB0000;">1.55</span>           0.006<span style="text-decoration: underline;">51</span>             -<span style="color: #BB0000;">0.206</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>      -<span style="color: #BB0000;">0.318</span>      -<span style="color: #BB0000;">0.025</span><span style="color: #BB0000; text-decoration: underline;">7</span>       -<span style="color: #BB0000;">1.56</span>           0.000<span style="text-decoration: underline;">797</span>            -<span style="color: #BB0000;">0.204</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>      -<span style="color: #BB0000;">0.313</span>      -<span style="color: #BB0000;">0.040</span><span style="color: #BB0000; text-decoration: underline;">4</span>       -<span style="color: #BB0000;">1.55</span>           0.006<span style="text-decoration: underline;">51</span>             -<span style="color: #BB0000;">0.206</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>      -<span style="color: #BB0000;">0.330</span>      -<span style="color: #BB0000;">0.025</span><span style="color: #BB0000; text-decoration: underline;">7</span>       -<span style="color: #BB0000;">1.51</span>           0.006<span style="text-decoration: underline;">51</span>             -<span style="color: #BB0000;">0.204</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>      -<span style="color: #BB0000;">0.330</span>      -<span style="color: #BB0000;">0.025</span><span style="color: #BB0000; text-decoration: underline;">7</span>       -<span style="color: #BB0000;">1.55</span>           0.006<span style="text-decoration: underline;">51</span>             -<span style="color: #BB0000;">0.204</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>      -<span style="color: #BB0000;">0.330</span>      -<span style="color: #BB0000;">0.025</span><span style="color: #BB0000; text-decoration: underline;">7</span>       -<span style="color: #BB0000;">1.55</span>           0.006<span style="text-decoration: underline;">51</span>             -<span style="color: #BB0000;">0.204</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>      -<span style="color: #BB0000;">0.288</span>       0.117        -<span style="color: #BB0000;">1.53</span>           0.004<span style="text-decoration: underline;">55</span>             -<span style="color: #BB0000;">0.200</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 28 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>       -<span style="color: #BB0000;">0.412</span>     -<span style="color: #BB0000;">0.038</span><span style="color: #BB0000; text-decoration: underline;">1</span>       -<span style="color: #BB0000;">1.57</span>             0.012<span style="text-decoration: underline;">1</span>            -<span style="color: #BB0000;">0.122</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>       -<span style="color: #BB0000;">0.418</span>     -<span style="color: #BB0000;">0.031</span><span style="color: #BB0000; text-decoration: underline;">6</span>       -<span style="color: #BB0000;">1.57</span>             0.012<span style="text-decoration: underline;">1</span>            -<span style="color: #BB0000;">0.122</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>       -<span style="color: #BB0000;">0.168</span>     -<span style="color: #BB0000;">0.078</span><span style="color: #BB0000; text-decoration: underline;">6</span>       -<span style="color: #BB0000;">1.54</span>             0.018<span style="text-decoration: underline;">6</span>            -<span style="color: #BB0000;">0.130</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>       -<span style="color: #BB0000;">0.412</span>     -<span style="color: #BB0000;">0.038</span><span style="color: #BB0000; text-decoration: underline;">1</span>       -<span style="color: #BB0000;">1.57</span>             0.012<span style="text-decoration: underline;">1</span>            -<span style="color: #BB0000;">0.122</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>       -<span style="color: #BB0000;">0.412</span>     -<span style="color: #BB0000;">0.038</span><span style="color: #BB0000; text-decoration: underline;">1</span>       -<span style="color: #BB0000;">1.57</span>             0.012<span style="text-decoration: underline;">1</span>            -<span style="color: #BB0000;">0.122</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>       -<span style="color: #BB0000;">0.412</span>     -<span style="color: #BB0000;">0.038</span><span style="color: #BB0000; text-decoration: underline;">1</span>       -<span style="color: #BB0000;">1.57</span>             0.012<span style="text-decoration: underline;">1</span>            -<span style="color: #BB0000;">0.122</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>       -<span style="color: #BB0000;">0.411</span>     -<span style="color: #BB0000;">0.038</span><span style="color: #BB0000; text-decoration: underline;">1</span>       -<span style="color: #BB0000;">1.52</span>             0.012<span style="text-decoration: underline;">1</span>            -<span style="color: #BB0000;">0.119</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>       -<span style="color: #BB0000;">0.418</span>     -<span style="color: #BB0000;">0.031</span><span style="color: #BB0000; text-decoration: underline;">6</span>       -<span style="color: #BB0000;">1.57</span>             0.012<span style="text-decoration: underline;">1</span>            -<span style="color: #BB0000;">0.122</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>       -<span style="color: #BB0000;">0.418</span>     -<span style="color: #BB0000;">0.031</span><span style="color: #BB0000; text-decoration: underline;">6</span>       -<span style="color: #BB0000;">1.57</span>             0.012<span style="text-decoration: underline;">1</span>            -<span style="color: #BB0000;">0.122</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>       -<span style="color: #BB0000;">0.409</span>      0.143        -<span style="color: #BB0000;">1.51</span>             0.012<span style="text-decoration: underline;">1</span>            -<span style="color: #BB0000;">0.122</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 28 more rows</span></span></span></code></pre></div>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">shap_list</span><span class="op">$</span><span class="va">shap_summary</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 5</span></span></span>
 <span><span class="co">#&gt;   name                  cor     var   sum sum_abs</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Petal.Width         0.949 1.31    6.35    40.5 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Species_virginica   0.996 0.070<span style="text-decoration: underline;">7</span>  2.06     9.65</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Sepal.Length        0.937 0.098<span style="text-decoration: underline;">9</span>  0.698    9.47</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Species_versicolor -<span style="color: #BB0000;">0.746</span> 0.003<span style="text-decoration: underline;">40</span> 1.20     2.00</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Sepal.Width        -<span style="color: #BB0000;">0.909</span> 0.002<span style="text-decoration: underline;">12</span> 0.145    1.19</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Petal.Width         0.952 1.35    6.22    41.0 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Sepal.Length        0.951 0.150   0.386   12.1 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Species_virginica   0.999 0.027<span style="text-decoration: underline;">4</span>  1.08     6.05</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Species_versicolor -<span style="color: #BB0000;">0.796</span> 0.004<span style="text-decoration: underline;">77</span> 1.42     2.49</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Sepal.Width        -<span style="color: #BB0000;">0.825</span> 0.003<span style="text-decoration: underline;">32</span> 0.402    1.49</span></span></code></pre></div>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">shap_list</span><span class="op">$</span><span class="va">swarmplot</span></span></code></pre></div>
 <p><img src="tidyXgboost_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
