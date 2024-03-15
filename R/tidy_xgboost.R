@@ -380,7 +380,6 @@ xgbooster
 #' }
 #'
 #' @param xgb xgb.Booster model
-#' @param font font
 #' @param top_n top n important variables
 #' @param aggregate a character vector. Predictors containing the string will be aggregated, and renamed to that string.
 #' @param as_table logical, default FALSE. If TRUE returns importances in a data frame

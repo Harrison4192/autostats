@@ -28,8 +28,6 @@ plot_varimp_xgboost(
 \item{measure}{choose between Gain, Cover, or Frequency for xgboost importance measure}
 
 \item{...}{additional arguments for \code{\link[xgboost]{xgb.ggplot.importance}}}
-
-\item{font}{font}
 }
 \value{
 ggplot
