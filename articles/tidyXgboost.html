@@ -135,9 +135,9 @@ throughout the modeling and prediction process.</p>
 <span> <span class="fu"><a href="../reference/tidy_formula.html">tidy_formula</a></span><span class="op">(</span>target <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">petal_form</span></span>
 <span> </span>
 <span> <span class="va">petal_form</span></span>
-<span><span class="co">#&gt; Petal.Length ~ Sepal.Length + Sepal.Width + Petal.Width + Species_versicolor + </span></span>
-<span><span class="co">#&gt;     Species_virginica</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x5d7a1ada13a0&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; Petal.Length ~ Sepal.Length + Sepal.Width + Petal.Width + species_versicolor + </span></span>
+<span><span class="co">#&gt;     species_virginica</span></span>
+<span><span class="co">#&gt; &lt;environment: 0x55c2e0006aa8&gt;</span></span></code></pre></div>
 <p>Use the rsample package to split into train and validation sets.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris1</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -265,7 +265,7 @@ the prediction target.</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Sepal.Length"                "Sepal.Width"                </span></span>
 <span><span class="co">#&gt; [3] "Petal.Length"                "Petal.Width"                </span></span>
-<span><span class="co">#&gt; [5] "Species_versicolor"          "Species_virginica"          </span></span>
+<span><span class="co">#&gt; [5] "species_versicolor"          "species_virginica"          </span></span>
 <span><span class="co">#&gt; [7] "Petal.Length_preds_xgb_base" "Petal.Length_preds_xgb_opt"</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -301,7 +301,7 @@ designed to evaluate predicted columns with names given from
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">shap_list</span><span class="op">$</span><span class="va">shap_tbl</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 38 × 5</span></span></span>
-<span><span class="co">#&gt;    Sepal.Length Sepal.Width Petal.Width Species_versicolor Species_virginica</span></span>
+<span><span class="co">#&gt;    Sepal.Length Sepal.Width Petal.Width species_versicolor species_virginica</span></span>
 <span><span class="co">#&gt;           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>       -<span style="color: #BB0000;">0.412</span>     -<span style="color: #BB0000;">0.038</span><span style="color: #BB0000; text-decoration: underline;">1</span>       -<span style="color: #BB0000;">1.57</span>             0.012<span style="text-decoration: underline;">1</span>            -<span style="color: #BB0000;">0.122</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>       -<span style="color: #BB0000;">0.418</span>     -<span style="color: #BB0000;">0.031</span><span style="color: #BB0000; text-decoration: underline;">6</span>       -<span style="color: #BB0000;">1.57</span>             0.012<span style="text-decoration: underline;">1</span>            -<span style="color: #BB0000;">0.122</span></span></span>
@@ -321,8 +321,8 @@ designed to evaluate predicted columns with names given from
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Petal.Width         0.952 1.35    6.22    41.0 </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Sepal.Length        0.951 0.150   0.386   12.1 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Species_virginica   0.999 0.027<span style="text-decoration: underline;">4</span>  1.08     6.05</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Species_versicolor -<span style="color: #BB0000;">0.796</span> 0.004<span style="text-decoration: underline;">77</span> 1.42     2.49</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> species_virginica   0.999 0.027<span style="text-decoration: underline;">4</span>  1.08     6.05</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> species_versicolor -<span style="color: #BB0000;">0.796</span> 0.004<span style="text-decoration: underline;">77</span> 1.42     2.49</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Sepal.Width        -<span style="color: #BB0000;">0.825</span> 0.003<span style="text-decoration: underline;">32</span> 0.402    1.49</span></span></code></pre></div>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">shap_list</span><span class="op">$</span><span class="va">swarmplot</span></span></code></pre></div>
