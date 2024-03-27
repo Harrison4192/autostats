@@ -41,7 +41,7 @@ the categorical variable.
 
 Description of columns in the output
 
-\itemize{
+\describe{
 \item{\emph{target}}{ continuous variables}
 \item{\emph{predictor}}{ categorical variables}
 \item{\emph{level}}{ levels in the categorical variables}

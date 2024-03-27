@@ -375,7 +375,7 @@ xgbooster
 #'
 #'  recommended parameters to control;
 #'
-#' \itemize{
+#' \describe{
 #' \item{\code{top_n}}{ number of features to include in the graph}
 #' }
 #'

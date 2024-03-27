@@ -36,7 +36,7 @@ ggplot
 recommended parameters to control;
 }
 \details{
-\itemize{
+\describe{
 \item{\code{top_n}}{ number of features to include in the graph}
 }
 }
