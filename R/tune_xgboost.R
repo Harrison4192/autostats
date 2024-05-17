@@ -176,8 +176,8 @@ xgboost_tune <-
 
 } else if(tune_method == "grid"){
 
-  grid_tbl <- dials::grid_max_entropy(params,  size = n_iter) %>%
-    dplyr::mutate(mtry = mtry / length(f_formula_to_charvec(formula)))
+  grid_tbl <- dials::grid_max_entropy(params,  size = n_iter)
+  # %>% dplyr::mutate(mtry = mtry / length(f_formula_to_charvec(formula)))
 
 
   xgboost_tune <-

@@ -65,33 +65,21 @@ iris_split
 
 Fit models to the training set using the formula to predict `Petal.Length`. Variable importance using gain for each `xgboost` model can be visualized.
 
-## xgboost with bayesian hyperparameter optimization
 
-`auto_tune_xgboost` returns a workflow object with tuned parameters and requires some postprocessing to get a traind `xgb.Booster` object like `tidy_xgboost`. Tuning iterations set to `1` just so the vignette builds quickly. Default is `n_iter = 100`
-
-```{r eval=FALSE}
-iris_train %>%
-  auto_tune_xgboost(formula = petal_form, n_iter = 7L, tune_method = "bayes") -> xgb_tuned_bayes
-
-xgb_tuned_bayes %>%
-  parsnip::fit(iris_train) %>% 
-  hardhat::extract_fit_engine() -> xgb_tuned_fit_bayes
-
-xgb_tuned_fit_bayes %>% 
-  visualize_model()
-
-```
 ## xgboost with grid search hyperparameter optimization
+
+`auto_tune_xgboost` returns a workflow object with tuned parameters and requires some postprocessing to get a trained `xgb.Booster` object like `tidy_xgboost`.
 
 `xgboost` also can be tuned using a grid that is created internally using `dials::grid_max_entropy`. The `n_iter` parameter is passed to `grid_size`. Parallelization is highly effective in this method, so the default argument `parallel = TRUE` is recommended. 
 
-```{r eval=FALSE}
+```{r eval=T}
 iris_train %>%
-  auto_tune_xgboost(formula = petal_form, n_iter = 5L,trees = 20L, loss_reduction = 2, mtry = .5, tune_method = "grid", parallel = FALSE) -> xgb_tuned_grid
+  auto_tune_xgboost(formula = petal_form, n_iter = 5L,trees = 20L, loss_reduction = 2, mtry = 3, tune_method = "grid", parallel = FALSE, counts = TRUE) -> xgb_tuned_grid
 
 xgb_tuned_grid %>%
   parsnip::fit(iris_train) %>% 
   parsnip::extract_fit_engine() -> xgb_tuned_fit_grid
+
 
 xgb_tuned_fit_grid %>% 
   visualize_model()
