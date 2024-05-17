@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>tidy xgboost • autostats</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -129,17 +129,18 @@ throughout the modeling and prediction process.</p>
 <span> <span class="va">iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">framecleaner</span><span class="fu">::</span><span class="fu"><a href="https://harrison4192.github.io/framecleaner/reference/create_dummies.html" class="external-link">create_dummies</a></span><span class="op">(</span>remove_first_dummy  <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">iris1</span></span>
-<span><span class="co">#&gt; 1 column(s) have become 2 dummy columns</span></span>
-<span></span>
+<span><span class="co">#&gt; 1 column(s) have become 2 dummy columns</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span> <span class="va">iris1</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span> <span class="fu"><a href="../reference/tidy_formula.html">tidy_formula</a></span><span class="op">(</span>target <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">petal_form</span></span>
 <span> </span>
 <span> <span class="va">petal_form</span></span>
 <span><span class="co">#&gt; Petal.Length ~ Sepal.Length + Sepal.Width + Petal.Width + species_versicolor + </span></span>
 <span><span class="co">#&gt;     species_virginica</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x55c0d11f9710&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; &lt;environment: 0x5634db5fcbf0&gt;</span></span></code></pre></div>
 <p>Use the rsample package to split into train and validation sets.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris1</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">rsample</span><span class="fu">::</span><span class="fu"><a href="https://rsample.tidymodels.org/reference/initial_split.html" class="external-link">initial_split</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">iris_split</span></span>
 <span></span>
@@ -167,7 +168,7 @@ parameters and requires some postprocessing to get a traind
 <code>xgb.Booster</code> object like <code>tidy_xgboost</code>. Tuning
 iterations set to <code>1</code> just so the vignette builds quickly.
 Default is <code>n_iter = 100</code></p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris_train</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/auto_tune_xgboost.html">auto_tune_xgboost</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="va">petal_form</span>, n_iter <span class="op">=</span> <span class="fl">7L</span>, tune_method <span class="op">=</span> <span class="st">"bayes"</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">xgb_tuned_bayes</span></span>
 <span></span>
@@ -186,7 +187,7 @@ internally using <code><a href="https://dials.tidymodels.org/reference/grid_max_
 <code>n_iter</code> parameter is passed to <code>grid_size</code>.
 Parallelization is highly effective in this method, so the default
 argument <code>parallel = TRUE</code> is recommended.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris_train</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/auto_tune_xgboost.html">auto_tune_xgboost</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="va">petal_form</span>, n_iter <span class="op">=</span> <span class="fl">5L</span>,trees <span class="op">=</span> <span class="fl">20L</span>, loss_reduction <span class="op">=</span> <span class="fl">2</span>, mtry <span class="op">=</span> <span class="fl">.5</span>, tune_method <span class="op">=</span> <span class="st">"grid"</span>, parallel <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">xgb_tuned_grid</span></span>
 <span></span>
@@ -200,17 +201,9 @@ argument <code>parallel = TRUE</code> is recommended.</p>
 <div class="section level3">
 <h3 id="xgboost-with-default-parameters">xgboost with default parameters<a class="anchor" aria-label="anchor" href="#xgboost-with-default-parameters"></a>
 </h3>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris_train</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/tidy_xgboost.html">tidy_xgboost</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="va">petal_form</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">xgb_base</span></span>
-<span><span class="co">#&gt; Warning: `pull_workflow_fit()` was deprecated in workflows 0.2.3.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use `extract_fit_parsnip()` instead.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">autostats</span> package.</span></span>
-<span><span class="co">#&gt;   Please report the issue at</span></span>
-<span><span class="co">#&gt;   <span style="color: #0000BB; font-style: italic;">&lt;https://github.com/Harrison4192/autostats/issues&gt;</span>.</span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span>
 <span><span class="co">#&gt; accuracy tested on a validation set</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 2</span></span></span>
 <span><span class="co">#&gt;   .metric .estimate</span></span>
@@ -223,7 +216,7 @@ argument <code>parallel = TRUE</code> is recommended.</p>
 <div class="section level3">
 <h3 id="xgboost-with-hand-picked-parameters">xgboost with hand-picked parameters<a class="anchor" aria-label="anchor" href="#xgboost-with-hand-picked-parameters"></a>
 </h3>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris_train</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/tidy_xgboost.html">tidy_xgboost</a></span><span class="op">(</span><span class="va">petal_form</span>, </span>
 <span>               trees <span class="op">=</span> <span class="fl">250L</span>, </span>
@@ -250,16 +243,18 @@ argument <code>parallel = TRUE</code> is recommended.</p>
 <p>Predictions are iteratively added to the validation data frame. The
 name of the column is automatically created using the models name and
 the prediction target.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">xgb_base</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/tidy_predict.html">tidy_predict</a></span><span class="op">(</span>newdata <span class="op">=</span> <span class="va">iris_val</span>, form <span class="op">=</span> <span class="va">petal_form</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">iris_val2</span></span>
-<span><span class="co">#&gt; created the following column: Petal.Length_preds_xgb_base</span></span>
-<span></span>
+<span><span class="co">#&gt; created the following column: Petal.Length_preds_xgb_base</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="va">xgb_opt</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/tidy_predict.html">tidy_predict</a></span><span class="op">(</span>newdata <span class="op">=</span> <span class="va">iris_val2</span>, <span class="va">petal_form</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">iris_val3</span></span>
-<span><span class="co">#&gt; created the following column: Petal.Length_preds_xgb_opt</span></span>
-<span></span>
+<span><span class="co">#&gt; created the following column: Petal.Length_preds_xgb_opt</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span></span>
 <span><span class="va">iris_val3</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -275,7 +270,7 @@ the prediction target.</p>
 automated with <code>eval_preds</code>. This function is specifically
 designed to evaluate predicted columns with names given from
 <code>tidy_predict</code>.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris_val3</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/eval_preds.html">eval_preds</a></span><span class="op">(</span><span class="op">)</span> </span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
@@ -295,10 +290,10 @@ designed to evaluate predicted columns with names given from
 <p><code>tidy_shap</code> has similar syntax to
 <code>tidy_predict</code> and can be used to get shapley values from
 <code>xgboost</code> models on a validation set.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">xgb_base</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/tidy_shap.html">tidy_shap</a></span><span class="op">(</span>newdata <span class="op">=</span> <span class="va">iris_val</span>, form <span class="op">=</span> <span class="va">petal_form</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">shap_list</span></span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">shap_list</span><span class="op">$</span><span class="va">shap_tbl</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 38 × 5</span></span></span>
 <span><span class="co">#&gt;    Sepal.Length Sepal.Width Petal.Width species_versicolor species_virginica</span></span>
@@ -314,7 +309,7 @@ designed to evaluate predicted columns with names given from
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>       -<span style="color: #BB0000;">0.418</span>     -<span style="color: #BB0000;">0.031</span><span style="color: #BB0000; text-decoration: underline;">6</span>       -<span style="color: #BB0000;">1.57</span>             0.012<span style="text-decoration: underline;">1</span>            -<span style="color: #BB0000;">0.122</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>       -<span style="color: #BB0000;">0.409</span>      0.143        -<span style="color: #BB0000;">1.51</span>             0.012<span style="text-decoration: underline;">1</span>            -<span style="color: #BB0000;">0.122</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 28 more rows</span></span></span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">shap_list</span><span class="op">$</span><span class="va">shap_summary</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 5</span></span></span>
 <span><span class="co">#&gt;   name                  cor     var   sum sum_abs</span></span>
@@ -324,10 +319,10 @@ designed to evaluate predicted columns with names given from
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> species_virginica   0.999 0.027<span style="text-decoration: underline;">4</span>  1.08     6.05</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> species_versicolor -<span style="color: #BB0000;">0.796</span> 0.004<span style="text-decoration: underline;">77</span> 1.42     2.49</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Sepal.Width        -<span style="color: #BB0000;">0.825</span> 0.003<span style="text-decoration: underline;">32</span> 0.402    1.49</span></span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">shap_list</span><span class="op">$</span><span class="va">swarmplot</span></span></code></pre></div>
 <p><img src="tidyXgboost_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">shap_list</span><span class="op">$</span><span class="va">scatterplots</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="understand-xgboost-with-other-functions-from-the-original-package">understand xgboost with other functions from the original
@@ -335,17 +330,17 @@ package<a class="anchor" aria-label="anchor" href="#understand-xgboost-with-othe
 </h3>
 <p>Overfittingin the base config may be related to growing deep
 trees.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> <span class="va">xgb_base</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">xgboost</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/xgboost/man/xgb.plot.deepness.html" class="external-link">xgb.plot.deepness</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="tidyXgboost_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> <span class="va">xgb_base</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">xgboost</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/xgboost/man/xgb.plot.deepness.html" class="external-link">xgb.plot.deepness</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="tidyXgboost_files/figure-html/unnamed-chunk-16-1.png" width="700">
 Plot the first tree in the model. The small in terminal leaves suggests
 overfitting in the base model.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">xgb_base</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">xgboost</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/xgboost/man/xgb.plot.tree.html" class="external-link">xgb.plot.tree</a></span><span class="op">(</span>model <span class="op">=</span> <span class="va">.</span>, trees <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -369,7 +364,7 @@ overfitting in the base model.</p>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
 </div>
 
       </footer>
