@@ -63,7 +63,6 @@
 #'
 # # binary classification
 # # returns probability and labels
-# if(FALSE){
 #
 #
 # iris %>%
@@ -128,7 +127,7 @@
 # # the model name must be supplied as well. Then roc metrics can be calculated
 # #iris_preds1 %>%
 # #  eval_preds( yardstick::average_precision, softprob_model = "xgb2_prob"
-# #  )}
+# #  )
 #'
 #'
 tidy_xgboost <- function(.data, formula, ...,
@@ -241,10 +240,8 @@ if(isTRUE(scale_pos_weight)){
     parsnip::fit(.data) -> model_fit
 
   model_fit %>%
-    workflows::pull_workflow_fit() %>%
+    workflows::extract_fit_parsnip() %>%
     purrr::pluck("fit") -> xgbooster
-
-
 
   if (utils::packageVersion("parsnip") > "1.0.0") {
     xgbooster$call$objective -> xgb_obj
@@ -263,7 +260,7 @@ if(isTRUE(scale_pos_weight)){
       parsnip::fit(assessment_set) -> val_fit
 
     val_fit %>%
-      workflows::pull_workflow_fit() %>%
+      workflows::extract_fit_parsnip() %>%
       purrr::pluck("fit") -> val_booster
 
 suppressMessages({
@@ -288,9 +285,10 @@ else if(xgb_obj == "binary:logistic"){
         dplyr::select(.metric, .estimate) %>%
         dplyr::filter(.metric == "roc_auc") -> val_acc
 
+
       val_frame %>%
         yardstick::conf_mat(truth = !!target
-                            , estimate = -1) -> val_conf
+                            , estimate = dplyr::last_col()) -> val_conf
 
       val_frame %>%
         dplyr::count(!!target, sort = T) %>%
@@ -301,9 +299,8 @@ else if(xgb_obj == "binary:logistic"){
         dplyr::slice(1) %>%
         dplyr::pull(1) -> majority_class
 
-
       val_frame %>%
-        yardstick::conf_mat(truth = !!target, estimate = -1) -> val_conf_mat
+        yardstick::conf_mat(truth = !!target, estimate = dplyr::last_col()) -> val_conf_mat
 
       val_conf_mat %>%
         summary %>%
@@ -333,7 +330,7 @@ else if(xgb_obj == "binary:logistic"){
       val_conf_tbl %>%
         dplyr::bind_rows(baseline_acc, val_acc)-> val_acc
 }
-}
+
 
 else if(xgb_obj == "multi:softmax" & validate){
 
@@ -341,14 +338,13 @@ else if(xgb_obj == "multi:softmax" & validate){
 
 
   val_frame %>%
-    yardstick::conf_mat(truth = !!target, estimate = -1) -> val_conf_mat
+    yardstick::conf_mat(truth = !!target, estimate = dplyr::last_col()) -> val_conf_mat
 
   val_conf_mat %>%
     summary %>%
     dplyr::select(-.estimator) -> val_acc
 
   print(ggplot2::autoplot(val_conf_mat, type = "heatmap"))
-
 
 }
 
@@ -358,6 +354,7 @@ else if(xgb_obj == "multi:softmax" & validate){
     if(validate){
 
     print(val_acc)}
+  }
 
 # xgbooster1 <- xgbooster
 # xgbooster1$feature_names <- f_formula_to_charvec(formula)

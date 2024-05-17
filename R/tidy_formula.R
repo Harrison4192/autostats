@@ -6,7 +6,7 @@
 #' @param lhs lhs atomic chr vec
 #' @param rhs rhs chr vec
 #'
-#' @return formula
+#' @returns formula
 #' @export
 #'
 #' @examples

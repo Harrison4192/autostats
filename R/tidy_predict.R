@@ -10,6 +10,26 @@
 #'
 #' @return dataframe
 #' @export
+#'
+#' @examples
+#' iris %>%
+#'  framecleaner::create_dummies(Species) -> iris_dummy
+#'
+#'iris_dummy %>%
+#'  tidy_formula(target= Petal.Length) -> petal_form
+#'
+#'iris_dummy %>%
+#'  tidy_xgboost(
+#'    petal_form,
+#'    trees = 20,
+#'    mtry = .5
+#'  )  -> xg1
+#'
+#'
+#'xg1 %>%
+#'  tidy_predict(newdata = iris_dummy, form = petal_form) %>%
+#'  head()
+#'
 tidy_predict <- function(model, newdata, form = NULL, olddata = NULL, bind_preds = FALSE, ...){
 
 

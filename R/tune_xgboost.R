@@ -20,7 +20,7 @@
 #' @export
 #' @examples
 #'
-#' if(FALSE){
+#'
 #'
 #'
 #'iris %>%
@@ -40,17 +40,17 @@
 #'
 #'iris_train %>%
 #'  auto_tune_xgboost(formula = petal_form, n_iter = 10,
-#'  parallel = TRUE, method = "bayes") -> xgb_tuned
+#'  parallel = FALSE, tune_method = "grid") -> xgb_tuned
 #'
 #'xgb_tuned %>%
-#'  fit(iris_train) %>%
+#'  parsnip::fit(iris_train) %>%
 #'  parsnip::extract_fit_engine() -> xgb_tuned_fit
 #'
 #'xgb_tuned_fit %>%
 #'  tidy_predict(newdata = iris_val, form = petal_form) -> iris_val1
 #'
 #'
-#' }
+#'
 auto_tune_xgboost <- function(.data,
                               formula,
                               tune_method = c("grid", "bayes"),
@@ -130,7 +130,7 @@ xgboost_spec1 <-
                      data = .data))
 
 
-params <- tune::parameters(xgboost_spec1) %>%
+params <- hardhat::extract_parameter_set_dials(xgboost_spec1) %>%
   dials::finalize(.data)
 
 

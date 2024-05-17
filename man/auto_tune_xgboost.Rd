@@ -94,7 +94,7 @@ Default is to tune all 7 xgboost parameters. Individual parameter values can be 
 }
 \examples{
 
-if(FALSE){
+
 
 
 iris \%>\%
@@ -114,15 +114,15 @@ iris_split \%>\%
 
 iris_train \%>\%
  auto_tune_xgboost(formula = petal_form, n_iter = 10,
- parallel = TRUE, method = "bayes") -> xgb_tuned
+ parallel = FALSE, tune_method = "grid") -> xgb_tuned
 
 xgb_tuned \%>\%
- fit(iris_train) \%>\%
+ parsnip::fit(iris_train) \%>\%
  parsnip::extract_fit_engine() -> xgb_tuned_fit
 
 xgb_tuned_fit \%>\%
  tidy_predict(newdata = iris_val, form = petal_form) -> iris_val1
 
 
-}
+
 }

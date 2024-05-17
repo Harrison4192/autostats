@@ -7,5 +7,5 @@
 #' @keywords internal
 #' @export
 #' @importFrom magrittr %>%
-#' @usage lhs \%>\% rhs
+#' @returns lhs \%>\% rhs
 NULL
