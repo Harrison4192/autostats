@@ -42,7 +42,8 @@ Imports:
     party,
     data.table,
     nnet,
-    recosystem
+    recosystem,
+    Ckmeans.1d.dp
 RoxygenNote: 7.3.1
 URL: https://harrison4192.github.io/autostats/, https://github.com/Harrison4192/autostats
 BugReports: https://github.com/Harrison4192/autostats/issues
