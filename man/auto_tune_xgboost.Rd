@@ -114,7 +114,7 @@ iris_split \%>\%
 
 iris_train \%>\%
  auto_tune_xgboost(formula = petal_form, n_iter = 10,
- parallel = FALSE, tune_method = "grid") -> xgb_tuned
+ parallel = FALSE, tune_method = "grid", mtry = .5) -> xgb_tuned
 
 xgb_tuned \%>\%
  parsnip::fit(iris_train) \%>\%

@@ -42,9 +42,7 @@ Imports:
     party,
     data.table,
     nnet,
-    recosystem,
-    Ckmeans.1d.dp,
-    broom.mixed
+    recosystem
 RoxygenNote: 7.3.1
 URL: https://harrison4192.github.io/autostats/, https://github.com/Harrison4192/autostats
 BugReports: https://github.com/Harrison4192/autostats/issues
@@ -61,9 +59,10 @@ Suggests:
     ggstance,
     Matrix,
     BBmisc,
-    XICOR,
     readr,
     lubridate,
-    ranger
+    ranger,
+    XICOR,
+    broom.mixed
 VignetteBuilder: knitr
 License: MIT + file LICENSE

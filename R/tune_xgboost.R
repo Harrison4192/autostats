@@ -40,7 +40,7 @@
 #'
 #'iris_train %>%
 #'  auto_tune_xgboost(formula = petal_form, n_iter = 10,
-#'  parallel = FALSE, tune_method = "grid") -> xgb_tuned
+#'  parallel = FALSE, tune_method = "grid", mtry = .5) -> xgb_tuned
 #'
 #'xgb_tuned %>%
 #'  parsnip::fit(iris_train) %>%
@@ -98,7 +98,6 @@ auto_tune_xgboost <- function(.data,
   } else{
     mode_set <- "classification"
   }
-
 
 
 xgboost_spec1 <-
@@ -203,7 +202,7 @@ parallel::stopCluster(cl)
 
 xgboost_wkflow_tuned <- tune::finalize_workflow(
   xgboost_spec1,
-  tune::select_best(xgboost_tune, select_metric)
+  tune::select_best(xgboost_tune, metric = select_metric)
 )
 
 if(save_output){
