@@ -159,7 +159,7 @@ devtools::preview_site()
 devtools::load_all()
 devtools::build_vignettes(clean = TRUE, quiet = FALSE)
 devtools::spell_check()
-devtools::release(check = T)
+devtools::release(check = F)
 devtools::run_examples()
 devtools::build_vignettes()
 
