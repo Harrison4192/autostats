@@ -38,6 +38,7 @@
 #'iris_split %>%
 #'  rsample::assessment() -> iris_val
 #'
+#'\dontrun{
 #'iris_train %>%
 #'  auto_tune_xgboost(formula = petal_form, n_iter = 10,
 #'  parallel = FALSE, tune_method = "grid", mtry = .5) -> xgb_tuned
@@ -48,7 +49,7 @@
 #'
 #'xgb_tuned_fit %>%
 #'  tidy_predict(newdata = iris_val, form = petal_form) -> iris_val1
-#'
+#'}
 #'
 #'
 auto_tune_xgboost <- function(.data,
