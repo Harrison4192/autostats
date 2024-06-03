@@ -44,7 +44,8 @@ Imports:
     nnet,
     recosystem,
     Ckmeans.1d.dp,
-    broom.mixed
+    broom.mixed,
+    igraph
 RoxygenNote: 7.3.1
 URL: https://harrison4192.github.io/autostats/, https://github.com/Harrison4192/autostats
 BugReports: https://github.com/Harrison4192/autostats/issues
@@ -54,7 +55,6 @@ Suggests:
     forcats,
     parallel,
     doParallel,
-    igraph,
     hardhat,
     flextable,
     glmnet,
