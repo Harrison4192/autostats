@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
 
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![CRAN status](https://www.r-pkg.org/badges/version/autostats)](https://CRAN.R-project.org/package=autostats)
-[![R-CMD-check](https://github.com/Harrison4192/autostats/workflows/R-CMD-check/badge.svg)](https://github.com/Harrison4192/autostats/actions)
+[![R-CMD-check](https://github.com/Harrison4192/autostats/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Harrison4192/autostats/actions)
 <!-- badges: end -->
 
 The goal of autostats is to create a simple tidy interface for generating exploratory statistics. 
