@@ -10,7 +10,7 @@ for classification or regression. Returns the xgboost model."><!-- mathjax --><s
 
   gtag('config', 'G-KQ5VTRKQF1');
 </script></head><body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-reference-topic">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -32,7 +32,7 @@ for classification or regression. Returns the xgboost model."><!-- mathjax --><s
       <ul class="nav navbar-nav"><li>
   <a href="../index.html">
     <span class="fas fa-home fa-lg"></span>
-     
+
   </a>
 </li>
 <li>
@@ -44,7 +44,7 @@ for classification or regression. Returns the xgboost model."><!-- mathjax --><s
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
@@ -57,7 +57,7 @@ for classification or regression. Returns the xgboost model."><!-- mathjax --><s
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/Harrison4192/autostats" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
 <li>
@@ -67,13 +67,13 @@ for classification or regression. Returns the xgboost model."><!-- mathjax --><s
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>tidy xgboost</h1>
-    <small class="dont-index">Source: <a href="https://github.com/Harrison4192/autostats/blob/HEAD/R/tidy_xgboost.R" class="external-link"><code>R/tidy_xgboost.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/Harrison4192/autostats/blob/main/R/tidy_xgboost.R" class="external-link"><code>R/tidy_xgboost.R</code></a></small>
     <div class="hidden name"><code>tidy_xgboost.Rd</code></div>
     </div>
 
@@ -110,95 +110,95 @@ for classification or regression. Returns the xgboost model.</p>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>.data</dt>
+
+
+<dl><dt id="arg--data">.data<a class="anchor" aria-label="anchor" href="#arg--data"></a></dt>
 <dd><p>dataframe</p></dd>
 
 
-<dt>formula</dt>
+<dt id="arg-formula">formula<a class="anchor" aria-label="anchor" href="#arg-formula"></a></dt>
 <dd><p>formula</p></dd>
 
 
-<dt>...</dt>
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>additional parameters to be passed to  <code><a href="https://parsnip.tidymodels.org/reference/set_engine.html" class="external-link">set_engine</a></code></p></dd>
 
 
-<dt>mtry</dt>
+<dt id="arg-mtry">mtry<a class="anchor" aria-label="anchor" href="#arg-mtry"></a></dt>
 <dd><p># Randomly Selected Predictors; defaults to .75; (xgboost: colsample_bynode) (type: numeric, range 0 - 1) (or type: integer if <code>count = TRUE</code>)</p></dd>
 
 
-<dt>trees</dt>
+<dt id="arg-trees">trees<a class="anchor" aria-label="anchor" href="#arg-trees"></a></dt>
 <dd><p># Trees (xgboost: nrounds) (type: integer, default: 500L)</p></dd>
 
 
-<dt>min_n</dt>
+<dt id="arg-min-n">min_n<a class="anchor" aria-label="anchor" href="#arg-min-n"></a></dt>
 <dd><p>Minimal Node Size (xgboost: min_child_weight) (type: integer, default: 2L); [typical range: 2-10] Keep small value for highly imbalanced class data where leaf nodes can have smaller size groups. Otherwise increase size to prevent overfitting outliers.</p></dd>
 
 
-<dt>tree_depth</dt>
+<dt id="arg-tree-depth">tree_depth<a class="anchor" aria-label="anchor" href="#arg-tree-depth"></a></dt>
 <dd><p>Tree Depth (xgboost: max_depth) (type: integer, default: 7L); Typical values: 3-10</p></dd>
 
 
-<dt>learn_rate</dt>
+<dt id="arg-learn-rate">learn_rate<a class="anchor" aria-label="anchor" href="#arg-learn-rate"></a></dt>
 <dd><p>Learning Rate (xgboost: eta) (type: double, default: 0.05); Typical values: 0.01-0.3</p></dd>
 
 
-<dt>loss_reduction</dt>
+<dt id="arg-loss-reduction">loss_reduction<a class="anchor" aria-label="anchor" href="#arg-loss-reduction"></a></dt>
 <dd><p>Minimum Loss Reduction (xgboost: gamma) (type: double, default: 1.0);  range: 0 to Inf; typical value: 0 - 20 assuming low-mid tree depth</p></dd>
 
 
-<dt>sample_size</dt>
+<dt id="arg-sample-size">sample_size<a class="anchor" aria-label="anchor" href="#arg-sample-size"></a></dt>
 <dd><p>Proportion Observations Sampled (xgboost: subsample) (type: double, default: .75); Typical values: 0.5 - 1</p></dd>
 
 
-<dt>stop_iter</dt>
+<dt id="arg-stop-iter">stop_iter<a class="anchor" aria-label="anchor" href="#arg-stop-iter"></a></dt>
 <dd><p># Iterations Before Stopping (xgboost: early_stop) (type: integer, default: 15L) only enabled if validation set is provided</p></dd>
 
 
-<dt>counts</dt>
+<dt id="arg-counts">counts<a class="anchor" aria-label="anchor" href="#arg-counts"></a></dt>
 <dd><p>if <code>TRUE</code> specify <code>mtry</code> as an integer number of cols. Default <code>FALSE</code> to specify <code>mtry</code> as fraction of cols from 0 to 1</p></dd>
 
 
-<dt>tree_method</dt>
+<dt id="arg-tree-method">tree_method<a class="anchor" aria-label="anchor" href="#arg-tree-method"></a></dt>
 <dd><p>xgboost tree_method. default is <code>auto</code>. reference: <a href="https://xgboost.readthedocs.io/en/stable/treemethod.html" class="external-link">tree method docs</a></p></dd>
 
 
-<dt>monotone_constraints</dt>
+<dt id="arg-monotone-constraints">monotone_constraints<a class="anchor" aria-label="anchor" href="#arg-monotone-constraints"></a></dt>
 <dd><p>an integer vector with length of the predictor cols, of <code>-1, 1, 0</code> corresponding to decreasing, increasing, and no constraint respectively for the index of the predictor col. reference: <a href="https://xgboost.readthedocs.io/en/stable/tutorials/monotonic.html" class="external-link">monotonicity docs</a>.</p></dd>
 
 
-<dt>num_parallel_tree</dt>
+<dt id="arg-num-parallel-tree">num_parallel_tree<a class="anchor" aria-label="anchor" href="#arg-num-parallel-tree"></a></dt>
 <dd><p>should be set to the size of the forest being trained. default 1L</p></dd>
 
 
-<dt>lambda</dt>
+<dt id="arg-lambda">lambda<a class="anchor" aria-label="anchor" href="#arg-lambda"></a></dt>
 <dd><p>[default=.5] L2 regularization term on weights. Increasing this value will make model more conservative.</p></dd>
 
 
-<dt>alpha</dt>
+<dt id="arg-alpha">alpha<a class="anchor" aria-label="anchor" href="#arg-alpha"></a></dt>
 <dd><p>[default=.1] L1 regularization term on weights. Increasing this value will make model more conservative.</p></dd>
 
 
-<dt>scale_pos_weight</dt>
+<dt id="arg-scale-pos-weight">scale_pos_weight<a class="anchor" aria-label="anchor" href="#arg-scale-pos-weight"></a></dt>
 <dd><p>[default=1] Control the balance of positive and negative weights, useful for unbalanced classes. if set to TRUE, calculates sum(negative instances) / sum(positive instances). If first level is majority class, use values &lt; 1, otherwise normally values &gt;1 are used to balance the class distribution.</p></dd>
 
 
-<dt>verbosity</dt>
+<dt id="arg-verbosity">verbosity<a class="anchor" aria-label="anchor" href="#arg-verbosity"></a></dt>
 <dd><p>[default=1] Verbosity of printing messages. Valid values are 0 (silent), 1 (warning), 2 (info), 3 (debug).</p></dd>
 
 
-<dt>validate</dt>
+<dt id="arg-validate">validate<a class="anchor" aria-label="anchor" href="#arg-validate"></a></dt>
 <dd><p>default TRUE. report accuracy metrics on a validation set.</p></dd>
 
 
-<dt>booster</dt>
+<dt id="arg-booster">booster<a class="anchor" aria-label="anchor" href="#arg-booster"></a></dt>
 <dd><p>defaults to 'gbtree' for tree boosting but can be set to 'gblinear'</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    
-
-<p>xgb.Booster model</p>
+    <p>xgb.Booster model</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -232,9 +232,9 @@ A higher probability will predict the first level.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .metric .estimate</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> ccc         0.648</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> rmse        1.41 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> rsq         0.950</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> ccc         0.625</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> rmse        1.42 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> rsq         0.946</span>
 <span class="r-plt img"><img src="tidy_xgboost-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
@@ -247,9 +247,9 @@ A higher probability will predict the first level.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .metric .estimator .estimate model target      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> ccc     standard       0.658 xg1   Petal.Length</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> rmse    standard       1.40  xg1   Petal.Length</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> rsq     standard       0.968 xg1   Petal.Length</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> ccc     standard       0.661 xg1   Petal.Length</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> rmse    standard       1.39  xg1   Petal.Length</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> rsq     standard       0.972 xg1   Petal.Length</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
@@ -268,15 +268,15 @@ A higher probability will predict the first level.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer></div>
 
-  
 
 
-  
+
+
 
   </body></html>
 
