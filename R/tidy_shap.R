@@ -6,6 +6,7 @@
 #'
 #' \describe{
 #' \item{\emph{shap_tbl}}{: table of shaply values}
+#' \item{\emph{shaps_long}}{: long table of feature and shaply values}
 #' \item{\emph{shap_summary}}{: table summarizing shapley values. Includes correlation between shaps and feature values.}
 #' \item{\emph{swarmplot}}{: one plot showing the relation between shaps and features}
 #' \item{\emph{scatterplots}}{: returns the top 9 most important features as determined by sum of absolute shapley values, as a facetted scatterplot of feature vs shap}
@@ -63,6 +64,8 @@ tidy_shap <- function(model, newdata, form = NULL, ..., top_n = 12, aggregate = 
       dplyr::arrange(name, TYPE) %>%
       tidyr::pivot_wider(names_from = TYPE, values_from = value) %>%
       tidyr::unnest(c(FEATURE, SHAP)) ->  gplottbl
+
+
 
 
 if(!is.null(aggregate)){
@@ -158,6 +161,7 @@ if(!is.null(aggregate)){
 
  list(
    shap_tbl = preds1,
+   shaps_long = gplottbl,
    shap_summary = shaps_sum,
    swarmplot = swarm_plot,
    scatterplots = scatterplots,
