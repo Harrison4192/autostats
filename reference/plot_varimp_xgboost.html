@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">autostats</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.2</span>
       </span>
     </div>
 
@@ -81,15 +81,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_varimp_xgboost</span><span class="op">(</span></span>
-<span>  <span class="va">xgb</span>,</span>
-<span>  top_n <span class="op">=</span> <span class="fl">10L</span>,</span>
-<span>  aggregate <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  as_table <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  formula <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  measure <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Gain"</span>, <span class="st">"Cover"</span>, <span class="st">"Frequency"</span><span class="op">)</span>,</span>
-<span>  <span class="va">...</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_varimp_xgboost</span><span class="op">(</span><span class="va">xgb</span>, top_n <span class="op">=</span> <span class="fl">10L</span>, as_table <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -104,24 +96,12 @@
 <dd><p>top n important variables</p></dd>
 
 
-<dt id="arg-aggregate">aggregate<a class="anchor" aria-label="anchor" href="#arg-aggregate"></a></dt>
-<dd><p>a character vector. Predictors containing the string will be aggregated, and renamed to that string.</p></dd>
-
-
 <dt id="arg-as-table">as_table<a class="anchor" aria-label="anchor" href="#arg-as-table"></a></dt>
 <dd><p>logical, default FALSE. If TRUE returns importances in a data frame</p></dd>
 
 
-<dt id="arg-formula">formula<a class="anchor" aria-label="anchor" href="#arg-formula"></a></dt>
-<dd><p>formula for the model. Use to provide original names if xgboost is scrambling the names internally</p></dd>
-
-
-<dt id="arg-measure">measure<a class="anchor" aria-label="anchor" href="#arg-measure"></a></dt>
-<dd><p>choose between Gain, Cover, or Frequency for xgboost importance measure</p></dd>
-
-
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>additional arguments for <code><a href="https://rdrr.io/pkg/xgboost/man/xgb.plot.importance.html" class="external-link">xgb.ggplot.importance</a></code></p></dd>
+<dd><p>additional porams for xgb.ggplot.importance</p></dd>
 
 </dl></div>
     <div id="value">
@@ -149,7 +129,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
       </footer></div>

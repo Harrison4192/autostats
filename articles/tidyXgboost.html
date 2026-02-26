@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">autostats</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.2</span>
       </span>
     </div>
 
@@ -139,7 +139,7 @@ throughout the modeling and prediction process.</p>
 <span> <span class="va">petal_form</span></span>
 <span><span class="co">#&gt; Petal.Length ~ Sepal.Length + Sepal.Width + Petal.Width + species_versicolor + </span></span>
 <span><span class="co">#&gt;     species_virginica</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x55b9b76021e8&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; &lt;environment: 0x55b528253ea0&gt;</span></span></code></pre></div>
 <p>Use the rsample package to split into train and validation sets.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris1</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -176,155 +176,80 @@ argument <code>parallel = TRUE</code> is recommended.</p>
 <code class="sourceCode R"><span><span class="va">iris_train</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/auto_tune_xgboost.html">auto_tune_xgboost</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="va">petal_form</span>, n_iter <span class="op">=</span> <span class="fl">5L</span>,trees <span class="op">=</span> <span class="fl">20L</span>, loss_reduction <span class="op">=</span> <span class="fl">2</span>, mtry <span class="op">=</span> <span class="fl">3</span>, tune_method <span class="op">=</span> <span class="st">"grid"</span>, parallel <span class="op">=</span> <span class="cn">FALSE</span>, counts <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">xgb_tuned_grid</span></span>
 <span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold1: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold1: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold1: preprocessor 1/1, model 1/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold1: preprocessor 1/1, model 1/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold1: preprocessor 1/1, model 1/5 (extracts)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold1: preprocessor 1/1, model 1/5 (predictions)</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold1: preprocessor 1/1, model 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold1: preprocessor 1/1, model 1/1 (predictions)</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold2: preprocessor 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold2: preprocessor 1/1, model 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold2: preprocessor 1/1, model 1/1 (predictions)</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold3: preprocessor 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold3: preprocessor 1/1, model 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold3: preprocessor 1/1, model 1/1 (predictions)</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold4: preprocessor 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold4: preprocessor 1/1, model 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold4: preprocessor 1/1, model 1/1 (predictions)</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold5: preprocessor 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold5: preprocessor 1/1, model 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold5: preprocessor 1/1, model 1/1 (predictions)</span></span></span>
 <span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold1: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold1: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold1: preprocessor 1/1, model 2/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold1: preprocessor 1/1, model 2/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold1: preprocessor 1/1, model 2/5 (extracts)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold1: preprocessor 1/1, model 2/5 (predictions)</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold1: preprocessor 1/1, model 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold1: preprocessor 1/1, model 1/1 (predictions)</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold2: preprocessor 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold2: preprocessor 1/1, model 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold2: preprocessor 1/1, model 1/1 (predictions)</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold3: preprocessor 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold3: preprocessor 1/1, model 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold3: preprocessor 1/1, model 1/1 (predictions)</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold4: preprocessor 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold4: preprocessor 1/1, model 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold4: preprocessor 1/1, model 1/1 (predictions)</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold5: preprocessor 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold5: preprocessor 1/1, model 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold5: preprocessor 1/1, model 1/1 (predictions)</span></span></span>
 <span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold1: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold1: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold1: preprocessor 1/1, model 3/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold1: preprocessor 1/1, model 3/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold1: preprocessor 1/1, model 3/5 (extracts)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold1: preprocessor 1/1, model 3/5 (predictions)</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold1: preprocessor 1/1, model 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold1: preprocessor 1/1, model 1/1 (predictions)</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold2: preprocessor 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold2: preprocessor 1/1, model 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold2: preprocessor 1/1, model 1/1 (predictions)</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold3: preprocessor 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold3: preprocessor 1/1, model 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold3: preprocessor 1/1, model 1/1 (predictions)</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold4: preprocessor 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold4: preprocessor 1/1, model 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold4: preprocessor 1/1, model 1/1 (predictions)</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold5: preprocessor 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold5: preprocessor 1/1, model 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold5: preprocessor 1/1, model 1/1 (predictions)</span></span></span>
 <span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold1: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold1: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold1: preprocessor 1/1, model 4/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold1: preprocessor 1/1, model 4/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold1: preprocessor 1/1, model 4/5 (extracts)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold1: preprocessor 1/1, model 4/5 (predictions)</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold1: preprocessor 1/1, model 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold1: preprocessor 1/1, model 1/1 (predictions)</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold2: preprocessor 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold2: preprocessor 1/1, model 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold2: preprocessor 1/1, model 1/1 (predictions)</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold3: preprocessor 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold3: preprocessor 1/1, model 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold3: preprocessor 1/1, model 1/1 (predictions)</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold4: preprocessor 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold4: preprocessor 1/1, model 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold4: preprocessor 1/1, model 1/1 (predictions)</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold5: preprocessor 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold5: preprocessor 1/1, model 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold5: preprocessor 1/1, model 1/1 (predictions)</span></span></span>
 <span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold1: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold1: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold1: preprocessor 1/1, model 5/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold1: preprocessor 1/1, model 5/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold1: preprocessor 1/1, model 5/5 (extracts)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold1: preprocessor 1/1, model 5/5 (predictions)</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold1: preprocessor 1/1, model 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold1: preprocessor 1/1, model 1/1 (predictions)</span></span></span>
 <span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold2: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold2: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold2: preprocessor 1/1, model 1/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold2: preprocessor 1/1, model 1/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold2: preprocessor 1/1, model 1/5 (extracts)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold2: preprocessor 1/1, model 1/5 (predictions)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold2: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold2: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold2: preprocessor 1/1, model 2/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold2: preprocessor 1/1, model 2/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold2: preprocessor 1/1, model 2/5 (extracts)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold2: preprocessor 1/1, model 2/5 (predictions)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold2: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold2: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold2: preprocessor 1/1, model 3/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold2: preprocessor 1/1, model 3/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold2: preprocessor 1/1, model 3/5 (extracts)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold2: preprocessor 1/1, model 3/5 (predictions)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold2: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold2: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold2: preprocessor 1/1, model 4/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold2: preprocessor 1/1, model 4/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold2: preprocessor 1/1, model 4/5 (extracts)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold2: preprocessor 1/1, model 4/5 (predictions)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold2: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold2: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold2: preprocessor 1/1, model 5/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold2: preprocessor 1/1, model 5/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold2: preprocessor 1/1, model 5/5 (extracts)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold2: preprocessor 1/1, model 5/5 (predictions)</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold2: preprocessor 1/1, model 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold2: preprocessor 1/1, model 1/1 (predictions)</span></span></span>
 <span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold3: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold3: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold3: preprocessor 1/1, model 1/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold3: preprocessor 1/1, model 1/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold3: preprocessor 1/1, model 1/5 (extracts)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold3: preprocessor 1/1, model 1/5 (predictions)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold3: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold3: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold3: preprocessor 1/1, model 2/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold3: preprocessor 1/1, model 2/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold3: preprocessor 1/1, model 2/5 (extracts)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold3: preprocessor 1/1, model 2/5 (predictions)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold3: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold3: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold3: preprocessor 1/1, model 3/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold3: preprocessor 1/1, model 3/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold3: preprocessor 1/1, model 3/5 (extracts)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold3: preprocessor 1/1, model 3/5 (predictions)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold3: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold3: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold3: preprocessor 1/1, model 4/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold3: preprocessor 1/1, model 4/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold3: preprocessor 1/1, model 4/5 (extracts)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold3: preprocessor 1/1, model 4/5 (predictions)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold3: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold3: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold3: preprocessor 1/1, model 5/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold3: preprocessor 1/1, model 5/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold3: preprocessor 1/1, model 5/5 (extracts)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold3: preprocessor 1/1, model 5/5 (predictions)</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold3: preprocessor 1/1, model 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold3: preprocessor 1/1, model 1/1 (predictions)</span></span></span>
 <span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold4: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold4: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold4: preprocessor 1/1, model 1/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold4: preprocessor 1/1, model 1/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold4: preprocessor 1/1, model 1/5 (extracts)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold4: preprocessor 1/1, model 1/5 (predictions)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold4: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold4: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold4: preprocessor 1/1, model 2/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold4: preprocessor 1/1, model 2/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold4: preprocessor 1/1, model 2/5 (extracts)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold4: preprocessor 1/1, model 2/5 (predictions)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold4: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold4: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold4: preprocessor 1/1, model 3/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold4: preprocessor 1/1, model 3/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold4: preprocessor 1/1, model 3/5 (extracts)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold4: preprocessor 1/1, model 3/5 (predictions)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold4: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold4: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold4: preprocessor 1/1, model 4/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold4: preprocessor 1/1, model 4/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold4: preprocessor 1/1, model 4/5 (extracts)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold4: preprocessor 1/1, model 4/5 (predictions)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold4: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold4: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold4: preprocessor 1/1, model 5/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold4: preprocessor 1/1, model 5/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold4: preprocessor 1/1, model 5/5 (extracts)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold4: preprocessor 1/1, model 5/5 (predictions)</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold4: preprocessor 1/1, model 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold4: preprocessor 1/1, model 1/1 (predictions)</span></span></span>
 <span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold5: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold5: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold5: preprocessor 1/1, model 1/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold5: preprocessor 1/1, model 1/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold5: preprocessor 1/1, model 1/5 (extracts)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold5: preprocessor 1/1, model 1/5 (predictions)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold5: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold5: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold5: preprocessor 1/1, model 2/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold5: preprocessor 1/1, model 2/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold5: preprocessor 1/1, model 2/5 (extracts)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold5: preprocessor 1/1, model 2/5 (predictions)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold5: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold5: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold5: preprocessor 1/1, model 3/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold5: preprocessor 1/1, model 3/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold5: preprocessor 1/1, model 3/5 (extracts)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold5: preprocessor 1/1, model 3/5 (predictions)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold5: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold5: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold5: preprocessor 1/1, model 4/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold5: preprocessor 1/1, model 4/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold5: preprocessor 1/1, model 4/5 (extracts)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold5: preprocessor 1/1, model 4/5 (predictions)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold5: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold5: preprocessor 1/1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold5: preprocessor 1/1, model 5/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Fold5: preprocessor 1/1, model 5/5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold5: preprocessor 1/1, model 5/5 (extracts)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold5: preprocessor 1/1, model 5/5 (predictions)</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold5: preprocessor 1/1, model 1/1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">i</span> <span style="color: #000000;">Fold5: preprocessor 1/1, model 1/1 (predictions)</span></span></span>
 <span></span>
 <span><span class="va">xgb_tuned_grid</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">parsnip</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">iris_train</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
@@ -333,7 +258,7 @@ argument <code>parallel = TRUE</code> is recommended.</p>
 <span></span>
 <span><span class="va">xgb_tuned_fit_grid</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/visualize_model.html">visualize_model</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tidyXgboost_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
+<p><img src="tidyXgboost_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" alt="" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="xgboost-with-default-parameters">xgboost with default parameters<a class="anchor" aria-label="anchor" href="#xgboost-with-default-parameters"></a>
@@ -345,10 +270,10 @@ argument <code>parallel = TRUE</code> is recommended.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 2</span></span></span>
 <span><span class="co">#&gt;   .metric .estimate</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ccc         0.961</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> rmse        0.433</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> rsq         0.964</span></span></code></pre></div>
-<p><img src="tidyXgboost_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ccc         0.688</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> rmse        1.18 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> rsq         0.528</span></span></code></pre></div>
+<p><img src="tidyXgboost_files/figure-html/unnamed-chunk-5-1.png" class="r-plt" alt="" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="xgboost-with-hand-picked-parameters">xgboost with hand-picked parameters<a class="anchor" aria-label="anchor" href="#xgboost-with-hand-picked-parameters"></a>
@@ -365,10 +290,10 @@ argument <code>parallel = TRUE</code> is recommended.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 2</span></span></span>
 <span><span class="co">#&gt;   .metric .estimate</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ccc         0.967</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> rmse        0.418</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> rsq         0.942</span></span></code></pre></div>
-<p><img src="tidyXgboost_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ccc         0.960</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> rmse        0.450</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> rsq         0.954</span></span></code></pre></div>
+<p><img src="tidyXgboost_files/figure-html/unnamed-chunk-6-1.png" class="r-plt" alt="" width="700"></p>
 </div>
 </div>
 <div class="section level2">
@@ -411,12 +336,12 @@ designed to evaluate predicted columns with names given from
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
 <span><span class="co">#&gt;   .metric .estimator .estimate model    target      </span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ccc     standard       0.978 xgb_base Petal.Length</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> ccc     standard       0.980 xgb_opt  Petal.Length</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> rmse    standard       0.355 xgb_base Petal.Length</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> rmse    standard       0.341 xgb_opt  Petal.Length</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> rsq     standard       0.971 xgb_base Petal.Length</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> rsq     standard       0.973 xgb_opt  Petal.Length</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ccc     standard       0.979 xgb_base Petal.Length</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> ccc     standard       0.975 xgb_opt  Petal.Length</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> rmse    standard       0.350 xgb_base Petal.Length</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> rmse    standard       0.376 xgb_opt  Petal.Length</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> rsq     standard       0.972 xgb_base Petal.Length</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> rsq     standard       0.964 xgb_opt  Petal.Length</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -430,33 +355,35 @@ designed to evaluate predicted columns with names given from
 <span>  <span class="fu"><a href="../reference/tidy_shap.html">tidy_shap</a></span><span class="op">(</span>newdata <span class="op">=</span> <span class="va">iris_val</span>, form <span class="op">=</span> <span class="va">petal_form</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">shap_list</span></span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">shap_list</span><span class="op">$</span><span class="va">shap_tbl</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 38 × 5</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 38 × 6</span></span></span>
 <span><span class="co">#&gt;    Sepal.Length Sepal.Width Petal.Width species_versicolor species_virginica</span></span>
 <span><span class="co">#&gt;           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>       -<span style="color: #BB0000;">0.379</span>     -<span style="color: #BB0000;">0.034</span><span style="color: #BB0000; text-decoration: underline;">8</span>       -<span style="color: #BB0000;">1.57</span>            -<span style="color: #BB0000;">0.035</span><span style="color: #BB0000; text-decoration: underline;">9</span>           -<span style="color: #BB0000;">0.074</span><span style="color: #BB0000; text-decoration: underline;">4</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>       -<span style="color: #BB0000;">0.379</span>     -<span style="color: #BB0000;">0.034</span><span style="color: #BB0000; text-decoration: underline;">8</span>       -<span style="color: #BB0000;">1.57</span>            -<span style="color: #BB0000;">0.035</span><span style="color: #BB0000; text-decoration: underline;">9</span>           -<span style="color: #BB0000;">0.074</span><span style="color: #BB0000; text-decoration: underline;">4</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>       -<span style="color: #BB0000;">0.177</span>     -<span style="color: #BB0000;">0.028</span><span style="color: #BB0000; text-decoration: underline;">7</span>       -<span style="color: #BB0000;">1.68</span>            -<span style="color: #BB0000;">0.031</span><span style="color: #BB0000; text-decoration: underline;">5</span>           -<span style="color: #BB0000;">0.078</span><span style="color: #BB0000; text-decoration: underline;">8</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>       -<span style="color: #BB0000;">0.379</span>     -<span style="color: #BB0000;">0.034</span><span style="color: #BB0000; text-decoration: underline;">8</span>       -<span style="color: #BB0000;">1.57</span>            -<span style="color: #BB0000;">0.035</span><span style="color: #BB0000; text-decoration: underline;">9</span>           -<span style="color: #BB0000;">0.074</span><span style="color: #BB0000; text-decoration: underline;">4</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>       -<span style="color: #BB0000;">0.379</span>     -<span style="color: #BB0000;">0.034</span><span style="color: #BB0000; text-decoration: underline;">8</span>       -<span style="color: #BB0000;">1.57</span>            -<span style="color: #BB0000;">0.035</span><span style="color: #BB0000; text-decoration: underline;">9</span>           -<span style="color: #BB0000;">0.074</span><span style="color: #BB0000; text-decoration: underline;">4</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>       -<span style="color: #BB0000;">0.379</span>     -<span style="color: #BB0000;">0.034</span><span style="color: #BB0000; text-decoration: underline;">8</span>       -<span style="color: #BB0000;">1.57</span>            -<span style="color: #BB0000;">0.035</span><span style="color: #BB0000; text-decoration: underline;">9</span>           -<span style="color: #BB0000;">0.074</span><span style="color: #BB0000; text-decoration: underline;">4</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>       -<span style="color: #BB0000;">0.379</span>     -<span style="color: #BB0000;">0.034</span><span style="color: #BB0000; text-decoration: underline;">8</span>       -<span style="color: #BB0000;">1.53</span>            -<span style="color: #BB0000;">0.035</span><span style="color: #BB0000; text-decoration: underline;">9</span>           -<span style="color: #BB0000;">0.074</span><span style="color: #BB0000; text-decoration: underline;">4</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>       -<span style="color: #BB0000;">0.379</span>     -<span style="color: #BB0000;">0.034</span><span style="color: #BB0000; text-decoration: underline;">8</span>       -<span style="color: #BB0000;">1.57</span>            -<span style="color: #BB0000;">0.035</span><span style="color: #BB0000; text-decoration: underline;">9</span>           -<span style="color: #BB0000;">0.074</span><span style="color: #BB0000; text-decoration: underline;">4</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>       -<span style="color: #BB0000;">0.379</span>     -<span style="color: #BB0000;">0.034</span><span style="color: #BB0000; text-decoration: underline;">8</span>       -<span style="color: #BB0000;">1.57</span>            -<span style="color: #BB0000;">0.035</span><span style="color: #BB0000; text-decoration: underline;">9</span>           -<span style="color: #BB0000;">0.074</span><span style="color: #BB0000; text-decoration: underline;">4</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>       -<span style="color: #BB0000;">0.352</span>      0.197        -<span style="color: #BB0000;">1.50</span>            -<span style="color: #BB0000;">0.035</span><span style="color: #BB0000; text-decoration: underline;">9</span>           -<span style="color: #BB0000;">0.074</span><span style="color: #BB0000; text-decoration: underline;">4</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 28 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>      -<span style="color: #BB0000;">0.430</span>      -<span style="color: #BB0000;">0.028</span><span style="color: #BB0000; text-decoration: underline;">4</span>       -<span style="color: #BB0000;">1.61</span>             0.059<span style="text-decoration: underline;">7</span>           -<span style="color: #BB0000;">0.103</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>      -<span style="color: #BB0000;">0.430</span>      -<span style="color: #BB0000;">0.028</span><span style="color: #BB0000; text-decoration: underline;">4</span>       -<span style="color: #BB0000;">1.61</span>             0.059<span style="text-decoration: underline;">7</span>           -<span style="color: #BB0000;">0.103</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>       0.038<span style="text-decoration: underline;">5</span>     -<span style="color: #BB0000;">0.053</span><span style="color: #BB0000; text-decoration: underline;">1</span>       -<span style="color: #BB0000;">1.60</span>             0.058<span style="text-decoration: underline;">5</span>           -<span style="color: #BB0000;">0.122</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>      -<span style="color: #BB0000;">0.430</span>      -<span style="color: #BB0000;">0.028</span><span style="color: #BB0000; text-decoration: underline;">4</span>       -<span style="color: #BB0000;">1.61</span>             0.059<span style="text-decoration: underline;">7</span>           -<span style="color: #BB0000;">0.103</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>      -<span style="color: #BB0000;">0.426</span>      -<span style="color: #BB0000;">0.028</span><span style="color: #BB0000; text-decoration: underline;">4</span>       -<span style="color: #BB0000;">1.61</span>             0.057<span style="text-decoration: underline;">3</span>           -<span style="color: #BB0000;">0.103</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>      -<span style="color: #BB0000;">0.430</span>      -<span style="color: #BB0000;">0.028</span><span style="color: #BB0000; text-decoration: underline;">4</span>       -<span style="color: #BB0000;">1.61</span>             0.059<span style="text-decoration: underline;">7</span>           -<span style="color: #BB0000;">0.103</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>      -<span style="color: #BB0000;">0.454</span>      -<span style="color: #BB0000;">0.028</span><span style="color: #BB0000; text-decoration: underline;">4</span>       -<span style="color: #BB0000;">1.56</span>             0.059<span style="text-decoration: underline;">7</span>           -<span style="color: #BB0000;">0.095</span><span style="color: #BB0000; text-decoration: underline;">0</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>      -<span style="color: #BB0000;">0.430</span>      -<span style="color: #BB0000;">0.028</span><span style="color: #BB0000; text-decoration: underline;">4</span>       -<span style="color: #BB0000;">1.61</span>             0.059<span style="text-decoration: underline;">7</span>           -<span style="color: #BB0000;">0.103</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>      -<span style="color: #BB0000;">0.430</span>      -<span style="color: #BB0000;">0.028</span><span style="color: #BB0000; text-decoration: underline;">4</span>       -<span style="color: #BB0000;">1.61</span>             0.059<span style="text-decoration: underline;">7</span>           -<span style="color: #BB0000;">0.103</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>      -<span style="color: #BB0000;">0.410</span>       0.153        -<span style="color: #BB0000;">1.56</span>             0.059<span style="text-decoration: underline;">7</span>           -<span style="color: #BB0000;">0.103</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 28 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more variable: `(Intercept)` &lt;dbl&gt;</span></span></span></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">shap_list</span><span class="op">$</span><span class="va">shap_summary</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 5</span></span></span>
-<span><span class="co">#&gt;   name                  cor     var   sum sum_abs</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Petal.Width         0.960 1.40    5.73    42.2 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Sepal.Length        0.947 0.145   1.54    12.0 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> species_virginica   0.999 0.017<span style="text-decoration: underline;">3</span>  1.66     4.73</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> species_versicolor -<span style="color: #BB0000;">0.371</span> 0.003<span style="text-decoration: underline;">40</span> 1.06     2.09</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Sepal.Width        -<span style="color: #BB0000;">0.735</span> 0.003<span style="text-decoration: underline;">97</span> 0.432    1.49</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
+<span><span class="co">#&gt;   name                  cor     var     sum sum_abs</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> (Intercept)        <span style="color: #BB0000;">NA</span>     0       139.     139.  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Petal.Width         0.954 1.43      6.95    42.3 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Sepal.Length        0.960 0.130     0.818   11.1 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> species_virginica   0.998 0.018<span style="text-decoration: underline;">1</span>    0.754    4.93</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> species_versicolor -<span style="color: #BB0000;">0.935</span> 0.011<span style="text-decoration: underline;">6</span>    1.95     4.25</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Sepal.Width        -<span style="color: #BB0000;">0.762</span> 0.002<span style="text-decoration: underline;">38</span>   0.134    1.11</span></span></code></pre></div>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">shap_list</span><span class="op">$</span><span class="va">swarmplot</span></span></code></pre></div>
-<p><img src="tidyXgboost_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
+<p><img src="tidyXgboost_files/figure-html/unnamed-chunk-12-1.png" class="r-plt" alt="" width="700"></p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">shap_list</span><span class="op">$</span><span class="va">scatterplots</span></span></code></pre></div>
 <div class="section level3">
@@ -468,11 +395,11 @@ trees.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> <span class="va">xgb_base</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">xgboost</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/xgboost/man/xgb.plot.deepness.html" class="external-link">xgb.plot.deepness</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tidyXgboost_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
+<p><img src="tidyXgboost_files/figure-html/unnamed-chunk-14-1.png" class="r-plt" alt="" width="700"></p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> <span class="va">xgb_base</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">xgboost</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/xgboost/man/xgb.plot.deepness.html" class="external-link">xgb.plot.deepness</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tidyXgboost_files/figure-html/unnamed-chunk-15-1.png" width="700">
+<p><img src="tidyXgboost_files/figure-html/unnamed-chunk-15-1.png" class="r-plt" alt="" width="700">
 Plot the first tree in the model. The small in terminal leaves suggests
 overfitting in the base model.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
@@ -497,7 +424,7 @@ overfitting in the base model.</p>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
       </footer>
