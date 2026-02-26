@@ -1,3 +1,5 @@
+# autostats 0.4.2
+
 # autostats 0.4.1
 
 # autostats 0.4.0
