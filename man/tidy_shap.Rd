@@ -30,6 +30,7 @@ returns a list with the following entries
 
 \describe{
 \item{\emph{shap_tbl}}{: table of shaply values}
+\item{\emph{shaps_long}}{: long table of feature and shaply values}
 \item{\emph{shap_summary}}{: table summarizing shapley values. Includes correlation between shaps and feature values.}
 \item{\emph{swarmplot}}{: one plot showing the relation between shaps and features}
 \item{\emph{scatterplots}}{: returns the top 9 most important features as determined by sum of absolute shapley values, as a facetted scatterplot of feature vs shap}

@@ -9,7 +9,7 @@
 
   gtag('config', 'G-KQ5VTRKQF1');
 </script></head><body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-reference-topic">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -31,7 +31,7 @@
       <ul class="nav navbar-nav"><li>
   <a href="../index.html">
     <span class="fas fa-home fa-lg"></span>
-     
+
   </a>
 </li>
 <li>
@@ -43,7 +43,7 @@
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
@@ -56,7 +56,7 @@
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/Harrison4192/autostats" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
 <li>
@@ -66,7 +66,7 @@
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
@@ -112,111 +112,111 @@
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>.data</dt>
+
+
+<dl><dt id="arg--data">.data<a class="anchor" aria-label="anchor" href="#arg--data"></a></dt>
 <dd><p>dataframe</p></dd>
 
 
-<dt>formula</dt>
+<dt id="arg-formula">formula<a class="anchor" aria-label="anchor" href="#arg-formula"></a></dt>
 <dd><p>formula</p></dd>
 
 
-<dt>tune_method</dt>
+<dt id="arg-tune-method">tune_method<a class="anchor" aria-label="anchor" href="#arg-tune-method"></a></dt>
 <dd><p>method of tuning. defaults to grid</p></dd>
 
 
-<dt>event_level</dt>
+<dt id="arg-event-level">event_level<a class="anchor" aria-label="anchor" href="#arg-event-level"></a></dt>
 <dd><p>for binary classification, which factor level is the positive class. specify "second" for second level</p></dd>
 
 
-<dt>n_fold</dt>
+<dt id="arg-n-fold">n_fold<a class="anchor" aria-label="anchor" href="#arg-n-fold"></a></dt>
 <dd><p>integer. n folds in resamples</p></dd>
 
 
-<dt>n_iter</dt>
+<dt id="arg-n-iter">n_iter<a class="anchor" aria-label="anchor" href="#arg-n-iter"></a></dt>
 <dd><p>n iterations for tuning (bayes); paramter grid size (grid)</p></dd>
 
 
-<dt>seed</dt>
+<dt id="arg-seed">seed<a class="anchor" aria-label="anchor" href="#arg-seed"></a></dt>
 <dd><p>seed</p></dd>
 
 
-<dt>save_output</dt>
+<dt id="arg-save-output">save_output<a class="anchor" aria-label="anchor" href="#arg-save-output"></a></dt>
 <dd><p>FASLE. If set to TRUE will write the output as an rds file</p></dd>
 
 
-<dt>parallel</dt>
+<dt id="arg-parallel">parallel<a class="anchor" aria-label="anchor" href="#arg-parallel"></a></dt>
 <dd><p>default TRUE; If set to TRUE, will enable parallel processing on resamples for grid tuning</p></dd>
 
 
-<dt>trees</dt>
+<dt id="arg-trees">trees<a class="anchor" aria-label="anchor" href="#arg-trees"></a></dt>
 <dd><p># Trees (xgboost: nrounds) (type: integer, default: 500L)</p></dd>
 
 
-<dt>min_n</dt>
+<dt id="arg-min-n">min_n<a class="anchor" aria-label="anchor" href="#arg-min-n"></a></dt>
 <dd><p>Minimal Node Size (xgboost: min_child_weight) (type: integer, default: 2L); [typical range: 2-10] Keep small value for highly imbalanced class data where leaf nodes can have smaller size groups. Otherwise increase size to prevent overfitting outliers.</p></dd>
 
 
-<dt>mtry</dt>
+<dt id="arg-mtry">mtry<a class="anchor" aria-label="anchor" href="#arg-mtry"></a></dt>
 <dd><p># Randomly Selected Predictors; defaults to .75; (xgboost: colsample_bynode) (type: numeric, range 0 - 1) (or type: integer if <code>count = TRUE</code>)</p></dd>
 
 
-<dt>tree_depth</dt>
+<dt id="arg-tree-depth">tree_depth<a class="anchor" aria-label="anchor" href="#arg-tree-depth"></a></dt>
 <dd><p>Tree Depth (xgboost: max_depth) (type: integer, default: 7L); Typical values: 3-10</p></dd>
 
 
-<dt>learn_rate</dt>
+<dt id="arg-learn-rate">learn_rate<a class="anchor" aria-label="anchor" href="#arg-learn-rate"></a></dt>
 <dd><p>Learning Rate (xgboost: eta) (type: double, default: 0.05); Typical values: 0.01-0.3</p></dd>
 
 
-<dt>loss_reduction</dt>
+<dt id="arg-loss-reduction">loss_reduction<a class="anchor" aria-label="anchor" href="#arg-loss-reduction"></a></dt>
 <dd><p>Minimum Loss Reduction (xgboost: gamma) (type: double, default: 1.0);  range: 0 to Inf; typical value: 0 - 20 assuming low-mid tree depth</p></dd>
 
 
-<dt>sample_size</dt>
+<dt id="arg-sample-size">sample_size<a class="anchor" aria-label="anchor" href="#arg-sample-size"></a></dt>
 <dd><p>Proportion Observations Sampled (xgboost: subsample) (type: double, default: .75); Typical values: 0.5 - 1</p></dd>
 
 
-<dt>stop_iter</dt>
+<dt id="arg-stop-iter">stop_iter<a class="anchor" aria-label="anchor" href="#arg-stop-iter"></a></dt>
 <dd><p># Iterations Before Stopping (xgboost: early_stop) (type: integer, default: 15L) only enabled if validation set is provided</p></dd>
 
 
-<dt>counts</dt>
+<dt id="arg-counts">counts<a class="anchor" aria-label="anchor" href="#arg-counts"></a></dt>
 <dd><p>if <code>TRUE</code> specify <code>mtry</code> as an integer number of cols. Default <code>FALSE</code> to specify <code>mtry</code> as fraction of cols from 0 to 1</p></dd>
 
 
-<dt>tree_method</dt>
+<dt id="arg-tree-method">tree_method<a class="anchor" aria-label="anchor" href="#arg-tree-method"></a></dt>
 <dd><p>xgboost tree_method. default is <code>auto</code>. reference: <a href="https://xgboost.readthedocs.io/en/stable/treemethod.html" class="external-link">tree method docs</a></p></dd>
 
 
-<dt>monotone_constraints</dt>
+<dt id="arg-monotone-constraints">monotone_constraints<a class="anchor" aria-label="anchor" href="#arg-monotone-constraints"></a></dt>
 <dd><p>an integer vector with length of the predictor cols, of <code>-1, 1, 0</code> corresponding to decreasing, increasing, and no constraint respectively for the index of the predictor col. reference: <a href="https://xgboost.readthedocs.io/en/stable/tutorials/monotonic.html" class="external-link">monotonicity docs</a>.</p></dd>
 
 
-<dt>num_parallel_tree</dt>
+<dt id="arg-num-parallel-tree">num_parallel_tree<a class="anchor" aria-label="anchor" href="#arg-num-parallel-tree"></a></dt>
 <dd><p>should be set to the size of the forest being trained. default 1L</p></dd>
 
 
-<dt>lambda</dt>
+<dt id="arg-lambda">lambda<a class="anchor" aria-label="anchor" href="#arg-lambda"></a></dt>
 <dd><p>[default=.5] L2 regularization term on weights. Increasing this value will make model more conservative.</p></dd>
 
 
-<dt>alpha</dt>
+<dt id="arg-alpha">alpha<a class="anchor" aria-label="anchor" href="#arg-alpha"></a></dt>
 <dd><p>[default=.1] L1 regularization term on weights. Increasing this value will make model more conservative.</p></dd>
 
 
-<dt>scale_pos_weight</dt>
+<dt id="arg-scale-pos-weight">scale_pos_weight<a class="anchor" aria-label="anchor" href="#arg-scale-pos-weight"></a></dt>
 <dd><p>[default=1] Control the balance of positive and negative weights, useful for unbalanced classes. if set to TRUE, calculates sum(negative instances) / sum(positive instances). If first level is majority class, use values &lt; 1, otherwise normally values &gt;1 are used to balance the class distribution.</p></dd>
 
 
-<dt>verbosity</dt>
+<dt id="arg-verbosity">verbosity<a class="anchor" aria-label="anchor" href="#arg-verbosity"></a></dt>
 <dd><p>[default=1] Verbosity of printing messages. Valid values are 0 (silent), 1 (warning), 2 (info), 3 (debug).</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    
-
-<p>workflow object</p>
+    <p>workflow object</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -245,7 +245,7 @@
 <span class="r-in"><span><span class="va">iris_split</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span> <span class="fu">rsample</span><span class="fu">::</span><span class="fu"><a href="https://rsample.tidymodels.org/reference/as.data.frame.rsplit.html" class="external-link">assessment</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">iris_val</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="va">iris_train</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span> <span class="fu">auto_tune_xgboost</span><span class="op">(</span>formula <span class="op">=</span> <span class="va">petal_form</span>, n_iter <span class="op">=</span> <span class="fl">10</span>,</span></span>
 <span class="r-in"><span> parallel <span class="op">=</span> <span class="cn">FALSE</span>, tune_method <span class="op">=</span> <span class="st">"grid"</span>, mtry <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">xgb_tuned</span></span></span>
@@ -256,7 +256,7 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">xgb_tuned_fit</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span> <span class="fu"><a href="tidy_predict.html">tidy_predict</a></span><span class="op">(</span>newdata <span class="op">=</span> <span class="va">iris_val</span>, form <span class="op">=</span> <span class="va">petal_form</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">iris_val1</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
@@ -273,15 +273,15 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
       </footer></div>
 
-  
 
 
-  
+
+
 
   </body></html>
 

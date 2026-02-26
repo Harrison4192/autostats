@@ -7,10 +7,8 @@
 #' @param ... additional arguments
 #' @param method choose amongst different visualization methods
 #' @param top_n return top n elements
-#' @param aggregate = summarize
 #' @param as_table = false, table or graph,
-#' @param formula = formula,
-#' @param measure = c("Gain", "Cover", "Frequency")
+
 #'
 #' @return a plot
 #' @export
@@ -57,10 +55,9 @@ visualize_model.multinom <- function(model, ..., method){
 #' @export
 visualize_model.xgb.Booster <- function(model,
                                         top_n = 10L,
-                                        aggregate = NULL,
                                         as_table = FALSE,
-                                        formula = NULL,
-                                        measure = c("Gain", "Cover", "Frequency"), ..., method){
+                                        ...,
+                                        method){
 
 # if(model$params$booster == "gblinear") {
 #
@@ -79,10 +76,7 @@ visualize_model.xgb.Booster <- function(model,
 
   plot_varimp_xgboost(model,
                       top_n,
-                      aggregate,
                       as_table,
-                      formula,
-                      measure,
                       ...)}
 # }
 

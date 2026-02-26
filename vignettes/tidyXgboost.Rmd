@@ -26,6 +26,7 @@ library(hardhat)
 library(broom.mixed)
 library(Ckmeans.1d.dp)
 library(igraph)
+
 ```
 
 `autostats` provides convenient wrappers for modeling, visualizing, and predicting using a tidy workflow. The emphasis is on rapid iteration and quick results using an intuitive interface based off the `tibble` and `tidy_formula`. 
@@ -86,6 +87,7 @@ xgb_tuned_grid %>%
 
 xgb_tuned_fit_grid %>% 
   visualize_model()
+
 ```
 
 

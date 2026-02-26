@@ -243,11 +243,12 @@ if(isTRUE(scale_pos_weight)){
     workflows::extract_fit_parsnip() %>%
     purrr::pluck("fit") -> xgbooster
 
-  if (utils::packageVersion("parsnip") > "1.0.0") {
-    xgbooster$call$objective -> xgb_obj
-  } else {
-    xgbooster$call$params$objective -> xgb_obj
-  }
+  # return(xgbooster)
+
+
+    attributes(xgbooster)$call$params$objective -> xgb_obj
+
+
 
   if(validate & xgb_obj != "multi:softprob"){
 
@@ -378,76 +379,32 @@ xgbooster
 #'
 #' @param xgb xgb.Booster model
 #' @param top_n top n important variables
-#' @param aggregate a character vector. Predictors containing the string will be aggregated, and renamed to that string.
 #' @param as_table logical, default FALSE. If TRUE returns importances in a data frame
-#' @param formula formula for the model. Use to provide original names if xgboost is scrambling the names internally
-#' @param measure choose between Gain, Cover, or Frequency for xgboost importance measure
-#' @param ... additional arguments for \code{\link[xgboost]{xgb.ggplot.importance}}
+#' @param ... additional porams for xgb.ggplot.importance
 #' @keywords internal
 #'
 #' @return ggplot
 #'
 plot_varimp_xgboost <- function(xgb,
                                 top_n = 10L,
-                                aggregate = NULL,
                                 as_table = FALSE,
-                                formula = NULL,
-                                measure = c("Gain", "Cover", "Frequency"), ...){
+                                ...){
 
-  agg <- Feature <- new_names <- NULL
 
-  if(!is.null(formula)){
-    new_names <- formula %>%
-      f_formula_to_charvec()
-  } else {
-    new_names <- xgb$feature_names
-  }
 
-  xgb$feature_names <- new_names
-  xgb$feature_names -> f1
-
-  length(f1) -> lf
-
-  as.character(1:lf) -> nms
-
-  measure <- match.arg(measure)
-
-  xgb$feature_names <- nms
 
   xgboost::xgb.importance(model = xgb ) -> xgb_imp
 
-  as.integer(xgb_imp$Feature) -> rg_ind
-
-  f1[rg_ind] -> unscrambled_names
-
-  xgb_imp$Feature <- unscrambled_names
-
-  xgb$feature_names <- f1
-
-
-
-  if(!is.null(aggregate)){
-
-    xgb_imp %>%
-      dplyr::mutate(agg = stringr::str_extract(Feature, stringr::str_c(
-        aggregate, collapse = "|"))) %>%
-      dplyr::mutate(Feature = dplyr::coalesce(agg, Feature)) %>%
-      dplyr::select(-agg) %>%
-      dplyr::group_by(Feature) %>%
-      dplyr::summarise(dplyr::across(where(is.numeric), sum)) %>%
-      data.table::as.data.table() -> xgb_imp
-  }
-
 
   xgb_imp %>%
-    xgboost::xgb.ggplot.importance(..., measure = measure, top_n = top_n) +
+    xgboost::xgb.ggplot.importance(..., top_n = top_n) +
     ggplot2::theme_minimal() +
     ggplot2::theme(panel.border = ggplot2::element_blank(),
                    panel.grid.major = ggplot2::element_blank(),
                    panel.grid.minor = ggplot2::element_blank(),
                    axis.line = ggplot2::element_line(colour = "black"))+
     ggeasy::easy_remove_legend() +
-    ggplot2::ylab(stringr::str_c("Importance from xgboost ", measure)) -> xgb_plot
+    ggplot2::ylab(stringr::str_c("Importance from xgboost ")) -> xgb_plot
 
   if(as_table){
 

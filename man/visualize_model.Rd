@@ -20,16 +20,7 @@ visualize_model(model, ...)
 
 \method{visualize_model}{multinom}(model, ..., method)
 
-\method{visualize_model}{xgb.Booster}(
-  model,
-  top_n = 10L,
-  aggregate = NULL,
-  as_table = FALSE,
-  formula = NULL,
-  measure = c("Gain", "Cover", "Frequency"),
-  ...,
-  method
-)
+\method{visualize_model}{xgb.Booster}(model, top_n = 10L, as_table = FALSE, ..., method)
 
 \method{visualize_model}{default}(model, ..., method)
 }
@@ -42,13 +33,7 @@ visualize_model(model, ...)
 
 \item{top_n}{return top n elements}
 
-\item{aggregate}{= summarize}
-
 \item{as_table}{= false, table or graph,}
-
-\item{formula}{= formula,}
-
-\item{measure}{= c("Gain", "Cover", "Frequency")}
 }
 \value{
 a plot

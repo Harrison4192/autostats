@@ -42,7 +42,6 @@ reference:
   - '`tidy_predict`'
   - '`tidy_shap`'
   - '`visualize_model`'
-  - '`get_params`'
   - '`eval_preds`'
   - '`create_monotone_constraints`'
 
